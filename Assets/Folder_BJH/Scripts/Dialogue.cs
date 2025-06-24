@@ -1,0 +1,61 @@
+﻿using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+
+[System.Serializable]
+public class DialogueData
+{
+    public string npcName;
+    public List<string> lines;
+}
+
+public class Dialogue : MonoBehaviour
+{
+    [Header("찾을 json파일 이름")]
+    public string FileName;
+
+    private DialogueData dialogueData;
+    private int currentLineIndex = 0;
+
+    void Start()
+    {
+        LoadDialogueData();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PassLine();
+        }
+    }
+
+    // json 파일을 불러오는 메소드
+    void LoadDialogueData()
+    {
+        string path = Path.Combine
+            (Application.streamingAssetsPath, "Dialogs", FileName + ".json.txt");
+
+        if (!File.Exists(path))
+        {
+            Debug.LogError($"파일이 존재하지 않습니다: {path}");
+            return;
+        }
+
+        string json = File.ReadAllText(path);
+        dialogueData = JsonUtility.FromJson<DialogueData>(json);
+    }
+
+    // json 파일 속 대사를 출력하는 메소드
+    void PassLine()
+    {
+        if (dialogueData == null || dialogueData.lines.Count <= currentLineIndex)
+        {
+            Debug.LogError("다이얼로그가 비었습니다.");
+            return;
+        }
+
+        Debug.Log($"{dialogueData.npcName}: {dialogueData.lines[currentLineIndex]}");
+        currentLineIndex++;
+    }
+}
