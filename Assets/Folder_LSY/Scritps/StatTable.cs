@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class StatTable : MonoBehaviour
 {
-    private Dictionary<StatType, float> statDict = new();
+    private Dictionary<EStatType, float> statDict = new();
 
-    public float Get(StatType type)
+    public float Get(EStatType type)
     {
         return statDict.TryGetValue(type, out float value) ? value : 0f;
     }
 
-    public void Set(StatType type, float value)
+    public void Set(EStatType type, float value)
     {
         statDict[type] = value;
     }
 
-    public void Add(StatType type, float amount)
+    public void Add(EStatType type, float amount)
     {
         if (!statDict.ContainsKey(type))
             statDict[type] = 0f;
@@ -23,7 +23,7 @@ public class StatTable : MonoBehaviour
         statDict[type] += amount;
     }
 
-    public Dictionary<StatType, float> GetAll()
+    public Dictionary<EStatType, float> GetAll()
     {
         return statDict;
     }
