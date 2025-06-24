@@ -30,6 +30,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         onClickAction?.Invoke(itemData); // 클릭 시 아이템 데이터 전달
-        Debug.Log($"아이템 클릭: {itemData.Name}");
+        Debug.Log($"아이템 클릭: {itemData.ItemName}");
     }
 }
