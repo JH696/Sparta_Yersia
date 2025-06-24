@@ -17,6 +17,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     // 아이템 슬롯 초기화
     public void Setup (ItemData data, int count, Action<ItemData> onClick)
     {
+        if (data == null) return;
+
         itemData = data;
         onClickAction = onClick;
 

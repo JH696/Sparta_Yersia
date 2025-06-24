@@ -13,9 +13,9 @@ public class ItemData : ScriptableObject
     [Header("아이템 효과")]
     [SerializeField] private int itemAtk;
     [SerializeField] private int itemDef;
-    [SerializeField] private int itemSpeed; // Q: 약어? Spd?
     [SerializeField] private int itemHP;
     [SerializeField] private int itemMP;
+    [SerializeField] private int itemSpeed;
 
     // 상점 구현시 주석 해제
     //[Header("구매가")]
@@ -27,7 +27,7 @@ public class ItemData : ScriptableObject
     public Sprite Icon => icon;
     public int ItemAtk => itemAtk;
     public int ItemDef => itemDef;
-    public int ItemSpeed => itemSpeed; // Q: 약어? Spd?
+    public int ItemSpeed => itemSpeed;
     public int ItemHP => itemHP;
     public int ItemMP => itemMP;
 

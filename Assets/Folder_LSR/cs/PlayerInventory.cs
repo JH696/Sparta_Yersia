@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class PlayerInventory : MonoBehaviour
 {
-    public static InventoryManager Instance { get; private set; }
+    public static PlayerInventory Instance { get; private set; } // TODO: 싱글톤 인스턴스X
 
     private readonly Dictionary<string, int> itemDic = new Dictionary<string, int>();
 
