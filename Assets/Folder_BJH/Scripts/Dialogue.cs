@@ -1,18 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
 public class DialogueData
 {
-    public string npcName;
-    public List<string> lines;
+    public string NPCName;
+    public List<string> Lines;
 }
 
 public class Dialogue : MonoBehaviour
 {
     [Header("json파일 이름")]
     public string FileName;
+
+    [Header("대사 출력 텍스트")]
+    public TextMeshProUGUI Text;
 
     private DialogueData dialogueData;
     private int currentLineIndex = 0;
@@ -49,13 +53,13 @@ public class Dialogue : MonoBehaviour
     // json 파일 속 대사를 출력하는 메소드
     void PassLine()
     {
-        if (dialogueData == null || dialogueData.lines.Count <= currentLineIndex)
+        if (dialogueData == null || dialogueData.Lines.Count <= currentLineIndex)
         {
-            Debug.LogError("다이얼로그가 비었습니다.");
+            Debug.Log("다이얼로그가 비었습니다.");
             return;
         }
 
-        Debug.Log($"{dialogueData.npcName}: {dialogueData.lines[currentLineIndex]}");
+        Text.text = dialogueData.Lines[currentLineIndex];
 
         currentLineIndex++;
     }
