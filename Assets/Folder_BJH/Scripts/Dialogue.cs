@@ -11,7 +11,7 @@ public class DialogueData
 
 public class Dialogue : MonoBehaviour
 {
-    [Header("찾을 json파일 이름")]
+    [Header("json파일 이름")]
     public string FileName;
 
     private DialogueData dialogueData;
@@ -56,6 +56,7 @@ public class Dialogue : MonoBehaviour
         }
 
         Debug.Log($"{dialogueData.npcName}: {dialogueData.lines[currentLineIndex]}");
+
         currentLineIndex++;
     }
 }
