@@ -21,6 +21,8 @@ public class Dialogue : MonoBehaviour
     private DialogueData dialogueData;
     private int currentLineIndex = 0;
 
+    [SerializeField] private QuestManager questManager;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -55,11 +57,11 @@ public class Dialogue : MonoBehaviour
         else if (dialogueData.Lines.Count <= currentLineIndex)
         {
             Debug.Log("대사 고갈.");
+            questManager.StartQuest(questManager.GetQuest("Q1001"));
             return;
         }
 
         Text.text = dialogueData.Lines[currentLineIndex];
-
         currentLineIndex++;
     }
 }
