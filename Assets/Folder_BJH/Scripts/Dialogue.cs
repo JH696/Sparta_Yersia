@@ -21,11 +21,6 @@ public class Dialogue : MonoBehaviour
     private DialogueData dialogueData;
     private int currentLineIndex = 0;
 
-    void Start()
-    {
-        LoadDialogueData();
-    }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -53,9 +48,13 @@ public class Dialogue : MonoBehaviour
     // json 파일 속 대사를 출력하는 메소드
     void PassLine()
     {
-        if (dialogueData == null || dialogueData.Lines.Count <= currentLineIndex)
+        if (dialogueData == null)
         {
-            Debug.Log("다이얼로그가 비었습니다.");
+            LoadDialogueData();
+        }
+        else if (dialogueData.Lines.Count <= currentLineIndex)
+        {
+            Debug.Log("대사 고갈.");
             return;
         }
 
