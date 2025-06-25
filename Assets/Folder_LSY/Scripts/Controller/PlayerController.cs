@@ -9,7 +9,7 @@ public class PlayerController : BaseCharacter
 
     private void Start()
     {
-        Debug.Log($"플레이어 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMp}/{MaxMp}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
+        Debug.Log($"플레이어 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana} / {MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
     }
 
     private void Update()
