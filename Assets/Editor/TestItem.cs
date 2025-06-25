@@ -1,0 +1,70 @@
+﻿#if UNITY_EDITOR
+using System.Linq;
+using UnityEditor;
+using UnityEngine;
+
+public class TestItem : EditorWindow
+{
+    private PlayerInventory _inventory;
+    private ItemData[] _items;
+    private int _selectedIndex;
+
+    [MenuItem("Tools/Inventory Test Window")]
+    public static void ShowWindow()
+    {
+        GetWindow<TestItem>("Inventory Test");
+    }
+
+    private void OnEnable()
+    {
+        // Resources 폴더에서 SO 로드
+        _items = Resources.LoadAll<ItemData>("ItemDatas");
+    }
+
+    private void OnGUI()
+    {
+        GUILayout.Label("Inventory 테스트 도구", EditorStyles.boldLabel);
+
+        if (!Application.isPlaying)
+        {
+            EditorGUILayout.HelpBox("Play 모드에서만 동작합니다.", MessageType.Info);
+            return;
+        }
+
+        // PlayerInventory 인스턴스 찾기
+        if (_inventory == null)
+        {
+            _inventory = FindObjectOfType<PlayerInventory>();
+            if (_inventory == null)
+            {
+                EditorGUILayout.HelpBox("씬에 PlayerInventory가 없습니다.", MessageType.Error);
+                return;
+            }
+        }
+
+        if (_items == null || _items.Length == 0)
+        {
+            EditorGUILayout.HelpBox("Resources/ItemDatas에 ItemData SO가 없습니다.", MessageType.Warning);
+            if (GUILayout.Button("SO 다시 로드"))
+                _items = Resources.LoadAll<ItemData>("ItemDatas");
+            return;
+        }
+
+        // 드롭다운 목록
+        var names = _items.Select(x => x.ItemName).ToArray();
+        _selectedIndex = EditorGUILayout.Popup("테스트 아이템", _selectedIndex, names);
+        var selectedItem = _items[_selectedIndex];
+
+        EditorGUILayout.LabelField("ID:", selectedItem.ID);
+
+        EditorGUILayout.Space();
+
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("Add Item"))
+        {
+            _inventory.AddItem(selectedItem, 1);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+}
+#endif
