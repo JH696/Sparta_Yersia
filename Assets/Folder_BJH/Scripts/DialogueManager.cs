@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.IO;
-using TMPro;
 using UnityEngine;
 
 [System.Serializable]
 public class DialogueData
 {
-    public string DialogueID;
+    public string QuestID;
     public List<string> Lines;
 }
 
@@ -18,7 +16,7 @@ public class DialogueManager : MonoBehaviour
     public DialogueUI dialogueUI;
 
     private DialogueData dialogueData;
-    private int currentLineIndex = 0;
+    private int currentLineIndex;
 
     private void Awake()
     {
@@ -32,52 +30,38 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void Update()
+    public void StartDialogue(TextAsset dialogue, NPCData npcData)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PassLine();
-        }
+        if (dialogue == null) return;
+
+        DialogueData dialogueData = JsonUtility.FromJson<DialogueData>(dialogue.text);
+
+        this.dialogueData = dialogueData;
+        currentLineIndex = 0;
+        dialogueUI.SetSprite(npcData.DialogueSprite);
+        dialogueUI.ShowDialogueBox();
+        NextLine();
     }
 
-    // json 파일을 불러오는 메소드
-    public void LoadDialogueData(string npcID)
+    public void NextLine()
     {
-        string path = Path.Combine
-            (Application.streamingAssetsPath, "Dialogs", npcID + ".json");
-
-        if (!File.Exists(path))
+        if (currentLineIndex >= dialogueData.Lines.Count)
         {
-            Debug.LogError($"파일이 존재하지 않습니다: {path}");
+            EndDialogue();
             return;
         }
 
-        string json = File.ReadAllText(path);
-        dialogueData = JsonUtility.FromJson<DialogueData>(json);
-    }
-
-    // json 파일 속 대사를 출력하는 메소드
-    public void PassLine()
-    {
-        if (dialogueData == null)
-        {
-            return;
-        }
-        else if (dialogueData.Lines.Count <= currentLineIndex)
-        {
-            Debug.Log("대사 고갈.");
-            DialogueManager.Instance.dialogueUI.ToggleDialogueBox();
-            ResetDialogue();
-            return;
-        }
-
-        dialogueUI.RefreshText(dialogueData.Lines[currentLineIndex]);
+        string line = dialogueData.Lines[currentLineIndex];
+        dialogueUI.SetTypingText(line);
         currentLineIndex++;
     }
 
-    void ResetDialogue()
+    void EndDialogue()
     {
-        currentLineIndex = 0;
+        dialogueUI.ResetDialogueUI();
         dialogueData = null;
-    }
+        currentLineIndex = 0;
+        Debug.Log("대화 종료");
+    } 
+
 }
