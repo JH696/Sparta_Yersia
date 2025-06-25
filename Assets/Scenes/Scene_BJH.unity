@@ -2876,6 +2876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurQuests:
   - {fileID: 11400000, guid: bfb6ed89a955bd34d8e394fd37748fc4, type: 2}
+  - {fileID: 11400000, guid: a9af6cd81eac943459faa3057c4b7773, type: 2}
 --- !u!1 &917604905
 GameObject:
   m_ObjectHideFlags: 0
@@ -4269,6 +4270,7 @@ MonoBehaviour:
   npcRenderer: {fileID: 1232876617}
   DialogueBox: {fileID: 2075183628}
   Text: {fileID: 257917118}
+  typingSpeed: 0.05
 --- !u!114 &2027096033241333536
 MonoBehaviour:
   m_ObjectHideFlags: 0
