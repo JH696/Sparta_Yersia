@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class PetController : BaseCharacter
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Transform followTarget;
+    [SerializeField] private float followDistance = 1f;
+    [SerializeField] private float followSpeed = 3f;
+
+    private void Update()
     {
-        
+        if (followTarget == null) return;
+
+        float distance = Vector3.Distance(transform.position, followTarget.position);
+        if (distance > followDistance)
+        {
+            Vector3 dir = (followTarget.position - transform.position).normalized;
+            transform.position += dir * followSpeed * Time.deltaTime;
+        }
+
+        // 테스트용: 키 입력 시 데미지 입거나 회복
+        if (Input.GetKeyDown(KeyCode.K))  // K 누르면 힐 10
+        {
+            Heal(10f);
+            Debug.Log($"펫 힐 받음: 현재 체력 {CurrentHp}/{MaxHp}");
+        }
+        if (Input.GetKeyDown(KeyCode.L))  // L 누르면 데미지 20
+        {
+            TakeDamage(20f);
+            Debug.Log($"펫 데미지 입음: 현재 체력 {CurrentHp}/{MaxHp}");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetFollowTarget(Transform target)
     {
-        
+        followTarget = target;
     }
 }
