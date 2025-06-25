@@ -8,6 +8,11 @@ public class PetController : BaseCharacter
     [SerializeField] private float followDistance = 1f;
     [SerializeField] private float followSpeed = 3f;
 
+    private void Start()
+    {
+        Debug.Log($"펫 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMp}/{MaxMp}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
+    }
+
     private void Update()
     {
         if (followTarget == null) return;
