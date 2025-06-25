@@ -2,9 +2,9 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UIManager_test : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public static UIManager_test Instance { get; private set; }
+    public static UIManager Instance { get; private set; }
 
     // UI 요소들
     private InventoryUI inventoryUI;
