@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "Item_Name", menuName = "Data/ItemData")]
 public class ItemData : ScriptableObject
@@ -10,40 +12,52 @@ public class ItemData : ScriptableObject
     [Header("아이콘")]
     [SerializeField] private Sprite icon;
 
-    [Header("아이템 효과")]
-    [SerializeField] private int itemAtk;
-    [SerializeField] private int itemDef;
-    [SerializeField] private int itemHP;
-    [SerializeField] private int itemMP;
-    [SerializeField] private int itemSpeed;
-
     // 상점 구현시 주석 해제
     //[Header("구매가")]
     //public int Price;
+
+    [Header("아이템 효과")]
+    [SerializeField] private List<ItemStat> itemStats = new List<ItemStat>();
+
+    [Serializable] public struct ItemStat
+    {
+        public EStatType eStat;
+        public int value;
+    }
 
     // public getters
     public string ID => id;
     public string ItemName => itemName;
     public Sprite Icon => icon;
-    public int ItemAtk => itemAtk;
-    public int ItemDef => itemDef;
-    public int ItemSpeed => itemSpeed;
-    public int ItemHP => itemHP;
-    public int ItemMP => itemMP;
+    public IReadOnlyList<ItemStat> ItemStats => itemStats;
 
+    /// <summary>
+    /// EStatType에 해당하는 아이템 효과 값을 반환 (없으면 0 반환)
+    /// </summary>
+    public int GetStatValue(EStatType type)
+    {
+        for (int i = 0; i < ItemStats.Count; i++)
+        {
+            if (ItemStats[i].eStat == type)
+            {
+                return ItemStats[i].value; // 해당하는 효과가 있으면 값 반환
+            }
+        }
+        return 0; // 해당하는 효과가 없으면 0 반환
+    }
 
     // 인벤토리에서 소모형 아이템 사용 로직
     public void OnUse()
     {
         Debug.Log($"소모형 아이템 사용: {itemName}");
-        // TODO: 아이템 사용 효과를 실제 게임 로직에 연결
+        // TODO: 아이템 사용 효과를 실제 게임 로직에 연결 -플레이어에서 
     }
 
     // 인벤토리에서 장착형 아이템 장착 로직
     public void OnEquip()
     {
         Debug.Log($"장착형 아이템 장착: {itemName}");
-        // TODO: 아이템 장착 로직
+        // TODO: 아이템 장착 로직 - 플레이어에서
     }
 
 
