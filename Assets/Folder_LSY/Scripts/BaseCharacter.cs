@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class BaseCharacter : MonoBehaviour
 {
+    [Header("캐릭터 기본 스탯 데이터")]
+    [SerializeField] private CharacterStatData statData;
+
     [SerializeField] protected CharacterStats Stat = new CharacterStats();
 
     public float MaxHp => Stat.MaxHp;
@@ -14,6 +17,12 @@ public abstract class BaseCharacter : MonoBehaviour
     public float Defense => Stat.Defense;
     public float Luck => Stat.Luck;
     public float Speed => Stat.Speed;
+
+    protected virtual void Awake()
+    {
+        if (statData == null) return;
+        Stat.InitFromData(statData);
+    }
 
     public virtual void TakeDamage(float amount)
     {

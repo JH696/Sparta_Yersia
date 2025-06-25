@@ -14,21 +14,24 @@ public class CharacterStats
     public float Luck { get; private set; } = 1f;
     public float Speed { get; private set; } = 5f;
 
-    public void SetMaxHp(float value)
+    // 스크립터블 오브젝트 데이터를 기반으로 초기화합니다
+    public void InitFromData(CharacterStatData data)
     {
-        MaxHp = Mathf.Max(1f, value);
-        CurrentHp = Mathf.Min(CurrentHp, MaxHp);
+        MaxHp = data.maxHp;
+        CurrentHp = MaxHp;
+
+        MaxMp = data.maxMp;
+        CurrentMp = MaxMp;
+
+        Attack = data.attack;
+        Defense = data.defense;
+        Luck = data.luck;
+        Speed = data.speed;
     }
 
     public void SetCurrentHp(float value)
     {
         CurrentHp = Mathf.Clamp(value, 0f, MaxHp);
-    }
-
-    public void SetMaxMp(float value)
-    {
-        MaxMp = Mathf.Max(0f, value);
-        CurrentMp = Mathf.Min(CurrentMp, MaxMp);
     }
 
     public void SetCurrentMp(float value)
