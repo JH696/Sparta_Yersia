@@ -6,22 +6,31 @@ using UnityEngine;
 [System.Serializable]
 public class DialogueData
 {
-    public string NPCName;
+    public string DialogueID;
     public List<string> Lines;
 }
 
-public class Dialogue : MonoBehaviour
+public class DialogueManager : MonoBehaviour
 {
-    [Header("json파일 이름")]
-    public string FileName;
+    public static DialogueManager Instance;
 
     [Header("대사 출력 텍스트")]
-    public TextMeshProUGUI Text;
+    public DialogueUI dialogueUI;
 
     private DialogueData dialogueData;
     private int currentLineIndex = 0;
 
-    [SerializeField] private QuestManager questManager;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Update()
     {
@@ -32,10 +41,10 @@ public class Dialogue : MonoBehaviour
     }
 
     // json 파일을 불러오는 메소드
-    void LoadDialogueData()
+    public void LoadDialogueData(string npcID)
     {
         string path = Path.Combine
-            (Application.streamingAssetsPath, "Dialogs", FileName + ".json.txt");
+            (Application.streamingAssetsPath, "Dialogs", npcID + ".json");
 
         if (!File.Exists(path))
         {
@@ -48,20 +57,27 @@ public class Dialogue : MonoBehaviour
     }
 
     // json 파일 속 대사를 출력하는 메소드
-    void PassLine()
+    public void PassLine()
     {
         if (dialogueData == null)
         {
-            LoadDialogueData();
+            return;
         }
         else if (dialogueData.Lines.Count <= currentLineIndex)
         {
             Debug.Log("대사 고갈.");
-            questManager.StartQuest(questManager.GetQuest("Q1001"));
+            DialogueManager.Instance.dialogueUI.ToggleDialogueBox();
+            ResetDialogue();
             return;
         }
 
-        Text.text = dialogueData.Lines[currentLineIndex];
+        dialogueUI.RefreshText(dialogueData.Lines[currentLineIndex]);
         currentLineIndex++;
+    }
+
+    void ResetDialogue()
+    {
+        currentLineIndex = 0;
+        dialogueData = null;
     }
 }
