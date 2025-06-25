@@ -64,10 +64,6 @@ public class TestItem : EditorWindow
         {
             _inventory.AddItem(selectedItem, 1);
         }
-        if (GUILayout.Button("Remove Item"))
-        {
-            _inventory.RemoveItem(selectedItem, 1);
-        }
         EditorGUILayout.EndHorizontal();
     }
 }

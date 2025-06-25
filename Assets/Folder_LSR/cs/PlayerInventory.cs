@@ -10,6 +10,11 @@ public class PlayerInventory : MonoBehaviour
     // <키: ItemData.ID, 값: 아이템 개수>
     private readonly Dictionary<string, int> itemDic = new Dictionary<string, int>();
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     // 아이템 추가
     public void AddItem(ItemData data, int count = 1)
     {
