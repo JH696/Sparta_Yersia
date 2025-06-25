@@ -1,27 +1,41 @@
 ﻿using UnityEngine;
-using System.IO;
 using System.Collections.Generic;
 
 public class QuestManager : MonoBehaviour
 {
-    public QuestData GetQuest(string questID)
-    {
-        string path = Path.Combine
-            (Application.streamingAssetsPath, "Quests", questID + ".json.txt");
+    public static QuestManager Instance;
 
-        if (!File.Exists(path))
+    [Header("현재 진행 중인 퀘스트 목록")]
+    public List<QuestData> CurQuests;
+
+    private void Awake()
+    {
+        if (Instance == null)
         {
-            Debug.Log($"{path}는 존재하지 않습니다.");
-            return null;
+            Instance = this;
         }
-
-        string json = File.ReadAllText(path);
-        return JsonUtility.FromJson<QuestData>(json);
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    public void StartQuest(QuestData questData)
+    public QuestData GetQuest(string id)
     {
-        if (questData == null) return;
+        return CurQuests.Find(quest => quest.TargetID == id);
     }
+
+    public void QuestClear(QuestData questData)
+    {
+        foreach (var quest in CurQuests)
+        {
+            if (quest == questData)
+            {
+                quest.Complete();
+                CurQuests.Remove(quest);
+                break;
+            }
+        }
+    } 
 }
 

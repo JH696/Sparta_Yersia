@@ -5,6 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NPC_NameData", menuName = "Data/NPCData")]
 public class NPCData : ScriptableObject
 {
-    public string NpcID;              // NPC ID
-    public string NpcName;            // NPC 이름
+    [Header("NPC ID / 이름")]
+    public string NpcID;   
+    public string NpcName;
+
+    [Header("NPC 스프라이트")]
+    public Sprite DialogueSprite;
+    public Sprite WorldSprite;
+    public Sprite Icon;
 }
