@@ -2,15 +2,6 @@
 using System.IO;
 using System.Collections.Generic;
 
-[System.Serializable]
-public class QuestData
-{
-    public string QuestID;              // 퀘스트 ID
-    public string QuestName;            // 퀘스트 이름
-    public string Description;          // 퀘스트 설명 
-    public List<string> RewardItems;    // 보상 아이템 목록
-}
-
 public class QuestManager : MonoBehaviour
 {
     public QuestData GetQuest(string questID)
@@ -31,8 +22,6 @@ public class QuestManager : MonoBehaviour
     public void StartQuest(QuestData questData)
     {
         if (questData == null) return;
-
-        Debug.Log($"퀘스트 시작: {questData.QuestName}");
     }
 }
 

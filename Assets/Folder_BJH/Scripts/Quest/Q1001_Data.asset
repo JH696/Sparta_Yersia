@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154d8f630f6ec5d409fc2c6c4fd56525, type: 3}
+  m_Name: Q1001_Data
+  m_EditorClassIdentifier: 
+  QuestID: Q1001
+  QuestName: "\uCCAB\uAC78\uC74C"
+  Description: "\uC0C8\uB85C\uC6B4 \uCE5C\uAD6C\uB4E4\uACFC \uC778\uC0AC\uD558\uC790."
+  RewardExp: 50
+  RewardYP: 100
+  QuestBase:
+  - QuestType: 0
+    TargetID: N1001
+  - QuestType: 1
+    TargetID: I1001
