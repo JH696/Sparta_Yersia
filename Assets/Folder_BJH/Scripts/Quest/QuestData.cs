@@ -42,7 +42,7 @@ public class QuestData : ScriptableObject
         //    GameManager.Instance.Player.Inventory.AddItem(itemData);
         //}
 
-        Debug.Log($"퀘스트:{QuestName}, 클리어");
+        Debug.Log($"퀘스트 클리어:{QuestName}, 아이템 획득: {RewardExp}Exp,{RewardYP}YP");
     }
 }
 
