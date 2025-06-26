@@ -7,6 +7,8 @@ public class PlayerController : BaseCharacter
     private Vector3 targetPos;
     private bool isMoving = false;
 
+    private bool isInDialogue = false;
+
     [Header("상호작용")]
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
     [SerializeField, Tooltip("상호작용 대상이 될 NPC의 레이어 마스크")] private LayerMask npcLayerMask;
@@ -39,6 +41,9 @@ public class PlayerController : BaseCharacter
 
     private void HandleInput()
     {
+        // 대화 중이라면 이동 입력 무시
+        if (isInDialogue) return;
+
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 mousePos = Input.mousePosition;
@@ -51,6 +56,13 @@ public class PlayerController : BaseCharacter
 
     private void HandleMovement()
     {
+        // 대화 중이라면 이동 중지
+        if (isInDialogue)
+        {
+            isMoving = false;
+            return;
+        }
+
         if (!isMoving) return;
 
         Vector3 direction = (targetPos - transform.position).normalized;
@@ -75,5 +87,17 @@ public class PlayerController : BaseCharacter
         if (npcColider == null) return;
 
         npcColider.GetComponent<NPCController>().Interact();
+    }
+
+    public void StartDialogue()
+    {
+        isInDialogue = true;
+        isMoving = false;
+    }
+
+    // 외부에서 대화 종료 시 호출하여 이동 제한 해제
+    public void EndDialogue()
+    {
+        isInDialogue = false;
     }
 }
