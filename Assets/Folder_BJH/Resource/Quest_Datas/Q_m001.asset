@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 154d8f630f6ec5d409fc2c6c4fd56525, type: 3}
-  m_Name: Quest_1002Data
+  m_Name: Q_m001
   m_EditorClassIdentifier: 
-  TargetID: N1002
-  QuestConditions:
-  - TargetID: I1001
-    TargetCount: 3
-  QuestID: Q1002
-  QuestName: "\uB9AC\uC5D0 \uC120\uC0DD\uB2D8 \uB3D5\uAE30"
-  Description: "\uB9AC\uC5D0 \uC120\uC0DD\uB2D8\uC5D0\uAC8C \uAC70\uBBF8 \uB2E4\uB9AC
-    3\uAC1C\uB97C \uC804\uB2EC\uD558\uC790."
-  RewardExp: 30
-  RewardYP: 400
+  ConditionType: 0
+  AssignerID: N_n001
+  QuestID: Q_m001
+  QuestName: "\uCCAB \uB300\uBA74"
+  Description: "\uC120\uC0DD\uB2D8\uACFC \uB300\uD654\uD574\uBCF4\uC790."
+  Conditions: []
+  RewardExp: 50
+  RewardYP: 200
   RewardItems: []
