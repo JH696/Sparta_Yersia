@@ -11,8 +11,8 @@ public abstract class BaseCharacter : MonoBehaviour
 
     public float MaxHp => Stat.MaxHp;
     public float CurrentHp => Stat.CurrentHp;
-    public float MaxMp => Stat.MaxMp;
-    public float CurrentMp => Stat.CurrentMp;
+    public float MaxMana => Stat.MaxMana;
+    public float CurrentMana => Stat.CurrentMana;
     public float Attack => Stat.Attack;
     public float Defense => Stat.Defense;
     public float Luck => Stat.Luck;
