@@ -34,4 +34,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         onClickAction?.Invoke(itemData); // 클릭 시 아이템 데이터 전달
         Debug.Log($"아이템 클릭: {itemData.ItemName}");
     }
+
+    // 아이템 슬롯 비우기
+    public void Clear()
+    {
+        itemData = null;
+        Icon.sprite = null;
+        Icon.enabled = false;
+        CountText.text = string.Empty;
+    }
 }
