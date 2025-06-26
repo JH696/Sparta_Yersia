@@ -503,6 +503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1630777616}
   - component: {fileID: 1630777615}
+  - component: {fileID: 1630777619}
   - component: {fileID: 1630777617}
   - component: {fileID: 1630777618}
   m_Layer: 8
@@ -638,6 +639,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1630777619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630777614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0c462332659e624ba4286cde950f28c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NpcData: {fileID: 11400000, guid: 68919cf3c57adfd469b873c180688558, type: 2}
+  DefaultD: {fileID: 4900000, guid: f0e317c7a70470543ad960c0509b5018, type: 3}
+  QuestD: {fileID: 4900000, guid: 1627b62adab5fe942a4c93d6f9611821, type: 3}
 --- !u!1001 &1011418188990871845
 PrefabInstance:
   m_ObjectHideFlags: 0
