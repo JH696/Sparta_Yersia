@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -36,6 +35,7 @@ public class UIManager : MonoBehaviour
         inventoryUI = FindObjectOfType<InventoryUI>(includeInactive: true);
     }
 
+    // 인벤토리 UI 표시
     public void ShowInventory()
     {
         if (inventoryUI == null)
@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
         inventoryUI.Show();
     }
 
+    // 인벤토리 UI 숨기기
     public void HideInventory()
     {
         if (inventoryUI == null)
