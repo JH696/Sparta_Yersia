@@ -7,6 +7,11 @@ public class PlayerController : BaseCharacter
     private Vector3 targetPos;
     private bool isMoving = false;
 
+    [Header("상호작용")]
+    [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
+    [SerializeField, Tooltip("상호작용 대상이 될 NPC의 레이어 마스크")] private LayerMask npcLayerMask;
+
+
     private void Start()
     {
         Debug.Log($"플레이어 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana} / {MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
@@ -28,6 +33,8 @@ public class PlayerController : BaseCharacter
             TakeDamage(20f);
             Debug.Log($"데미지 입음: 현재 체력 {CurrentHp}/{MaxHp}");
         }
+
+        HandleInteractionInput();
     }
 
     private void HandleInput()
@@ -57,5 +64,16 @@ public class PlayerController : BaseCharacter
         {
             isMoving = false;
         }
+    }
+
+    // 플레이어가 상호작용 키(F)를 눌렀을 때 주변 NPC를 감지하고 상호작용을 수행합니다
+    private void HandleInteractionInput()
+    {
+        if (!Input.GetKeyDown(KeyCode.F)) return;
+
+        Collider2D npcColider = Physics2D.OverlapCircle(transform.position, interactRange, npcLayerMask);
+        if (npcColider == null) return;
+
+        npcColider.GetComponent<NPCController>().Interact();
     }
 }
