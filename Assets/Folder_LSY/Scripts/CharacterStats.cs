@@ -6,8 +6,8 @@ public class CharacterStats
     public float MaxHp { get; private set; } = 100f;
     public float CurrentHp { get; private set; } = 100f;
 
-    public float MaxMp { get; private set; } = 50f;
-    public float CurrentMp { get; private set; } = 50f;
+    public float MaxMana { get; private set; } = 50f;
+    public float CurrentMana { get; private set; } = 50f;
 
     public float Attack { get; private set; } = 20f;
     public float Defense { get; private set; } = 10f;
@@ -20,8 +20,8 @@ public class CharacterStats
         MaxHp = data.maxHp;
         CurrentHp = MaxHp;
 
-        MaxMp = data.maxMp;
-        CurrentMp = MaxMp;
+        MaxMana = data.maxMana;
+        CurrentMana = MaxMana;
 
         Attack = data.attack;
         Defense = data.defense;
@@ -34,8 +34,8 @@ public class CharacterStats
         CurrentHp = Mathf.Clamp(value, 0f, MaxHp);
     }
 
-    public void SetCurrentMp(float value)
+    public void SetCurrentMana(float value)
     {
-        CurrentMp = Mathf.Clamp(value, 0f, MaxMp);
+        CurrentMana = Mathf.Clamp(value, 0f, MaxMana);
     }
 }

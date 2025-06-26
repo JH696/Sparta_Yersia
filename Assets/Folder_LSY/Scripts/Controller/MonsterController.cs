@@ -1,18 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MonsterController : BaseCharacter
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("몬스터 데이터")]
+    [SerializeField, Tooltip("몬스터의 이름과 ID가 포함된 데이터")] private MonsterData monsterData;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        Debug.Log($"몬스터 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana}/{MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
     }
 }

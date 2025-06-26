@@ -1,18 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class NPCController : BaseCharacter
+public class NPCController : BaseCharacter, INPCInteractable
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("NPC 데이터")]
+    [SerializeField, Tooltip("NPC의 이름과 ID가 포함된 데이터")] private NPCData npcData;
 
-    // Update is called once per frame
-    void Update()
+    public void Interact()
     {
-        
+        Debug.Log($"{npcData.NpcName} 와(과) 상호작용했습니다.");
+        // 여기서 대화창 출력 등 구현 가능
     }
 }

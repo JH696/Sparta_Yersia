@@ -1,32 +1,25 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class NPC : MonoBehaviour
+public interface IInteractable
+{
+    void Interact();
+}
+
+public class NPC : MonoBehaviour, IInteractable
 {
     [Header("NPC 데이터")]
-    [SerializeField] private NPCData NpcData;
+    public NPCData NpcData;
 
-    [Header("NPC 기본 / 퀘스트 대화 json")]
-    public TextAsset DefaultD;
-    public TextAsset QuestD;
+    public List<QuestData> RequestList;
 
-    public void StartChat()
+    public void Interact()
     {
-        Debug.Log($"NPC 대화 시작: {NpcData.NpcName}");
+        if (NpcData == null) return;
 
-        QuestData assignedQuest = QuestManager.Instance.GetQuest(NpcData.NpcID);
+        RequestList.Clear();
 
-        if (assignedQuest == null)
-        {
-            DialogueManager.Instance.StartDialogue(DefaultD, NpcData);
-        }
-        else if (assignedQuest != null)
-        {
-            DialogueManager.Instance.StartDialogue(QuestD, NpcData);
-            QuestManager.Instance.QuestClear(assignedQuest);
-        }
-        else
-        {
-            Debug.LogWarning("퀘스트 대화가 없습니다.");
-        }
+        RequestList.Add(QuestManager.Instance.SearchQuestsForNpc(NpcData.NpcID));
+        DialogueManager.Instance.StartDialogue(this);
     }
 }

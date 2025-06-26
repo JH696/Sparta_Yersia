@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class DialogueData
 {
-    public string QuestID;
+    public string DialogueID;   
     public List<string> Lines;
 }
 
@@ -14,9 +14,6 @@ public class DialogueManager : MonoBehaviour
 
     [Header("대사 출력 텍스트")]
     public DialogueUI dialogueUI;
-
-    private DialogueData dialogueData;
-    private int currentLineIndex;
 
     private void Awake()
     {
@@ -30,38 +27,27 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(TextAsset dialogue, NPCData npcData)
+    public void StartDialogue(NPC npc)
     {
-        if (dialogue == null) return;
+        if (npc == null) return;
 
-        DialogueData dialogueData = JsonUtility.FromJson<DialogueData>(dialogue.text);
+        LoadJson($"Dialogues/{npc.NpcData.NpcID}");
 
-        this.dialogueData = dialogueData;
-        currentLineIndex = 0;
-        dialogueUI.SetSprite(npcData.DialogueSprite);
-        dialogueUI.ShowDialogueBox();
-        NextLine();
+        dialogueUI.SetDialogueUIData(npc, LoadJson($"Dialogues/{npc.NpcData.NpcID}"));
+        dialogueUI.ShowDialogueUI();
     }
 
-    public void NextLine()
+    DialogueData LoadJson(string path)
     {
-        if (currentLineIndex >= dialogueData.Lines.Count)
+        TextAsset jsonText = Resources.Load<TextAsset>(path);
+
+        if (jsonText == null)
         {
-            EndDialogue();
-            return;
+            Debug.LogError("JSON 파일을 찾을 수 없습니다: " + path);
+            return null;
         }
 
-        string line = dialogueData.Lines[currentLineIndex];
-        dialogueUI.SetTypingText(line);
-        currentLineIndex++;
+        DialogueData data = JsonUtility.FromJson<DialogueData>(jsonText.text);
+        return data;
     }
-
-    void EndDialogue()
-    {
-        dialogueUI.ResetDialogueUI();
-        dialogueData = null;
-        currentLineIndex = 0;
-        Debug.Log("대화 종료");
-    } 
-
 }
