@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154d8f630f6ec5d409fc2c6c4fd56525, type: 3}
   m_Name: Q_m002
   m_EditorClassIdentifier: 
-  ConditionType: 0
+  ConditionType: 1
+  ItemTarget:
+  - ItemID: I_q005
+    ItemCount: 3
+  MonsterTarget: []
+  QuestType: 0
   AssignerID: N_n002
-  QuestID: Q_m002
+  ReceiverID: N_n002
+  QuestID: Q_s002
   QuestName: "\uB9AC\uC5D0 \uC120\uC0DD\uB2D8 \uB3D5\uAE30 "
   Description: "\uB9AC\uC5D0 \uC120\uC0DD\uB2D8\uC5D0\uAC8C \uAC70\uBBF8 \uB2E4\uB9AC
     3\uAC1C\uB97C \uC804\uB2EC\uD558\uC790."
-  Conditions: []
   RewardExp: 30
   RewardYP: 400
   RewardItems: []
