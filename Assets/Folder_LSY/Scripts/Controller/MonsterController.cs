@@ -8,9 +8,12 @@ public class MonsterController : BaseCharacter
     protected override void Awake()
     {
         base.Awake();
-        if (monsterData != null && monsterData.StatData != null)
+        if (monsterData == null || monsterData.WorldSprite == null) return;
+
+        var spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
         {
-            Stat.InitFromData(monsterData.StatData);
+            spriteRenderer.sprite = monsterData.WorldSprite;
         }
     }
 
