@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerController : BaseCharacter
+public class PlayerController : BaseCharacter, ILevelable
 {
     [SerializeField] private float moveSpeed = 5f;
 
@@ -12,6 +12,10 @@ public class PlayerController : BaseCharacter
     [Header("상호작용")]
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
     [SerializeField, Tooltip("상호작용 대상이 될 NPC의 레이어 마스크")] private LayerMask npcLayerMask;
+
+    public int Level { get; private set; } = 1;
+    public int CurrentExp { get; private set; } = 0;
+    public int ExpToNextLevel => 100 * Level;
 
 
     private void Start()
@@ -34,6 +38,18 @@ public class PlayerController : BaseCharacter
         {
             TakeDamage(20f);
             Debug.Log($"데미지 입음: 현재 체력 {CurrentHp}/{MaxHp}");
+        }
+
+        // 테스트용: E 키 누르면 경험치 30 추가
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            AddExp(30);
+            Debug.Log($"플레이어 경험치: {CurrentExp} / {ExpToNextLevel}, 레벨: {Level}");
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log($"플레이어 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana}/{MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
         }
 
         HandleInteractionInput();
@@ -99,5 +115,23 @@ public class PlayerController : BaseCharacter
     public void EndDialogue()
     {
         isInDialogue = false;
+    }
+
+    // 경험치 추가 메서드
+    public void AddExp(int amount)
+    {
+        CurrentExp += amount;
+        while (CurrentExp >= ExpToNextLevel)
+        {
+            CurrentExp -= ExpToNextLevel;
+            LevelUp();
+        }
+    }
+
+    public void LevelUp()
+    {
+        Level++;
+        Debug.Log($"플레이어 레벨업! 현재 레벨: {Level}");
+        Stat.MultiplyStats(1.1f);
     }
 }

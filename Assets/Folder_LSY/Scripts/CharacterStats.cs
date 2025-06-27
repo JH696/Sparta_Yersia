@@ -38,4 +38,16 @@ public class CharacterStats
     {
         CurrentMana = Mathf.Clamp(value, 0f, MaxMana);
     }
+
+    public void MultiplyStats(float multiplier)
+    {
+        MaxHp *= multiplier;
+        CurrentHp = MaxHp;
+        MaxMana *= multiplier;
+        CurrentMana = MaxMana;
+        Attack *= multiplier;
+        Defense *= multiplier;
+        Luck *= multiplier;
+        Speed *= multiplier;
+    }
 }
