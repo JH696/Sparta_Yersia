@@ -14,6 +14,18 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     private ItemData itemData;
     private Action<ItemData> onClickAction;
 
+    private void Awake()
+    {
+        if (Icon == null)
+        {
+            Icon = GetComponentInChildren<Image>();
+        }
+        if (CountText == null)
+        {
+            CountText = GetComponentInChildren<TextMeshProUGUI>();
+        }
+    }
+
     // 아이템 슬롯 초기화
     public void Setup (ItemData data, int count, Action<ItemData> onClick)
     {
@@ -30,6 +42,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
         CountText.text = count > 1 ? count.ToString() : string.Empty; // 아이템 개수 표시
         CountText.gameObject.SetActive(true);
+    }
+
+    // 슬롯 아이템 세팅 확인
+    public bool HasData()
+    {
+        return itemData != null;
     }
 
     // 장착 아이템 슬롯 초기화
