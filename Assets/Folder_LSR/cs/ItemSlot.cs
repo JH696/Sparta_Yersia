@@ -10,12 +10,24 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image Icon;
     [Header("아이템 수량")]
     [SerializeField] private TextMeshProUGUI CountText;
-    
+
     private ItemData itemData;
     private Action<ItemData> onClickAction;
 
+    private void Awake()
+    {
+        if (Icon == null)
+        {
+            Icon = GetComponentInChildren<Image>();
+        }
+        if (CountText == null)
+        {
+            CountText = GetComponentInChildren<TextMeshProUGUI>();
+        }
+    }
+
     // 아이템 슬롯 초기화
-    public void Setup (ItemData data, int count, Action<ItemData> onClick)
+    public void Setup(ItemData data, int count, Action<ItemData> onClick)
     {
         if (data == null)
         {
@@ -25,11 +37,18 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
         itemData = data;
         onClickAction = onClick;
+
         Icon.sprite = data.Icon;
-        Icon.enabled = data.Icon != null; // 아이콘이 없으면 비활성화
+        Icon.enabled = true; // 아이콘이 없으면 비활성화
 
         CountText.text = count > 1 ? count.ToString() : string.Empty; // 아이템 개수 표시
-        CountText.gameObject.SetActive(true);
+        CountText.gameObject.SetActive(count > 1);
+    }
+
+    // 슬롯 아이템 세팅 확인
+    public bool HasData()
+    {
+        return itemData != null;
     }
 
     // 장착 아이템 슬롯 초기화
@@ -54,8 +73,17 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         itemData = null;
         onClickAction = null;
-        Icon.sprite = null;
-        Icon.enabled = false;
-        CountText.text = string.Empty;
+
+        if (Icon != null)
+        {
+            Icon.sprite = null;
+            Icon.enabled = false;
+        }
+
+        if (CountText != null)
+        {
+            CountText.text = string.Empty;
+            CountText.gameObject.SetActive(false);
+        }
     }
 }
