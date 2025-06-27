@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e10fc4cd389dc0240be55d950311de44, type: 3}
   m_Name: Item_MP_mana
   m_EditorClassIdentifier: 
-  id: MP_001
+  category: 1
+  equipType: 0
   itemName: "\uB9C8\uB098"
   icon: {fileID: 21300000, guid: 042cad040f7e49d4b993141a666a0a81, type: 3}
+  maxStack: 24
+  Price: 0
   itemStats:
   - eStat: 1
     value: 10
