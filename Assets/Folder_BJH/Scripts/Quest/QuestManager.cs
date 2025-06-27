@@ -6,10 +6,11 @@ public class QuestManager : MonoBehaviour
     public static QuestManager Instance;
 
     [Header("수락 가능한 퀘스트 목록")]
-    public List<QuestData> GameQuests;
-
-    [Header("현재 진행 중인 퀘스트 목록")]
     [SerializeField] private List<QuestData> AvailableQuests;
+    [Header("진행 중인 퀘스트 목록")]
+    [SerializeField] private List<QuestData> InProgressQuests; 
+    [Header("완료 가능한 퀘스트 목록")]
+    [SerializeField] public List<QuestData> ClearQuests; 
 
     private void Awake()
     {
@@ -25,26 +26,31 @@ public class QuestManager : MonoBehaviour
 
     public void GetQuest(QuestData questData)
     {
-        if (questData == null || !GameQuests.Contains(questData)) return;
+        if (questData == null || !AvailableQuests.Contains(questData)) return;
 
 
-        AvailableQuests.Add(questData);
-        GameQuests.Remove(questData); 
+        InProgressQuests.Add(questData);
+        AvailableQuests.Remove(questData); 
 
         Debug.Log($"퀘스트 시작: {questData.QuestName}");
     }
 
-    public QuestData SearchQuestsForNpc(string id)
+    public List<QuestData> GetAvailableQuests()
     {
-        foreach (var quest in QuestManager.Instance.GameQuests)
-        {
-            if (quest.AssignerID == id)
-            {
-                return quest;
-            }
-        }
+        return AvailableQuests;
+    }
 
-        return null;
+    public List<QuestData> GetInProgressQuests()
+    {
+        return InProgressQuests;
+    }
+
+    public void GetQuestReward(QuestData questData)
+    {
+        if (questData == null) return;
+
+        ClearQuests.Remove(questData);
+        Debug.Log($"퀘스트 완료: {questData.QuestName}");
     }
 }
 
