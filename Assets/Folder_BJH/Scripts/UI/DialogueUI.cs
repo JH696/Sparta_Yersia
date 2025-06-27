@@ -5,108 +5,154 @@ using UnityEngine.UI;
 
 public class DialogueUI : MonoBehaviour
 {
-    [Header("NPC 데이터")]
-    public NPC CurNpc;
+    [Header("다이얼로그 텍스트")]
+    [SerializeField] private TextMeshProUGUI dialogueText;
 
-    [Header("NPC 대화 UI")]
-    public Image NpcImage;
-    public TextMeshProUGUI TextScreen;
-    public ChoiceButtonCreator ButtonCreator;
+    [Header("다이얼로그 이미지")]
+    [SerializeField] private Image npcImage;
 
-    [Header("대화 선택지 / 이탈 버튼")]
-    public GameObject PassBtn;
+    [Header("다음 대사 버튼")]
+    [SerializeField] private GameObject passButton;
+
+    [Header("선택지 버튼")]
+    [SerializeField] private ChoiceButtons choiceButtons;
+
+    [Header("json 헬퍼")]
+    [SerializeField] private JsonHelper helper;
+
+    [Header("자동 참조 (시각화)")]
+    public NPC curNpc;
+    [SerializeField] private DialogueData[] allDialogues;
+    [SerializeField] private DialogueData curDialogueData;
 
     [Header("타이핑 속도")]
     [SerializeField] private float typingSpeed = 0.05f;
 
-    private DialogueData dialogueData;
     private int currentLineIndex;
     private Coroutine typingCoroutine;
 
-    // UI : SET
-    public void SetDialogueUIData(NPC npc, DialogueData dialogueData)
+
+    // [공용]: 다이얼로그 데이터 세팅 (다이얼로그 사용시 필수, 우선적으로 사용) 
+    public void SetDialogue(NPC npc)
     {
-        this.CurNpc = npc;
-        this.dialogueData = dialogueData;
+        if (npc == null)
+        {
+            Debug.LogError($"올바른 NPC 데이터가 필요합니다. {npc.name}");
+            return;
+        }
+
+        this.curNpc = npc;
+        this.allDialogues = helper.LoadJsonFromPath($"Dialogues/{curNpc.NpcData.NpcID}");
+        npcImage.sprite = curNpc.NpcData.DialogueSprite;
     }
 
-    // UI : ON
+    // [공용]: 다이얼로그 UI 활성화 (UIManager와 OnEnable로 기능 분리 예정)
     public void ShowDialogueUI()
     {
-        if (CurNpc == null) return;
+        if (curNpc == null)
+        {
+            Debug.Log("DialogueUI.SetNPCData(NPC)를 통해 대화할 NPC 데이터를 세팅해주세요.");
+            return;
+        }
 
         this.gameObject.SetActive(true);
-        PassBtn.SetActive(true);
-        SetSprite();
-        TypingText();
+        passButton.SetActive(true);
+        ChooseDialogue("Start");
+        PassTyping();
     }
 
-    // UI : OFF
-    public void HideDialogueUI()
-    {
-        this.gameObject.SetActive(false);
-        ResetDialogueUI();
-    }
-
-    private void ResetDialogueUI()
+    // [공용]: 대화 분기 선택 (Start, End, QuestID 등)   
+    public void ChooseDialogue(string id)
     {
         currentLineIndex = 0;
-        NpcImage.sprite = null;
-        TextScreen.text = string.Empty;
-        ButtonCreator.RemoveChoiceButton();
-        ButtonCreator.gameObject.SetActive(false);
+        passButton.SetActive(true);
+        curDialogueData = LoadJsonByID(id);
     }
 
-    private void SetSprite()
+    // [공용, 버튼] : 대사 출력
+    public void PassTyping()
     {
-        if (NpcImage == null) return;
-
-        NpcImage.sprite = CurNpc.NpcData.DialogueSprite;
-    }
-
-    //public DialogueData FindDialogueData(string id)
-    //{
-    //}
-
-    public void TypingText()
-    {
-        PassBtn.SetActive(true);
-
-        if (currentLineIndex < dialogueData.Lines.Count)
+        if (currentLineIndex < curDialogueData.Lines.Count)
         {
             if (typingCoroutine != null)
             {
                 StopCoroutine(typingCoroutine);
             }
 
-            string line = dialogueData.Lines[currentLineIndex];
+            string line = curDialogueData.Lines[currentLineIndex];
             typingCoroutine = StartCoroutine(TypeLine(line));
             currentLineIndex++;
         }
         else
         {
-            currentLineIndex = 0;
             DisplayeChoices();
         }
     }
 
+    // [버튼]: 다이얼로그 종료
+    public void LeaveButton()
+    {
+        ChooseDialogue("End");
+        PassTyping();
+
+        passButton.SetActive(false);
+        choiceButtons.gameObject.SetActive(false);
+        Invoke("ResetDialogueData", 2f);
+    }
+
+    // [내부] : UI 데이터 초기화
+    private void ResetDialogueData()
+    {
+        DialogueManager.Instance.IsDialogueActive = false;
+
+        curNpc = null;
+        allDialogues = null;
+        curDialogueData = null;
+        npcImage.sprite = null;
+        currentLineIndex = 0;
+        dialogueText.text = string.Empty;
+
+        this.gameObject.SetActive(false);
+    }
+
+    // [내부] : 전체 대사 중 입력한 ID의 대사 로드
+    public DialogueData LoadJsonByID(string id)
+    {
+        foreach (var dialogue in allDialogues)
+        {
+            if (dialogue.DialogueID == id)
+                return dialogue;
+        }
+
+        Debug.LogWarning("해당 ID의 대사가 없습니다: " + id);
+        return null;
+    }
+
+    // [내부] : 대사 타이핑 코루틴
     private IEnumerator TypeLine(string line)
     {
-        TextScreen.text = "";
+        dialogueText.text = "";
         foreach (char c in line)
         {
-            TextScreen.text += c;
+            dialogueText.text += c;
             yield return new WaitForSeconds(typingSpeed);
         }
         typingCoroutine = null;
     }
 
+    // [내부] : 선택지 버튼 생성
     private void DisplayeChoices()
     {
-        ButtonCreator.gameObject.SetActive(true);
+        passButton.SetActive(false);
+        choiceButtons.gameObject.SetActive(true);
 
-        if (CurNpc.RequestList.Count <= 0) return;
-        ButtonCreator.CreateChoiceButton(CurNpc.RequestList[0]);
-        PassBtn.SetActive(false);   
+        if (curNpc.RequestList.Count <= 0) return;
+
+        for (int i = 0; i < curNpc.RequestList.Count; i++)
+        {
+            choiceButtons.CreateQuestButton(curNpc.RequestList[i]);
+        }
+
+        passButton.SetActive(false);   
     }
 }

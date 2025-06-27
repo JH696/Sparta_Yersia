@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     [Header("아이템 아이콘")]
-    public Image Icon;
+    [SerializeField] private Image Icon;
     [Header("아이템 수량")]
-    public TextMeshProUGUI CountText;
+    [SerializeField] private TextMeshProUGUI CountText;
     
     private ItemData itemData;
     private Action<ItemData> onClickAction;
@@ -17,21 +17,35 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     // 아이템 슬롯 초기화
     public void Setup (ItemData data, int count, Action<ItemData> onClick)
     {
-        if (data == null) return;
+        if (data == null)
+        {
+            Clear();
+            return;
+        }
 
         itemData = data;
         onClickAction = onClick;
-
         Icon.sprite = data.Icon;
         Icon.enabled = data.Icon != null; // 아이콘이 없으면 비활성화
 
-        CountText.text = count.ToString(); // 아이템 개수 표시
+        CountText.text = count > 1 ? count.ToString() : string.Empty; // 아이템 개수 표시
+        CountText.gameObject.SetActive(true);
+    }
+
+    // 장착 아이템 슬롯 초기화
+    public void SetupEquip(ItemData data, Action<ItemData> onClick)
+    {
+        Setup(data, 1, onClick); // 장착 아이템은 개수가 1개로 고정
+        CountText.gameObject.SetActive(false);
     }
 
     // IPointerClickHandler 인터페이스 구현(클릭 이벤트 처리)
     public void OnPointerClick(PointerEventData eventData)
     {
-        onClickAction?.Invoke(itemData); // 클릭 시 아이템 데이터 전달
+        if (itemData == null || onClickAction == null) return;
+
+        onClickAction(itemData);
+
         Debug.Log($"아이템 클릭: {itemData.ItemName}");
     }
 
@@ -39,6 +53,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public void Clear()
     {
         itemData = null;
+        onClickAction = null;
         Icon.sprite = null;
         Icon.enabled = false;
         CountText.text = string.Empty;
