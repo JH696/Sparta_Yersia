@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &278349572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 278349574}
+  - component: {fileID: 278349573}
+  m_Layer: 0
+  m_Name: Spider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &278349573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278349572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3126cd8cf7901498dff6cc82941954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statData: {fileID: 0}
+  monsterData: {fileID: 11400000, guid: 3be44273dd9b1154ab481f2017f2397c, type: 2}
+--- !u!4 &278349574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278349572}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &312768362
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,8 +698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NpcData: {fileID: 11400000, guid: 68919cf3c57adfd469b873c180688558, type: 2}
-  DefaultD: {fileID: 4900000, guid: f0e317c7a70470543ad960c0509b5018, type: 3}
-  QuestD: {fileID: 4900000, guid: 1627b62adab5fe942a4c93d6f9611821, type: 3}
+  RequestList: []
 --- !u!1001 &1011418188990871845
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -724,3 +769,4 @@ SceneRoots:
   - {fileID: 1011418188990871845}
   - {fileID: 678470231}
   - {fileID: 1630777616}
+  - {fileID: 278349574}
