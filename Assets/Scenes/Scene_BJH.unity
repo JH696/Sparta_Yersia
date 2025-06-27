@@ -291,7 +291,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -100, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &257917118
 MonoBehaviour:
@@ -313,7 +313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ...
+  m_text: "\uB300\uD654 \uB0B4\uC6A9"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a71fd3c906599b04b93a88bfc125d079, type: 2}
   m_sharedMaterial: {fileID: 9091255979530684391, guid: a71fd3c906599b04b93a88bfc125d079, type: 2}
@@ -340,12 +340,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
+  m_fontSize: 50
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 35
+  m_fontSizeMax: 50
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -3129,6 +3129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueUI: {fileID: 2075183632}
+  IsDialogueActive: 0
 --- !u!114 &913543515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3141,11 +3142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1af0a57650afd44496dc6b349f53a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameQuests:
+  AvailableQuests:
   - {fileID: 11400000, guid: bfb6ed89a955bd34d8e394fd37748fc4, type: 2}
   - {fileID: 11400000, guid: a9af6cd81eac943459faa3057c4b7773, type: 2}
-  - {fileID: 11400000, guid: 86cc51a31e56bb74b8a2f1a1a2f395c9, type: 2}
-  AvailableQuests: []
+  InProgressQuests: []
+  ClearQuests: []
 --- !u!1 &917604905
 GameObject:
   m_ObjectHideFlags: 0
@@ -4741,11 +4742,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2040624558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0169b7a897733954bb8749d279b1f806, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b7ea538a6473be42ac93b9745904ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questButton: {fileID: 6716771295140797731, guid: c89e91ba3e2cbe14a80c03f241c19c6e, type: 3}
-  questButtonList: []
+  assginBtn: {fileID: 6716771295140797731, guid: c89e91ba3e2cbe14a80c03f241c19c6e, type: 3}
+  receiveBtn: {fileID: 6716771295140797731, guid: e2f619bcbc26d6e4498cb5d6dd0a9daa, type: 3}
+  ButtonList: []
 --- !u!1 &2057207606
 GameObject:
   m_ObjectHideFlags: 0
@@ -4884,10 +4886,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1781e952897fdb04b8fa8cd28a96417f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueText: {fileID: 257917118}
+  dialogueTxt: {fileID: 257917118}
   npcImage: {fileID: 1232876617}
-  passButton: {fileID: 917604905}
-  choiceButtons: {fileID: 2040624561}
+  passBtn: {fileID: 917604905}
+  choiceBtns: {fileID: 2040624561}
   helper: {fileID: 2075183633}
   curNpc: {fileID: 0}
   allDialogues: []
@@ -4920,7 +4922,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NpcData: {fileID: 11400000, guid: 68919cf3c57adfd469b873c180688558, type: 2}
-  RequestList: []
+  AssignQuests: []
+  ReceiveQuests: []
 --- !u!1 &3627213916230159954
 GameObject:
   m_ObjectHideFlags: 0
@@ -5104,7 +5107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NpcData: {fileID: 11400000, guid: f1056d10aa089274393111005f8e2c28, type: 2}
-  RequestList: []
+  AssignQuests: []
+  ReceiveQuests: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

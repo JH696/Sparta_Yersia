@@ -12,8 +12,9 @@ public class NPC : MonoBehaviour, IInteractable
     [Header("NPC 데이터")]
     public NPCData NpcData;
 
-    [Header("의뢰 진행 중인 퀘스트 (시각화)")]
-    public List<QuestData> RequestList;
+    [Header("수락 / 완료 대기 퀘스트 (시각화)")]
+    public List<QuestData> AssignQuests;        // 수락 대기
+    public List<QuestData> ReceiveQuests;       // 완료 대기
 
     void Start()
     {
@@ -25,15 +26,15 @@ public class NPC : MonoBehaviour, IInteractable
     {
         if (NpcData == null) return;
 
+        SetNPCRequest();
+
         DialogueManager.Instance.StartDialogue(this);
     }
 
     // [공용] : NPC의 의뢰 목록을 설정
     public void SetNPCRequest()
     {
-        QuestData[] allQuests = Resources.LoadAll<QuestData>("QuestDatas");
-
-        RequestList.Clear();
-        RequestList = allQuests.Where(q => q.AssignerID == NpcData.NpcID).ToList();
+        AssignQuests = QuestManager.Instance.GetAvailableQuests().Where(q => q.AssignerID == NpcData.NpcID).ToList();
+        ReceiveQuests = QuestManager.Instance.GetInProgressQuests().Where(q => q.ReceiverID == NpcData.NpcID).ToList();
     }
 }
