@@ -94,6 +94,9 @@ public class InventoryUI : MonoBehaviour
         actionBtn.onClick.AddListener(OnActionClicked);
         cancelBtn.onClick.AddListener(OnCancelClicked);
 
+        // 카테고리 색상
+        ChangeCategory(currentCategory);
+
         // 슬롯 생성
         for (int i = 0; i < slotCount; i++)
         {
@@ -102,7 +105,7 @@ public class InventoryUI : MonoBehaviour
             inventorySlots.Add(slot);
         }
 
-        // 장착 아이템 슬롯 초기화 (기존 동적-> 정적으로 변경)
+        // 장착 아이템 슬롯 초기화 (Weapon=0, Hat=1, Accessory=2, Clothes=3, Shoes=4)
         var children = equipPanel.GetComponentsInChildren<ItemSlot>(true);
         if (children.Length < Enum.GetValues(typeof(EEquipType)).Length)
         {
@@ -111,9 +114,9 @@ public class InventoryUI : MonoBehaviour
 
         for (int i = 0; i < children.Length; i++)
         {
-            var slot = children[i];
-            equipSlots[(EEquipType)i] = slot;
-            slot.Clear();
+            var type = (EEquipType)i;
+            equipSlots[type] = children[i];
+            children[i].Clear();
         }
 
         // 팝업, 상세 패널 초기화
@@ -121,8 +124,8 @@ public class InventoryUI : MonoBehaviour
         capacityPopup.SetActive(false);
         detailPanel.SetActive(false);
 
-        inventory.OnInventoryChanged += OnInventoryChanged;
-        OnInventoryChanged();
+        inventory.OnInventoryChanged += RefreshAndShow;
+        RefreshAndShow();
     }
 
 
@@ -133,12 +136,12 @@ public class InventoryUI : MonoBehaviour
 
         if (inventory != null)
         {
-            inventory.OnInventoryChanged -= OnInventoryChanged;
+            inventory.OnInventoryChanged -= RefreshAndShow;
         }
     }
 
     // 인벤토리 변경 시 UI 갱신 후 열기
-    private void OnInventoryChanged()
+    private void RefreshAndShow()
     {
         RefreshUI();
         Show();
@@ -175,10 +178,10 @@ public class InventoryUI : MonoBehaviour
     // 슬롯 UI 갱신
     public void RefreshUI()
     {
-        var items = inventory.GetAllItems();
+        var itemsDict = inventory.GetAllItems();
         int index = 0;
 
-        foreach (var key in items)
+        foreach (var key in itemsDict)
         {
             // DB에서 ItemData 찾기
             var data = Array.Find(itemDB, db => db.ID == key.Key);
@@ -194,6 +197,8 @@ public class InventoryUI : MonoBehaviour
             var slot = inventorySlots[index];
             slot.Clear();
             slot.Setup(data, key.Value, _ => ShowItemDetails(data, false));
+
+            index++;
         }
 
         // 나머지 슬롯 비활성화
@@ -226,8 +231,8 @@ public class InventoryUI : MonoBehaviour
         cancelBtn.gameObject.SetActive(true);
         if (!isEquipSlot)
         {
-            actionBtn.GetComponentInChildren<TextMeshProUGUI>().text
-                = data.Category == EItemCategory.Equipment ? "장착하기" : "사용하기";
+            actionBtn.GetComponentInChildren<TextMeshProUGUI>().text =
+                (data.Category == EItemCategory.Equipment) ? "장착하기" : "사용하기";
 
             cancelBtn.GetComponentInChildren<TextMeshProUGUI>().text = "버리기";
         }
@@ -256,7 +261,6 @@ public class InventoryUI : MonoBehaviour
             // 소모품 사용
             selectedData.OnUse();
             inventory.RemoveItem(selectedData, 1);
-            Debug.Log($"아이템 사용: {selectedData.ItemName}");
         }
         else if (selectedData.Category == EItemCategory.Quest)
         {
@@ -275,7 +279,7 @@ public class InventoryUI : MonoBehaviour
     {
         if (selectedData == null) return;
 
-        bool isCurEquip = equipSlots.ContainsKey(selectedData.EquipType) && equipSlots[selectedData.EquipType].HasData();
+        bool isCurEquip = equipSlots[selectedData.EquipType].HasData();
         if (isCurEquip && inventory.GetCount(selectedData) == 0)
         {
             // 장착 해제
