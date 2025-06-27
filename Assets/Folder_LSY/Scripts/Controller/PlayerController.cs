@@ -47,6 +47,11 @@ public class PlayerController : BaseCharacter, ILevelable
             Debug.Log($"플레이어 경험치: {CurrentExp} / {ExpToNextLevel}, 레벨: {Level}");
         }
 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log($"플레이어 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana}/{MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
+        }
+
         HandleInteractionInput();
     }
 
@@ -126,7 +131,7 @@ public class PlayerController : BaseCharacter, ILevelable
     public void LevelUp()
     {
         Level++;
-        // TODO: 레벨업 시 스탯 증가, UI 갱신 등
         Debug.Log($"플레이어 레벨업! 현재 레벨: {Level}");
+        Stat.MultiplyStats(1.1f);
     }
 }
