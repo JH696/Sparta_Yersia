@@ -1,19 +1,14 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-[System.Serializable]
-public class DialogueData
-{
-    public string DialogueID;   
-    public List<string> Lines;
-}
+﻿using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
 
-    [Header("대사 출력 텍스트")]
-    public DialogueUI dialogueUI;
+    [Header("다이얼로그 UI")]
+    public DialogueUI DialogueUI;
+
+    [Header("다이얼로그 진행 여부")]
+    public bool IsDialogueActive = false;
 
     private void Awake()
     {
@@ -27,27 +22,17 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    // [외부] : 다이얼로그 UI 작동
     public void StartDialogue(NPC npc)
     {
-        if (npc == null) return;
-
-        LoadJson($"Dialogues/{npc.NpcData.NpcID}");
-
-        dialogueUI.SetDialogueUIData(npc, LoadJson($"Dialogues/{npc.NpcData.NpcID}"));
-        dialogueUI.ShowDialogueUI();
-    }
-
-    DialogueData LoadJson(string path)
-    {
-        TextAsset jsonText = Resources.Load<TextAsset>(path);
-
-        if (jsonText == null)
+        if (IsDialogueActive)
         {
-            Debug.LogError("JSON 파일을 찾을 수 없습니다: " + path);
-            return null;
+            Debug.Log("이미 대화 중입니다.");
+            return;
         }
 
-        DialogueData data = JsonUtility.FromJson<DialogueData>(jsonText.text);
-        return data;
+        IsDialogueActive = true;
+        DialogueUI.SetDialogue(npc);
+        DialogueUI.ShowDialogueUI();
     }
 }
