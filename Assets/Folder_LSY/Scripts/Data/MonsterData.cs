@@ -7,8 +7,11 @@ public class MonsterData : ScriptableObject
     public string MonsterID;
     public string MonsterName;
 
+    [Header("몬스터 등급")]
+    public EMonsterType MonsterType;
+
     [Header("몬스터 스탯")]
-    public CharacterStatData statData;
+    public CharacterStatData StatData;
 
     [Header("몬스터 스프라이트")]
     public Sprite WorldSprite;
