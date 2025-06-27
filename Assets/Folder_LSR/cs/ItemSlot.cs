@@ -26,6 +26,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    // 슬롯 아이템 세팅 확인
+    public bool HasData()
+    {
+        return itemData != null;
+    }
+
     // 아이템 슬롯 초기화
     public void Setup(ItemData data, int count, Action<ItemData> onClick)
     {
@@ -38,24 +44,28 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         itemData = data;
         onClickAction = onClick;
 
-        Icon.sprite = data.Icon;
-        Icon.enabled = true; // 아이콘이 없으면 비활성화
+        if (Icon != null)
+        {
+            Icon.sprite = data.Icon;
+            Icon.enabled = true; // 아이콘이 없으면 비활성화
+        }
 
-        CountText.text = count > 1 ? count.ToString() : string.Empty; // 아이템 개수 표시
-        CountText.gameObject.SetActive(count > 1);
-    }
-
-    // 슬롯 아이템 세팅 확인
-    public bool HasData()
-    {
-        return itemData != null;
+        // 수량 텍스트가 있을 때만 처리해야함. 없으면 무시
+        if (CountText != null)
+        {
+            CountText.text = count > 1 ? count.ToString() : string.Empty; // 아이템 개수 표시
+            CountText.gameObject.SetActive(count > 1);
+        }
     }
 
     // 장착 아이템 슬롯 초기화
     public void SetupEquip(ItemData data, Action<ItemData> onClick)
     {
         Setup(data, 1, onClick); // 장착 아이템은 개수가 1개로 고정
-        CountText.gameObject.SetActive(false);
+        if (CountText != null)
+        {
+            CountText.gameObject.SetActive(false);
+        }
     }
 
     // IPointerClickHandler 인터페이스 구현(클릭 이벤트 처리)
@@ -64,8 +74,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if (itemData == null || onClickAction == null) return;
 
         onClickAction(itemData);
-
-        Debug.Log($"아이템 클릭: {itemData.ItemName}");
     }
 
     // 아이템 슬롯 비우기
