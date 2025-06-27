@@ -8,11 +8,11 @@ public class ChoiceButtonCreator : MonoBehaviour
 
     [Header("생성된 버튼 리스트")]
     [SerializeField] private List<GameObject> ChoiceButtonsList;
+    [SerializeField] private GameObject leaveButton;
 
     public void CreateChoiceButton(QuestData questData)
     {
         if (questData == null) return;
-
         GameObject choiceBtn = Instantiate(ChoiceButton, this.transform);
         choiceBtn.GetComponent<ChoiceButton>().SetChoiceButton(questData);
 
@@ -29,5 +29,11 @@ public class ChoiceButtonCreator : MonoBehaviour
         }
 
         ChoiceButtonsList.Clear();
+        leaveButton.gameObject.SetActive(false);
+    }
+
+    public void LeaveButtonToggle()
+    {
+        leaveButton.SetActive(!leaveButton.activeSelf);
     }
 }

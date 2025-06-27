@@ -19,18 +19,22 @@ public class DialogueUI : MonoBehaviour
     [Header("타이핑 속도")]
     [SerializeField] private float typingSpeed = 0.05f;
 
-    private DialogueData dialogueData;
+    // 대화 데이터
+    private DialogueData[] allDialogues;
+    private DialogueData curDialogueData;
+
+    // 대화 진행 상태
     private int currentLineIndex;
     private Coroutine typingCoroutine;
 
-    // UI : SET
-    public void SetDialogueUIData(NPC npc, DialogueData dialogueData)
+    // UI : 기본 설정
+    public void SetNPCData(NPC npc)
     {
         this.CurNpc = npc;
-        this.dialogueData = dialogueData;
+        this.allDialogues = DialogueManager.Instance.Helper.LoadJsonFromPath($"Dialogues/{npc.NpcData.NpcID}");
     }
 
-    // UI : ON
+    // UI : 활성화
     public void ShowDialogueUI()
     {
         if (CurNpc == null) return;
@@ -38,25 +42,39 @@ public class DialogueUI : MonoBehaviour
         this.gameObject.SetActive(true);
         PassBtn.SetActive(true);
         SetSprite();
-        TypingText();
+        SetDialogueData("Start");
+        PassTyping();
     }
 
-    // UI : OFF
+    public void LeaveButton()
+    {
+        ButtonCreator.LeaveButtonToggle();
+        SetDialogueData("End");
+        PassTyping();
+        PassBtn.SetActive(false);
+        ButtonCreator.RemoveChoiceButton();
+        Invoke("HideDialogueUI", 2f);
+        Invoke("ResetDialogueData", 2f);
+    }
+
+    // UI : 비활성화
     public void HideDialogueUI()
     {
         this.gameObject.SetActive(false);
-        ResetDialogueUI();
     }
 
-    private void ResetDialogueUI()
+    // UI : 리셋
+    private void ResetDialogueData()
     {
+        CurNpc = null;
+        allDialogues = null;
+        curDialogueData = null;
         currentLineIndex = 0;
         NpcImage.sprite = null;
         TextScreen.text = string.Empty;
-        ButtonCreator.RemoveChoiceButton();
-        ButtonCreator.gameObject.SetActive(false);
     }
 
+    // UI : NPC 스프라이트 변경
     private void SetSprite()
     {
         if (NpcImage == null) return;
@@ -64,30 +82,45 @@ public class DialogueUI : MonoBehaviour
         NpcImage.sprite = CurNpc.NpcData.DialogueSprite;
     }
 
-    //public DialogueData FindDialogueData(string id)
-    //{
-    //}
-
-    public void TypingText()
+    public void SetDialogueData(string id)
     {
+        currentLineIndex = 0;
         PassBtn.SetActive(true);
+        curDialogueData = LoadJsonByID(id);
+    }
 
-        if (currentLineIndex < dialogueData.Lines.Count)
+    //// UI : 대화 진행
+    public void PassTyping()
+    {
+        if (currentLineIndex < curDialogueData.Lines.Count)
         {
             if (typingCoroutine != null)
             {
                 StopCoroutine(typingCoroutine);
             }
 
-            string line = dialogueData.Lines[currentLineIndex];
+            string line = curDialogueData.Lines[currentLineIndex];
             typingCoroutine = StartCoroutine(TypeLine(line));
             currentLineIndex++;
         }
         else
         {
-            currentLineIndex = 0;
             DisplayeChoices();
+            PassBtn.SetActive(false);
         }
+    }
+
+    // UI : Json 로드
+    public DialogueData LoadJsonByID(string id)
+    {
+        foreach (var dialogue in allDialogues)
+        {
+            if (dialogue.DialogueID == id)
+                return dialogue;
+        }
+
+        Debug.LogWarning("해당 ID의 대사가 없습니다: " + id);
+        return null;
     }
 
     private IEnumerator TypeLine(string line)
@@ -103,10 +136,14 @@ public class DialogueUI : MonoBehaviour
 
     private void DisplayeChoices()
     {
-        ButtonCreator.gameObject.SetActive(true);
+        ButtonCreator.LeaveButtonToggle();
 
         if (CurNpc.RequestList.Count <= 0) return;
-        ButtonCreator.CreateChoiceButton(CurNpc.RequestList[0]);
+
+        for (int i = 0; i < CurNpc.RequestList.Count; i++)
+        {
+            ButtonCreator.CreateChoiceButton(CurNpc.RequestList[i]);
+        }
         PassBtn.SetActive(false);   
     }
 }

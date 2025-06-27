@@ -25,6 +25,11 @@ public class ChoiceButton : MonoBehaviour
     public void AcceptQuest()
     {
         QuestManager.Instance.GetQuest(curQuestData);
+
         GetComponentInParent<ChoiceButtonCreator>().RemoveChoiceButton();
+
+        DialogueManager.Instance.dialogueUI.CurNpc.RequestList.Remove(curQuestData);
+        DialogueManager.Instance.dialogueUI.SetDialogueData(curQuestData.QuestID);
+        DialogueManager.Instance.dialogueUI.PassTyping();
     }
 }

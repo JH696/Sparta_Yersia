@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 92834025}
   - component: {fileID: 92834024}
   m_Layer: 5
-  m_Name: Dialogue Rie
+  m_Name: Rie Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 265741871}
   - component: {fileID: 265741870}
   m_Layer: 5
-  m_Name: Dialogue Teacher
+  m_Name: Helonneu Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2864,7 +2864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &734721632
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2931,7 +2931,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2075183632}
         m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
-        m_MethodName: HideDialogueUI
+        m_MethodName: LeaveButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3094,6 +3094,7 @@ GameObject:
   - component: {fileID: 913543513}
   - component: {fileID: 913543514}
   - component: {fileID: 913543515}
+  - component: {fileID: 913543516}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -3129,6 +3130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 2075183632}
+  Helper: {fileID: 913543516}
 --- !u!114 &913543515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3144,8 +3146,20 @@ MonoBehaviour:
   GameQuests:
   - {fileID: 11400000, guid: bfb6ed89a955bd34d8e394fd37748fc4, type: 2}
   - {fileID: 11400000, guid: a9af6cd81eac943459faa3057c4b7773, type: 2}
-  - {fileID: 11400000, guid: 28de33939f558b44cb98939c63d28f0d, type: 2}
+  - {fileID: 11400000, guid: 86cc51a31e56bb74b8a2f1a1a2f395c9, type: 2}
   AvailableQuests: []
+--- !u!114 &913543516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913543511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da5db7b70108f045811d8c4d42585ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &917604905
 GameObject:
   m_ObjectHideFlags: 0
@@ -3231,7 +3245,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2075183632}
         m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
-        m_MethodName: TypingText
+        m_MethodName: PassTyping
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4189,7 +4203,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB2F4\uC784 \uC120\uC0DD\uB2D8"
+  m_text: "\uD5E4\uB860\uB290 \uC120\uC0DD\uB2D8"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a71fd3c906599b04b93a88bfc125d079, type: 2}
   m_sharedMaterial: {fileID: 9091255979530684391, guid: a71fd3c906599b04b93a88bfc125d079, type: 2}
@@ -4763,7 +4777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2040624559
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4824,6 +4838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChoiceButton: {fileID: 6716771295140797731, guid: c89e91ba3e2cbe14a80c03f241c19c6e, type: 3}
   ChoiceButtonsList: []
+  leaveButton: {fileID: 734721631}
 --- !u!1 &2075183628
 GameObject:
   m_ObjectHideFlags: 0

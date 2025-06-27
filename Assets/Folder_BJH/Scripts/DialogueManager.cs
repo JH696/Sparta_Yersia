@@ -1,12 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-[System.Serializable]
-public class DialogueData
-{
-    public string DialogueID;   
-    public List<string> Lines;
-}
+﻿using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -14,6 +6,9 @@ public class DialogueManager : MonoBehaviour
 
     [Header("대사 출력 텍스트")]
     public DialogueUI dialogueUI;
+
+    [Header("Json Handler")]
+    public JsonHelper Helper;
 
     private void Awake()
     {
@@ -31,23 +26,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (npc == null) return;
 
-        LoadJson($"Dialogues/{npc.NpcData.NpcID}");
-
-        dialogueUI.SetDialogueUIData(npc, LoadJson($"Dialogues/{npc.NpcData.NpcID}"));
+        dialogueUI.SetNPCData(npc);
         dialogueUI.ShowDialogueUI();
-    }
-
-    DialogueData LoadJson(string path)
-    {
-        TextAsset jsonText = Resources.Load<TextAsset>(path);
-
-        if (jsonText == null)
-        {
-            Debug.LogError("JSON 파일을 찾을 수 없습니다: " + path);
-            return null;
-        }
-
-        DialogueData data = JsonUtility.FromJson<DialogueData>(jsonText.text);
-        return data;
     }
 }
