@@ -44,9 +44,10 @@ public class InventoryUI : MonoBehaviour
     private PlayerInventory inventory;
     private ItemData[] itemDB;
     private ItemData selectedData;
+    private bool selectedIsEquipSlot;
 
-    private List<ItemSlot> inventorySlots = new List<ItemSlot>();
-    private Dictionary<EEquipType, ItemSlot> equipSlots = new Dictionary<EEquipType, ItemSlot>();
+    private List<ItemSlot> inventorySlots = new();
+    private Dictionary<EEquipType, ItemSlot> equipSlots = new();
     private EItemCategory currentCategory = EItemCategory.Equipment;
 
     private void Awake()
@@ -68,17 +69,16 @@ public class InventoryUI : MonoBehaviour
         }
 
         // UI 컴포넌트 확인
-        var missingFields = this.GetType()
+        var missingFields = GetType()
             .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-            .Where(field => field.GetCustomAttribute(typeof(SerializeField)) != null)
-            .Select(field => (field.Name, field.GetValue(this)))
-            .Where(tuple => tuple.Item2 == null)
-            .ToList();
+            .Where(f => f.GetCustomAttributes(typeof(SerializeField), true).Any())
+            .Where(f => f.GetValue(this) == null)
+            .Select(f => f.Name)
+            .ToArray();
 
-        if (missingFields.Count > 0)
+        if (missingFields.Length > 0)
         {
-            var names = string.Join(", ", missingFields.Select(field => field.Name));
-            Debug.LogError($"[InventoryUI] Inspector에 {names} 컴포넌트를 할당해주세요.");
+            Debug.LogError($"[InventoryUI] Inspector에 할당 필요: {string.Join(", ", missingFields)}");
             enabled = false;
             return;
         }
@@ -86,11 +86,9 @@ public class InventoryUI : MonoBehaviour
         // 버튼 이벤트
         openBtn.onClick.AddListener(Show);
         closeBtn.onClick.AddListener(Hide);
-
         categoryEquip.onClick.AddListener(() => ChangeCategory(EItemCategory.Equipment));
         categoryConsum.onClick.AddListener(() => ChangeCategory(EItemCategory.Consumable));
         categoryQuest.onClick.AddListener(() => ChangeCategory(EItemCategory.Quest));
-
         actionBtn.onClick.AddListener(OnActionClicked);
         cancelBtn.onClick.AddListener(OnCancelClicked);
 
@@ -125,8 +123,7 @@ public class InventoryUI : MonoBehaviour
         RefreshAndShow();
 
         // 카테고리
-        ChangeCategory(currentCategory);
-        ChangeCategory(EItemCategory.Equipment); // 초기 카테고리 설정
+        UpdateCategoryButtonColors();
     }
 
 
@@ -169,11 +166,14 @@ public class InventoryUI : MonoBehaviour
         if (currentCategory == category) return;
         currentCategory = category;
         RefreshUI();
+        UpdateCategoryButtonColors();
+    }
 
-        // 버튼 색상 변경
-        categoryEquip.GetComponent<Image>().color = (category == EItemCategory.Equipment) ? selectedColor : normalColor;
-        categoryConsum.GetComponent<Image>().color = (category == EItemCategory.Consumable) ? selectedColor : normalColor;
-        categoryQuest.GetComponent<Image>().color = (category == EItemCategory.Quest) ? selectedColor : normalColor;
+    private void UpdateCategoryButtonColors()
+    {
+        categoryEquip.GetComponent<Image>().color = (currentCategory == EItemCategory.Equipment) ? selectedColor : normalColor;
+        categoryConsum.GetComponent<Image>().color = (currentCategory == EItemCategory.Consumable) ? selectedColor : normalColor;
+        categoryQuest.GetComponent<Image>().color = (currentCategory == EItemCategory.Quest) ? selectedColor : normalColor;
     }
 
     // 슬롯 UI 갱신
@@ -182,10 +182,10 @@ public class InventoryUI : MonoBehaviour
         var itemsDict = inventory.GetAllItems();
         int index = 0;
 
-        foreach (var key in itemsDict)
+        foreach (var pair in itemsDict)
         {
             // DB에서 ItemData 찾기
-            var data = Array.Find(itemDB, db => db.ID == key.Key);
+            var data = Array.Find(itemDB, so => so.ID == pair.Key);
             if (data == null || data.Category != currentCategory) continue;
 
             // 팝업 표시
@@ -195,11 +195,9 @@ public class InventoryUI : MonoBehaviour
                 break;
             }
 
-            var slot = inventorySlots[index];
+            var slot = inventorySlots[index++];
             slot.Clear();
-            slot.Setup(data, key.Value, _ => ShowItemDetails(data, false));
-
-            index++;
+            slot.Setup(data, pair.Value, _ => ShowItemDetails(data, false));
         }
 
         // 나머지 슬롯 비활성화
@@ -213,6 +211,7 @@ public class InventoryUI : MonoBehaviour
     private void ShowItemDetails(ItemData data, bool isEquipSlot)
     {
         selectedData = data;
+        selectedIsEquipSlot = isEquipSlot;
         detailPanel.SetActive(true);
 
         itemNameText.text = data.ItemName;
@@ -230,17 +229,32 @@ public class InventoryUI : MonoBehaviour
         // 버튼 세팅
         actionBtn.gameObject.SetActive(!isEquipSlot);
         cancelBtn.gameObject.SetActive(true);
-        if (!isEquipSlot)
+        if (data.Category == EItemCategory.Quest)
         {
-            actionBtn.GetComponentInChildren<TextMeshProUGUI>().text =
-                (data.Category == EItemCategory.Equipment) ? "장착하기" : "사용하기";
-
+            // 퀘스트 아이템
+            actionBtn.GetComponentInChildren<TextMeshProUGUI>().text = "건네주기";
+            actionBtn.interactable = true;
             cancelBtn.GetComponentInChildren<TextMeshProUGUI>().text = "버리기";
+            cancelBtn.interactable = false;
+            var img = cancelBtn.GetComponent<Image>();
+            img.color = new Color(img.color.r, img.color.g, img.color.b, 0.7f);
+        }
+        else if (isEquipSlot)
+        {
+            // 장착판넬
+            actionBtn.gameObject.SetActive(false);
+            cancelBtn.GetComponentInChildren<TextMeshProUGUI>().text = "해제하기";
+            cancelBtn.interactable = true;
         }
         else
         {
-            cancelBtn.GetComponentInChildren<TextMeshProUGUI>().text = "해제하기";
-        }   
+            // 인벤토리판넬
+            actionBtn.GetComponentInChildren<TextMeshProUGUI>().text =
+                data.Category == EItemCategory.Equipment ? "장착하기" : "사용하기";
+            cancelBtn.GetComponentInChildren<TextMeshProUGUI>().text = "버리기";
+            cancelBtn.interactable = true;
+            cancelBtn.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
     }
 
     // 장착/사용 버튼 클릭 시
@@ -248,25 +262,29 @@ public class InventoryUI : MonoBehaviour
     {
         if (selectedData == null) return;
 
-        if (selectedData.Category == EItemCategory.Equipment && inventory.GetCount(selectedData) > 0)
+        switch (selectedData.Category)
         {
-            // 장착
-            var slot = equipSlots[selectedData.EquipType];
-            slot.Clear();
-            slot.SetupEquip(selectedData, _ => ShowItemDetails(selectedData, true));
-            inventory.RemoveItem(selectedData, 1); // 아이템 개수 감소
-        }
-        else if (selectedData.Category == EItemCategory.Consumable)
-        {
-            // 소모품 사용
-            selectedData.OnUse();
-            inventory.RemoveItem(selectedData, 1);
-        }
-        else if (selectedData.Category == EItemCategory.Quest)
-        {
-            // 퀘스트 아이템 구체적으로 정하지 않음 - 확인 필요
-            Debug.LogWarning("퀘스트 아이템은 장착할 수 없습니다.");
-            return;
+            case EItemCategory.Equipment when inventory.GetCount(selectedData) > 0:
+                // 장착
+                var eqSlot = equipSlots[selectedData.EquipType];
+                eqSlot.Clear();
+                eqSlot.SetupEquip(selectedData, _ => ShowItemDetails(selectedData, true));
+                inventory.RemoveItem(selectedData, 1);
+                // TODO: 플레이어 캐릭터에 Equip(selectedData); 호출
+                break;
+
+            case EItemCategory.Consumable:
+                // 사용
+                selectedData.OnUse();
+                inventory.RemoveItem(selectedData, 1);
+                // TODO: 플레이어 캐릭터에 Use(selectedData); 호출
+                break;
+
+            case EItemCategory.Quest:
+                // 건네주기
+                // TODO: 퀘스트 시스템에 Deliver(selectedData); 호출
+                inventory.RemoveItem(selectedData, 1);
+                break;
         }
 
         RefreshUI();
@@ -279,15 +297,15 @@ public class InventoryUI : MonoBehaviour
     {
         if (selectedData == null) return;
 
-        bool isCurEquip = equipSlots[selectedData.EquipType].HasData();
-        if (isCurEquip)
+        if (selectedIsEquipSlot)
         {
-            // 장착 해제
+            // 해제
             var slot = equipSlots[selectedData.EquipType];
             slot.Clear();
             inventory.AddItem(selectedData, 1);
+            // TODO: 플레이어 캐릭터에 Unequip(selectedData); 호출
         }
-        else
+        else if (selectedData.Category != EItemCategory.Quest)
         {
             // 버리기
             inventory.RemoveItem(selectedData, 1);

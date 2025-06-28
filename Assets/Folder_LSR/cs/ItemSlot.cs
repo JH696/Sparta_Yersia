@@ -18,11 +18,18 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if (Icon == null)
         {
-            Icon = GetComponentInChildren<Image>();
+            foreach (var img in GetComponentsInChildren<Image>(true))
+            {
+                if (img.gameObject != gameObject)
+                {
+                    Icon = img;
+                    break;
+                }
+            }
         }
         if (CountText == null)
         {
-            CountText = GetComponentInChildren<TextMeshProUGUI>();
+            CountText = GetComponentInChildren<TextMeshProUGUI>(true);
         }
     }
 
@@ -32,7 +39,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         return itemData != null;
     }
 
-    // 아이템 슬롯 초기화
+    // 인벤토리/장착판넬 공통 슬롯 초기화
     public void Setup(ItemData data, int count, Action<ItemData> onClick)
     {
         if (data == null)
@@ -44,11 +51,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         itemData = data;
         onClickAction = onClick;
 
-        if (Icon != null)
-        {
+        //if (Icon != null)
+        //{
             Icon.sprite = data.Icon;
             Icon.enabled = true; // 아이콘이 없으면 비활성화
-        }
+        //}
 
         // 수량 텍스트가 있을 때만 처리해야함. 없으면 무시
         if (CountText != null)
@@ -58,7 +65,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    // 장착 아이템 슬롯 초기화
+    // 장착판넬 전용 초기화: 수량 X
     public void SetupEquip(ItemData data, Action<ItemData> onClick)
     {
         Setup(data, 1, onClick); // 장착 아이템은 개수가 1개로 고정
@@ -82,11 +89,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         itemData = null;
         onClickAction = null;
 
-        if (Icon != null)
-        {
+        //if (Icon != null)
+        //{
             Icon.sprite = null;
             Icon.enabled = false;
-        }
+        //}
 
         if (CountText != null)
         {
