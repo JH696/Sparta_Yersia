@@ -83,6 +83,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         onClickAction(itemData);
     }
 
+    // 빈슬롯 클릭 시
+    public void OnClickEmptySlot(Action<ItemData> onclick)
+    {
+        onClickAction = onclick;
+    }
+
     // 아이템 슬롯 비우기
     public void Clear()
     {

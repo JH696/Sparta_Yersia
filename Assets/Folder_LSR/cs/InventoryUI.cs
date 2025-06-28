@@ -200,11 +200,18 @@ public class InventoryUI : MonoBehaviour
             slot.Setup(data, pair.Value, _ => ShowItemDetails(data, false));
         }
 
-        // 나머지 슬롯 비활성화
+        // 나머지 슬롯 비활성 및 클릭 시 상세패널 닫기
         for (int i = index; i < inventorySlots.Count; i++)
         {
-            inventorySlots[i].Clear();
+            var slot = inventorySlots[i];
+            slot.Clear();
+            slot.OnClickEmptySlot(_ => HideDetailPanel());
         }
+    }
+
+    private void HideDetailPanel()
+    {
+        detailPanel.SetActive(false);
     }
 
     // 아이템 상세 정보 표시
