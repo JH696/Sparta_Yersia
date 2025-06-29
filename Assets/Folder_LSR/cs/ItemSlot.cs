@@ -57,7 +57,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     // 인벤토리/장착판넬 공통 슬롯 초기화
     public void Setup(ItemData itemdata, int count, Action<ItemData> onClick)
     {
-        if (data == null)
+        if (itemdata == null)
         {
             Clear();
             return;
