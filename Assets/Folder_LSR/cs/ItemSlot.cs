@@ -64,11 +64,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         itemData = data;
         onClickAction = onClick;
 
-        //if (Icon != null)
-        //{
-            Icon.sprite = data.Icon;
-            Icon.enabled = true; // 아이콘이 없으면 비활성화
-        //}
+        Icon.sprite = data.Icon;
+        Icon.enabled = true;
 
         // 수량 텍스트가 있을 때만 처리해야함. 없으면 무시
         if (CountText != null)
@@ -108,11 +105,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         itemData = null;
         onClickAction = null;
 
-        //if (Icon != null)
-        //{
-            Icon.sprite = null;
-            Icon.enabled = false;
-        //}
+        Icon.sprite = null;
+        Icon.enabled = false;
 
         if (CountText != null)
         {
@@ -120,19 +114,15 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             CountText.gameObject.SetActive(false);
         }
 
-        // 클릭 강조 해제
-        if (bgImg != null)
-        {
-            bgImg.color = defaultBgColor; // 기본 배경색으로 초기화
-        }
+        SelectSlot(false);
     }
 
     // 클릭 강조
-    public void SelectSlot()
+    public void SelectSlot(bool on)
     {
         if (bgImg != null)
         {
-            bgImg.color = new Color(0, 0, 0, 0.6f);
+            bgImg.color = on ? InventoryUI.SelectedSlotColor : InventoryUI.NormalSlotColor;
         }
     }
 
