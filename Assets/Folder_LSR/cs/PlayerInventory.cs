@@ -31,7 +31,6 @@ public class PlayerInventory : MonoBehaviour
         }
 
         itemDic[data.ID] = currentCount + count; // 아이템 개수 증가
-        Debug.Log($"아이템 추가: {data.ItemName} - 현재 개수: {itemDic[data.ID]}");
         OnInventoryChanged?.Invoke(); // 인벤토리 변경 이벤트 호출
     }
 

@@ -13,7 +13,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     [Header("슬롯 배경")]
     [SerializeField] private Image bgImg;
 
-    private ItemData itemData;
+    private ItemData data;
+    public ItemData Data => data;
+
     private Action<ItemData> onClickAction;
     private Color defaultBgColor;
 
@@ -49,11 +51,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     // 슬롯 아이템 세팅 확인
     public bool HasData()
     {
-        return itemData != null;
+        return data != null;
     }
 
     // 인벤토리/장착판넬 공통 슬롯 초기화
-    public void Setup(ItemData data, int count, Action<ItemData> onClick)
+    public void Setup(ItemData itemdata, int count, Action<ItemData> onClick)
     {
         if (data == null)
         {
@@ -61,7 +63,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             return;
         }
 
-        itemData = data;
+        data = itemdata;
         onClickAction = onClick;
 
         Icon.sprite = data.Icon;
@@ -88,9 +90,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     // IPointerClickHandler 인터페이스 구현(클릭 이벤트 처리)
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (itemData == null || onClickAction == null) return;
+        if (data == null || onClickAction == null) return;
 
-        onClickAction(itemData);
+        onClickAction(data);
     }
 
     // 빈슬롯 클릭 시
@@ -102,7 +104,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     // 아이템 슬롯 비우기
     public void Clear()
     {
-        itemData = null;
+        data = null;
         onClickAction = null;
 
         Icon.sprite = null;
