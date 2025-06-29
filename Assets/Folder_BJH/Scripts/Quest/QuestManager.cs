@@ -7,10 +7,9 @@ public class QuestManager : MonoBehaviour
 
     [Header("수락 가능한 퀘스트 목록")]
     [SerializeField] private List<QuestData> AvailableQuests;
-    [Header("진행 중인 퀘스트 목록")]
-    [SerializeField] private List<QuestData> InProgressQuests; 
-    [Header("완료 가능한 퀘스트 목록")]
-    [SerializeField] public List<QuestData> ClearQuests; 
+
+    [Header("현재 스토리 진행 단계")]
+    [SerializeField] private int stortStage = 001;
 
     private void Awake()
     {
@@ -22,17 +21,17 @@ public class QuestManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        NextStoryQuestUnlock();
     }
 
+    // 퀘스트 획득
     public void GetQuest(QuestData questData)
     {
         if (questData == null || !AvailableQuests.Contains(questData)) return;
 
-
-        InProgressQuests.Add(questData);
         AvailableQuests.Remove(questData); 
-
-        Debug.Log($"퀘스트 시작: {questData.QuestName}");
+        TestPlayer.Instance.playerQuest.AddQuest(questData);
     }
 
     public List<QuestData> GetAvailableQuests()
@@ -40,17 +39,55 @@ public class QuestManager : MonoBehaviour
         return AvailableQuests;
     }
 
-    public List<QuestData> GetInProgressQuests()
+    // 퀘스트 완료 
+    public void QuestClear(QuestData questData)
     {
-        return InProgressQuests;
+        if (questData == null || !TestPlayer.Instance.playerQuest.MyQuest.ContainsKey(questData.QuestID)) return;
+
+        if (questData.QuestType == EQuestType.Story)
+        {
+            NextStoryQuestUnlock();
+        }
+        TestPlayer.Instance.playerQuest.RemoveQuest(questData);
+        GetRawards(questData);
+
+        Debug.Log($"퀘스트 완료: {questData.QuestName}");
     }
 
-    public void GetQuestReward(QuestData questData)
+    private void GetRawards(QuestData questData)
     {
-        if (questData == null) return;
+        Debug.Log($"퀘스트 보상 획득: 경험치: {questData.RewardExp}, YP: {questData.RewardYP}");
+    }
 
-        ClearQuests.Remove(questData);
-        Debug.Log($"퀘스트 완료: {questData.QuestName}");
+    // 지정한 퀘스트 해금
+    private void QuestUnlock(string id)
+    {
+        QuestData quest = Resources.Load<QuestData>($"QuestDatas/{id}");
+
+        if (quest == null)
+        {
+            Debug.LogError($"Quest Manager: 해당 퀘스트는 존재하지 않습니다.");
+            return;
+        }
+
+        AvailableQuests.Add(quest);
+    }
+
+
+    // 다음 스토리 퀘스트 해금
+    private void NextStoryQuestUnlock()
+    {
+        QuestData nextQuest = Resources.Load<QuestData>($"QuestDatas/Q_s{stortStage:D3}");
+        stortStage++;
+
+        if (nextQuest == null)
+        {
+            Debug.LogError($"Quest Manager: 다음 스토리 퀘스트가 존재하지 않습니다.");
+            return;
+        }
+
+        Debug.Log($"Quest Manager: 다음 스토리 퀘스트 해금: {nextQuest.QuestName}");  
+        AvailableQuests.Add(nextQuest);
     }
 }
 
