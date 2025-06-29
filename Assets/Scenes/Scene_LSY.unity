@@ -2627,6 +2627,8 @@ GameObject:
   - component: {fileID: 657901946}
   - component: {fileID: 657901945}
   - component: {fileID: 657901944}
+  - component: {fileID: 657901949}
+  - component: {fileID: 657901948}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2727,6 +2729,40 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &657901948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657901943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52177518302eeaf41a6739ab60cc9fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HpTxt: {fileID: 73096188}
+  MpTxt: {fileID: 291596241}
+  AttackTxt: {fileID: 1123956838}
+  DefenseTxt: {fileID: 498665226}
+  LuckTxt: {fileID: 1222443703}
+  SpeedTxt: {fileID: 1475071982}
+--- !u!114 &657901949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657901943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3104be7c3259ec4d81580171e2cf4bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statsUI: {fileID: 657901948}
+  player: {fileID: 748356925}
+  pet1: {fileID: 678470232}
+  pet2: {fileID: 0}
 --- !u!1 &678470230
 GameObject:
   m_ObjectHideFlags: 0
@@ -2745,7 +2781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &678470231
 Transform:
   m_ObjectHideFlags: 0
@@ -3019,6 +3055,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &748356925 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7716817959180475678, guid: 6ad04df97a33d1042bdae77f57d24df2, type: 3}
+  m_PrefabInstance: {fileID: 1011418188990871845}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da7c2b767d8745445b5f74da3f3897e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &753352354
 GameObject:
   m_ObjectHideFlags: 0
@@ -3866,7 +3913,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1053143490}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 657901949}
+        m_TargetAssemblyTypeName: StatUIController, Assembly-CSharp
+        m_MethodName: ShowPlayerStats
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1053143490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4608,7 +4667,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1262216724}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 657901949}
+        m_TargetAssemblyTypeName: StatUIController, Assembly-CSharp
+        m_MethodName: ShowPet2Stats
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1262216724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5566,7 +5637,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1538262072}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 657901949}
+        m_TargetAssemblyTypeName: StatUIController, Assembly-CSharp
+        m_MethodName: ShowPet1Stats
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1538262072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5977,7 +6060,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NpcData: {fileID: 11400000, guid: 68919cf3c57adfd469b873c180688558, type: 2}
-  RequestList: []
+  AssignQuests: []
+  ReceiveQuests: []
 --- !u!1 &1695509563
 GameObject:
   m_ObjectHideFlags: 0
@@ -7174,7 +7258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4656432427366347282, guid: 6ad04df97a33d1042bdae77f57d24df2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7716817959180475678, guid: 6ad04df97a33d1042bdae77f57d24df2, type: 3}
       propertyPath: npcLayerMask.m_Bits
