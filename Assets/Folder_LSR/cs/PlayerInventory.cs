@@ -28,8 +28,6 @@ public class PlayerInventory : MonoBehaviour
         {
             itemDic[data.ID] = count; // 새로운 아이템이면 추가
         }
-
-        Debug.Log($"아이템 추가: {data.ItemName}, 개수: {count}");
         OnInventoryChanged?.Invoke(); // 인벤토리 변경 이벤트 호출
     }
 

@@ -94,9 +94,6 @@ public class InventoryUI : MonoBehaviour
         actionBtn.onClick.AddListener(OnActionClicked);
         cancelBtn.onClick.AddListener(OnCancelClicked);
 
-        // 카테고리 색상
-        ChangeCategory(currentCategory);
-
         // 슬롯 생성
         for (int i = 0; i < slotCount; i++)
         {
@@ -126,6 +123,10 @@ public class InventoryUI : MonoBehaviour
 
         inventory.OnInventoryChanged += RefreshAndShow;
         RefreshAndShow();
+
+        // 카테고리
+        ChangeCategory(currentCategory);
+        ChangeCategory(EItemCategory.Equipment); // 초기 카테고리 설정
     }
 
 
@@ -208,11 +209,11 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    // 아이템 상세 정보 표시
     private void ShowItemDetails(ItemData data, bool isEquipSlot)
     {
         selectedData = data;
         detailPanel.SetActive(true);
-        closeBtn.gameObject.SetActive(false);
 
         itemNameText.text = data.ItemName;
 
@@ -238,12 +239,11 @@ public class InventoryUI : MonoBehaviour
         }
         else
         {
-            actionBtn.gameObject.SetActive(false);
             cancelBtn.GetComponentInChildren<TextMeshProUGUI>().text = "해제하기";
         }   
     }
 
-    // 장착 버튼 클릭 시
+    // 장착/사용 버튼 클릭 시
     private void OnActionClicked()
     {
         if (selectedData == null) return;
@@ -274,13 +274,13 @@ public class InventoryUI : MonoBehaviour
         closeBtn.gameObject.SetActive(true);
     }
 
-    // 버리기 버튼 클릭 시
+    // 해제하기/버리기 버튼 클릭 시
     private void OnCancelClicked()
     {
         if (selectedData == null) return;
 
         bool isCurEquip = equipSlots[selectedData.EquipType].HasData();
-        if (isCurEquip && inventory.GetCount(selectedData) == 0)
+        if (isCurEquip)
         {
             // 장착 해제
             var slot = equipSlots[selectedData.EquipType];
