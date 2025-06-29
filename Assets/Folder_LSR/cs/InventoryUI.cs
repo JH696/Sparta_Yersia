@@ -50,6 +50,8 @@ public class InventoryUI : MonoBehaviour
     private Dictionary<EEquipType, ItemSlot> equipSlots = new();
     private EItemCategory currentCategory = EItemCategory.Equipment;
 
+    private ItemSlot selectSlot;
+
     private void Awake()
     {
         // PlayerInventory 컴포넌트
@@ -110,8 +112,12 @@ public class InventoryUI : MonoBehaviour
         for (int i = 0; i < children.Length; i++)
         {
             var type = (EEquipType)i;
+            var slot = children[i];
+
             equipSlots[type] = children[i];
-            children[i].Clear();
+            slot.Clear();
+            slot.OnClickEmptySlot(_ => ShowItemDetails(selectedData, true, slot));
+
         }
 
         // 팝업, 상세 패널 초기화
@@ -197,7 +203,7 @@ public class InventoryUI : MonoBehaviour
 
             var slot = inventorySlots[index++];
             slot.Clear();
-            slot.Setup(data, pair.Value, _ => ShowItemDetails(data, false));
+            slot.Setup(data, pair.Value, _ => ShowItemDetails(data, false, slot));
         }
 
         // 나머지 슬롯 비활성 및 클릭 시 상세패널 닫기
@@ -205,7 +211,12 @@ public class InventoryUI : MonoBehaviour
         {
             var slot = inventorySlots[i];
             slot.Clear();
-            slot.OnClickEmptySlot(_ => HideDetailPanel());
+            slot.OnClickEmptySlot(_ =>
+            {
+                selectSlot?.UnSelectSlot();
+                selectSlot = null;
+                HideDetailPanel();
+            });
         }
     }
 
@@ -215,8 +226,12 @@ public class InventoryUI : MonoBehaviour
     }
 
     // 아이템 상세 정보 표시
-    private void ShowItemDetails(ItemData data, bool isEquipSlot)
+    private void ShowItemDetails(ItemData data, bool isEquipSlot, ItemSlot clickedSlot)
     {
+        selectSlot?.UnSelectSlot(); // 이전 선택 슬롯 해제
+        selectSlot = clickedSlot; // 현재 선택 슬롯 저장
+        clickedSlot.SelectSlot(); // 현재 슬롯 선택 상태로 변경
+
         selectedData = data;
         selectedIsEquipSlot = isEquipSlot;
         detailPanel.SetActive(true);
@@ -275,7 +290,7 @@ public class InventoryUI : MonoBehaviour
                 // 장착
                 var eqSlot = equipSlots[selectedData.EquipType];
                 eqSlot.Clear();
-                eqSlot.SetupEquip(selectedData, _ => ShowItemDetails(selectedData, true));
+                eqSlot.SetupEquip(selectedData, _ => ShowItemDetails(selectedData, true, eqSlot));
                 inventory.RemoveItem(selectedData, 1);
                 // TODO: 플레이어 캐릭터에 Equip(selectedData); 호출
                 break;
@@ -296,7 +311,7 @@ public class InventoryUI : MonoBehaviour
 
         RefreshUI();
         detailPanel.SetActive(false);
-        closeBtn.gameObject.SetActive(true);
+        selectSlot = null;
     }
 
     // 해제하기/버리기 버튼 클릭 시
@@ -320,7 +335,7 @@ public class InventoryUI : MonoBehaviour
 
         RefreshUI();
         detailPanel.SetActive(false);
-        closeBtn.gameObject.SetActive(true);
+        selectSlot = null;
     }
 
     // 슬롯 개수 초과시 팝업 표시

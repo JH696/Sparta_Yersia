@@ -10,9 +10,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image Icon;
     [Header("아이템 수량")]
     [SerializeField] private TextMeshProUGUI CountText;
+    [Header("슬롯 배경")]
+    [SerializeField] private Image bgImg;
 
     private ItemData itemData;
     private Action<ItemData> onClickAction;
+    private Color defaultBgColor;
 
     private void Awake()
     {
@@ -30,6 +33,16 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if (CountText == null)
         {
             CountText = GetComponentInChildren<TextMeshProUGUI>(true);
+        }
+
+        // 배경 이미지가 없으면 기본 색상 저장
+        if (bgImg == null)
+        {
+            bgImg = GetComponent<Image>();
+        }
+        else
+        {
+            defaultBgColor = bgImg.color;
         }
     }
 
@@ -105,6 +118,30 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             CountText.text = string.Empty;
             CountText.gameObject.SetActive(false);
+        }
+
+        // 클릭 강조 해제
+        if (bgImg != null)
+        {
+            bgImg.color = defaultBgColor; // 기본 배경색으로 초기화
+        }
+    }
+
+    // 클릭 강조
+    public void SelectSlot()
+    {
+        if (bgImg != null)
+        {
+            bgImg.color = new Color(0, 0, 0, 0.6f);
+        }
+    }
+
+    // 클릭 강조 해제
+    public void UnSelectSlot()
+    {
+        if (bgImg != null)
+        {
+            bgImg.color = defaultBgColor; // 기본 배경색으로 초기화
         }
     }
 }
