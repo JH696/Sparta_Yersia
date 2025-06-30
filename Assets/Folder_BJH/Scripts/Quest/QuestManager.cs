@@ -5,11 +5,15 @@ public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance;
 
-    [Header("수락 가능한 퀘스트 목록")]
-    [SerializeField] private List<QuestData> AvailableQuests;
+    [Header("퀘스트 UI")]
+    [SerializeField] private QuestUI questUI;
 
     [Header("현재 스토리 진행 단계")]
     [SerializeField] private int stortStage = 001;
+
+    [Header("수락 가능한 퀘스트 목록")]
+    [SerializeField] private List<QuestData> AvailableQuests;
+
 
     private void Awake()
     {
@@ -30,8 +34,9 @@ public class QuestManager : MonoBehaviour
     {
         if (questData == null || !AvailableQuests.Contains(questData)) return;
 
-        AvailableQuests.Remove(questData); 
+        AvailableQuests.Remove(questData);
         TestPlayer.Instance.playerQuest.AddQuest(questData);
+        questUI.RefreshQuestUI();
     }
 
     public List<QuestData> GetAvailableQuests()
@@ -50,6 +55,7 @@ public class QuestManager : MonoBehaviour
         }
         TestPlayer.Instance.playerQuest.RemoveQuest(questData);
         GetRawards(questData);
+        questUI.RefreshQuestUI();
 
         Debug.Log($"퀘스트 완료: {questData.QuestName}");
     }
