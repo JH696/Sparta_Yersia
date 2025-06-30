@@ -4,10 +4,10 @@ using UnityEngine;
 
 public enum EItemCategory
 {
-    All,
     Equipment,
     Consumable,
     Quest,
+    All,
 }
 
 public enum EEquipType
