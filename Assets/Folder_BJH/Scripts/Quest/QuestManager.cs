@@ -6,7 +6,7 @@ public class QuestManager : MonoBehaviour
     public static QuestManager Instance;
 
     [Header("퀘스트 UI")]
-    [SerializeField] private QuestUI questUI;
+    [SerializeField] public QuestUI questUI;
 
     [Header("현재 스토리 진행 단계")]
     [SerializeField] private int stortStage = 001;
@@ -44,15 +44,26 @@ public class QuestManager : MonoBehaviour
         return AvailableQuests;
     }
 
+    public void CostConditionItem(QuestData questData)
+    {
+        foreach (var item in questData.TargetItem)
+        {
+            ItemData targetItem = TestPlayer.Instance.playerQuest.FindItemByID(item.ItemID);
+
+            TestPlayer.Instance.playerQuest.RemoveQuestItem(targetItem, item.ItemCount);
+        }
+    }
+
     // 퀘스트 완료 
     public void QuestClear(QuestData questData)
     {
-        if (questData == null || !TestPlayer.Instance.playerQuest.MyQuest.ContainsKey(questData.QuestID)) return;
+        if (questData == null) return;
 
         if (questData.QuestType == EQuestType.Story)
         {
             NextStoryQuestUnlock();
         }
+
         TestPlayer.Instance.playerQuest.RemoveQuest(questData);
         GetRawards(questData);
         questUI.RefreshQuestUI();
@@ -62,10 +73,16 @@ public class QuestManager : MonoBehaviour
 
     private void GetRawards(QuestData questData)
     {
+        foreach (ItemData item in questData.RewardItems)
+        {
+            Debug.Log($"퀘스트 보상 아이템 획득: {item.ItemName}");
+            TestPlayer.Instance.playerQuest.AddQuestItem(item);;
+        }
+
         Debug.Log($"퀘스트 보상 획득: 경험치: {questData.RewardExp}, YP: {questData.RewardYP}");
     }
 
-    // 지정한 퀘스트 해금
+    // 단일 퀘스트 해금
     private void QuestUnlock(string id)
     {
         QuestData quest = Resources.Load<QuestData>($"QuestDatas/{id}");
@@ -78,7 +95,6 @@ public class QuestManager : MonoBehaviour
 
         AvailableQuests.Add(quest);
     }
-
 
     // 다음 스토리 퀘스트 해금
     private void NextStoryQuestUnlock()

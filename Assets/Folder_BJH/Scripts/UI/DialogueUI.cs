@@ -23,6 +23,7 @@ public class DialogueUI : MonoBehaviour
 
     [Header("타이핑 속도")]
     [SerializeField] private float typingSpeed = 0.05f;
+    [SerializeField] private float leaveDelay = 1f;
 
     private int curLineIndex;
     private Coroutine typingCoroutine;
@@ -117,7 +118,7 @@ public class DialogueUI : MonoBehaviour
         passBtn.SetActive(false);
         choiceBtns.gameObject.SetActive(false);
         choiceBtns.RemoveChoiceButton();
-        Invoke("ResetDialogueData", 2f);
+        Invoke("ResetDialogueData", leaveDelay);
     }
 
     public DialogueData GetDialogueData(string id)
@@ -163,6 +164,7 @@ public class DialogueUI : MonoBehaviour
     // 선택지 버튼 생성
     private void DisplayeChoices()
     {
+        TestPlayer.Instance.playerQuest.QuestUpdate();
         choiceBtns.RemoveChoiceButton();
         choiceBtns.gameObject.SetActive(true);
         passBtn.SetActive(false);   
@@ -172,8 +174,11 @@ public class DialogueUI : MonoBehaviour
             QuestStatus status = questPair.Value;
             QuestData data = status.questData;
 
-            if (data.ReceiverID == curNpc.NpcData.NpcID || status.isCleared)
+            if (data.ReceiverID == curNpc.NpcData.NpcID)
             {
+                Debug.Log("status.isCleared" + status.isCleared);
+                Debug.Log("data.ConditionType" + data.ConditionType);
+
                 if (status.isCleared || data.ConditionType == EConditionType.Investigation)
                 {
                     choiceBtns.SpawnClearBtn(data);

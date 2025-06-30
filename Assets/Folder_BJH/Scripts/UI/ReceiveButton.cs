@@ -33,7 +33,7 @@ public class ReceiveButton : MonoBehaviour
     public void OnReceiveButton()
     {
         Debug.Log($"퀘스트 미완료: {curQuestData.QuestName}"); 
-        DialogueManager.Instance.ChangeCurDialogue(curQuestData.QuestID + "P");
+        DialogueManager.Instance.ChangeCurDialogue(curQuestData.QuestID + "F");
         DialogueManager.Instance.DialogueUI.PassTyping();
     }
 }
