@@ -6,16 +6,16 @@ using UnityEngine.UI;
 public class DialogueUI : MonoBehaviour
 {
     [Header("다이얼로그 텍스트")]
-    [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private TextMeshProUGUI dialogueTxt;
 
     [Header("다이얼로그 이미지")]
     [SerializeField] private Image npcImage;
 
     [Header("다음 대사 버튼")]
-    [SerializeField] private GameObject passButton;
+    [SerializeField] private GameObject passBtn;
 
     [Header("선택지 버튼")]
-    [SerializeField] private ChoiceButtons choiceButtons;
+    [SerializeField] private ChoiceButtons choiceBtns;
 
     [Header("json 헬퍼")]
     [SerializeField] private JsonHelper helper;
@@ -28,7 +28,7 @@ public class DialogueUI : MonoBehaviour
     [Header("타이핑 속도")]
     [SerializeField] private float typingSpeed = 0.05f;
 
-    private int currentLineIndex;
+    private int curLineIndex;
     private Coroutine typingCoroutine;
 
 
@@ -56,7 +56,7 @@ public class DialogueUI : MonoBehaviour
         }
 
         this.gameObject.SetActive(true);
-        passButton.SetActive(true);
+        passBtn.SetActive(true);
         ChooseDialogue("Start");
         PassTyping();
     }
@@ -64,24 +64,24 @@ public class DialogueUI : MonoBehaviour
     // [공용]: 대화 분기 선택 (Start, End, QuestID 등)   
     public void ChooseDialogue(string id)
     {
-        currentLineIndex = 0;
-        passButton.SetActive(true);
+        curLineIndex = 0;
+        passBtn.SetActive(true);
         curDialogueData = LoadJsonByID(id);
     }
 
     // [공용, 버튼] : 대사 출력
     public void PassTyping()
     {
-        if (currentLineIndex < curDialogueData.Lines.Count)
+        if (curLineIndex < curDialogueData.Lines.Count)
         {
             if (typingCoroutine != null)
             {
                 StopCoroutine(typingCoroutine);
             }
 
-            string line = curDialogueData.Lines[currentLineIndex];
+            string line = curDialogueData.Lines[curLineIndex];
             typingCoroutine = StartCoroutine(TypeLine(line));
-            currentLineIndex++;
+            curLineIndex++;
         }
         else
         {
@@ -95,8 +95,9 @@ public class DialogueUI : MonoBehaviour
         ChooseDialogue("End");
         PassTyping();
 
-        passButton.SetActive(false);
-        choiceButtons.gameObject.SetActive(false);
+        passBtn.SetActive(false);
+        choiceBtns.gameObject.SetActive(false);
+        choiceBtns.RemoveChoiceButton();
         Invoke("ResetDialogueData", 2f);
     }
 
@@ -109,8 +110,8 @@ public class DialogueUI : MonoBehaviour
         allDialogues = null;
         curDialogueData = null;
         npcImage.sprite = null;
-        currentLineIndex = 0;
-        dialogueText.text = string.Empty;
+        curLineIndex = 0;
+        dialogueTxt.text = string.Empty;
 
         this.gameObject.SetActive(false);
     }
@@ -131,10 +132,10 @@ public class DialogueUI : MonoBehaviour
     // [내부] : 대사 타이핑 코루틴
     private IEnumerator TypeLine(string line)
     {
-        dialogueText.text = "";
+        dialogueTxt.text = "";
         foreach (char c in line)
         {
-            dialogueText.text += c;
+            dialogueTxt.text += c;
             yield return new WaitForSeconds(typingSpeed);
         }
         typingCoroutine = null;
@@ -143,16 +144,25 @@ public class DialogueUI : MonoBehaviour
     // [내부] : 선택지 버튼 생성
     private void DisplayeChoices()
     {
-        passButton.SetActive(false);
-        choiceButtons.gameObject.SetActive(true);
+        passBtn.SetActive(false);
+        choiceBtns.gameObject.SetActive(true);
 
-        if (curNpc.RequestList.Count <= 0) return;
-
-        for (int i = 0; i < curNpc.RequestList.Count; i++)
+        if (curNpc.AssignQuests.Count > 0)
         {
-            choiceButtons.CreateQuestButton(curNpc.RequestList[i]);
+            for (int i = 0; i < curNpc.AssignQuests.Count; i++)
+            {
+                choiceBtns.SpawnAssignBtn(curNpc.AssignQuests[i]);
+            }
         }
 
-        passButton.SetActive(false);   
+        if (curNpc.ReceiveQuests.Count > 0)
+        {
+            for (int i = 0; i < curNpc.ReceiveQuests.Count; i++)
+            {
+                choiceBtns.SpawnReceiveBtn(curNpc.ReceiveQuests[i]);
+            }
+        }
+
+        if (curNpc.ReceiveQuests.Count <= 0 || curNpc.AssignQuests.Count <= 0) return;
     }
 }

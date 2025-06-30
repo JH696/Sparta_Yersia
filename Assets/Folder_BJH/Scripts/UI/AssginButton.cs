@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuestButton : MonoBehaviour
+public class AssginButton : MonoBehaviour
 {
     [Header("퀘스트 버튼 텍스트")]
     [SerializeField] private TextMeshProUGUI buttonText;
@@ -37,8 +37,8 @@ public class QuestButton : MonoBehaviour
         GetComponentInParent<ChoiceButtons>().RemoveChoiceButton();
         GetComponentInParent<ChoiceButtons>().gameObject.SetActive(false);
 
-        DialogueManager.Instance.DialogueUI.curNpc.RequestList.Remove(curQuestData);
-        DialogueManager.Instance.DialogueUI.ChooseDialogue(curQuestData.QuestID);
+        DialogueManager.Instance.DialogueUI.curNpc.AssignQuests.Remove(curQuestData);
+        DialogueManager.Instance.DialogueUI.ChooseDialogue(curQuestData.QuestID + "S");
         DialogueManager.Instance.DialogueUI.PassTyping();
     }
 }
