@@ -32,4 +32,7 @@ public abstract class BaseCharacter : MonoBehaviour
     {
         Stat.SetCurrentHp(Stat.CurrentHp + amount);
     }
+
+    // 프로필 이미지
+    public virtual Sprite ProfileIcon => null;
 }
