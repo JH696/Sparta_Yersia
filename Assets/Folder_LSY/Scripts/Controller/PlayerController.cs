@@ -14,7 +14,12 @@ public class PlayerController : BaseCharacter, ILevelable
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
     [SerializeField, Tooltip("상호작용 대상이 될 NPC의 레이어 마스크")] private LayerMask npcLayerMask;
 
-    //레벨, 경험치
+    [Header("기본 프로필 아이콘")]
+    [SerializeField] private Sprite defaultProfileIcon;
+
+    public override Sprite ProfileIcon => defaultProfileIcon;
+
+    // 레벨, 경험치
     public int Level { get; private set; } = 1;
     public int CurrentExp { get; private set; } = 0;
     public int ExpToNextLevel => 100 * Level;
@@ -134,7 +139,10 @@ public class PlayerController : BaseCharacter, ILevelable
         Collider2D npcColider = Physics2D.OverlapCircle(transform.position, interactRange, npcLayerMask);
         if (npcColider == null) return;
 
-        npcColider.GetComponent<NPCController>().Interact();
+        NPCController npc = npcColider.GetComponent<NPCController>();
+        if (npc == null) return;
+
+        npc.Interact();
     }
 
     public void StartDialogue()
