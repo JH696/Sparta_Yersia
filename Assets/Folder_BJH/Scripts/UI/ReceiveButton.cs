@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Linq;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,11 +12,11 @@ public class ReceiveButton : MonoBehaviour
 
     public void Start()
     {
-        GetComponent<Button>().onClick.AddListener(ReceiveQuest);
+        GetComponent<Button>().onClick.AddListener(OnReceiveButton);
     }
 
-    // [외부] : 퀘스트 버튼 세팅
-    public void SetChoiceButton(QuestData questData)
+    // 버튼 세팅
+    public void SetButton(QuestData questData)
     {
         if (questData == null)
         {
@@ -31,47 +29,11 @@ public class ReceiveButton : MonoBehaviour
         buttonText.text = questData.QuestName;
     }
 
-    // [버튼] : 퀘스트 수락 및 대사 출력
-    public void ReceiveQuest()
+    // 퀘스트 완료 및 대사 출력
+    public void OnReceiveButton()
     {
-        switch (curQuestData.ConditionType)
-        {
-            case EConditionType.Investigation:
-                QuestCleared();
-            break;
-
-            case EConditionType.Collection:
-                if (QuestManager.Instance.ClearQuests.Contains(curQuestData))
-                {
-                    QuestCleared();
-                }
-                else
-                {
-                    Debug.Log($"퀘스트를 완료할 수 없습니다. {curQuestData.QuestName} 퀘스트가 완료되지 않았습니다.");
-                }
-                break;
-
-            case EConditionType.Elimination:
-                if (QuestManager.Instance.ClearQuests.Contains(curQuestData))
-                {
-                    QuestCleared();
-                }
-                else
-                {
-                    Debug.Log($"퀘스트를 완료할 수 없습니다. {curQuestData.QuestName} 퀘스트가 완료되지 않았습니다.");
-                }
-
-                break;
-        }
-    }
-
-    private void QuestCleared()
-    {
-        QuestManager.Instance.GetQuestReward(curQuestData);
-        GetComponentInParent<ChoiceButtons>().RemoveChoiceButton();
-        GetComponentInParent<ChoiceButtons>().gameObject.SetActive(false);
-        DialogueManager.Instance.DialogueUI.curNpc.ReceiveQuests.Remove(curQuestData);
-        DialogueManager.Instance.DialogueUI.ChooseDialogue(curQuestData.QuestID + "E");
+        Debug.Log($"퀘스트 미완료: {curQuestData.QuestName}"); 
+        DialogueManager.Instance.ChangeCurDialogue(curQuestData.QuestID + "F");
         DialogueManager.Instance.DialogueUI.PassTyping();
     }
 }

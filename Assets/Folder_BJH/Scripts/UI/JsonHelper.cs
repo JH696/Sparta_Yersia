@@ -18,7 +18,7 @@ public class Wrapper<T>
 
 public class JsonHelper : MonoBehaviour
 {
-    // [외부] : 지정된 경로에서 JSON 파일을 로드하고 DialogueData 배열로 변환
+    // 지정된 경로에서 JSON 파일을 로드하고 DialogueData 배열로 변환
     public DialogueData[] LoadJsonFromPath(string path)
     {
         TextAsset jsonText = Resources.Load<TextAsset>(path);
@@ -32,7 +32,7 @@ public class JsonHelper : MonoBehaviour
         return WrapingJson<DialogueData>(jsonText.text);
     }
 
-    // [내부] : JSON 문자열을 T 타입의 배열로 변환
+    // JSON 문자열을 T 타입의 배열로 변환
     private T[] WrapingJson<T>(string json)
     {
         string newJson = "{\"array\":" + json + "}";
