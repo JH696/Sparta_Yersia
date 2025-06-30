@@ -326,10 +326,10 @@ public class InventoryUI : MonoBehaviour
                 var eqSlot = equipSlots[selectedData.EquipType];
                 if (eqSlot.HasData())
                 {
-                    var now = eqSlot.Data;
+                    var nowEquip = eqSlot.Data;
                     eqSlot.Clear();
-                    inventory.AddItem(now, 1);
-                    player?.Unequip(now);
+                    inventory.AddItem(nowEquip, 1);
+                    player?.Unequip(nowEquip);
                 }
 
                 // 새아이템 장착
