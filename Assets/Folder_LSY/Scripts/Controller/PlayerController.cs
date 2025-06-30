@@ -2,6 +2,7 @@
 
 public class PlayerController : BaseCharacter, ILevelable
 {
+    [Header("이동 관련")]
     [SerializeField] private float moveSpeed = 5f;
 
     private Vector3 targetPos;
@@ -13,10 +14,31 @@ public class PlayerController : BaseCharacter, ILevelable
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
     [SerializeField, Tooltip("상호작용 대상이 될 NPC의 레이어 마스크")] private LayerMask npcLayerMask;
 
+    //레벨, 경험치
     public int Level { get; private set; } = 1;
     public int CurrentExp { get; private set; } = 0;
     public int ExpToNextLevel => 100 * Level;
 
+    [Header("YP(화폐)")]
+    [SerializeField] private int yp = 0;
+    public int YP => yp;
+
+    // YP(돈) 획득 메서드
+    public void AddYP(int amount)
+    {
+        yp += Mathf.Max(0, amount);
+    }
+
+    // YP(돈) 소비 메서드
+    public bool SpendYP(int amount)
+    {
+        if (yp >= amount)
+        {
+            yp -= amount;
+            return true;
+        }
+        return false;
+    }
 
     private void Start()
     {
@@ -52,7 +74,17 @@ public class PlayerController : BaseCharacter, ILevelable
             Debug.Log($"플레이어 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana}/{MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
         }
 
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            AddYP(100);
+        }
+
         HandleInteractionInput();
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            SpendYP(50);
+        }
     }
 
     private void HandleInput()

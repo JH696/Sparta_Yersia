@@ -11,6 +11,8 @@ public class StatsUI : MonoBehaviour
     [SerializeField] private TMP_Text LuckTxt;
     [SerializeField] private TMP_Text SpeedTxt;
 
+    [SerializeField] private TMP_Text YPTxt;
+
     private BaseCharacter currentCharacter;
 
     public void SetTarget(BaseCharacter character)
@@ -30,5 +32,12 @@ public class StatsUI : MonoBehaviour
         DefenseTxt.text = $"{Mathf.RoundToInt(currentCharacter.Defense)}";
         LuckTxt.text = $"{Mathf.RoundToInt(currentCharacter.Luck)}";
         SpeedTxt.text = $"{Mathf.RoundToInt(currentCharacter.Speed)}";
+
+        // 플레이어일 때만 YP 표시
+        if (currentCharacter is PlayerController player)
+        {
+            if (YPTxt == null) return;
+            YPTxt.text = $"YP : {player.YP}";
+        }
     }
 }
