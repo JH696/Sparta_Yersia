@@ -2,9 +2,6 @@
 
 public abstract class BaseCharacter : MonoBehaviour
 {
-    [Header("캐릭터 기본 스탯 데이터")]
-    [SerializeField] private CharacterStatData statData;
-
     [SerializeField] protected CharacterStats Stat = new CharacterStats();
 
     public float MaxHp => Stat.MaxHp;
@@ -16,7 +13,7 @@ public abstract class BaseCharacter : MonoBehaviour
     public float Luck => Stat.Luck;
     public float Speed => Stat.Speed;
 
-    protected virtual void Awake()
+    public virtual void InitStat(CharacterStatData statData)
     {
         if (statData == null) return;
         Stat.InitFromData(statData);
@@ -25,14 +22,13 @@ public abstract class BaseCharacter : MonoBehaviour
     public virtual void TakeDamage(float amount)
     {
         float finalDamage = Mathf.Max(1f, amount - Defense);
-        Stat.SetCurrentHp(Stat.CurrentHp - finalDamage);
+        Stat.SetCurrentHp(CurrentHp - finalDamage);
     }
 
     public virtual void Heal(float amount)
     {
-        Stat.SetCurrentHp(Stat.CurrentHp + amount);
+        Stat.SetCurrentHp(CurrentHp + amount);
     }
 
-    // 프로필 이미지
     public virtual Sprite ProfileIcon => null;
 }
