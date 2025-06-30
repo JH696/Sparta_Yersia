@@ -6,6 +6,8 @@ public class PlayerInventory : MonoBehaviour
 {
     // 인벤토리 변경 이벤트
     public event Action OnInventoryChanged;
+    // 아이템 추가 실패 이벤트 - 스택초과
+    public event Action<string> OnAddFail;
 
     // <키: ItemData.ID, 값: 아이템 개수>
     private readonly Dictionary<string, int> itemDic = new Dictionary<string, int>();
@@ -20,14 +22,15 @@ public class PlayerInventory : MonoBehaviour
     {
         if (data == null) return;
 
-        if (itemDic.ContainsKey(data.ID))
+        itemDic.TryGetValue(data.ID, out int currentCount);
+
+        if (currentCount + count > data.MaxStack)
         {
-            itemDic[data.ID] += count; // 이미 있는 아이템이면 개수 증가
+            OnAddFail?.Invoke($"{data.ItemName}은(는) 최대 {data.MaxStack}개까지 보유할 수 있습니다.");
+            return;
         }
-        else
-        {
-            itemDic[data.ID] = count; // 새로운 아이템이면 추가
-        }
+
+        itemDic[data.ID] = currentCount + count; // 아이템 개수 증가
         OnInventoryChanged?.Invoke(); // 인벤토리 변경 이벤트 호출
     }
 
@@ -35,6 +38,7 @@ public class PlayerInventory : MonoBehaviour
     public bool RemoveItem(ItemData data, int count = 1)
     {
         if (data == null) return false;
+        if (!itemDic.ContainsKey(data.ID)) return false; // 아이템이 없으면 제거 실패
 
         itemDic[data.ID] -= count; // 아이템 개수 감소
 
