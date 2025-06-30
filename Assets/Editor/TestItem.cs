@@ -50,21 +50,15 @@ public class TestItem : EditorWindow
             return;
         }
 
-        // 드롭다운 목록
-        var names = _items.Select(x => x.ItemName).ToArray();
-        _selectedIndex = EditorGUILayout.Popup("테스트 아이템", _selectedIndex, names);
-        var selectedItem = _items[_selectedIndex];
-
-        EditorGUILayout.LabelField("ID:", selectedItem.ID);
-
         EditorGUILayout.Space();
-
-        EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Add Item"))
+        if (GUILayout.Button("Add All Items"))
         {
-            _inventory.AddItem(selectedItem, 1);
+            foreach (var item in _items)
+            {
+                _inventory.AddItem(item, 1);
+            }
+            Debug.Log($"[TestItem] {_items.Length}개 아이템을 인벤토리에 추가했습니다.");
         }
-        EditorGUILayout.EndHorizontal();
     }
 }
 #endif

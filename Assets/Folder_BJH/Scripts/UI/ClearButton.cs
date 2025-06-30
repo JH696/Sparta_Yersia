@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AssginButton : MonoBehaviour
+public class ClearButton : MonoBehaviour
 {
     [Header("퀘스트 버튼 텍스트")]
     [SerializeField] private TextMeshProUGUI buttonText;
@@ -12,7 +12,7 @@ public class AssginButton : MonoBehaviour
 
     public void Start()
     {
-        GetComponent<Button>().onClick.AddListener(AcceptQuest);
+        GetComponent<Button>().onClick.AddListener(OnClearButton);
     }
 
     // 버튼 세팅
@@ -30,13 +30,14 @@ public class AssginButton : MonoBehaviour
     }
 
     // 퀘스트 수락 및 대사 출력
-    public void AcceptQuest()
+    public void OnClearButton()
     {
         GetComponentInParent<ChoiceButtons>().RemoveChoiceButton();
         GetComponentInParent<ChoiceButtons>().gameObject.SetActive(false);
 
-        QuestManager.Instance.GetQuest(curQuestData);
-        DialogueManager.Instance.ChangeCurDialogue(curQuestData.QuestID + "S");
+        QuestManager.Instance.QuestClear(curQuestData);
+        QuestManager.Instance.CostConditionItem(curQuestData);
+        DialogueManager.Instance.ChangeCurDialogue(curQuestData.QuestID + "E");
         DialogueManager.Instance.DialogueUI.PassTyping();
     }
 }

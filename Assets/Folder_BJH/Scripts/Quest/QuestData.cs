@@ -36,8 +36,8 @@ public class QuestData : ScriptableObject
 {
     [Header("퀘스트 완료 조건")]
     public EConditionType ConditionType;
-    public List<CollectionCondition> ItemTarget = new List<CollectionCondition>();
-    public List<EliminationCondition> MonsterTarget = new List<EliminationCondition>();
+    public List<CollectionCondition> TargetItem = new List<CollectionCondition>();
+    public List<EliminationCondition> TargetEnemy = new List<EliminationCondition>();
 
     [Header("퀘스트 유형")]
     public EQuestType QuestType;
@@ -88,10 +88,10 @@ public class QuestDataEditor : Editor
         switch (questType)
         {
             case EConditionType.Collection:
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("ItemTarget"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("TargetItem"));
                 break;
             case EConditionType.Elimination:
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("MonsterTarget"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("TargetEnemy"));
                 break;
         }
 

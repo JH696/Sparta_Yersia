@@ -7,6 +7,7 @@ public enum EItemCategory
     Equipment,
     Consumable,
     Quest,
+    All,
 }
 
 public enum EEquipType

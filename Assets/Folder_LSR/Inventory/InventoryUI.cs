@@ -20,6 +20,7 @@ public class InventoryUI : MonoBehaviour
     [Header("버튼들")]
     [SerializeField] private Button openBtn;
     [SerializeField] private Button closeBtn;
+    [SerializeField] private Button categoryAll;
     [SerializeField] private Button categoryEquip;
     [SerializeField] private Button categoryConsum;
     [SerializeField] private Button categoryQuest;
@@ -55,7 +56,7 @@ public class InventoryUI : MonoBehaviour
 
     private List<ItemSlot> slots = new List<ItemSlot>();
     private Dictionary<EEquipType, ItemSlot> equipSlots = new Dictionary<EEquipType, ItemSlot>();
-    private EItemCategory currentCategory = EItemCategory.Equipment;
+    private EItemCategory currentCategory = EItemCategory.All;
 
     private ItemSlot currentSlot;
     private Test_PlayerCharacter player;
@@ -98,6 +99,7 @@ public class InventoryUI : MonoBehaviour
         NormalSlotColor = slotNormalColor;
 
         // 버튼 이벤트
+        categoryAll.onClick.AddListener(() => ChangeCategory(EItemCategory.All));
         openBtn.onClick.AddListener(Show);
         closeBtn.onClick.AddListener(Hide);
         categoryEquip.onClick.AddListener(() => ChangeCategory(EItemCategory.Equipment));
@@ -204,6 +206,7 @@ public class InventoryUI : MonoBehaviour
 
     private void UpdateCategoryBtnColors()
     {
+        categoryAll.GetComponent<Image>().color = (currentCategory == EItemCategory.All) ? CategorySelectedColor : CategoryNormalColor;
         categoryEquip.GetComponent<Image>().color = (currentCategory == EItemCategory.Equipment) ? CategorySelectedColor : CategoryNormalColor;
         categoryConsum.GetComponent<Image>().color = (currentCategory == EItemCategory.Consumable) ? CategorySelectedColor : CategoryNormalColor;
         categoryQuest.GetComponent<Image>().color = (currentCategory == EItemCategory.Quest) ? CategorySelectedColor : CategoryNormalColor;
@@ -219,7 +222,7 @@ public class InventoryUI : MonoBehaviour
         {
             // DB에서 ItemData 찾기
             var data = Array.Find(itemDB, so => so.ID == pair.Key);
-            if (data == null || data.Category != currentCategory) continue;
+            if (data == null || data.Category != currentCategory && currentCategory != EItemCategory.All) continue;
 
             // 팝업 표시
             if (index >= slots.Count)
@@ -323,10 +326,10 @@ public class InventoryUI : MonoBehaviour
                 var eqSlot = equipSlots[selectedData.EquipType];
                 if (eqSlot.HasData())
                 {
-                    var now = eqSlot.Data;
+                    var nowEquip = eqSlot.Data;
                     eqSlot.Clear();
-                    inventory.AddItem(now, 1);
-                    player?.Unequip(now);
+                    inventory.AddItem(nowEquip, 1);
+                    player?.Unequip(nowEquip);
                 }
 
                 // 새아이템 장착

@@ -10,17 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 154d8f630f6ec5d409fc2c6c4fd56525, type: 3}
-  m_Name: Q_m001
+  m_Name: Q_s004
   m_EditorClassIdentifier: 
-  ConditionType: 0
-  ItemTarget: []
-  MonsterTarget: []
+  ConditionType: 2
+  TargetItem: []
+  TargetEnemy:
+  - EnemyID: M_m001
+    EnemyCount: 5
   QuestType: 0
-  AssignerID: N_n001
+  AssignerID: N_n002
   ReceiverID: N_n002
-  QuestID: Q_s001
-  QuestName: "\uBB34\uC18D\uC131\uC774\uB780?"
-  Description: "\uB9AC\uC5D0 \uC120\uC0DD\uB2D8\uC744 \uCC3E\uC544\uAC00\uBCF4\uC790."
+  QuestID: Q_s004
+  QuestName: "\uB291\uB300 \uC7A1\uAE30"
+  Description: "\uB291\uB300 5\uB9C8\uB9AC\uB97C \uC7A1\uC544\uC624\uC790."
   RewardExp: 50
-  RewardYP: 200
+  RewardYP: 700
   RewardItems: []

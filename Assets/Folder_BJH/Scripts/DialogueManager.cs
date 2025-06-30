@@ -7,6 +7,9 @@ public class DialogueManager : MonoBehaviour
     [Header("다이얼로그 UI")]
     public DialogueUI DialogueUI;
 
+    [Header("json 헬퍼")]
+    [SerializeField] private JsonHelper helper;
+
     [Header("다이얼로그 진행 여부")]
     public bool IsDialogueActive = false;
 
@@ -22,17 +25,26 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // [외부] : 다이얼로그 UI 작동
-    public void StartDialogue(NPC npc)
+    // NPC용 다이얼로그 실행
+    public void StartNPCDialogue(NPC npc)
     {
         if (IsDialogueActive)
         {
-            Debug.Log("이미 대화 중입니다.");
+            Debug.Log("Dialogue Manager: 이미 대화 중입니다.");
             return;
         }
 
         IsDialogueActive = true;
-        DialogueUI.SetDialogue(npc);
+        DialogueUI.SetAllDialogue(helper.LoadJsonFromPath("Dialogues/" + npc.NpcData.NpcID));
+        DialogueUI.SetDialogueResource(npc.NpcData.DialogueSprite, npc.NpcData.NpcName);
+        DialogueUI.SetDailogueNPC(npc);
+        ChangeCurDialogue("Start");
         DialogueUI.ShowDialogueUI();
+    }
+
+    // 다이얼로그 UI 현재 대사 변경
+    public void ChangeCurDialogue(string id)
+    {
+        DialogueUI.SetCurDialogue(DialogueUI.GetDialogueData($"{id}"));
     }
 }
