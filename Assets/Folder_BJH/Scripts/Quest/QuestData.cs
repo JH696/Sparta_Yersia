@@ -19,7 +19,7 @@ public enum EQuestType
 [Serializable]
 public class Collection
 {
-    public string ItemID;  // 아이템 ID
+    public ItemData ItemData;  // 아이템 ID
     public int ItemCount; // 필요한 아이템 숫자
 }
 

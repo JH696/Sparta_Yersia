@@ -11,7 +11,6 @@ public class PlayerController : BaseCharacter, ILevelable
 
     private Vector3 targetPos;
     private bool isMoving = false;
-    private bool isInDialogue = false;
 
     [Header("상호작용")]
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
@@ -51,12 +50,16 @@ public class PlayerController : BaseCharacter, ILevelable
         if (Input.GetKeyDown(KeyCode.E)) AddExp(30);
         if (Input.GetKeyDown(KeyCode.Z)) AddYP(100);
         if (Input.GetKeyDown(KeyCode.X)) SpendYP(50);
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log($"플레이어 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana}/{MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
+        }
     }
 
     private void HandleInput()
     {
         // 대화 중이라면 이동 입력 무시
-        if (isInDialogue) return;
+        if (DialogueManager.Instance.IsDialogueActive) return;
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -71,7 +74,7 @@ public class PlayerController : BaseCharacter, ILevelable
     private void HandleMovement()
     {
         // 대화 중이라면 이동 중지
-        if (isInDialogue)
+        if (DialogueManager.Instance.IsDialogueActive)
         {
             isMoving = false;
             return;
@@ -100,23 +103,10 @@ public class PlayerController : BaseCharacter, ILevelable
         Collider2D npcCollider = Physics2D.OverlapCircle(transform.position, interactRange, npcLayerMask);
         if (npcCollider == null) return;
 
-        NPCController npc = npcCollider.GetComponent<NPCController>();
+        NPC npc = npcCollider.GetComponent<NPC>();
         if (npc == null) return;
 
         npc.Interact();
-    }
-
-    // 대화 시작 시 호출 (이동 불가 상태로 전환)
-    public void StartDialogue()
-    {
-        isInDialogue = true;
-        isMoving = false;
-    }
-
-    // 외부에서 대화 종료 시 호출하여 이동 제한 해제
-    public void EndDialogue()
-    {
-        isInDialogue = false;
     }
 
     // 경험치 추가 메서드
@@ -154,5 +144,33 @@ public class PlayerController : BaseCharacter, ILevelable
             return true;
         }
         return false;
+    }
+
+    /// <summary>장착했을 때 호출</summary>
+    public void Equip(ItemData item)
+    {
+        Debug.Log($"[PlayerCharacter] Equip: {item.ItemName}");
+        // TODO: 실제 스탯에 반영 (item.GetStatValue 등)
+    }
+
+    /// <summary>해제했을 때 호출</summary>
+    public void Unequip(ItemData item)
+    {
+        Debug.Log($"[PlayerCharacter] Unequip: {item.ItemName}");
+        // TODO: 실제 스탯에서 제거
+    }
+
+    /// <summary>소모품 사용했을 때 호출</summary>
+    public void Use(ItemData item)
+    {
+        Debug.Log($"[PlayerCharacter] Use: {item.ItemName}");
+        // TODO: 소모품 효과 발동
+    }
+
+    /// <summary>퀘스트용 건네주기 호출</summary>
+    public void GiveQuestItem(ItemData item)
+    {
+        Debug.Log($"[PlayerCharacter] GiveQuestItem: {item.ItemName}");
+        // TODO: 퀘스트 시스템에 통지
     }
 }
