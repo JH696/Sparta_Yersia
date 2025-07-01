@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class StatsUI : MonoBehaviour
@@ -12,6 +13,7 @@ public class StatsUI : MonoBehaviour
     [SerializeField] private TMP_Text SpeedTxt;
 
     [SerializeField] private TMP_Text YPTxt;
+    [SerializeField] private Image ProfileImg;
 
     private BaseCharacter currentCharacter;
 
@@ -38,6 +40,13 @@ public class StatsUI : MonoBehaviour
         {
             if (YPTxt == null) return;
             YPTxt.text = $"YP : {player.YP}";
+            if (ProfileImg != null && player.PlayerData != null)
+                ProfileImg.sprite = player.PlayerData.GetDefaultProfileIcon();
+        }
+        else if (currentCharacter is PetController pet)
+        {
+            if (ProfileImg != null && pet.PetData != null)
+                ProfileImg.sprite = pet.PetData.GetCurrentProfileIcon();
         }
     }
 }
