@@ -3,52 +3,32 @@
 public class PetController : BaseCharacter, ILevelable
 {
     [Header("펫 데이터")]
-    [SerializeField, Tooltip("펫의 이름과 ID가 포함된 데이터")] private PetData petData;
+    [SerializeField, Tooltip("펫의 이름과 ID가 포함된 데이터")]
+    private PetData petData;
+    public PetData PetData => petData; // 읽기 전용
 
+    // 레벨, 경험치
     public int Level { get; private set; } = 1;
     public int CurrentExp { get; private set; } = 0;
     public int ExpToNextLevel => 50 * Level;
 
-    private int evoStage = 0;
-
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-        if (petData == null || petData.StatData == null) return;
-        Stat.InitFromData(petData.StatData);
-    }
+        if (petData == null) return;
 
-    private void Start()
-    {
-        Debug.Log($"펫 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana}/{MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
-        ApplyEvoSprite(evoStage);
+        InitStat(petData); // 스탯 초기화
+        Level = 1;
+        CurrentExp = 0;
+
+        ApplyEvoSprite(petData.CurrentEvoStage);
     }
 
     private void Update()
     {
-        // 테스트용: 키 입력 시 데미지 입거나 회복
-        if (Input.GetKeyDown(KeyCode.K))  // K 누르면 힐 10
-        {
-            Heal(10f);
-            Debug.Log($"펫 힐 받음: 현재 체력 {CurrentHp}/{MaxHp}");
-        }
-        if (Input.GetKeyDown(KeyCode.L))  // L 누르면 데미지 20
-        {
-            TakeDamage(20f);
-            Debug.Log($"펫 데미지 입음: 현재 체력 {CurrentHp}/{MaxHp}");
-        }
-
-        // 테스트용: E 키 누르면 경험치 30 추가
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            AddExp(20);
-            Debug.Log($"펫 경험치: {CurrentExp} / {ExpToNextLevel}, 레벨: {Level}");
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log($"펫 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana}/{MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
-        }
+        // 테스트용 키
+        if (Input.GetKeyDown(KeyCode.H)) HealHP(10f);
+        if (Input.GetKeyDown(KeyCode.J)) TakeDamage(20f);
+        if (Input.GetKeyDown(KeyCode.E)) AddExp(30);
     }
 
     // 경험치 추가 메서드
@@ -65,39 +45,42 @@ public class PetController : BaseCharacter, ILevelable
     public void LevelUp()
     {
         Level++;
-        Debug.Log($"펫 레벨업! 현재 레벨: {Level}");
-        //Stat.MultiplyStats(1.1f);
+        Debug.Log($"펫 레벨업 현재 레벨: {Level}");
         TryEvolve();
     }
 
     private void TryEvolve()
     {
-        if (evoStage >= petData.evoLevels.Length) return;
+        if (petData == null || petData.evoLevels == null) return;
 
-        if (Level >= petData.evoLevels[evoStage].Level)
+        int currentStage = petData.CurrentEvoStage;
+        if (currentStage >= petData.evoLevels.Length) return;
+
+        if (Level >= petData.evoLevels[currentStage].Level)
         {
-            evoStage++;
-            ApplyEvolutionData(evoStage);
-            Debug.Log($"펫 진화 단계: {evoStage}");
+            // 진화 단계 증가
+            petData.CurrentEvoStage++;
+            ApplyEvolutionData(petData.CurrentEvoStage);
+            Debug.Log($"펫 진화됨 현재 단계: {petData.CurrentEvoStage}");
         }
     }
 
     private void ApplyEvolutionData(int stage)
     {
-        if (petData == null || petData.sprites == null || stage >= petData.sprites.Length) return;
-
         ApplyEvoSprite(stage);
-
-        // 진화 시 현재 스탯에 배율 곱하기 (영구적 증가)
+        // 진화 시 스탯 증가
         Stat.MultiplyStats(petData.StatMultiplier);
     }
 
     private void ApplyEvoSprite(int stage)
     {
-        var spriteData = petData.sprites[stage];
+        if (petData == null) return;
+
+        var spriteData = petData.sprites.Length > stage ? petData.sprites[stage] : null;
+        if (spriteData == null || spriteData.WorldSprite == null) return;
+
         var spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null || spriteData == null || spriteData.WorldSprite == null) return;
-        
-        spriteRenderer.sprite = spriteData.WorldSprite;
+        if (spriteRenderer != null)
+            spriteRenderer.sprite = spriteData.WorldSprite;
     }
 }
