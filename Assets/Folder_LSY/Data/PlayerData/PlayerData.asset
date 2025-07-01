@@ -13,14 +13,9 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   gender: 0
-  defaultMaleIcon: {fileID: 0}
-  defaultFemaleIcon: {fileID: 21300000, guid: 86fa667ebe324d542a53c662accb4e60, type: 3}
-  MaxHp: 100
-  MaxMana: 50
-  Attack: 10
-  Defense: 5
-  Luck: 1
-  Speed: 3
+  MaleIcon: {fileID: 21300000, guid: 86fa667ebe324d542a53c662accb4e60, type: 3}
+  FemaleIcon: {fileID: 21300000, guid: a6932c04effa2e64ca43441cdf42216d, type: 3}
+  StatData: {fileID: 11400000, guid: 7e532aabe4291474b978e80e9f801c44, type: 2}
   StartLevel: 1
   StartExp: 0
   BaseExpToLevelUp: 100
