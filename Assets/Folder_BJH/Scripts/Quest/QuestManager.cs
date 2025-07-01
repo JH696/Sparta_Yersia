@@ -9,7 +9,7 @@ public class QuestManager : MonoBehaviour
     [SerializeField] public QuestUI questUI;
 
     [Header("현재 스토리 진행 단계")]
-    [SerializeField] private int stortStage = 001;
+    [SerializeField] private int stortStage = 1;
 
     [Header("수락 가능한 퀘스트 목록")]
     [SerializeField] private List<QuestData> AvailableQuests;
@@ -29,29 +29,20 @@ public class QuestManager : MonoBehaviour
         NextStoryQuestUnlock();
     }
 
+    // 현재 수락 가능한 퀘스트 목록 반환
+    public List<QuestData> GetAvailableQuests()
+    {
+        return AvailableQuests;
+    }
+
     // 퀘스트 획득
     public void GetQuest(QuestData questData)
     {
         if (questData == null || !AvailableQuests.Contains(questData)) return;
 
         AvailableQuests.Remove(questData);
-        TestPlayer.Instance.playerQuest.AddQuest(questData);
+        TestPlayer.Instance.playerQuest.AddMyQ(questData);
         questUI.RefreshQuestUI();
-    }
-
-    public List<QuestData> GetAvailableQuests()
-    {
-        return AvailableQuests;
-    }
-
-    public void CostConditionItem(QuestData questData)
-    {
-        foreach (var item in questData.TargetItem)
-        {
-            ItemData targetItem = TestPlayer.Instance.playerQuest.FindItemByID(item.ItemID);
-
-            TestPlayer.Instance.playerQuest.RemoveQuestItem(targetItem, item.ItemCount);
-        }
     }
 
     // 퀘스트 완료 
@@ -64,25 +55,44 @@ public class QuestManager : MonoBehaviour
             NextStoryQuestUnlock();
         }
 
-        TestPlayer.Instance.playerQuest.RemoveQuest(questData);
-        GetRawards(questData);
+        TestPlayer.Instance.playerQuest.RemoveMyQ(questData);
+        SubmitQItems(questData);
+        GetQRawards(questData);
         questUI.RefreshQuestUI();
 
         Debug.Log($"퀘스트 완료: {questData.QuestName}");
     }
 
-    private void GetRawards(QuestData questData)
+    // 퀘스트 아이템 제출 (퀘스트 완료시 호출)
+    private void SubmitQItems(QuestData questData)
+    {
+        foreach (var item in questData.TargetItem)
+        {
+            ItemData targetItem = TestPlayer.Instance.playerQuest.FindItemByID(item.ItemID);
+
+            TestPlayer.Instance.playerQuest.RemoveQuestItem(targetItem, item.ItemCount);
+        }
+    }
+
+    // 퀘스트 보상 획득
+    private void GetQRawards(QuestData questData)
     {
         foreach (ItemData item in questData.RewardItems)
         {
             Debug.Log($"퀘스트 보상 아이템 획득: {item.ItemName}");
             TestPlayer.Instance.playerQuest.AddQuestItem(item);;
         }
+        
+        foreach (PetData pet in questData.RewardPets)
+        {
+            Debug.Log($"퀘스트 보상 아이템 획득: {pet.PetName}");
+            //TestPlayer.Instance.playerQuest.AddQuestItem(pet); ;
+        }
 
         Debug.Log($"퀘스트 보상 획득: 경험치: {questData.RewardExp}, YP: {questData.RewardYP}");
     }
 
-    // 단일 퀘스트 해금
+    // 퀘스트 해금
     private void QuestUnlock(string id)
     {
         QuestData quest = Resources.Load<QuestData>($"QuestDatas/{id}");

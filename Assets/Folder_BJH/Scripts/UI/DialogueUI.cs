@@ -21,7 +21,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private DialogueData curDialogueData;
     [SerializeField] public NPC curNpc;
 
-    [Header("타이핑 속도")]
+    [Header("타이핑 / 대화창 이탈 속도")]
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private float leaveDelay = 1f;
 
@@ -169,17 +169,14 @@ public class DialogueUI : MonoBehaviour
         choiceBtns.gameObject.SetActive(true);
         passBtn.SetActive(false);   
 
-        foreach (var questPair in TestPlayer.Instance.playerQuest.MyQuest)
+        foreach (var questPair in TestPlayer.Instance.playerQuest.GetMyQStatus())
         {
             QuestStatus status = questPair.Value;
-            QuestData data = status.questData;
+            QuestData data = status.QuestData;
 
             if (data.ReceiverID == curNpc.NpcData.NpcID)
             {
-                Debug.Log("status.isCleared" + status.isCleared);
-                Debug.Log("data.ConditionType" + data.ConditionType);
-
-                if (status.isCleared || data.ConditionType == EConditionType.Investigation)
+                if (status.IsCleared || data.ConditionType == EConditionType.Investigation)
                 {
                     choiceBtns.SpawnClearBtn(data);
                 }

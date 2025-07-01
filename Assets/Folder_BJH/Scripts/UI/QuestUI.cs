@@ -25,14 +25,16 @@ public class QuestUI : MonoBehaviour
         RefreshQuestUI();
     }
 
+    // 퀘스트 정보창 표시 (버튼 연결)
     public void QuestInfoToggle()
     {
         questInfo.SetActive(!questInfo.activeSelf);
     }
 
+    // 퀘스트 정보창 초기화 및 갱신
     public void RefreshQuestUI()
     {
-        questList = TestPlayer.Instance.playerQuest.MyQuest.Values.Select(qs => qs.questData).ToList();
+        questList = TestPlayer.Instance.playerQuest.GetMyQStatus().Values.Select(qs => qs.QuestData).ToList();
         questPage.text = $"{curQuestPage + 1}/{questList.Count}";
 
         if (questList.Count <= curQuestPage)
@@ -49,7 +51,8 @@ public class QuestUI : MonoBehaviour
         }
     }
 
-    public void NextQuestPage()
+    // 퀘스트 다음 페이지 이동 (버튼 연결)
+    public void NextQPage()
     {
         if (questList.Count <= curQuestPage) return;
 
@@ -57,7 +60,8 @@ public class QuestUI : MonoBehaviour
         RefreshQuestUI();
     }
 
-    public void PreviousQuestPage()
+    // 퀘스트 이전 페이지 이동 (버튼 연결)
+    public void PreviousQPage()
     {
         if (questList.Count < curQuestPage || curQuestPage == 0) return;
 
@@ -65,6 +69,7 @@ public class QuestUI : MonoBehaviour
         RefreshQuestUI();
     }
 
+    // 퀘스트 현황 메시지 생성
     private string QuestCondition(QuestData questData)
     {
         string message;
@@ -95,7 +100,7 @@ public class QuestUI : MonoBehaviour
                     string enemyID = questData.TargetEnemy[i].EnemyID;
                     string monsterName = playerQuest.FindMonsterByID(enemyID).MonsterName;
                     int current = 0;
-                    playerQuest.EQProgress[questData.QuestID].killCounts.TryGetValue(enemyID, out current);
+                    playerQuest.GetEliQProgress()[questData.QuestID].EliCounts.TryGetValue(enemyID, out current);
                     int required = questData.TargetEnemy[i].EnemyCount;
 
                     message += $"{monsterName}: {current}/{required}\n";
