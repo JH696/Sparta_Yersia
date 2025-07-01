@@ -3,51 +3,56 @@
 [System.Serializable]
 public class CharacterStats
 {
-    public float MaxHp { get; private set; } = 100f;
-    public float CurrentHp { get; private set; } = 100f;
+    public float MaxHp;
+    public float CurrentHp;
+    public float MaxMana;
+    public float CurrentMana;
+    public float Attack;
+    public float Defense;
+    public float Luck;
+    public float Speed;
 
-    public float MaxMana { get; private set; } = 50f;
-    public float CurrentMana { get; private set; } = 50f;
-
-    public float Attack { get; private set; } = 20f;
-    public float Defense { get; private set; } = 10f;
-    public float Luck { get; private set; } = 1f;
-    public float Speed { get; private set; } = 5f;
-
-    // 스크립터블 오브젝트 데이터를 기반으로 초기화합니다
-    public void InitFromData(CharacterStatData data)
+    public void SetBaseStats(ICharacterStatData data)
     {
-        MaxHp = data.maxHp;
+        if (data == null) return;
+
+        MaxHp = data.MaxHp;
         CurrentHp = MaxHp;
 
-        MaxMana = data.maxMana;
+        MaxMana = data.MaxMana;
         CurrentMana = MaxMana;
 
-        Attack = data.attack;
-        Defense = data.defense;
-        Luck = data.luck;
-        Speed = data.speed;
+        Attack = data.Attack;
+        Defense = data.Defense;
+        Luck = data.Luck;
+        Speed = data.Speed;
     }
 
-    public void SetCurrentHp(float value)
-    {
-        CurrentHp = Mathf.Clamp(value, 0f, MaxHp);
-    }
-
-    public void SetCurrentMana(float value)
-    {
-        CurrentMana = Mathf.Clamp(value, 0f, MaxMana);
-    }
+    // 스탯을 배율로 증가 (레벨업, 진화)
 
     public void MultiplyStats(float multiplier)
     {
         MaxHp *= multiplier;
         CurrentHp = MaxHp;
+
         MaxMana *= multiplier;
         CurrentMana = MaxMana;
+
         Attack *= multiplier;
         Defense *= multiplier;
         Luck *= multiplier;
         Speed *= multiplier;
+    }
+
+    // 현재 HP/Mana가 Max를 넘지 않도록 조정
+
+    public void SetCurrentHp(float hp)
+    {
+        CurrentHp = Mathf.Clamp(hp, 0, MaxHp);
+    }
+
+    public void SetCurrentMana(float mana)
+    {
+        CurrentMana = Mathf.Clamp(mana, 0, MaxMana);
     }
 }
