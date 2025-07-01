@@ -3417,7 +3417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1050845578
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3631,7 +3631,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1ca616d4148cdb640b3eb7ab58eae146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4535,7 +4535,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1ca616d4148cdb640b3eb7ab58eae146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4797,6 +4797,8 @@ MonoBehaviour:
   player: {fileID: 748356925}
   pet1: {fileID: 678470232}
   pet2: {fileID: 0}
+  PlayerInfo: {fileID: 1050845577}
+  PetInfo: {fileID: 1451320650}
 --- !u!4 &1358613140
 Transform:
   m_ObjectHideFlags: 0
@@ -5699,8 +5701,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NpcData: {fileID: 11400000, guid: 68919cf3c57adfd469b873c180688558, type: 2}
-  AssignQuests: []
-  ReceiveQuests: []
 --- !u!1 &1695509563
 GameObject:
   m_ObjectHideFlags: 0
@@ -6347,7 +6347,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1ca616d4148cdb640b3eb7ab58eae146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

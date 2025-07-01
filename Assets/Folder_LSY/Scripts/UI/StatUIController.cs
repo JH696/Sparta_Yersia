@@ -9,12 +9,19 @@ public class StatUIController : MonoBehaviour
     [SerializeField] private BaseCharacter pet1;
     [SerializeField] private BaseCharacter pet2;
 
+    [Header("추가 UI 오브젝트")]
+    [SerializeField] private GameObject PlayerInfo;    // 플레이어 전용 정보 UI
+    [SerializeField] private GameObject PetInfo;       // 펫 전용 정보 UI
+
     private bool ShowStatUI = false;
 
     private void Start()
     {
         if (statsUIObject == null) return;
+
         statsUIObject.SetActive(false);
+        if (PlayerInfo != null) PlayerInfo.SetActive(false);
+        if (PetInfo != null) PetInfo.SetActive(false);
     }
 
     private void Update()
@@ -27,6 +34,9 @@ public class StatUIController : MonoBehaviour
             ShowStatUI = true;
             statsUIObject.SetActive(true);
             statsUI.SetTarget(player);
+
+            if (PlayerInfo != null) PlayerInfo.SetActive(true);
+            if (PetInfo != null) PetInfo.SetActive(false);
         }
     }
 
@@ -37,6 +47,9 @@ public class StatUIController : MonoBehaviour
 
         ShowStatUI = false;
         statsUIObject.SetActive(false);
+
+        if (PlayerInfo != null) PlayerInfo.SetActive(false);
+        if (PetInfo != null) PetInfo.SetActive(false);
     }
 
     public void ShowPlayerStats()
@@ -50,11 +63,14 @@ public class StatUIController : MonoBehaviour
         }
 
         statsUI.SetTarget(player);
+
+        if (PlayerInfo != null) PlayerInfo.SetActive(true);
+        if (PetInfo != null) PetInfo.SetActive(false);
     }
 
     public void ShowPet1Stats()
     {
-        if (statsUIObject == null || statsUI == null || pet1 == null) return;
+        if (statsUIObject == null || statsUI == null) return;
 
         if (!ShowStatUI)
         {
@@ -63,11 +79,14 @@ public class StatUIController : MonoBehaviour
         }
 
         statsUI.SetTarget(pet1);
+
+        if (PlayerInfo != null) PlayerInfo.SetActive(false);
+        if (PetInfo != null) PetInfo.SetActive(pet1 != null);
     }
 
     public void ShowPet2Stats()
     {
-        if (statsUIObject == null || statsUI == null || pet2 == null) return;
+        if (statsUIObject == null || statsUI == null) return;
 
         if (!ShowStatUI)
         {
@@ -76,5 +95,8 @@ public class StatUIController : MonoBehaviour
         }
 
         statsUI.SetTarget(pet2);
+
+        if (PlayerInfo != null) PlayerInfo.SetActive(false);
+        if (PetInfo != null) PetInfo.SetActive(pet2 != null);
     }
 }

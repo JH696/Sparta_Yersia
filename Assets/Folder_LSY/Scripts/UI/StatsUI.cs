@@ -15,6 +15,12 @@ public class StatsUI : MonoBehaviour
     [SerializeField] private TMP_Text YPTxt;
     [SerializeField] private Image ProfileImg;
 
+    [Header("Pet Info UI")]
+    [SerializeField] private GameObject PetInfo; // PetInfo 전체 오브젝트
+    [SerializeField] private TMP_Text PetNameTxt;
+    [SerializeField] private TMP_Text EvoStageTxt;
+    [SerializeField] private Image[] EvoIcons = new Image[3];
+
     private BaseCharacter currentCharacter;
 
     public void SetTarget(BaseCharacter character)
