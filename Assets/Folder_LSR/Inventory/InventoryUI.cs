@@ -59,7 +59,7 @@ public class InventoryUI : MonoBehaviour
     private EItemCategory currentCategory = EItemCategory.All;
 
     private ItemSlot currentSlot;
-    private Test_PlayerCharacter player;
+    private PlayerController player;
 
     private void Awake()
     {
@@ -140,16 +140,15 @@ public class InventoryUI : MonoBehaviour
         detailPanel.SetActive(false);
 
         // 플레이어 찾기
-        player = FindObjectOfType<Test_PlayerCharacter>();
+        player = GameManager.Instance.Player.GetComponent<PlayerController>();
         if (player == null)
         {
             Debug.LogWarning("[InventoryUI] Player를 찾을 수 없습니다. Equip/Use 호출이 동작하지 않습니다.");
         }
 
         // 이벤트 구독 및 UI 갱신
-        inventory.OnInventoryChanged += RefreshAndShow;
+        inventory.OnInventoryChanged += RefreshUI;
         inventory.OnAddFail += ShowCapacityPopup;
-        RefreshAndShow();
     }
 
     // 인벤토리 변경 이벤트 구독 해제
@@ -157,15 +156,9 @@ public class InventoryUI : MonoBehaviour
     {
         if (inventory != null)
         {
-            inventory.OnInventoryChanged -= RefreshAndShow;
+            inventory.OnInventoryChanged -= RefreshUI;
+            inventory.OnInventoryChanged -= Show;
         }
-    }
-
-    // 인벤토리 변경 시 UI 갱신 후 열기
-    private void RefreshAndShow()
-    {
-        RefreshUI();
-        Show();
     }
 
     // 인벤토리 UI 열기

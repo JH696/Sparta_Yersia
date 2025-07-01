@@ -2,88 +2,118 @@
 using System.Linq;
 using UnityEngine;
 
+// 퀘스트 클리어 상태 저장
 [System.Serializable]
-public class QuestStatus
+public class QuestStatus 
 {
-    public QuestData questData;
-    public bool isCleared;
+    public QuestData QuestData;
+    public bool IsCleared;
 
     public QuestStatus(QuestData data, bool cleared)
     {
-        questData = data;
-        isCleared = cleared;
+        QuestData = data;
+        IsCleared = cleared;
     }
 }
 
+// 처치 퀘스트 진행 상태 저장
 [System.Serializable]
-public class EQProgress
+public class EliQuestProgress
 {
-    public QuestData questData;
-    public Dictionary<string, int> killCounts;
+    public string QuestID;
+    public Dictionary<string, int> EliCounts;
 
-    public EQProgress(QuestData data)
+    public EliQuestProgress(QuestData data)
     {
-        questData = data;
-        killCounts = new Dictionary<string, int>();
+        QuestID = data.QuestID;
+        EliCounts = new Dictionary<string, int>();
 
         foreach (var enemy in data.TargetEnemy)
         {
-            killCounts[enemy.EnemyID] = 0;
+            EliCounts[enemy.EnemyID] = 0;
         }
     }
 }
 
 public class PlayerQuest : MonoBehaviour
 {
-    [Header("진행 중인 퀘스트 목록")]
-    public Dictionary<string, QuestStatus> MyQuest = new Dictionary<string, QuestStatus>();
-    public Dictionary<string, EQProgress> EQProgress = new Dictionary<string, EQProgress>();
+    public PlayerInventory Inventory;
 
-    [SerializeField] private List<ItemData> QuestItems;
+    private Dictionary<string, QuestStatus> MyQStatus = new Dictionary<string, QuestStatus>();
+    private Dictionary<string, EliQuestProgress> EliQProgress = new Dictionary<string, EliQuestProgress>();
 
-    // 퀘스트 추가
-    public void AddQuest(QuestData questData)
+
+    private void Start()
+    {
+        Inventory = this.gameObject.GetComponent<PlayerInventory>();
+    }
+
+    // 진행 중인 퀘스트 가져오기
+    public Dictionary<string, QuestStatus> GetMyQStatus()
+    {
+        return MyQStatus;
+    }
+
+    // 진행 중인 처치 퀘스트 진행 상태 가져오기
+    public Dictionary<string, EliQuestProgress> GetEliQProgress()
+    {
+        return EliQProgress;
+    }
+
+    // 진행 중인 퀘스트 추가
+    public void AddMyQ(QuestData questData)
     {
         Debug.Log($"퀘스트 추가: {questData.QuestName}");
 
-        MyQuest.Add(questData.QuestID, new QuestStatus(questData, false));
+        MyQStatus.Add(questData.QuestID, new QuestStatus(questData, false));
 
         if (questData.ConditionType == EConditionType.Elimination)
         {
-            AddEQProgress(questData);
+            AddEliQ(questData);
         }
     }
 
-    // 처치 퀘스트 추가
-    public void AddEQProgress(QuestData questData)
+    // 진행 중인 퀘스트 삭제
+    public void RemoveMyQ(QuestData questData)
     {
-        EQProgress[questData.QuestID] = new EQProgress(questData);
+        MyQStatus.Remove(questData.QuestID);
     }
 
-    public void UpCountEQ(string monsterID)
+    // 처치 퀘스트 진행 상태 저장용 딕셔너리 생성
+    public void AddEliQ(QuestData questData)
     {
-        foreach (var eq in EQProgress.Values)
+        EliQProgress[questData.QuestID] = new EliQuestProgress(questData);
+    }
+
+    // 처치 퀘스트 진행 상태 저장용 딕셔너리 삭제
+    public void RemoveEliQ(QuestData questData)
+    {
+        if (!EliQProgress.ContainsKey(questData.QuestID)) return;
+
+        EliQProgress.Remove(questData.QuestID);
+    }
+
+    // 처치 퀘스트 진행 상태 업데이트    
+    public void EliCountUp(string monsterID)
+    {
+        foreach (var eq in EliQProgress.Values)
         {
-            if (eq.killCounts.ContainsKey(monsterID))
+            if (eq.EliCounts.ContainsKey(monsterID))
             {
-                eq.killCounts[monsterID]++;
+                eq.EliCounts[monsterID]++;
             }
         }
     }
 
-    public void RemoveQuest(QuestData questData)
-    {
-        MyQuest.Remove(questData.QuestID);
-    }
-
+    // 모든 퀘스트 진행 상태 업데이트 (고유 조건 만족시 IsCleared)
     public void QuestUpdate()
     {
-        var keys = MyQuest.Keys.ToList();
+        var keys = MyQStatus.Keys.ToList();
 
         foreach (string questID in keys)
         {
-            QuestStatus status = MyQuest[questID];
-            QuestData data = status.questData;
+            QuestStatus status = MyQStatus[questID];
+            QuestData data = status.QuestData;
 
             switch (data.ConditionType)
             {
@@ -93,41 +123,29 @@ public class PlayerQuest : MonoBehaviour
 
                 // 수집 퀘스트
                 case EConditionType.Collection:
-                    bool CQComplete = data.TargetItem.All(item => HasItem(item.ItemID) >= item.ItemCount);
+                    bool CQComplete = data.TargetItem.All(item => Inventory.GetCount(item.ItemData) >= item.ItemCount);
                     if (CQComplete)
                     {
-                        MyQuest[questID] = new QuestStatus(data, true);
+                        MyQStatus[questID] = new QuestStatus(data, true);
                     }
                     break;
 
                 // 처치 퀘스트
                 case EConditionType.Elimination:
                     bool EQComplete = data.TargetEnemy.All(enemy =>
-                        EQProgress[questID].killCounts.TryGetValue(enemy.EnemyID, out int killCount) &&
+                        EliQProgress[questID].EliCounts.TryGetValue(enemy.EnemyID, out int killCount) &&
                         killCount >= enemy.EnemyCount);
 
                     if (EQComplete)
                     {
-                        MyQuest[questID] = new QuestStatus(data, true);
+                        MyQStatus[questID] = new QuestStatus(data, true);
                     }
                     break;
             }
         }
     }
 
-    public ItemData FindItemByID(string id)
-    {
-        ItemData item = Resources.Load<ItemData>($"ItemDatas/{id}");
-
-        if (item == null)
-        {
-            Debug.LogError($"아이템을 찾을 수 없습니다: {id}");
-            return null;
-        }
-
-        return item;
-    }
-
+    // 몬스터 데이터 찾기
     public MonsterData FindMonsterByID(string id)
     {
         MonsterData monster = Resources.Load<MonsterData>($"MonsterDatas/{id}");
@@ -141,41 +159,10 @@ public class PlayerQuest : MonoBehaviour
         return monster;
     }
 
-    public int HasItem(string itemID)
-    {
-        int itemCount = 0;
-
-        for (int i = 0; i < QuestItems.Count; i++)
-        {
-            if (QuestItems[i] == FindItemByID(itemID))
-            {
-                itemCount++;
-            }
-        }
-
-        return itemCount;
-    }
-
-    public void AddQuestItem(ItemData itemData)
-    {
-        QuestItems.Add(itemData);
-        QuestUpdate();
-        QuestManager.Instance.questUI.RefreshQuestUI();
-    }
-
-    public void RemoveQuestItem(ItemData itemData, int count)
-    {
-        for (int i = 1; i < count; i++)
-        {
-            QuestItems.Remove(itemData);
-        }
-        QuestUpdate();
-        QuestManager.Instance.questUI.RefreshQuestUI();
-    }
-
+    // 몬스터 처치 (삭제 예정)
     public void KillMonster(MonsterData monsterData)
     {
-        UpCountEQ(monsterData.MonsterID);
+        EliCountUp(monsterData.MonsterID);
         QuestUpdate();
         QuestManager.Instance.questUI.RefreshQuestUI();
     }

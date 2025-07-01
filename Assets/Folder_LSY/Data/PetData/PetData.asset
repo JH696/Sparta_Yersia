@@ -16,13 +16,14 @@ MonoBehaviour:
   PetName: "\uB450\uB354\uC9C0"
   StatData: {fileID: 11400000, guid: 596535273a1b1fe4c96e0c163a03c5ab, type: 2}
   sprites:
-  - Icon: {fileID: 0}
-    WorldSprite: {fileID: 21300000, guid: ef0d5caea4a18784dbebc98bfa07d7ca, type: 3}
-  - Icon: {fileID: 0}
-    WorldSprite: {fileID: 21300000, guid: 8507e5a2242837c4da4e38e7290a8182, type: 3}
-  - Icon: {fileID: 0}
-    WorldSprite: {fileID: 21300000, guid: e34a0e17daecdf4478a270e6fec6a76a, type: 3}
+  - WorldSprite: {fileID: 21300000, guid: ef0d5caea4a18784dbebc98bfa07d7ca, type: 3}
+    Icon: {fileID: 21300000, guid: ef0d5caea4a18784dbebc98bfa07d7ca, type: 3}
+  - WorldSprite: {fileID: 21300000, guid: 8507e5a2242837c4da4e38e7290a8182, type: 3}
+    Icon: {fileID: 21300000, guid: 8507e5a2242837c4da4e38e7290a8182, type: 3}
+  - WorldSprite: {fileID: 21300000, guid: e34a0e17daecdf4478a270e6fec6a76a, type: 3}
+    Icon: {fileID: 21300000, guid: e34a0e17daecdf4478a270e6fec6a76a, type: 3}
   evoLevels:
   - Level: 5
   - Level: 10
   StatMultiplier: 1.5
+  CurrentEvoStage: 0

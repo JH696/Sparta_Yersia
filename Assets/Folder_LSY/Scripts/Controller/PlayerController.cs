@@ -2,63 +2,64 @@
 
 public class PlayerController : BaseCharacter, ILevelable
 {
+    [Header("플레이어 데이터")]
+    [SerializeField] private PlayerData playerData;
+    public PlayerData PlayerData => playerData; // 읽기 전용
+
+    [Header("이동 관련")]
     [SerializeField] private float moveSpeed = 5f;
 
     private Vector3 targetPos;
     private bool isMoving = false;
 
-    private bool isInDialogue = false;
-
     [Header("상호작용")]
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
     [SerializeField, Tooltip("상호작용 대상이 될 NPC의 레이어 마스크")] private LayerMask npcLayerMask;
 
+    // 플레이어의 프로필 아이콘을 PlayerData에서 가져옴
+    public Sprite ProfileIcon => playerData == null ? null : playerData.GetDefaultProfileIcon();
+
+    // 레벨, 경험치
     public int Level { get; private set; } = 1;
     public int CurrentExp { get; private set; } = 0;
-    public int ExpToNextLevel => 100 * Level;
+    public int ExpToNextLevel => playerData == null ? 100 * Level : playerData.BaseExpToLevelUp * Level;
 
+    [Header("YP(화폐)")]
+    private int yp = 0;
+    public int YP => yp;
 
-    private void Start()
+    private void Awake()
     {
-        Debug.Log($"플레이어 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana} / {MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
+        if (playerData == null) return;
+
+        InitStat(playerData);
+        Level = playerData.StartLevel;
+        CurrentExp = playerData.StartExp;
+        yp = playerData.StartYP;
     }
 
     private void Update()
     {
         HandleInput();
         HandleMovement();
+        HandleInteractionInput();
 
-        // 테스트용: 키 입력 시 데미지 입거나 회복
-        if (Input.GetKeyDown(KeyCode.H))  // H 누르면 힐 10
-        {
-            Heal(10f);
-            Debug.Log($"힐 받음: 현재 체력 {CurrentHp}/{MaxHp}");
-        }
-        if (Input.GetKeyDown(KeyCode.J))  // J 누르면 데미지 20
-        {
-            TakeDamage(20f);
-            Debug.Log($"데미지 입음: 현재 체력 {CurrentHp}/{MaxHp}");
-        }
-
-        // 테스트용: E 키 누르면 경험치 30 추가
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            AddExp(30);
-            Debug.Log($"플레이어 경험치: {CurrentExp} / {ExpToNextLevel}, 레벨: {Level}");
-        }
-
+        // 테스트용 키
+        if (Input.GetKeyDown(KeyCode.H)) HealHP(10f);
+        if (Input.GetKeyDown(KeyCode.J)) TakeDamage(20f);
+        if (Input.GetKeyDown(KeyCode.E)) AddExp(30);
+        if (Input.GetKeyDown(KeyCode.Z)) AddYP(100);
+        if (Input.GetKeyDown(KeyCode.X)) SpendYP(50);
         if (Input.GetKeyDown(KeyCode.P))
         {
             Debug.Log($"플레이어 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana}/{MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
         }
-
-        HandleInteractionInput();
     }
 
     private void HandleInput()
     {
         // 대화 중이라면 이동 입력 무시
-        if (isInDialogue) return;
+        if (DialogueManager.Instance.IsDialogueActive) return;
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -73,7 +74,7 @@ public class PlayerController : BaseCharacter, ILevelable
     private void HandleMovement()
     {
         // 대화 중이라면 이동 중지
-        if (isInDialogue)
+        if (DialogueManager.Instance.IsDialogueActive)
         {
             isMoving = false;
             return;
@@ -99,22 +100,13 @@ public class PlayerController : BaseCharacter, ILevelable
     {
         if (!Input.GetKeyDown(KeyCode.F)) return;
 
-        Collider2D npcColider = Physics2D.OverlapCircle(transform.position, interactRange, npcLayerMask);
-        if (npcColider == null) return;
+        Collider2D npcCollider = Physics2D.OverlapCircle(transform.position, interactRange, npcLayerMask);
+        if (npcCollider == null) return;
 
-        npcColider.GetComponent<NPCController>().Interact();
-    }
+        NPC npc = npcCollider.GetComponent<NPC>();
+        if (npc == null) return;
 
-    public void StartDialogue()
-    {
-        isInDialogue = true;
-        isMoving = false;
-    }
-
-    // 외부에서 대화 종료 시 호출하여 이동 제한 해제
-    public void EndDialogue()
-    {
-        isInDialogue = false;
+        npc.Interact();
     }
 
     // 경험치 추가 메서드
@@ -131,7 +123,54 @@ public class PlayerController : BaseCharacter, ILevelable
     public void LevelUp()
     {
         Level++;
-        Debug.Log($"플레이어 레벨업! 현재 레벨: {Level}");
-        Stat.MultiplyStats(1.1f);
+        Debug.Log($"플레이어 레벨업 현재 레벨: {Level}");
+
+        float multiplier = playerData == null ? 1.1f : playerData.StatMultiplierPerLevel;
+        Stat.MultiplyStats(multiplier);
+    }
+
+    // YP(돈) 획득 메서드
+    public void AddYP(int amount)
+    {
+        yp += Mathf.Max(0, amount);
+    }
+
+    // YP(돈) 소비 메서드
+    public bool SpendYP(int amount)
+    {
+        if (yp >= amount)
+        {
+            yp -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>장착했을 때 호출</summary>
+    public void Equip(ItemData item)
+    {
+        Debug.Log($"[PlayerCharacter] Equip: {item.ItemName}");
+        // TODO: 실제 스탯에 반영 (item.GetStatValue 등)
+    }
+
+    /// <summary>해제했을 때 호출</summary>
+    public void Unequip(ItemData item)
+    {
+        Debug.Log($"[PlayerCharacter] Unequip: {item.ItemName}");
+        // TODO: 실제 스탯에서 제거
+    }
+
+    /// <summary>소모품 사용했을 때 호출</summary>
+    public void Use(ItemData item)
+    {
+        Debug.Log($"[PlayerCharacter] Use: {item.ItemName}");
+        // TODO: 소모품 효과 발동
+    }
+
+    /// <summary>퀘스트용 건네주기 호출</summary>
+    public void GiveQuestItem(ItemData item)
+    {
+        Debug.Log($"[PlayerCharacter] GiveQuestItem: {item.ItemName}");
+        // TODO: 퀘스트 시스템에 통지
     }
 }

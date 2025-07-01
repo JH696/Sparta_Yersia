@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Q_s002
   m_EditorClassIdentifier: 
   ConditionType: 0
-  ItemTarget: []
-  MonsterTarget: []
+  TargetItem: []
+  TargetEnemy: []
   QuestType: 0
   AssignerID: N_n002
   ReceiverID: N_n001
@@ -22,7 +22,8 @@ MonoBehaviour:
   QuestName: "\uB9AC\uC5D0\uC758 \uC2EC\uBD80\uB984 1"
   Description: "\uD5E4\uB860\uB290 \uC120\uC0DD\uB2D8\uC744 \uCC3E\uC544\uAC00 \uC9C0\uD321\uC774\uB97C
     \uBC1B\uC544\uC624\uC790."
-  RewardExp: 30
+  RewardExp: 100
   RewardYP: 400
   RewardItems:
   - {fileID: 11400000, guid: f871a2c1a60b4964b8ddb76895d39e38, type: 2}
+  RewardPets: []
