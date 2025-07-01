@@ -11,6 +11,7 @@ public class DialogueUI : MonoBehaviour
 
     [Header("이미지")]
     [SerializeField] private Image dialogueImg;
+    [SerializeField] private Image playerImg;
 
     [Header("버튼")]
     [SerializeField] private GameObject passBtn;
@@ -65,11 +66,10 @@ public class DialogueUI : MonoBehaviour
     }
 
     // 대화 상대 이미지 및 이름 설정
-    public void SetDialogueResource(Sprite sprite, string name)
+    public void SetDialogueResource(Sprite sprite)
     {
         if (sprite == null || name == null) return;
 
-        NameTxt.text = name;
         dialogueImg.sprite = sprite;
     }
 
@@ -95,12 +95,19 @@ public class DialogueUI : MonoBehaviour
         if (curLineIndex < curDialogueData.Lines.Count)
         {
             if (typingCoroutine != null)
-            {
                 StopCoroutine(typingCoroutine);
+
+            DialogueLine lineData = curDialogueData.Lines[curLineIndex];
+            if (lineData == null || string.IsNullOrEmpty(lineData.Text))
+            {
+                Debug.LogWarning($"[DialogueUI] 잘못된 대사 라인입니다. curLineIndex: {curLineIndex}");
+                curLineIndex++;
+                PassTyping();
+                return;
             }
 
-            string line = curDialogueData.Lines[curLineIndex];
-            typingCoroutine = StartCoroutine(TypeLine(line));
+            SetSpeaker(lineData.Speaker);
+            typingCoroutine = StartCoroutine(TypeLine(lineData.Text));
             curLineIndex++;
         }
         else
@@ -134,6 +141,27 @@ public class DialogueUI : MonoBehaviour
         return null;
     }
 
+    private void SetSpeaker(string speaker)
+    {
+        NameTxt.text = speaker switch
+        {
+            "Player" => "나", // PlayerName
+            "NPC" => curNpc?.NpcData?.NpcName ?? "???",
+            _ => speaker
+        };
+
+        if (speaker == "Player")
+        {
+            playerImg.color = new Color(1f, 1f, 1f, 1f); 
+            dialogueImg.color = new Color(1f, 1f, 1f, 0.25f);
+        }
+        else
+        {
+            playerImg.color = new Color(1f, 1f, 1f, 0.25f);
+            dialogueImg.color = new Color(1f, 1f, 1f, 1f);
+        }
+    }
+
     // UI 데이터 초기화
     private void ResetDialogueData()
     {
@@ -152,6 +180,12 @@ public class DialogueUI : MonoBehaviour
     // 대사 타이핑 효과 코루틴
     private IEnumerator TypeLine(string line)
     {
+        if (dialogueTxt == null)
+        {
+            Debug.Log("DialogueUI: dialogueTxt가 설정되지 않았습니다!");
+            yield break;
+        }
+
         dialogueTxt.text = "";
         foreach (char c in line)
         {

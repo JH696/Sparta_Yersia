@@ -1,12 +1,20 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+// 
+[System.Serializable]
+public class DialogueLine
+{
+    public string Speaker;
+    public string Text;
+}
+
 // 분리된 문자를 저장할 데이터 클래스
 [System.Serializable]
 public class DialogueData
 {
     public string DialogueID;
-    public List<string> Lines;
+    public List<DialogueLine> Lines;
 }
 
 // json속 문자를 분리해 보관할 클래스
