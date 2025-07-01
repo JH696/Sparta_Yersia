@@ -15,8 +15,8 @@ public class AssginButton : MonoBehaviour
         GetComponent<Button>().onClick.AddListener(AcceptQuest);
     }
 
-    // [외부] : 퀘스트 버튼 세팅
-    public void SetChoiceButton(QuestData questData)
+    // 버튼 세팅
+    public void SetButton(QuestData questData)
     {
         if (questData == null)
         {
@@ -29,16 +29,14 @@ public class AssginButton : MonoBehaviour
         buttonText.text = questData.QuestName;
     }
 
-    // [버튼] : 퀘스트 수락 및 대사 출력
+    // 퀘스트 수락 및 대사 출력
     public void AcceptQuest()
     {
-        QuestManager.Instance.GetQuest(curQuestData);
-
         GetComponentInParent<ChoiceButtons>().RemoveChoiceButton();
         GetComponentInParent<ChoiceButtons>().gameObject.SetActive(false);
 
-        DialogueManager.Instance.DialogueUI.curNpc.AssignQuests.Remove(curQuestData);
-        DialogueManager.Instance.DialogueUI.ChooseDialogue(curQuestData.QuestID + "S");
+        QuestManager.Instance.GetQuest(curQuestData);
+        DialogueManager.Instance.ChangeCurDialogue(curQuestData.QuestID + "S");
         DialogueManager.Instance.DialogueUI.PassTyping();
     }
 }

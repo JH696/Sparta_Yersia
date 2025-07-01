@@ -17,14 +17,14 @@ public enum EQuestType
 }
 
 [Serializable]
-public class CollectionCondition
+public class Collection
 {
     public string ItemID;  // 아이템 ID
     public int ItemCount; // 필요한 아이템 숫자
 }
 
 [Serializable]
-public class EliminationCondition
+public class Elimination
 {
     public string EnemyID; // 적 ID
     public int EnemyCount; // 처치해야 할 적 숫자
@@ -36,8 +36,8 @@ public class QuestData : ScriptableObject
 {
     [Header("퀘스트 완료 조건")]
     public EConditionType ConditionType;
-    public List<CollectionCondition> ItemTarget = new List<CollectionCondition>();
-    public List<EliminationCondition> MonsterTarget = new List<EliminationCondition>();
+    public List<Collection> TargetItem = new List<Collection>();
+    public List<Elimination> TargetEnemy = new List<Elimination>();
 
     [Header("퀘스트 유형")]
     public EQuestType QuestType;
@@ -59,6 +59,7 @@ public class QuestData : ScriptableObject
     public int RewardExp;
     public int RewardYP;
     public List<ItemData> RewardItems;
+    public List<PetData> RewardPets;
 }
 
 [CustomEditor(typeof(QuestData))]
@@ -77,7 +78,7 @@ public class QuestDataEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("RewardExp"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("RewardYP"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("RewardItems"));
-
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("RewardPets"));
 
         SerializedProperty questTypeProp = serializedObject.FindProperty("ConditionType");
         EditorGUILayout.PropertyField(questTypeProp);
@@ -88,10 +89,10 @@ public class QuestDataEditor : Editor
         switch (questType)
         {
             case EConditionType.Collection:
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("ItemTarget"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("TargetItem"));
                 break;
             case EConditionType.Elimination:
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("MonsterTarget"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("TargetEnemy"));
                 break;
         }
 
