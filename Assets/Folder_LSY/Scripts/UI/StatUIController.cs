@@ -78,10 +78,10 @@ public class StatUIController : MonoBehaviour
             statsUIObject.SetActive(true);
         }
 
+        // null이어도 전달
         statsUI.SetTarget(pet1);
-
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
-        if (PetInfo != null) PetInfo.SetActive(pet1 != null);
+        if (PetInfo != null) PetInfo.SetActive(true);
     }
 
     public void ShowPet2Stats()
@@ -94,9 +94,9 @@ public class StatUIController : MonoBehaviour
             statsUIObject.SetActive(true);
         }
 
+        // null이어도 전달
         statsUI.SetTarget(pet2);
-
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
-        if (PetInfo != null) PetInfo.SetActive(pet2 != null);
+        if (PetInfo != null) PetInfo.SetActive(true);
     }
 }

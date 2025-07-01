@@ -1197,7 +1197,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uB984 : \uACE0\uC591\uC774"
+  m_text: "\uC774\uB984"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a71fd3c906599b04b93a88bfc125d079, type: 2}
   m_sharedMaterial: {fileID: 9091255979530684391, guid: a71fd3c906599b04b93a88bfc125d079, type: 2}
@@ -2314,6 +2314,7 @@ MonoBehaviour:
   LuckTxt: {fileID: 1222443703}
   SpeedTxt: {fileID: 1475071982}
   ProfileImg: {fileID: 1526731343}
+  defaultPetProfile: {fileID: 21300000, guid: 1ca616d4148cdb640b3eb7ab58eae146, type: 3}
   YPTxt: {fileID: 166182029}
   PlayerInfo: {fileID: 1050845577}
   PetInfo: {fileID: 1451320650}
@@ -2323,6 +2324,8 @@ MonoBehaviour:
   - {fileID: 2052689141}
   - {fileID: 1284454300}
   - {fileID: 1054237041}
+  defaultPetName: "\uC774\uB984"
+  defaultEvoStage: "\uC131\uC7A5 \uB2E8\uACC4"
 --- !u!1 &678470230
 GameObject:
   m_ObjectHideFlags: 0
@@ -5140,7 +5143,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 1ca616d4148cdb640b3eb7ab58eae146, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
