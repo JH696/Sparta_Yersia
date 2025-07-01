@@ -59,6 +59,7 @@ public class QuestData : ScriptableObject
     public int RewardExp;
     public int RewardYP;
     public List<ItemData> RewardItems;
+    public List<PetData> RewardPets;
 }
 
 [CustomEditor(typeof(QuestData))]
@@ -77,7 +78,7 @@ public class QuestDataEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("RewardExp"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("RewardYP"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("RewardItems"));
-
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("RewardPets"));
 
         SerializedProperty questTypeProp = serializedObject.FindProperty("ConditionType");
         EditorGUILayout.PropertyField(questTypeProp);

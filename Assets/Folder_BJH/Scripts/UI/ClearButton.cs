@@ -36,6 +36,7 @@ public class ClearButton : MonoBehaviour
         GetComponentInParent<ChoiceButtons>().gameObject.SetActive(false);
 
         QuestManager.Instance.QuestClear(curQuestData);
+        TestPlayer.Instance.playerQuest.RemoveEQProgress(curQuestData);
         QuestManager.Instance.CostConditionItem(curQuestData);
         DialogueManager.Instance.ChangeCurDialogue(curQuestData.QuestID + "E");
         DialogueManager.Instance.DialogueUI.PassTyping();

@@ -60,6 +60,13 @@ public class PlayerQuest : MonoBehaviour
         EQProgress[questData.QuestID] = new EQProgress(questData);
     }
 
+    public void RemoveEQProgress(QuestData questData)
+    {
+        if (!EQProgress.ContainsKey(questData.QuestID)) return;
+
+        EQProgress.Remove(questData.QuestID);
+    }
+
     public void UpCountEQ(string monsterID)
     {
         foreach (var eq in EQProgress.Values)

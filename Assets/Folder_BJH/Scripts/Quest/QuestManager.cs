@@ -78,6 +78,13 @@ public class QuestManager : MonoBehaviour
             Debug.Log($"퀘스트 보상 아이템 획득: {item.ItemName}");
             TestPlayer.Instance.playerQuest.AddQuestItem(item);;
         }
+        
+        foreach (PetData pet in questData.RewardPets)
+        {
+            Debug.Log($"퀘스트 보상 아이템 획득: {pet.PetName}");
+            //TestPlayer.Instance.playerQuest.AddQuestItem(pet); ;
+        }
+
 
         Debug.Log($"퀘스트 보상 획득: 경험치: {questData.RewardExp}, YP: {questData.RewardYP}");
     }
