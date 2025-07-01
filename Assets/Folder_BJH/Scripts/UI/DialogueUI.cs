@@ -176,9 +176,6 @@ public class DialogueUI : MonoBehaviour
 
             if (data.ReceiverID == curNpc.NpcData.NpcID)
             {
-                Debug.Log("status.isCleared" + status.IsCleared);
-                Debug.Log("data.ConditionType" + data.ConditionType);
-
                 if (status.IsCleared || data.ConditionType == EConditionType.Investigation)
                 {
                     choiceBtns.SpawnClearBtn(data);
