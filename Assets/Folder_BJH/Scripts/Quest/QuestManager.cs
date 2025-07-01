@@ -14,7 +14,6 @@ public class QuestManager : MonoBehaviour
     [Header("수락 가능한 퀘스트 목록")]
     [SerializeField] private List<QuestData> AvailableQuests;
 
-
     private void Awake()
     {
         if (Instance == null)
@@ -77,13 +76,12 @@ public class QuestManager : MonoBehaviour
     {
         foreach (ItemData item in questData.RewardItems)
         {
-            Debug.Log($"퀘스트 보상 아이템 획득: {item.ItemName}");
             GameManager.Instance.Player.GetComponent<PlayerInventory>().AddItem(item, 1);
         }
         
         foreach (PetData pet in questData.RewardPets)
         {
-            Debug.Log($"퀘스트 보상 아이템 획득: {pet.PetName}");
+            Debug.Log($"펫 획득: {pet.PetName}");
             //TestPlayer.Instance.playerQuest.AddQuestItem(pet); 
         }
 
@@ -113,7 +111,7 @@ public class QuestManager : MonoBehaviour
 
         if (nextQuest == null)
         {
-            Debug.LogError($"Quest Manager: 다음 스토리 퀘스트가 존재하지 않습니다.");
+            Debug.Log($"Quest Manager: 다음 스토리 퀘스트가 존재하지 않습니다.");
             return;
         }
 
@@ -121,4 +119,3 @@ public class QuestManager : MonoBehaviour
         AvailableQuests.Add(nextQuest);
     }
 }
-
