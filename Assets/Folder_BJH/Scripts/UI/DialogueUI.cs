@@ -198,12 +198,12 @@ public class DialogueUI : MonoBehaviour
     // 선택지 버튼 생성
     private void DisplayeChoices()
     {
-        TestPlayer.Instance.playerQuest.QuestUpdate();
+        GameManager.Instance.Player.GetComponent<PlayerQuest>().QuestUpdate();
         choiceBtns.RemoveChoiceButton();
         choiceBtns.gameObject.SetActive(true);
         passBtn.SetActive(false);   
 
-        foreach (var questPair in TestPlayer.Instance.playerQuest.GetMyQStatus())
+        foreach (var questPair in GameManager.Instance.Player.GetComponent<PlayerQuest>().GetMyQStatus())
         {
             QuestStatus status = questPair.Value;
             QuestData data = status.QuestData;

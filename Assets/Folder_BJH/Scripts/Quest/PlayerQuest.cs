@@ -20,12 +20,12 @@ public class QuestStatus
 [System.Serializable]
 public class EliQuestProgress
 {
-    public QuestData QuestData;
+    public string QuestID;
     public Dictionary<string, int> EliCounts;
 
     public EliQuestProgress(QuestData data)
     {
-        QuestData = data;
+        QuestID = data.QuestID;
         EliCounts = new Dictionary<string, int>();
 
         foreach (var enemy in data.TargetEnemy)
@@ -37,11 +37,16 @@ public class EliQuestProgress
 
 public class PlayerQuest : MonoBehaviour
 {
+    public PlayerInventory Inventory;
+
     private Dictionary<string, QuestStatus> MyQStatus = new Dictionary<string, QuestStatus>();
     private Dictionary<string, EliQuestProgress> EliQProgress = new Dictionary<string, EliQuestProgress>();
 
-    // 퀘스트 진행용 아이템 인벤토리 (삭제 예정)
-    [SerializeField] private List<ItemData> QuestItems;
+
+    private void Start()
+    {
+        Inventory = this.gameObject.GetComponent<PlayerInventory>();
+    }
 
     // 진행 중인 퀘스트 가져오기
     public Dictionary<string, QuestStatus> GetMyQStatus()
@@ -118,7 +123,7 @@ public class PlayerQuest : MonoBehaviour
 
                 // 수집 퀘스트
                 case EConditionType.Collection:
-                    bool CQComplete = data.TargetItem.All(item => HasItem(item.ItemID) >= item.ItemCount);
+                    bool CQComplete = data.TargetItem.All(item => Inventory.GetCount(item.ItemData) >= item.ItemCount);
                     if (CQComplete)
                     {
                         MyQStatus[questID] = new QuestStatus(data, true);
@@ -140,20 +145,6 @@ public class PlayerQuest : MonoBehaviour
         }
     }
 
-    // 아이템 데이터 찾기
-    public ItemData FindItemByID(string id)
-    {
-        ItemData item = Resources.Load<ItemData>($"ItemDatas/{id}");
-
-        if (item == null)
-        {
-            Debug.LogError($"아이템을 찾을 수 없습니다: {id}");
-            return null;
-        }
-
-        return item;
-    }
-
     // 몬스터 데이터 찾기
     public MonsterData FindMonsterByID(string id)
     {
@@ -166,41 +157,6 @@ public class PlayerQuest : MonoBehaviour
         }
 
         return monster;
-    }
-
-    // 아이템 ID로 아이템 개수 확인 (삭제 예정)
-    public int HasItem(string itemID)
-    {
-        int itemCount = 0;
-
-        for (int i = 0; i < QuestItems.Count; i++)
-        {
-            if (QuestItems[i] == FindItemByID(itemID))
-            {
-                itemCount++;
-            }
-        }
-
-        return itemCount;
-    }
-
-    // 퀘스트 아이템 추가 및 UI 갱신 (삭제 예정)
-    public void AddQuestItem(ItemData itemData)
-    {
-        QuestItems.Add(itemData);
-        QuestUpdate();
-        QuestManager.Instance.questUI.RefreshQuestUI();
-    }
-
-    // 퀘스트 아이템 제거 및 UI 갱신 (삭제 예정)
-    public void RemoveQuestItem(ItemData itemData, int count)
-    {
-        for (int i = 1; i < count; i++)
-        {
-            QuestItems.Remove(itemData);
-        }
-        QuestUpdate();
-        QuestManager.Instance.questUI.RefreshQuestUI();
     }
 
     // 몬스터 처치 (삭제 예정)

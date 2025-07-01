@@ -41,7 +41,7 @@ public class QuestManager : MonoBehaviour
         if (questData == null || !AvailableQuests.Contains(questData)) return;
 
         AvailableQuests.Remove(questData);
-        TestPlayer.Instance.playerQuest.AddMyQ(questData);
+        GameManager.Instance.Player.GetComponent<PlayerQuest>().AddMyQ(questData);
         questUI.RefreshQuestUI();
     }
 
@@ -55,7 +55,7 @@ public class QuestManager : MonoBehaviour
             NextStoryQuestUnlock();
         }
 
-        TestPlayer.Instance.playerQuest.RemoveMyQ(questData);
+        GameManager.Instance.Player.GetComponent<PlayerQuest>().RemoveMyQ(questData);
         SubmitQItems(questData);
         GetQRawards(questData);
         questUI.RefreshQuestUI();
@@ -68,9 +68,7 @@ public class QuestManager : MonoBehaviour
     {
         foreach (var item in questData.TargetItem)
         {
-            ItemData targetItem = TestPlayer.Instance.playerQuest.FindItemByID(item.ItemID);
-
-            TestPlayer.Instance.playerQuest.RemoveQuestItem(targetItem, item.ItemCount);
+            GameManager.Instance.Player.GetComponent<PlayerInventory>().RemoveItem(item.ItemData, item.ItemCount);
         }
     }
 
@@ -80,16 +78,17 @@ public class QuestManager : MonoBehaviour
         foreach (ItemData item in questData.RewardItems)
         {
             Debug.Log($"퀘스트 보상 아이템 획득: {item.ItemName}");
-            TestPlayer.Instance.playerQuest.AddQuestItem(item);;
+            GameManager.Instance.Player.GetComponent<PlayerInventory>().AddItem(item, 1);
         }
         
         foreach (PetData pet in questData.RewardPets)
         {
             Debug.Log($"퀘스트 보상 아이템 획득: {pet.PetName}");
-            //TestPlayer.Instance.playerQuest.AddQuestItem(pet); ;
+            //TestPlayer.Instance.playerQuest.AddQuestItem(pet); 
         }
 
-        Debug.Log($"퀘스트 보상 획득: 경험치: {questData.RewardExp}, YP: {questData.RewardYP}");
+        GameManager.Instance.Player.GetComponent<PlayerController>().AddExp(questData.RewardExp);
+        GameManager.Instance.Player.GetComponent<PlayerController>().AddYP(questData.RewardYP);
     }
 
     // 퀘스트 해금

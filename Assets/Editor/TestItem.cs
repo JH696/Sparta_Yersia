@@ -1,10 +1,10 @@
 ﻿#if UNITY_EDITOR
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 public class TestItem : EditorWindow
 {
+    public InventoryUI InventoryUI;
     private PlayerInventory _inventory;
     private ItemData[] _items;
     private int _selectedIndex;
@@ -56,6 +56,8 @@ public class TestItem : EditorWindow
             foreach (var item in _items)
             {
                 _inventory.AddItem(item, 1);
+                InventoryUI.RefreshUI();
+                InventoryUI.Show();
             }
             Debug.Log($"[TestItem] {_items.Length}개 아이템을 인벤토리에 추가했습니다.");
         }

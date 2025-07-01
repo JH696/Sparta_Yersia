@@ -36,7 +36,7 @@ public class ClearButton : MonoBehaviour
         GetComponentInParent<ChoiceButtons>().gameObject.SetActive(false);
 
         QuestManager.Instance.QuestClear(curQuestData);
-        TestPlayer.Instance.playerQuest.RemoveEliQ(curQuestData);
+        GameManager.Instance.Player.GetComponent<PlayerQuest>().RemoveEliQ(curQuestData);
         DialogueManager.Instance.ChangeCurDialogue(curQuestData.QuestID + "E");
         DialogueManager.Instance.DialogueUI.PassTyping();
     }
