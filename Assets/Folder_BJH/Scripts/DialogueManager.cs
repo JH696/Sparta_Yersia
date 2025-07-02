@@ -35,7 +35,7 @@ public class DialogueManager : MonoBehaviour
         DialogueUI.SetDialogueResource(npc.NpcData.DialogueSprite);
         DialogueUI.SetDailogueNPC(npc);
         ChangeCurDialogue("Start");
-        DialogueUI.ShowDialogueUI();
+        UIManager.Instance.ShowDialogue();
     }
 
     // 다이얼로그 UI 현재 대사 변경

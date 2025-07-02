@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Text;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,7 +28,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private float leaveDelay = 1f;
 
     private bool isExiting;
-    private bool isSkipping;
+    private bool skipRequested;
     private int curLineIndex;
     private Coroutine typingCoroutine;
 
@@ -38,10 +37,7 @@ public class DialogueUI : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.F))
         {
-            if (typingCoroutine != null && !isExiting)
-            {
-                isSkipping = true;
-            }
+            RequestSkip();
         }
     }
 
@@ -88,18 +84,18 @@ public class DialogueUI : MonoBehaviour
         dialogueImg.sprite = sprite;
     }
 
-    // 다이얼로그 UI 활성화 (UIManager와 OnEnable로 기능 분리 예정)
+    // 다이얼로그 UI 활성화
     public void ShowDialogueUI()
     {
-        if (passBtn == null)
-        {
-            Debug.Log("할당되지 않은 컴포넌트가 있습니다.");
-            return;
-        }
-
         this.gameObject.SetActive(true);
         passBtn.SetActive(true);
-        PassTyping();
+    }
+
+    // 다이얼로그 UI 비활성화
+    public void HideDialogueUI()
+    {
+        this.gameObject.SetActive(false);
+        passBtn.SetActive(false);
     }
 
     // 대사 출력 (Pass Button)
@@ -132,8 +128,6 @@ public class DialogueUI : MonoBehaviour
     {
         if (curDialogueData != null && curLineIndex < curDialogueData.Lines.Count)
         {
-            Debug.Log($"현재 인덱스: {curLineIndex}, 전체 인덱스: {curDialogueData.Lines.Count}");
-
             return true;
         }
         else
@@ -202,7 +196,7 @@ public class DialogueUI : MonoBehaviour
         NameTxt.text = string.Empty;
         dialogueTxt.text = string.Empty;
 
-        this.gameObject.SetActive(false);
+        HideDialogueUI();
     }
 
 
@@ -220,10 +214,10 @@ public class DialogueUI : MonoBehaviour
 
         foreach (char c in line)
         {
-            if (isSkipping)
+            if (skipRequested)
             {
                 dialogueTxt.text = line;
-                isSkipping = false;
+                skipRequested = false;
                 break;
             }
 
@@ -240,8 +234,16 @@ public class DialogueUI : MonoBehaviour
         typingCoroutine = null;
     }
 
+    private void RequestSkip()
+    {
+        if (typingCoroutine != null && !isExiting)
+        {
+            skipRequested = true;
+        }
+    }
+
     // 선택지 버튼 생성
-    private void DisplayeChoices()
+    public void DisplayeChoices()
     {
         GameManager.Instance.Player.GetComponent<PlayerQuest>().QuestUpdate();
         choiceBtns.RemoveChoiceButton();
