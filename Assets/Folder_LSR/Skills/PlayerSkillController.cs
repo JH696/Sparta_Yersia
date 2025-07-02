@@ -27,13 +27,13 @@ public class PlayerSkillController : MonoBehaviour
     }
 
     // 스킬 레벨업시 필요한 포인트
-    private bool HasSkillUnlocked(string skillID)
+    public bool HasSkillUnlocked(string skillID)
     {
         return unlockedSkillIDs.Contains(skillID);
     }
 
     // 스킬 락 해제 가능여부
-    private bool CanUnlockSkill(SkillData data)
+    public bool CanUnlockSkill(SkillData data)
     {
         if (HasSkillUnlocked(data.SkillID)) return false;
         if (playerTier < data.TierRequirement) return false;
@@ -43,7 +43,7 @@ public class PlayerSkillController : MonoBehaviour
     }
 
     // 스킬 락 해제
-    private void UnlockSkill(SkillData data)
+    public void UnlockSkill(SkillData data)
     {
         if (!CanUnlockSkill(data)) return;
 
@@ -62,7 +62,7 @@ public class PlayerSkillController : MonoBehaviour
     }
 
     // 스킬 레벨업 가능여부
-    private bool CanLevelUpSkill(SkillData data)
+    public bool CanLevelUpSkill(SkillData data)
     {
         if (!HasSkillUnlocked(data.SkillID)) return false;
         if (!skillLevels.ContainsKey(data.SkillID)) return false;
@@ -81,7 +81,7 @@ public class PlayerSkillController : MonoBehaviour
     }
 
     // 스킬 레벨업
-    private void LevelUpSkill(SkillData data)
+    public void LevelUpSkill(SkillData data)
     {
         if (!CanLevelUpSkill(data)) return;
 
@@ -113,12 +113,10 @@ public class PlayerSkillController : MonoBehaviour
     // 특정레벨 이상 레벨업 성공 확률 계산
     private bool RandomHighLvUpSuccess(int level)
     {
-        // 예시: 레벨 11 이상은 50% 확률로 성공
-        if (level > 10)
-        {
-            return Random.Range(0f, 1f) < 0.5f;
-        }
-        return true; // 레벨 10 이하의 경우 항상 성공
+        // 점진적으로 성공 확률 감소
+        float successRate = 0.9f - 0.05f * (level - 11); // 레벨 11부터 확률 감소
+        successRate = Mathf.Clamp(successRate, 0.1f, 0.9f); // 최소 10%, 최대 90%
+        return Random.value <= successRate;
     }
 
     public void AddSkillPoints(int points)
