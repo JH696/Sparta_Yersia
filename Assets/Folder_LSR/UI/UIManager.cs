@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 
     // UI 요소들
     private InventoryUI inventoryUI;
+    private DialogueUI dialogueUI;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class UIManager : MonoBehaviour
     {
         // 새로운 씬이 로드될 때 UI 초기화
         inventoryUI = FindObjectOfType<InventoryUI>(includeInactive: true);
+        dialogueUI = FindObjectOfType<DialogueUI>(includeInactive: true);
     }
 
     // 인벤토리 UI 표시
@@ -55,5 +57,26 @@ public class UIManager : MonoBehaviour
             return;
         }
         inventoryUI.Hide();
+    }
+
+    // 대화 UI 표시
+    public void ShowDialogue()
+    {
+        if (dialogueUI == null)
+        {
+            Debug.LogWarning("[UIManager] DialogueUI를 찾을 수 없습니다.");
+            return;
+        }
+        dialogueUI.ShowDialogueUI();
+    }
+
+    public void HideDialogue()
+    {
+        if (dialogueUI == null)
+        {
+            Debug.LogWarning("[UIManager] DialogueUI를 찾을 수 없습니다.");
+            return;
+        }
+        dialogueUI.HideDialogueUI();
     }
 }
