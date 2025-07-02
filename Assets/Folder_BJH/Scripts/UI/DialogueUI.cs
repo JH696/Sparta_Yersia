@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Text;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,9 +28,22 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private float leaveDelay = 1f;
 
+    private bool isExiting;
+    private bool isSkipping;
     private int curLineIndex;
     private Coroutine typingCoroutine;
 
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.F))
+        {
+            if (typingCoroutine != null && !isExiting)
+            {
+                isSkipping = true;
+            }
+        }
+    }
 
     // 전체 대사 데이터 설정 (다이얼로그 사용시 필수, 우선적으로 사용) 
     public void SetAllDialogue(DialogueData[] allDatas)
@@ -92,20 +107,14 @@ public class DialogueUI : MonoBehaviour
     {
         choiceBtns.gameObject.SetActive(false);
 
-        if (curLineIndex < curDialogueData.Lines.Count)
+        if (HasNextLine())
         {
             if (typingCoroutine != null)
-                StopCoroutine(typingCoroutine);
-
-            DialogueLine lineData = curDialogueData.Lines[curLineIndex];
-            if (lineData == null || string.IsNullOrEmpty(lineData.Text))
             {
-                Debug.LogWarning($"[DialogueUI] 잘못된 대사 라인입니다. curLineIndex: {curLineIndex}");
-                curLineIndex++;
-                PassTyping();
-                return;
+                StopCoroutine(typingCoroutine);
             }
 
+            DialogueLine lineData = curDialogueData.Lines[curLineIndex];
             SetSpeaker(lineData.Speaker);
             typingCoroutine = StartCoroutine(TypeLine(lineData.Text));
             curLineIndex++;
@@ -113,6 +122,23 @@ public class DialogueUI : MonoBehaviour
         else
         {
             DisplayeChoices();
+        }
+
+        passBtn.SetActive(false);
+    }
+
+    // 다음 대사 존재 여부 확인
+    private bool HasNextLine()
+    {
+        if (curDialogueData != null && curLineIndex < curDialogueData.Lines.Count)
+        {
+            Debug.Log($"현재 인덱스: {curLineIndex}, 전체 인덱스: {curDialogueData.Lines.Count}");
+
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -122,6 +148,7 @@ public class DialogueUI : MonoBehaviour
         SetCurDialogue(GetDialogueData("End"));
         PassTyping();
 
+        isExiting = true;
         passBtn.SetActive(false);
         choiceBtns.gameObject.SetActive(false);
         choiceBtns.RemoveChoiceButton();
@@ -141,6 +168,7 @@ public class DialogueUI : MonoBehaviour
         return null;
     }
 
+    // 대화 상대 이름, 스프라이트 투명도 설정 (Player, NPC 등)
     private void SetSpeaker(string speaker)
     {
         NameTxt.text = speaker switch
@@ -167,6 +195,7 @@ public class DialogueUI : MonoBehaviour
     {
         DialogueManager.Instance.IsDialogueActive = false;
 
+        isExiting = false;
         curDialogueData = null;
         dialogueImg.sprite = null;
         curLineIndex = 0;
@@ -182,16 +211,32 @@ public class DialogueUI : MonoBehaviour
     {
         if (dialogueTxt == null)
         {
-            Debug.Log("DialogueUI: dialogueTxt가 설정되지 않았습니다!");
+            Debug.LogWarning("DialogueUI: dialogueTxt가 설정되지 않았습니다!");
             yield break;
         }
 
         dialogueTxt.text = "";
+        StringBuilder sb = new StringBuilder();
+
         foreach (char c in line)
         {
-            dialogueTxt.text += c;
+            if (isSkipping)
+            {
+                dialogueTxt.text = line;
+                isSkipping = false;
+                break;
+            }
+
+            sb.Append(c);
+            dialogueTxt.text = sb.ToString();
             yield return new WaitForSeconds(typingSpeed);
         }
+
+        if (!isExiting)
+        {
+            passBtn.SetActive(true);
+        }
+
         typingCoroutine = null;
     }
 
