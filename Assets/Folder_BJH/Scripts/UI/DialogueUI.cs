@@ -168,7 +168,7 @@ public class DialogueUI : MonoBehaviour
         NameTxt.text = speaker switch
         {
             "Player" => "나", // PlayerName
-            "NPC" => curNpc?.NpcData?.NpcName ?? "???",
+            "NPC" => curNpc?.GetNpcData()?.NpcName ?? "???",
             _ => speaker
         };
 
@@ -243,37 +243,29 @@ public class DialogueUI : MonoBehaviour
     }
 
     // 선택지 버튼 생성
-    public void DisplayeChoices()
+    private void DisplayeChoices()
     {
         GameManager.Instance.Player.GetComponent<PlayerQuest>().QuestUpdate();
         choiceBtns.RemoveChoiceButton();
         choiceBtns.gameObject.SetActive(true);
-        passBtn.SetActive(false);   
 
-        foreach (var questPair in GameManager.Instance.Player.GetComponent<PlayerQuest>().GetMyQStatus())
+        foreach (var quest in curNpc.GetReceiverQuests())
         {
-            QuestStatus status = questPair.Value;
-            QuestData data = status.QuestData;
+            GameManager.Instance.Player.GetComponent<PlayerQuest>().GetMyQStatus().TryGetValue(quest.QuestID, out QuestStatus status);
 
-            if (data.ReceiverID == curNpc.NpcData.NpcID)
+            if (status.IsCleared == true || quest.ConditionType == EConditionType.Investigation)
             {
-                if (status.IsCleared || data.ConditionType == EConditionType.Investigation)
-                {
-                    choiceBtns.SpawnClearBtn(data);
-                }
-                else
-                {
-                    choiceBtns.SpawnReceiveBtn(data);
-                }
+                choiceBtns.SpawnClearBtn(quest);
+            }
+            else if (status.IsCleared == false)
+            {
+                choiceBtns.SpawnReceiveBtn(quest);
             }
         }
 
         foreach (var quest in QuestManager.Instance.GetAvailableQuests())
         {
-            if (quest.AssignerID == curNpc.NpcData.NpcID)
-            {
-                choiceBtns.SpawnAssignBtn(quest);
-            }
+             choiceBtns.SpawnAssignBtn(quest);
         }
     }
 }

@@ -31,8 +31,8 @@ public class DialogueManager : MonoBehaviour
         if (IsDialogueActive) return;
 
         IsDialogueActive = true;
-        DialogueUI.SetAllDialogue(helper.LoadJsonFromPath("Dialogues/" + npc.NpcData.NpcID));
-        DialogueUI.SetDialogueResource(npc.NpcData.DialogueSprite);
+        DialogueUI.SetAllDialogue(helper.LoadJsonFromPath("Dialogues/" + npc.GetNpcData().NpcID));
+        DialogueUI.SetDialogueResource(npc.GetNpcData().DialogueSprite);
         DialogueUI.SetDailogueNPC(npc);
         ChangeCurDialogue("Start");
         UIManager.Instance.ShowDialogue();

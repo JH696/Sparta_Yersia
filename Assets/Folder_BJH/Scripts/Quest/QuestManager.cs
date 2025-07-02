@@ -14,6 +14,8 @@ public class QuestManager : MonoBehaviour
     [Header("수락 가능한 퀘스트 목록")]
     [SerializeField] private List<QuestData> AvailableQuests;
 
+    public event System.Action QuestUpdate;
+
     private void Awake()
     {
         if (Instance == null)
@@ -42,6 +44,7 @@ public class QuestManager : MonoBehaviour
         AvailableQuests.Remove(questData);
         GameManager.Instance.Player.GetComponent<PlayerQuest>().AddMyQ(questData);
         questUI.RefreshQuestUI();
+        QuestUpdate?.Invoke();
     }
 
     // 퀘스트 완료 
@@ -58,6 +61,7 @@ public class QuestManager : MonoBehaviour
         SubmitQItems(questData);
         GetQRawards(questData);
         questUI.RefreshQuestUI();
+        QuestUpdate?.Invoke();
 
         Debug.Log($"퀘스트 완료: {questData.QuestName}");
     }
@@ -101,6 +105,7 @@ public class QuestManager : MonoBehaviour
         }
 
         AvailableQuests.Add(quest);
+        QuestUpdate?.Invoke();
     }
 
     // 다음 스토리 퀘스트 해금
@@ -117,5 +122,6 @@ public class QuestManager : MonoBehaviour
 
         Debug.Log($"Quest Manager: 다음 스토리 퀘스트 해금: {nextQuest.QuestName}");  
         AvailableQuests.Add(nextQuest);
+        QuestUpdate?.Invoke();
     }
 }
