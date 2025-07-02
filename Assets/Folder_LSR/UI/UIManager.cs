@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     // UI 요소들
     private InventoryUI inventoryUI;
     private DialogueUI dialogueUI;
+    private PlayerUI playerUI;
     private StatUIController statUIController;
 
     private void Awake()
@@ -36,6 +37,7 @@ public class UIManager : MonoBehaviour
         // 새로운 씬이 로드될 때 UI 초기화
         inventoryUI = FindObjectOfType<InventoryUI>(includeInactive: true);
         dialogueUI = FindObjectOfType<DialogueUI>(includeInactive: true);
+        playerUI = FindObjectOfType<PlayerUI>(includeInactive: true);
         statUIController = FindObjectOfType<StatUIController>(includeInactive: true);
     }
 
@@ -80,6 +82,26 @@ public class UIManager : MonoBehaviour
             return;
         }
         dialogueUI.HideDialogueUI();
+    }
+
+    public void ShowPlayerUI()
+    {
+        if (playerUI == null)
+        {
+            Debug.LogWarning("[UIManager] PlayerUI를 찾을 수 없습니다.");
+            return;
+        }
+        playerUI.ShowPlayerUI();
+    }
+
+    public void HidePlayerUI()
+    {
+        if (playerUI == null)
+        {
+            Debug.LogWarning("[UIManager] PlayerUI를 찾을 수 없습니다.");
+            return;
+        }
+        playerUI.HidePlayerUI();    
     }
 
     // 스탯 UI 표시 (기본: 플레이어)

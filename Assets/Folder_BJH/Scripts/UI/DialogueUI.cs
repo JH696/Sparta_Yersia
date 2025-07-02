@@ -25,9 +25,8 @@ public class DialogueUI : MonoBehaviour
 
     [Header("타이핑 / 대화창 이탈 속도")]
     [SerializeField] private float typingSpeed = 0.05f;
-    [SerializeField] private float leaveDelay = 1f;
+    [SerializeField] private float leaveDelay = 1;
 
-    private bool isExiting;
     private bool skipRequested;
     private int curLineIndex;
     private Coroutine typingCoroutine;
@@ -117,7 +116,7 @@ public class DialogueUI : MonoBehaviour
         }
         else
         {
-            DisplayeChoices();
+            DisplayChoices();
         }
 
         passBtn.SetActive(false);
@@ -139,14 +138,12 @@ public class DialogueUI : MonoBehaviour
     // 대화 종료 (Leave Button) 
     public void ExitDialogue()
     {
-        SetCurDialogue(GetDialogueData("End"));
-        PassTyping();
-
-        isExiting = true;
         passBtn.SetActive(false);
         choiceBtns.gameObject.SetActive(false);
         choiceBtns.RemoveChoiceButton();
-        Invoke("ResetDialogueData", leaveDelay);
+        ResetDialogueData();
+        HideDialogueUI();
+        UIManager.Instance.ShowPlayerUI();
     }
 
     public DialogueData GetDialogueData(string id)
@@ -174,13 +171,13 @@ public class DialogueUI : MonoBehaviour
 
         if (speaker == "Player")
         {
-            playerImg.color = new Color(1f, 1f, 1f, 1f); 
-            dialogueImg.color = new Color(1f, 1f, 1f, 0.25f);
+            playerImg.GetComponent<Animator>().SetBool("IsSpeak", true);
+            dialogueImg.GetComponent<Animator>().SetBool("IsSpeak", false);
         }
-        else
+        else if (speaker == "NPC")
         {
-            playerImg.color = new Color(1f, 1f, 1f, 0.25f);
-            dialogueImg.color = new Color(1f, 1f, 1f, 1f);
+            playerImg.GetComponent<Animator>().SetBool("IsSpeak", false);
+            dialogueImg.GetComponent<Animator>().SetBool("IsSpeak", true);
         }
     }
 
@@ -188,15 +185,12 @@ public class DialogueUI : MonoBehaviour
     private void ResetDialogueData()
     {
         DialogueManager.Instance.IsDialogueActive = false;
-
-        isExiting = false;
         curDialogueData = null;
         dialogueImg.sprite = null;
         curLineIndex = 0;
+        curNpc = null;
         NameTxt.text = string.Empty;
         dialogueTxt.text = string.Empty;
-
-        HideDialogueUI();
     }
 
 
@@ -214,36 +208,25 @@ public class DialogueUI : MonoBehaviour
 
         foreach (char c in line)
         {
-            if (skipRequested)
-            {
-                dialogueTxt.text = line;
-                skipRequested = false;
-                break;
-            }
-
             sb.Append(c);
             dialogueTxt.text = sb.ToString();
             yield return new WaitForSeconds(typingSpeed);
         }
 
-        if (!isExiting)
-        {
-            passBtn.SetActive(true);
-        }
-
+        passBtn.SetActive(true);
         typingCoroutine = null;
     }
 
     private void RequestSkip()
     {
-        if (typingCoroutine != null && !isExiting)
+        if (typingCoroutine != null)
         {
             skipRequested = true;
         }
     }
 
     // 선택지 버튼 생성
-    private void DisplayeChoices()
+    private void DisplayChoices()
     {
         GameManager.Instance.Player.GetComponent<PlayerQuest>().QuestUpdate();
         choiceBtns.RemoveChoiceButton();
@@ -265,7 +248,10 @@ public class DialogueUI : MonoBehaviour
 
         foreach (var quest in QuestManager.Instance.GetAvailableQuests())
         {
-             choiceBtns.SpawnAssignBtn(quest);
+            if (quest.AssignerID == curNpc.GetNpcData().NpcID)
+            {
+                choiceBtns.SpawnAssignBtn(quest);
+            }
         }
     }
 }

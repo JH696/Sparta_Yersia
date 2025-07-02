@@ -34,8 +34,10 @@ public class DialogueManager : MonoBehaviour
         DialogueUI.SetAllDialogue(helper.LoadJsonFromPath("Dialogues/" + npc.GetNpcData().NpcID));
         DialogueUI.SetDialogueResource(npc.GetNpcData().DialogueSprite);
         DialogueUI.SetDailogueNPC(npc);
-        ChangeCurDialogue("Start");
+        UIManager.Instance.HidePlayerUI();
         UIManager.Instance.ShowDialogue();
+        ChangeCurDialogue("Start");
+        DialogueUI.PassTyping();
     }
 
     // 다이얼로그 UI 현재 대사 변경
