@@ -50,4 +50,14 @@ public class PlayerUI : MonoBehaviour
             ExpGauge.fillAmount = Mathf.Clamp01(ratio);
         }
     }
+
+    public void ShowPlayerUI()
+    {
+        this.gameObject.SetActive(true);
+    }
+
+    public void HidePlayerUI()
+    {
+        this.gameObject.SetActive(false);
+    }
 }
