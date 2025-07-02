@@ -2961,6 +2961,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 506817130}
+  - component: {fileID: 506817131}
   m_Layer: 5
   m_Name: Player UI
   m_TagString: Untagged
@@ -2989,6 +2990,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &506817131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506817129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08ec36d9039c9a4f87d65984ccc39ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 7286510250401063995}
+  HpGauge: {fileID: 2109138769}
+  ManaGauge: {fileID: 440637452}
+  ExpGauge: {fileID: 1950350095}
+  ProfileImg: {fileID: 2131429722}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -17552,6 +17570,7 @@ MonoBehaviour:
   ProfileImg: {fileID: 4506116774798923546}
   defaultPetProfile: {fileID: 21300000, guid: 1ca616d4148cdb640b3eb7ab58eae146, type: 3}
   YPTxt: {fileID: 1309706568736467182}
+  GenderTxt: {fileID: 7739198389129397206}
   PlayerInfo: {fileID: 2161464080660799225}
   PetInfo: {fileID: 3222191953559613954}
   PetNameTxt: {fileID: 2191574377081201694}

@@ -18,6 +18,7 @@ public class StatsUI : MonoBehaviour
 
     [Header("플레이어 전용 UI")]
     [SerializeField] private TMP_Text YPTxt;
+    [SerializeField] private TMP_Text GenderTxt;
     [SerializeField] private GameObject PlayerInfo;
 
     [Header("펫 전용 UI")]
@@ -77,6 +78,19 @@ public class StatsUI : MonoBehaviour
             if (YPTxt != null) YPTxt.text = $"YP : {player.YP}";
             if (ProfileImg != null && player.PlayerData != null)
                 ProfileImg.sprite = player.PlayerData.GetDefaultProfileIcon();
+
+            if (GenderTxt != null && player.PlayerData != null)
+            {
+                switch (player.PlayerData.gender)
+                {
+                    case EGender.Male:
+                        GenderTxt.text = "성별 : 남성";
+                        break;
+                    case EGender.Female:
+                        GenderTxt.text = "성별 : 여성";
+                        break;
+                }
+            }
 
             if (PlayerInfo != null) PlayerInfo.SetActive(true);
             if (PetInfo != null) PetInfo.SetActive(false);
