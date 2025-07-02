@@ -13,52 +13,35 @@ public class StatUIController : MonoBehaviour
     [SerializeField] private GameObject PlayerInfo;    // 플레이어 전용 정보 UI
     [SerializeField] private GameObject PetInfo;       // 펫 전용 정보 UI
 
-    private bool ShowStatUI = false;
+    private bool StatUI = false;
 
     private void Start()
     {
-        if (statsUIObject == null) return;
-
-        statsUIObject.SetActive(false);
+        if (statsUIObject != null) statsUIObject.SetActive(false);
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
         if (PetInfo != null) PetInfo.SetActive(false);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            if (ShowStatUI) return;
-            if (statsUIObject == null || statsUI == null || player == null) return;
-
-            ShowStatUI = true;
-            statsUIObject.SetActive(true);
-            statsUI.SetTarget(player);
-
-            if (PlayerInfo != null) PlayerInfo.SetActive(true);
-            if (PetInfo != null) PetInfo.SetActive(false);
-        }
     }
 
     // UI 내 돌아가기 버튼에 연결할 함수 (UI 끄기 담당)
-    public void CloseStatUI()
+    public void HideStatUI()
     {
         if (statsUIObject == null) return;
 
-        ShowStatUI = false;
+        StatUI = false;
         statsUIObject.SetActive(false);
 
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
         if (PetInfo != null) PetInfo.SetActive(false);
     }
 
-    public void ShowPlayerStats()
+    // 기본적으로 플레이어의 스탯을 표시
+    public void ShowStatUI()
     {
         if (statsUIObject == null || statsUI == null || player == null) return;
 
-        if (!ShowStatUI)
+        if (!StatUI)
         {
-            ShowStatUI = true;
+            StatUI = true;
             statsUIObject.SetActive(true);
         }
 
@@ -68,33 +51,33 @@ public class StatUIController : MonoBehaviour
         if (PetInfo != null) PetInfo.SetActive(false);
     }
 
+    // Pet1의 스탯을 표시
     public void ShowPet1Stats()
     {
         if (statsUIObject == null || statsUI == null) return;
 
-        if (!ShowStatUI)
+        if (!StatUI)
         {
-            ShowStatUI = true;
+            StatUI = true;
             statsUIObject.SetActive(true);
         }
 
-        // null이어도 전달
         statsUI.SetTarget(pet1);
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
         if (PetInfo != null) PetInfo.SetActive(true);
     }
 
+    // Pet2의 스탯을 표시
     public void ShowPet2Stats()
     {
         if (statsUIObject == null || statsUI == null) return;
 
-        if (!ShowStatUI)
+        if (!StatUI)
         {
-            ShowStatUI = true;
+            StatUI = true;
             statsUIObject.SetActive(true);
         }
 
-        // null이어도 전달
         statsUI.SetTarget(pet2);
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
         if (PetInfo != null) PetInfo.SetActive(true);
