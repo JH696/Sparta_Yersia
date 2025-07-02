@@ -28,18 +28,14 @@ public class DialogueManager : MonoBehaviour
     // NPC용 다이얼로그 실행
     public void StartNPCDialogue(NPC npc)
     {
-        if (IsDialogueActive)
-        {
-            Debug.Log("Dialogue Manager: 이미 대화 중입니다.");
-            return;
-        }
+        if (IsDialogueActive) return;
 
         IsDialogueActive = true;
         DialogueUI.SetAllDialogue(helper.LoadJsonFromPath("Dialogues/" + npc.NpcData.NpcID));
         DialogueUI.SetDialogueResource(npc.NpcData.DialogueSprite);
         DialogueUI.SetDailogueNPC(npc);
         ChangeCurDialogue("Start");
-        DialogueUI.ShowDialogueUI();
+        UIManager.Instance.ShowDialogue();
     }
 
     // 다이얼로그 UI 현재 대사 변경

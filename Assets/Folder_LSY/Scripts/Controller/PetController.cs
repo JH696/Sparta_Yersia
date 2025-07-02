@@ -46,6 +46,8 @@ public class PetController : BaseCharacter, ILevelable
     {
         Level++;
         Debug.Log($"펫 레벨업 현재 레벨: {Level}");
+        float multiplier = PetData == null ? 1.1f : PetData.StatMultiplierPerLevel;
+        Stat.MultiplyStats(multiplier);
         TryEvolve();
     }
 

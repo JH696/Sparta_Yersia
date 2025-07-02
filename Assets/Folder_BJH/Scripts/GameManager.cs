@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (GetComponent<GameManager>() != this)
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;
