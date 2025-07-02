@@ -27,18 +27,8 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private float leaveDelay = 1;
 
-    private bool skipRequested;
     private int curLineIndex;
     private Coroutine typingCoroutine;
-
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.F))
-        {
-            RequestSkip();
-        }
-    }
 
     // 전체 대사 데이터 설정 (다이얼로그 사용시 필수, 우선적으로 사용) 
     public void SetAllDialogue(DialogueData[] allDatas)
@@ -217,12 +207,15 @@ public class DialogueUI : MonoBehaviour
         typingCoroutine = null;
     }
 
-    private void RequestSkip()
+    public void DialogueSkip()
     {
         if (typingCoroutine != null)
         {
-            skipRequested = true;
+            StopCoroutine(typingCoroutine);
         }
+        curLineIndex = curDialogueData.Lines.Count;
+        passBtn.SetActive(false);
+        DisplayChoices();
     }
 
     // 선택지 버튼 생성
