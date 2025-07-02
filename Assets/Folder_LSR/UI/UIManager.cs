@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     // UI 요소들
     private InventoryUI inventoryUI;
     private DialogueUI dialogueUI;
+    private StatUIController statUIController;
 
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class UIManager : MonoBehaviour
         // 새로운 씬이 로드될 때 UI 초기화
         inventoryUI = FindObjectOfType<InventoryUI>(includeInactive: true);
         dialogueUI = FindObjectOfType<DialogueUI>(includeInactive: true);
+        statUIController = FindObjectOfType<StatUIController>(includeInactive: true);
     }
 
     // 인벤토리 UI 표시
@@ -78,5 +80,49 @@ public class UIManager : MonoBehaviour
             return;
         }
         dialogueUI.HideDialogueUI();
+    }
+
+    // 스탯 UI 표시 (기본: 플레이어)
+    public void ShowStatUI()
+    {
+        if (statUIController == null)
+        {
+            Debug.LogWarning("[UIManager] StatUIController를 찾을 수 없습니다.");
+            return;
+        }
+        statUIController.ShowStatUI();
+    }
+
+    // 펫 1 스탯 UI 표시
+    public void ShowPet1Stats()
+    {
+        if (statUIController == null)
+        {
+            Debug.LogWarning("[UIManager] StatUIController를 찾을 수 없습니다.");
+            return;
+        }
+        statUIController.ShowPet1Stats();
+    }
+
+    // 펫 2 스탯 UI 표시
+    public void ShowPet2Stats()
+    {
+        if (statUIController == null)
+        {
+            Debug.LogWarning("[UIManager] StatUIController를 찾을 수 없습니다.");
+            return;
+        }
+        statUIController.ShowPet2Stats();
+    }
+
+    // 스탯 UI 숨기기
+    public void HideStatUI()
+    {
+        if (statUIController == null)
+        {
+            Debug.LogWarning("[UIManager] StatUIController를 찾을 수 없습니다.");
+            return;
+        }
+        statUIController.HideStatUI();
     }
 }

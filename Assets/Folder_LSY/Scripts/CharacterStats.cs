@@ -55,4 +55,12 @@ public class CharacterStats
     {
         CurrentMana = Mathf.Clamp(mana, 0, MaxMana);
     }
+
+
+    // 스탯을 증가시키는 메소드 - 스킬에 사용 (선량 추가- 만약 이미 추가하신것있으면 지워도 됨. 임시로 추가한거임)
+    public void AddMaxMana(float amount)
+    {
+        MaxMana += amount;
+        CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana);
+    }
 }
