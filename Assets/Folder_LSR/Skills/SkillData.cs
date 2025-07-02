@@ -18,7 +18,7 @@ public class SkillData : ScriptableObject
     [SerializeField] private int baseUnlockCost = 1000;
     [SerializeField] private int manaBonusOnUnlock = 5;
 
-    [Header("선행 스킬 ID (확장성 고려)")]
+    [Header("선행 스킬 ID (확장 고려)")]
     [SerializeField] private List<string> prerequisites = new List<string>();
 
     #region Public Properties
