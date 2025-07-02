@@ -19,6 +19,19 @@ public class PetData : ScriptableObject, ICharacterStatData
     [Tooltip("각 진화 단계에 도달하기 위한 레벨")]
     public EvoLevel[] evoLevels = new EvoLevel[2];
 
+    [Header("레벨 및 경험치")]
+    [Tooltip("시작 레벨")]
+    public int StartLevel = 1;
+
+    [Tooltip("시작 경험치")]
+    public int StartExp = 0;
+
+    [Tooltip("레벨업 기준 경험치 (기본값 * 현재 레벨)")]
+    public int BaseExpToLevelUp = 50;
+
+    [Tooltip("레벨업 시 스탯 배율 증가")]
+    public float StatMultiplierPerLevel = 1.1f;
+
     [Header("진화 시 적용할 스탯 배율")]
     public float StatMultiplier = 1.5f;
 
