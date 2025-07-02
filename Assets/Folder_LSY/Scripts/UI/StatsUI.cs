@@ -26,20 +26,25 @@ public class StatsUI : MonoBehaviour
     [SerializeField] private TMP_Text EvoStageTxt;
     [SerializeField] private Image[] EvoIcons = new Image[3];
 
+    [Header("진화 단계 미달성 시 대체 이미지")]
+    [SerializeField] private Sprite unknownIcon;  // '?' 이미지
+
+    [Header("레벨 / 경험치 UI")]
+    [SerializeField] private TMP_Text LevelTxt;
+    [SerializeField] private Image ExpGauge;
+
     [Header("기본값 (널일 때 표시용)")]
     [SerializeField] private string defaultPetName = "이름";
     [SerializeField] private string defaultEvoStage = "성장 단계";
 
     private BaseCharacter currentCharacter;
 
-    // UI에 표시할 대상 캐릭터 설정
     public void SetTarget(BaseCharacter character)
     {
         currentCharacter = character; // null이어도 그대로 저장
         RefreshUI();
     }
 
-    // 현재 캐릭터의 정보를 기반으로 UI 갱신
     public void RefreshUI()
     {
         bool isPlayer = currentCharacter is PlayerController;
@@ -65,7 +70,6 @@ public class StatsUI : MonoBehaviour
             SpeedTxt.text = "";
         }
 
-        // 플레이어 정보 UI 활성화
         if (isPlayer)
         {
             PlayerController player = currentCharacter as PlayerController;
@@ -75,10 +79,8 @@ public class StatsUI : MonoBehaviour
                 ProfileImg.sprite = player.PlayerData.GetDefaultProfileIcon();
 
             if (PlayerInfo != null) PlayerInfo.SetActive(true);
-            if (PetInfo != null) PetInfo.SetActive(false);  // 플레이어일 땐 펫 UI 꺼짐
+            if (PetInfo != null) PetInfo.SetActive(false);
         }
-
-        // 펫 정보 UI 활성화 (진화 단계 포함)
         else if (isPet)
         {
             PetController pet = currentCharacter as PetController;
@@ -88,7 +90,7 @@ public class StatsUI : MonoBehaviour
             else if (ProfileImg != null)
                 ProfileImg.sprite = defaultPetProfile;
 
-            if (PetInfo != null) PetInfo.SetActive(true);   // 펫이면 펫 UI 켜짐
+            if (PetInfo != null) PetInfo.SetActive(true);
             if (PlayerInfo != null) PlayerInfo.SetActive(false);
 
             if (PetNameTxt != null)
@@ -104,21 +106,25 @@ public class StatsUI : MonoBehaviour
                 for (int i = 0; i < EvoIcons.Length; i++)
                 {
                     if (EvoIcons[i] == null) continue;
-                    Sprite icon = (pet.PetData?.sprites != null && i < pet.PetData.sprites.Length)
-                        ? pet.PetData.sprites[i].Icon
-                        : null;
 
-                    EvoIcons[i].sprite = icon;
-                    EvoIcons[i].color = (icon != null) ? Color.white : new Color(1, 1, 1, 0);
+                    if (pet.PetData?.sprites != null && i < pet.PetData.sprites.Length)
+                    {
+                        bool isReached = pet.PetData.CurrentEvoStage >= i;
+                        EvoIcons[i].sprite = isReached ? pet.PetData.sprites[i].Icon : unknownIcon;
+                        EvoIcons[i].color = Color.white;
+                    }
+                    else
+                    {
+                        EvoIcons[i].sprite = unknownIcon;
+                        EvoIcons[i].color = Color.white;
+                    }
                 }
             }
         }
-
-        // null 또는 기타 대상 처리
         else
         {
             if (PlayerInfo != null) PlayerInfo.SetActive(false);
-            if (PetInfo != null) PetInfo.SetActive(true);  // 널이어도 펫 UI는 켜짐
+            if (PetInfo != null) PetInfo.SetActive(true);
 
             if (ProfileImg != null)
                 ProfileImg.sprite = defaultPetProfile;
@@ -138,6 +144,27 @@ public class StatsUI : MonoBehaviour
                     EvoIcons[i].color = new Color(1, 1, 1, 0);
                 }
             }
+        }
+
+        ILevelable levelable = currentCharacter as ILevelable;
+
+        if (levelable != null)
+        {
+            if (LevelTxt != null)
+                LevelTxt.text = $"Lv. {levelable.Level}";
+
+            if (ExpGauge != null)
+                ExpGauge.fillAmount = (levelable.ExpToNextLevel > 0)
+                    ? (float)levelable.CurrentExp / levelable.ExpToNextLevel
+                    : 0f;
+        }
+        else
+        {
+            if (LevelTxt != null)
+                LevelTxt.text = "Lv";
+
+            if (ExpGauge != null)
+                ExpGauge.fillAmount = 0f;
         }
     }
 }
