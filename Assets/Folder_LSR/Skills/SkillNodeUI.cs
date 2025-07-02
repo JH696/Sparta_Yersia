@@ -22,19 +22,50 @@ public class SkillNodeUI : MonoBehaviour
 
     public void Setup(SkillTreeUI treeUI, SkillData data, PlayerSkillController controller)
     {
-        // 초기화
+        skillTreeUI = treeUI;
+        skillData = data;
+        playerSkillController = controller;
+
+        iconImage.sprite = data.Icon;
+        UpdateNodeUI();
     }
 
     private void UpdateNodeUI()
     {
-        // 락 해제 가능 상태
-        // 락 상태
+        bool isUnlocked = playerSkillController.HasSkillUnlocked(skillData.SkillID);
+
+        if (isUnlocked)
+        {
+            lockOverlay.color = new Color(0, 0, 0, 0);
+            effectOverlay.gameObject.SetActive(false);
+            fillGauge.fillAmount = 1f;
+        }
+        else if (playerSkillController.PlayerTier >= skillData.TierRequirement)
+        {
+            // 락 해제 가능 상태
+            lockOverlay.color = new Color(0, 0, 0, 0.7f);
+            effectOverlay.gameObject.SetActive(true);
+            StartCoroutine(AnimateEffect());
+            fillGauge.fillAmount = 0f;
+        }
+        else
+        {
+            // 락 상태
+            lockOverlay.color = new Color(0, 0, 0, 0.7f);
+            effectOverlay.gameObject.SetActive(false);
+            fillGauge.fillAmount = 0f;
+        }
     }
 
     private IEnumerator AnimateEffect()
     {
-        // 효과 애니메이션 구현
-        yield return new WaitForSeconds(0.5f);
+        while (effectOverlay != null && effectOverlay.gameObject.activeSelf)
+        {
+            Color c = effectOverlay.color;
+            c.a = Mathf.PingPong(Time.time * 0.5f, 0.3f) + 0.2f;
+            effectOverlay.color = c;
+            yield return null;
+        }
     }
 
     private void OnNodeClick()
