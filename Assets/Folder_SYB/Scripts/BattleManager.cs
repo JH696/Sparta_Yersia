@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,111 +13,152 @@ public enum EBattleState
 public class BattleManager : MonoBehaviour
 {
     EBattleState state;
-    [Header("Å×½ºÆ®¿ë")]
-    [SerializeField] int maxSpeed = 100;
-    //Çàµ¿·Â ´ÙÂ÷¼­ Çàµ¿ÇÒ ¿ÀºêÁ§Æ®
-    GameObject playObject;
-    //Çàµ¿¿¡ ´çÇÏ´Â ¿ÀºêÁ§Æ®
+    [Header("í…ŒìŠ¤íŠ¸ìš©")]
+    [SerializeField] int maxGauge = 100;
+    GameObject player;
+    GameObject enemy;
+    CharacterStatData characterStatData;
+    bool isEnemy = false;
+    //í–‰ë™ì— ë‹¹í•˜ëŠ” ì˜¤ë¸Œì íŠ¸
     GameObject targetObject;
-
-    //ÀÏ´Ü °¢ÀÚ ½ºÇÇµåµé ¸®½ºÆ®
-    List<int> speeds = new List<int>();
-    //µ¹¾Æ´Ù´Ï´Â ÇÃ·¹ÀÌ¾î ¸®½ºÆ®
+    BaseCharacter baseCharacter;
+    //ì „ì²´ ë¦¬ìŠ¤íŠ¸
+    List<GameObject> allCharacter = new List<GameObject>();
+    //ëŒì•„ë‹¤ë‹ˆëŠ” í”Œë ˆì´ì–´ ë¦¬ìŠ¤íŠ¸
     List<GameObject> playerList = new List<GameObject>();
-    //¸¸³­ ¿¡³Ê¹Ì ¸®½ºÆ®
+    //ë§Œë‚œ ì—ë„ˆë¯¸ ë¦¬ìŠ¤íŠ¸
     List<GameObject> enemyList = new List<GameObject>();
-    
+    //í–‰ë™ë ¥ ë‹¤ì°¨ì„œ í–‰ë™í•  ì˜¤ë¸Œì íŠ¸ ë¦¬ìŠ¤íŠ¸
+    List<GameObject> playObjectList = new List<GameObject>();
+    private void Awake()
+    {
+        allCharacter.Clear();
+        playerList.Clear();
+        enemyList.Clear();
+        playObjectList.Clear();
+        //í”Œë ˆì´ì–´ë¦¬ìŠ¤íŠ¸ì— í”Œë ˆì´ì–´ ë„£ê³  ì—ë„ˆë¯¸ì— ì—ë„ˆë¯¸ ë„£ê³ 
+        playerList.Add(player);
+        enemyList.Add(enemy);
+        //ì „ì²´ì—” ë‘˜ë‹¤ ë„£ê³ 
+        allCharacter.AddRange(playerList);
+        allCharacter.AddRange(enemyList);
+        foreach (var character in allCharacter)
+        {
+            //ê²Ÿì»´í¬ë„ŒíŠ¸ ë°›ê¸°
+
+        }
+
+    }
     // Start is called before the first frame update
     void Start()
     {
-        state = EBattleState.Start;
+        StartCoroutine(BattleStart());
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (state)
-        {
-            case EBattleState.Start:
-                BattleStart();
-                break;
-            case EBattleState.Standby:
-                StandbyPhase();
-                break;
-            case EBattleState.Player:
-                PlayerPhase();
-                break;
-            case EBattleState.Enemy:
-                EnemyPhase();
-                break;
-            case EBattleState.Result:
-                ResultPhase();
-                break;
-        }
+
     }
 
     IEnumerator BattleStart()
     {
-        //ÇÃ·¹ÀÌ¾î ¸®½ºÆ®¿¡ ÀÖ´Â°Íµé »ı¼º -> À§Ä¡Àâ°í »ı¼º? UI·Î?
-        //¿¡³Ê¹Ì ¸®½ºÆ®¿¡ ÀÖ´Â°Íµé »ı¼º
+        //í”Œë ˆì´ì–´ ë¦¬ìŠ¤íŠ¸ì— ìˆëŠ”ê²ƒë“¤ ìƒì„± -> ìœ„ì¹˜ì¡ê³  ìƒì„±? UIë¡œ?
+        //ì—ë„ˆë¯¸ ë¦¬ìŠ¤íŠ¸ì— ìˆëŠ”ê²ƒë“¤ ìƒì„±
         //Battle Start! text
         yield return new WaitForSeconds(2f);
         state = EBattleState.Standby;
+        while (state == EBattleState.Standby)
+        {
+            //í–‰ë™ë ¥ ì¦ê°€(ì‹œê°„* ê°œì²´ë³„ í–‰ë™ë ¥ìˆ˜ì¹˜)
+            for (int i = 0; i < allCharacter.Count; i++)
+            {
+                //if (allCharacter[i].isDie) continue;
+                //allCharacter[i].playGauge += allCharacter[i].Speed * time.deltatime;
+
+                //if (allCharacter[i].playGauge >= maxGauge)
+                //{
+                //    //í–‰ë™ë ¥ ë‹¤ì°¨ë©´ playObjectì— ì €ì¥
+                //    playObjectList.Add(allCharacter[i]);
+                //}
+            }
+            //í–‰ë™ë ¥ ë‹¤ì°¬ ì• ë“¤ ì¡´ì¬í•˜ë©´
+            //ë°˜ë³µë¬¸ ëŒë ¤ì„œ ì¸ë±ìŠ¤ ì²«ë²ˆì§¸ ì»´í˜ì–´ íƒœê·¸í•´ì„œ ì—ë„ˆë¯¸ë©´ ì—ë„ˆë¯¸ ì–´íƒ
+            if (playObjectList == null)
+                continue;
+            for (int i = 0;i < playObjectList.Count; i++)
+            {
+                if (playObjectList[i].CompareTag("enemy"))
+                {
+                    state = EBattleState.Enemy;
+                    //enemy attack
+                }
+                else
+                {
+                    state = EBattleState.Player;
+                    //player attack
+                }
+
+            }
+
+        }
+
     }
 
     IEnumerator StandbyPhase()
     {
-        //Çàµ¿·Â Áõ°¡ (½Ã°£*°³Ã¼º° Çàµ¿·Â¼öÄ¡)
-        //Çàµ¿·Â ´ÙÂ÷¸é(100?) playObject¿¡ ÀúÀåÇÏ°í Çàµ¿·ÂÁõ°¡ ¸ØÃã
-        //playObject°¡ ¿¡³Ê¹Ì ¸ÂÀ¸¸é(·¹ÀÌ¾î?) ? state = EBattleState.Enemy : state = EBattleState.Player;
+        
+        //playObjectê°€ ì—ë„ˆë¯¸ ë§ìœ¼ë©´(ë ˆì´ì–´?) ? state = EBattleState.Enemy : state = EBattleState.Player;
         yield break;
     }
 
     IEnumerator PlayerPhase()
     {
-        //playObjectÀÇ ¹öÆ° ÄÑÁÖ°í °ø°İ/½ºÅ³/¾ÆÀÌÅÛ/ÈŞ½Ä/µµÁÖ ¼±ÅÃ
+        //playObjectì˜ ë²„íŠ¼ ì¼œì£¼ê³  ê³µê²©/ìŠ¤í‚¬/ì•„ì´í…œ/íœ´ì‹/ë„ì£¼ ì„ íƒ
         yield break;
     }
     IEnumerator EnemyPhase()
     {
-        //ÇÃ·¹ÀÌ¾î Áß ·£´ı ¼±ÅÃ -> targetObject¿¡ ÀúÀå
-        //°ø°İ -> state = EBattleState.Result
+        SelectRandomTarget(playerList);
+        //í”Œë ˆì´ì–´ ì¤‘ ëœë¤ ì„ íƒ -> targetObjectì— ì €ì¥
+        //ê³µê²© -> state = EBattleState.Result
         yield break;
     }
     IEnumerator ResultPhase()
     {
-        //µ¥¹ÌÁö Á¤»ê 
-        //targetObject°¡ Á×¾ú´ÂÁö È®ÀÎ -> ¸ÂÀ¸¸é ¸®½ºÆ®¿¡¼­ Á¦¿Ü
-        //Á¦¿ÜµÆÀ»¶§ ¸®½ºÆ®°¡ ÀüºÎ ºñ¾ú´ÂÁö È®ÀÎ -> ºñ¾îÀÖ´Ù¸é
-        //ÇÃ·¹ÀÌ¾îÀÏ¶§ lose()
-        //¿¡³Ê¹Ì¸é win()
+        //ë°ë¯¸ì§€ ì •ì‚° 
+        //targetObjectê°€ ì£½ì—ˆëŠ”ì§€ í™•ì¸ isDie
+        //ë¦¬ìŠ¤íŠ¸ê°€ ë‹¤ì£½ì–´ìˆë‹¤ë©´ -> isDie ì œì™¸ ì¹´ìš´íŠ¸ì„¸ê³  0ì´ë©´?
+        //í”Œë ˆì´ì–´ì¼ë•Œ lose()
+        //ì—ë„ˆë¯¸ë©´ win()
         yield break;
     }
 
     void Attack_Player()
     {
-        SelectTarget();
-        //µ¥¹ÌÁö
+        //ì„ì‹œ ëœë¤ê³µê²©
+        SelectRandomTarget(enemyList);
+        //ë°ë¯¸ì§€
         //targetObject.TakeDamage(playObject.stat.Attack);
 
     }
 
     void SelectTarget()
     {
-        //¸¶¿ì½ºÄ¿¼­ °¡Á®´Ù´ë¸é ¾Æ¿ô¶óÀÎ/È­»ìÇ¥ Ç¥½Ã
-        //Å¬¸¯ÇÏ¸é targetObject¿¡ ÀúÀå
+        //ë§ˆìš°ìŠ¤ì»¤ì„œ ê°€ì ¸ë‹¤ëŒ€ë©´ ì•„ì›ƒë¼ì¸/í™”ì‚´í‘œ í‘œì‹œ
+        //í´ë¦­í•˜ë©´ targetObjectì— ì €ì¥
     }
 
     void Skill_Player()
     {
-        //º¸À¯ÇÑ ½ºÅ³¸®½ºÆ® ÆîÃÄÁü -> 
+        //ë³´ìœ í•œ ìŠ¤í‚¬ë¦¬ìŠ¤íŠ¸ í¼ì³ì§ -> 
         SelectTarget();
     }
 
-    void SelectRandomTarget()
+    void SelectRandomTarget(List<GameObject> target)
     {
-        int i = Random.Range(0, playerList.Count);
-        targetObject = playerList[i];
+        int i = Random.Range(0, target.Count);
+        targetObject = target[i];
     }
 
 
