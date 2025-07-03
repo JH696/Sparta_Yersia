@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,11 +25,10 @@ public class DialogueUI : MonoBehaviour
 
     [Header("타이핑 / 대화창 이탈 속도")]
     [SerializeField] private float typingSpeed = 0.05f;
-    [SerializeField] private float leaveDelay = 1f;
+    [SerializeField] private float leaveDelay = 1;
 
     private int curLineIndex;
     private Coroutine typingCoroutine;
-
 
     // 전체 대사 데이터 설정 (다이얼로그 사용시 필수, 우선적으로 사용) 
     public void SetAllDialogue(DialogueData[] allDatas)
@@ -73,18 +73,18 @@ public class DialogueUI : MonoBehaviour
         dialogueImg.sprite = sprite;
     }
 
-    // 다이얼로그 UI 활성화 (UIManager와 OnEnable로 기능 분리 예정)
+    // 다이얼로그 UI 활성화
     public void ShowDialogueUI()
     {
-        if (passBtn == null)
-        {
-            Debug.Log("할당되지 않은 컴포넌트가 있습니다.");
-            return;
-        }
-
         this.gameObject.SetActive(true);
         passBtn.SetActive(true);
-        PassTyping();
+    }
+
+    // 다이얼로그 UI 비활성화
+    public void HideDialogueUI()
+    {
+        this.gameObject.SetActive(false);
+        passBtn.SetActive(false);
     }
 
     // 대사 출력 (Pass Button)
@@ -92,40 +92,48 @@ public class DialogueUI : MonoBehaviour
     {
         choiceBtns.gameObject.SetActive(false);
 
-        if (curLineIndex < curDialogueData.Lines.Count)
+        if (HasNextLine())
         {
             if (typingCoroutine != null)
-                StopCoroutine(typingCoroutine);
-
-            DialogueLine lineData = curDialogueData.Lines[curLineIndex];
-            if (lineData == null || string.IsNullOrEmpty(lineData.Text))
             {
-                Debug.LogWarning($"[DialogueUI] 잘못된 대사 라인입니다. curLineIndex: {curLineIndex}");
-                curLineIndex++;
-                PassTyping();
-                return;
+                StopCoroutine(typingCoroutine);
             }
 
+            DialogueLine lineData = curDialogueData.Lines[curLineIndex];
             SetSpeaker(lineData.Speaker);
             typingCoroutine = StartCoroutine(TypeLine(lineData.Text));
             curLineIndex++;
         }
         else
         {
-            DisplayeChoices();
+            DisplayChoices();
+        }
+
+        passBtn.SetActive(false);
+    }
+
+    // 다음 대사 존재 여부 확인
+    private bool HasNextLine()
+    {
+        if (curDialogueData != null && curLineIndex < curDialogueData.Lines.Count)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
     // 대화 종료 (Leave Button) 
     public void ExitDialogue()
     {
-        SetCurDialogue(GetDialogueData("End"));
-        PassTyping();
-
         passBtn.SetActive(false);
         choiceBtns.gameObject.SetActive(false);
         choiceBtns.RemoveChoiceButton();
-        Invoke("ResetDialogueData", leaveDelay);
+        ResetDialogueData();
+        HideDialogueUI();
+        UIManager.Instance.ShowPlayerUI();
     }
 
     public DialogueData GetDialogueData(string id)
@@ -141,24 +149,25 @@ public class DialogueUI : MonoBehaviour
         return null;
     }
 
+    // 대화 상대 이름, 스프라이트 투명도 설정 (Player, NPC 등)
     private void SetSpeaker(string speaker)
     {
         NameTxt.text = speaker switch
         {
             "Player" => "나", // PlayerName
-            "NPC" => curNpc?.NpcData?.NpcName ?? "???",
+            "NPC" => curNpc?.GetNpcData()?.NpcName ?? "???",
             _ => speaker
         };
 
         if (speaker == "Player")
         {
-            playerImg.color = new Color(1f, 1f, 1f, 1f); 
-            dialogueImg.color = new Color(1f, 1f, 1f, 0.25f);
+            playerImg.GetComponent<Animator>().SetBool("IsSpeak", true);
+            dialogueImg.GetComponent<Animator>().SetBool("IsSpeak", false);
         }
-        else
+        else if (speaker == "NPC")
         {
-            playerImg.color = new Color(1f, 1f, 1f, 0.25f);
-            dialogueImg.color = new Color(1f, 1f, 1f, 1f);
+            playerImg.GetComponent<Animator>().SetBool("IsSpeak", false);
+            dialogueImg.GetComponent<Animator>().SetBool("IsSpeak", true);
         }
     }
 
@@ -166,14 +175,12 @@ public class DialogueUI : MonoBehaviour
     private void ResetDialogueData()
     {
         DialogueManager.Instance.IsDialogueActive = false;
-
         curDialogueData = null;
         dialogueImg.sprite = null;
         curLineIndex = 0;
+        curNpc = null;
         NameTxt.text = string.Empty;
         dialogueTxt.text = string.Empty;
-
-        this.gameObject.SetActive(false);
     }
 
 
@@ -182,48 +189,59 @@ public class DialogueUI : MonoBehaviour
     {
         if (dialogueTxt == null)
         {
-            Debug.Log("DialogueUI: dialogueTxt가 설정되지 않았습니다!");
+            Debug.LogWarning("DialogueUI: dialogueTxt가 설정되지 않았습니다!");
             yield break;
         }
 
         dialogueTxt.text = "";
+        StringBuilder sb = new StringBuilder();
+
         foreach (char c in line)
         {
-            dialogueTxt.text += c;
+            sb.Append(c);
+            dialogueTxt.text = sb.ToString();
             yield return new WaitForSeconds(typingSpeed);
         }
+
+        passBtn.SetActive(true);
         typingCoroutine = null;
     }
 
+    public void DialogueSkip()
+    {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
+        curLineIndex = curDialogueData.Lines.Count;
+        passBtn.SetActive(false);
+        DisplayChoices();
+    }
+
     // 선택지 버튼 생성
-    private void DisplayeChoices()
+    private void DisplayChoices()
     {
         GameManager.Instance.Player.GetComponent<PlayerQuest>().QuestUpdate();
         choiceBtns.RemoveChoiceButton();
         choiceBtns.gameObject.SetActive(true);
-        passBtn.SetActive(false);   
 
-        foreach (var questPair in GameManager.Instance.Player.GetComponent<PlayerQuest>().GetMyQStatus())
+        foreach (var quest in curNpc.GetReceiverQuests())
         {
-            QuestStatus status = questPair.Value;
-            QuestData data = status.QuestData;
+            GameManager.Instance.Player.GetComponent<PlayerQuest>().GetMyQStatus().TryGetValue(quest.QuestID, out QuestStatus status);
 
-            if (data.ReceiverID == curNpc.NpcData.NpcID)
+            if (status.IsCleared == true || quest.ConditionType == EConditionType.Investigation)
             {
-                if (status.IsCleared || data.ConditionType == EConditionType.Investigation)
-                {
-                    choiceBtns.SpawnClearBtn(data);
-                }
-                else
-                {
-                    choiceBtns.SpawnReceiveBtn(data);
-                }
+                choiceBtns.SpawnClearBtn(quest);
+            }
+            else if (status.IsCleared == false)
+            {
+                choiceBtns.SpawnReceiveBtn(quest);
             }
         }
 
         foreach (var quest in QuestManager.Instance.GetAvailableQuests())
         {
-            if (quest.AssignerID == curNpc.NpcData.NpcID)
+            if (quest.AssignerID == curNpc.GetNpcData().NpcID)
             {
                 choiceBtns.SpawnAssignBtn(quest);
             }

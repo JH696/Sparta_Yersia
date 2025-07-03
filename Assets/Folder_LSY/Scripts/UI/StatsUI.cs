@@ -4,7 +4,7 @@ using TMPro;
 
 public class StatsUI : MonoBehaviour
 {
-    [Header("StatTxt")] // StatTxt라고 써진 Text 넣어주면 됩니다
+    [Header("스탯 텍스트")] // StatText
     [SerializeField] private TMP_Text HpTxt;
     [SerializeField] private TMP_Text MpTxt;
     [SerializeField] private TMP_Text AttackTxt;
@@ -12,47 +12,173 @@ public class StatsUI : MonoBehaviour
     [SerializeField] private TMP_Text LuckTxt;
     [SerializeField] private TMP_Text SpeedTxt;
 
-    [SerializeField] private TMP_Text YPTxt;
+    [Header("프로필 이미지")]
     [SerializeField] private Image ProfileImg;
+    [SerializeField] private Sprite defaultPetProfile; // 기본 펫 프로필 이미지
 
-    [Header("Pet Info UI")]
-    [SerializeField] private GameObject PetInfo; // PetInfo 전체 오브젝트
+    [Header("플레이어 전용 UI")]
+    [SerializeField] private TMP_Text YPTxt;
+    [SerializeField] private TMP_Text GenderTxt;
+    [SerializeField] private GameObject PlayerInfo;
+
+    [Header("펫 전용 UI")]
+    [SerializeField] private GameObject PetInfo;
     [SerializeField] private TMP_Text PetNameTxt;
     [SerializeField] private TMP_Text EvoStageTxt;
     [SerializeField] private Image[] EvoIcons = new Image[3];
+
+    [Header("진화 단계 미달성 시 대체 이미지")]
+    [SerializeField] private Sprite unknownIcon;  // '?' 이미지
+
+    [Header("레벨 / 경험치 UI")]
+    [SerializeField] private TMP_Text LevelTxt;
+    [SerializeField] private Image ExpGauge;
+
+    [Header("기본값 (널일 때 표시용)")]
+    [SerializeField] private string defaultPetName = "이름";
+    [SerializeField] private string defaultEvoStage = "성장 단계";
 
     private BaseCharacter currentCharacter;
 
     public void SetTarget(BaseCharacter character)
     {
-        if (character == null) return;
-        currentCharacter = character;
+        currentCharacter = character; // null이어도 그대로 저장
         RefreshUI();
     }
 
     public void RefreshUI()
     {
-        if (currentCharacter == null) return;
+        bool isPlayer = currentCharacter is PlayerController;
+        bool isPet = currentCharacter is PetController;
 
-        HpTxt.text = $"{Mathf.RoundToInt(currentCharacter.CurrentHp)} / {Mathf.RoundToInt(currentCharacter.MaxHp)}";
-        MpTxt.text = $"{Mathf.RoundToInt(currentCharacter.CurrentMana)} / {Mathf.RoundToInt(currentCharacter.MaxMana)}";
-        AttackTxt.text = $"{Mathf.RoundToInt(currentCharacter.Attack)}";
-        DefenseTxt.text = $"{Mathf.RoundToInt(currentCharacter.Defense)}";
-        LuckTxt.text = $"{Mathf.RoundToInt(currentCharacter.Luck)}";
-        SpeedTxt.text = $"{Mathf.RoundToInt(currentCharacter.Speed)}";
-
-        // 플레이어일 때만 YP 표시
-        if (currentCharacter is PlayerController player)
+        // 공통 스탯 표시
+        if (currentCharacter != null)
         {
-            if (YPTxt == null) return;
-            YPTxt.text = $"YP : {player.YP}";
+            HpTxt.text = $"{Mathf.RoundToInt(currentCharacter.CurrentHp)} / {Mathf.RoundToInt(currentCharacter.MaxHp)}";
+            MpTxt.text = $"{Mathf.RoundToInt(currentCharacter.CurrentMana)} / {Mathf.RoundToInt(currentCharacter.MaxMana)}";
+            AttackTxt.text = $"{Mathf.RoundToInt(currentCharacter.Attack)}";
+            DefenseTxt.text = $"{Mathf.RoundToInt(currentCharacter.Defense)}";
+            LuckTxt.text = $"{Mathf.RoundToInt(currentCharacter.Luck)}";
+            SpeedTxt.text = $"{Mathf.RoundToInt(currentCharacter.Speed)}";
+        }
+        else
+        {
+            HpTxt.text = "";
+            MpTxt.text = "";
+            AttackTxt.text = "";
+            DefenseTxt.text = "";
+            LuckTxt.text = "";
+            SpeedTxt.text = "";
+        }
+
+        if (isPlayer)
+        {
+            PlayerController player = currentCharacter as PlayerController;
+
+            if (YPTxt != null) YPTxt.text = $"YP : {player.YP}";
             if (ProfileImg != null && player.PlayerData != null)
                 ProfileImg.sprite = player.PlayerData.GetDefaultProfileIcon();
+
+            if (GenderTxt != null && player.PlayerData != null)
+            {
+                switch (player.PlayerData.gender)
+                {
+                    case EGender.Male:
+                        GenderTxt.text = "성별 : 남성";
+                        break;
+                    case EGender.Female:
+                        GenderTxt.text = "성별 : 여성";
+                        break;
+                }
+            }
+
+            if (PlayerInfo != null) PlayerInfo.SetActive(true);
+            if (PetInfo != null) PetInfo.SetActive(false);
         }
-        else if (currentCharacter is PetController pet)
+        else if (isPet)
         {
+            PetController pet = currentCharacter as PetController;
+
             if (ProfileImg != null && pet.PetData != null)
                 ProfileImg.sprite = pet.PetData.GetCurrentProfileIcon();
+            else if (ProfileImg != null)
+                ProfileImg.sprite = defaultPetProfile;
+
+            if (PetInfo != null) PetInfo.SetActive(true);
+            if (PlayerInfo != null) PlayerInfo.SetActive(false);
+
+            if (PetNameTxt != null)
+                PetNameTxt.text = pet.PetData?.PetName ?? defaultPetName;
+
+            if (EvoStageTxt != null)
+                EvoStageTxt.text = pet.PetData != null
+                    ? $"성장 단계 : {pet.PetData.CurrentEvoStage + 1}"
+                    : defaultEvoStage;
+
+            if (EvoIcons != null)
+            {
+                for (int i = 0; i < EvoIcons.Length; i++)
+                {
+                    if (EvoIcons[i] == null) continue;
+
+                    if (pet.PetData?.sprites != null && i < pet.PetData.sprites.Length)
+                    {
+                        bool isReached = pet.PetData.CurrentEvoStage >= i;
+                        EvoIcons[i].sprite = isReached ? pet.PetData.sprites[i].Icon : unknownIcon;
+                        EvoIcons[i].color = Color.white;
+                    }
+                    else
+                    {
+                        EvoIcons[i].sprite = unknownIcon;
+                        EvoIcons[i].color = Color.white;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (PlayerInfo != null) PlayerInfo.SetActive(false);
+            if (PetInfo != null) PetInfo.SetActive(true);
+
+            if (ProfileImg != null)
+                ProfileImg.sprite = defaultPetProfile;
+
+            if (PetNameTxt != null)
+                PetNameTxt.text = defaultPetName;
+
+            if (EvoStageTxt != null)
+                EvoStageTxt.text = defaultEvoStage;
+
+            if (EvoIcons != null)
+            {
+                for (int i = 0; i < EvoIcons.Length; i++)
+                {
+                    if (EvoIcons[i] == null) continue;
+                    EvoIcons[i].sprite = null;
+                    EvoIcons[i].color = new Color(1, 1, 1, 0);
+                }
+            }
+        }
+
+        ILevelable levelable = currentCharacter as ILevelable;
+
+        if (levelable != null)
+        {
+            if (LevelTxt != null)
+                LevelTxt.text = $"Lv. {levelable.Level}";
+
+            if (ExpGauge != null)
+                ExpGauge.fillAmount = (levelable.ExpToNextLevel > 0)
+                    ? (float)levelable.CurrentExp / levelable.ExpToNextLevel
+                    : 0f;
+        }
+        else
+        {
+            if (LevelTxt != null)
+                LevelTxt.text = "Lv";
+
+            if (ExpGauge != null)
+                ExpGauge.fillAmount = 0f;
         }
     }
 }

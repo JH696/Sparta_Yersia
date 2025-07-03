@@ -24,6 +24,7 @@ public class QuestUI : MonoBehaviour
 
     private void Start()
     {
+        RefreshQuestUI();
     }
 
     // 퀘스트 정보창 표시 (버튼 연결)

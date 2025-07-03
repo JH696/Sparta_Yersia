@@ -151,6 +151,37 @@ public class PlayerController : BaseCharacter, ILevelable
     {
         Debug.Log($"[PlayerCharacter] Equip: {item.ItemName}");
         // TODO: 실제 스탯에 반영 (item.GetStatValue 등)
+        if (item == null || item.Category != EItemCategory.Equipment) return;
+
+        foreach (var stat in item.ItemStats)
+        {
+            if (stat.eStat == EStatType.MaxHp)
+            {
+                Stat.MaxHp += stat.value;
+                Stat.CurrentHp = Mathf.Clamp(Stat.CurrentHp, 0, Stat.MaxHp);
+            }
+            else if (stat.eStat == EStatType.MaxMana)
+            {
+                Stat.MaxMana += stat.value;
+                Stat.CurrentMana = Mathf.Clamp(Stat.CurrentMana, 0, Stat.MaxMana);
+            }
+            else if (stat.eStat == EStatType.Attack)
+            {
+                Stat.Attack += stat.value;
+            }
+            else if (stat.eStat == EStatType.Defense)
+            {
+                Stat.Defense += stat.value;
+            }
+            else if (stat.eStat == EStatType.Luck)
+            {
+                Stat.Luck += stat.value;
+            }
+            else if (stat.eStat == EStatType.Speed)
+            {
+                Stat.Speed += stat.value;
+            }
+        }
     }
 
     /// <summary>해제했을 때 호출</summary>
@@ -158,6 +189,37 @@ public class PlayerController : BaseCharacter, ILevelable
     {
         Debug.Log($"[PlayerCharacter] Unequip: {item.ItemName}");
         // TODO: 실제 스탯에서 제거
+        if (item == null || item.Category != EItemCategory.Equipment) return;
+
+        foreach (var stat in item.ItemStats)
+        {
+            if (stat.eStat == EStatType.MaxHp)
+            {
+                Stat.MaxHp -= stat.value;
+                Stat.CurrentHp = Mathf.Clamp(Stat.CurrentHp, 0, Stat.MaxHp);
+            }
+            else if (stat.eStat == EStatType.MaxMana)
+            {
+                Stat.MaxMana -= stat.value;
+                Stat.CurrentMana = Mathf.Clamp(Stat.CurrentMana, 0, Stat.MaxMana);
+            }
+            else if (stat.eStat == EStatType.Attack)
+            {
+                Stat.Attack -= stat.value;
+            }
+            else if (stat.eStat == EStatType.Defense)
+            {
+                Stat.Defense -= stat.value;
+            }
+            else if (stat.eStat == EStatType.Luck)
+            {
+                Stat.Luck -= stat.value;
+            }
+            else if (stat.eStat == EStatType.Speed)
+            {
+                Stat.Speed -= stat.value;
+            }
+        }
     }
 
     /// <summary>소모품 사용했을 때 호출</summary>
@@ -165,6 +227,15 @@ public class PlayerController : BaseCharacter, ILevelable
     {
         Debug.Log($"[PlayerCharacter] Use: {item.ItemName}");
         // TODO: 소모품 효과 발동
+        if (item == null || item.Category != EItemCategory.Consumable) return;
+
+        foreach (var stat in item.ItemStats)
+        {
+            if (stat.eStat == EStatType.MaxHp)
+                HealHP(stat.value);
+            else if (stat.eStat == EStatType.MaxMana)
+                HealMana(stat.value);
+        }
     }
 
     /// <summary>퀘스트용 건네주기 호출</summary>

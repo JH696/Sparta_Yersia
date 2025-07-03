@@ -37,7 +37,7 @@ public class EliQuestProgress
 
 public class PlayerQuest : MonoBehaviour
 {
-    public PlayerInventory Inventory;
+    private PlayerInventory Inventory;
 
     private Dictionary<string, QuestStatus> MyQStatus = new Dictionary<string, QuestStatus>();
     private Dictionary<string, EliQuestProgress> EliQProgress = new Dictionary<string, EliQuestProgress>();
@@ -51,6 +51,12 @@ public class PlayerQuest : MonoBehaviour
     // 진행 중인 퀘스트 가져오기
     public Dictionary<string, QuestStatus> GetMyQStatus()
     {
+        if (MyQStatus == null)
+        {
+            Debug.Log("MyQStatus가 초기화되지 않았습니다. 새로 생성합니다.");
+            MyQStatus = new Dictionary<string, QuestStatus>();
+        }
+
         return MyQStatus;
     }
 
