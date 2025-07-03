@@ -8,10 +8,10 @@ public class SkillTreeUI : MonoBehaviour
     [Header("스킬 노드 프리팹")]
     [SerializeField] private GameObject skillNodePrefab;
 
-    [Header("노드 생성 부모 오브젝트")]
+    [Header("노드 부모 오브젝트")]
     [SerializeField] private Transform nodeContainer;
 
-    [Header("스킬 상세 정보 UI")]
+    [Header("상세정보 패널")]
     [SerializeField] private TextMeshProUGUI skillNameTxt;
     [SerializeField] private TextMeshProUGUI skillDescTxt;
     [SerializeField] private Image skillIconImg;
@@ -20,7 +20,7 @@ public class SkillTreeUI : MonoBehaviour
     [SerializeField] private Button levelUpBtn;
     [SerializeField] private TextMeshProUGUI skillPointTxt;
 
-    [Header("현재 타입 필터")]
+    [Header("현재 타입")]
     [SerializeField] private ESkillType currentType = ESkillType.Fire;
 
     private PlayerSkillController playerSkillController;
@@ -30,6 +30,12 @@ public class SkillTreeUI : MonoBehaviour
     private void Start()
     {
         playerSkillController = FindObjectOfType<PlayerSkillController>();
+        if (playerSkillController == null)
+        {
+            Debug.LogError("[SkillTreeUI] PlayerSkillController가 씬에 없습니다!");
+            return;
+        }
+
         unlockBtn.onClick.AddListener(AttemptUnlock);
         levelUpBtn.onClick.AddListener(AttemptLevelUp);
 
@@ -54,12 +60,13 @@ public class SkillTreeUI : MonoBehaviour
         spawnedNodes.Clear();
 
         var skills = SkillLibrary.Instance.GetSkillsByType(currentType);
+        if (skills == null || skills.Count == 0) return;
 
         foreach (var skill in skills)
         {
             var nodeObj = Instantiate(skillNodePrefab, nodeContainer);
             var nodeUI = nodeObj.GetComponent<SkillNodeUI>();
-            nodeUI.Setup(this, selectedSkill, playerSkillController);
+            nodeUI.Setup(this, skill, playerSkillController);
             spawnedNodes.Add(nodeUI);
         }
     }
@@ -75,11 +82,11 @@ public class SkillTreeUI : MonoBehaviour
         skillNameTxt.text = data.DisplayName;
         skillDescTxt.text = data.Description;
         skillIconImg.sprite = data.Icon;
-        skillCostTxt.text = $"해금 비용: {data.BaseUnlockCost} p";
+        skillCostTxt.text = $"해금 비용: {data.BaseUnlockCost:N0} p";
 
         bool isUnlocked = playerSkillController.HasSkillUnlocked(data.SkillID);
         unlockBtn.gameObject.SetActive(!isUnlocked);
-        levelUpBtn.gameObject.SetActive(!isUnlocked);
+        levelUpBtn.gameObject.SetActive(isUnlocked);
 
         RefreshSkillPoint();
     }
@@ -87,24 +94,19 @@ public class SkillTreeUI : MonoBehaviour
     private void HideDetailPanel()
     {
         selectedSkill = null;
-        skillNameTxt.text = string.Empty;
-        skillDescTxt.text = string.Empty;
+        skillNameTxt.text = "";
+        skillDescTxt.text = "";
         skillIconImg.sprite = null;
-        skillCostTxt.text = string.Empty;
+        skillCostTxt.text = "";
         unlockBtn.gameObject.SetActive(false);
         levelUpBtn.gameObject.SetActive(false);
     }
 
-    // 스킬 레벨업 시도
     private void AttemptUnlock()
     {
         if (selectedSkill == null) return;
 
-        if (!playerSkillController.CanUnlockSkill(selectedSkill))
-        {
-            Debug.Log("해금조건 불충족");
-            return;
-        }
+        if (!playerSkillController.CanUnlockSkill(selectedSkill)) return;
 
         playerSkillController.UnlockSkill(selectedSkill);
         RefreshSkillTree();
@@ -114,11 +116,8 @@ public class SkillTreeUI : MonoBehaviour
     private void AttemptLevelUp()
     {
         if (selectedSkill == null) return;
-        if (!playerSkillController.CanLevelUpSkill(selectedSkill))
-        {
-            Debug.Log("레벨업 조건 불충족");
-            return;
-        }
+
+        if (!playerSkillController.CanLevelUpSkill(selectedSkill)) return;
 
         playerSkillController.LevelUpSkill(selectedSkill);
         ShowDetailPanel(selectedSkill);
@@ -126,6 +125,6 @@ public class SkillTreeUI : MonoBehaviour
 
     private void RefreshSkillPoint()
     {
-        skillPointTxt.text = $"남은 스킬 포인트: {playerSkillController.AvailableSkillPoints:N0}";
+        skillPointTxt.text = $"남은 포인트: {playerSkillController.AvailableSkillPoints:N0}";
     }
 }

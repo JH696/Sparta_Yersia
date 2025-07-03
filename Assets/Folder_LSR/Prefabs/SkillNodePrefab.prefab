@@ -491,6 +491,7 @@ GameObject:
   - component: {fileID: 2364060678799555306}
   - component: {fileID: 5082305155248300843}
   - component: {fileID: 6668640586833130393}
+  - component: {fileID: 5943068442681282519}
   m_Layer: 5
   m_Name: SkillNodePrefab
   m_TagString: Untagged
@@ -560,6 +561,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5943068442681282519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8131731238764642264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ba980076369f854fac30020634c2c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1217277211483522272}
+  lockOverlay: {fileID: 8228748834407335212}
+  fillGauge: {fileID: 6392671930372373720}
+  effectOverlay: {fileID: 5974904331435222581}
+  nodeButton: {fileID: 3973608090195515677}
 --- !u!1 &8977376440500449704
 GameObject:
   m_ObjectHideFlags: 0
