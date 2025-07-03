@@ -150,7 +150,7 @@ public class UIManager : MonoBehaviour
         statUIController.HideStatUI();
     }
 
-    // 스킬 트리 UI 표시
+    // 스킬트리 UI 표시/숨기기
     public void ShowSkillTreeUI()
     {
         if (skillTreeUI == null)
@@ -158,7 +158,7 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("[UIManager] SkillTreeUI를 찾을 수 없습니다.");
             return;
         }
-        skillTreeUI.gameObject.SetActive(true);
+        skillTreeUI.Show();
     }
 
     public void HideSkillTreeUI()
@@ -168,6 +168,6 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("[UIManager] SkillTreeUI를 찾을 수 없습니다.");
             return;
         }
-        skillTreeUI.gameObject.SetActive(false);
+        skillTreeUI.Hide();
     }
 }

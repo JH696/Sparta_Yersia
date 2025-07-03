@@ -10,15 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f19af68ad88a454fb38b9d1416924c6, type: 3}
-  m_Name: S_i03
+  m_Name: SF_01_a
   m_EditorClassIdentifier: 
-  skillID: S_i03
-  displayName: "\uC5BC\uC74C\uC2A4\uD0AC3 _test"
-  icon: {fileID: 21300000, guid: e4c42562da5acf245b1b358874dc5a96, type: 3}
-  description: "\uB108\uBB34\uCDA5\uC796\uC544!!"
-  skillType: 1
-  tierRequirement: 3
-  maxLevel: 50
-  baseUnlockCost: 10000
-  manaBonusOnUnlock: 5
+  skillName: "\uD654\uC5FC1"
+  type: 0
+  tier: 1
+  icon: {fileID: 21300000, guid: 829d69b70d351e347aa9cbcd546bd17c, type: 3}
+  maxLevel: 30
+  coolTime: 3
+  range: 1
+  damage: 5
+  manaCost: 1
+  statBonuses:
+  - StatType: 1
+    BonusPerLevel: 5
   prerequisites: []
+  questPrerequisites: []

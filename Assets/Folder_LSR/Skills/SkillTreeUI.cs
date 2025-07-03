@@ -1,130 +1,67 @@
-﻿using System.Collections.Generic;
-using TMPro;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillTreeUI : MonoBehaviour
 {
-    [Header("스킬 노드 프리팹")]
-    [SerializeField] private GameObject skillNodePrefab;
+    [Header("속성 타입 버튼")]
+    [SerializeField] private Button fireButton;
+    [SerializeField] private Button iceButton;
+    [SerializeField] private Button natureButton;
+    [SerializeField] private Button physicalButton;
 
-    [Header("노드 부모 오브젝트")]
-    [SerializeField] private Transform nodeContainer;
+    [Header("중앙 타입 아이콘")]
+    [SerializeField] private Image centerTypeIcon;
 
-    [Header("상세정보 패널")]
-    [SerializeField] private TextMeshProUGUI skillNameTxt;
-    [SerializeField] private TextMeshProUGUI skillDescTxt;
-    [SerializeField] private Image skillIconImg;
-    [SerializeField] private TextMeshProUGUI skillCostTxt;
-    [SerializeField] private Button unlockBtn;
-    [SerializeField] private Button levelUpBtn;
-    [SerializeField] private TextMeshProUGUI skillPointTxt;
+    [Header("속성별 아이콘 스프라이트")]
+    [SerializeField] private Sprite fireIcon;
+    [SerializeField] private Sprite iceIcon;
+    [SerializeField] private Sprite natureIcon;
+    [SerializeField] private Sprite physicalIcon;
 
-    [Header("현재 타입")]
-    [SerializeField] private ESkillType currentType = ESkillType.Fire;
-
-    private PlayerSkillController playerSkillController;
-    private List<SkillNodeUI> spawnedNodes = new List<SkillNodeUI>();
-    private SkillData selectedSkill;
-
-    private void Start()
+    private void Awake()
     {
-        playerSkillController = FindObjectOfType<PlayerSkillController>();
-        if (playerSkillController == null)
+        // 버튼 이벤트 연결
+        fireButton.onClick.AddListener(() => OnTypeBtnClick(ESkillType.Fire));
+        iceButton.onClick.AddListener(() => OnTypeBtnClick(ESkillType.Ice));
+        natureButton.onClick.AddListener(() => OnTypeBtnClick(ESkillType.Nature));
+        physicalButton.onClick.AddListener(() => OnTypeBtnClick(ESkillType.Physical));
+    }
+
+    private void OnTypeBtnClick(ESkillType type)
+    {
+        switch (type)
         {
-            Debug.LogError("[SkillTreeUI] PlayerSkillController가 씬에 없습니다!");
-            return;
+            case ESkillType.Fire:
+                centerTypeIcon.sprite = fireIcon;
+                break;
+            case ESkillType.Ice:
+                centerTypeIcon.sprite = iceIcon;
+                break;
+            case ESkillType.Nature:
+                centerTypeIcon.sprite = natureIcon;
+                break;
+            case ESkillType.Physical:
+                centerTypeIcon.sprite = physicalIcon;
+                break;
+            default:
+                Debug.LogWarning("[SkillTreeUI] 알 수 없는 속성 타입: " + type);
+                break;
         }
 
-        unlockBtn.onClick.AddListener(AttemptUnlock);
-        levelUpBtn.onClick.AddListener(AttemptLevelUp);
-
-        RefreshSkillTree();
-        RefreshSkillPoint();
-        HideDetailPanel();
+        //TODO: 노드 생성 / 제거로직 추가필요
     }
 
-    public void ChangeType(int typeIndex)
+    //판넬 전체 표시
+    public void Show()
     {
-        currentType = (ESkillType)typeIndex;
-        RefreshSkillTree();
-        HideDetailPanel();
+        gameObject.SetActive(true);
     }
 
-    private void RefreshSkillTree()
+    //판넬 전체 숨기기
+    public void Hide()
     {
-        foreach (var node in spawnedNodes)
-        {
-            Destroy(node.gameObject);
-        }
-        spawnedNodes.Clear();
-
-        var skills = SkillLibrary.Instance.GetSkillsByType(currentType);
-        if (skills == null || skills.Count == 0) return;
-
-        foreach (var skill in skills)
-        {
-            var nodeObj = Instantiate(skillNodePrefab, nodeContainer);
-            var nodeUI = nodeObj.GetComponent<SkillNodeUI>();
-            nodeUI.Setup(this, skill, playerSkillController);
-            spawnedNodes.Add(nodeUI);
-        }
-    }
-
-    public void SelectSkill(SkillData data)
-    {
-        selectedSkill = data;
-        ShowDetailPanel(data);
-    }
-
-    private void ShowDetailPanel(SkillData data)
-    {
-        skillNameTxt.text = data.DisplayName;
-        skillDescTxt.text = data.Description;
-        skillIconImg.sprite = data.Icon;
-        skillCostTxt.text = $"해금 비용: {data.BaseUnlockCost:N0} p";
-
-        bool isUnlocked = playerSkillController.HasSkillUnlocked(data.SkillID);
-        unlockBtn.gameObject.SetActive(!isUnlocked);
-        levelUpBtn.gameObject.SetActive(isUnlocked);
-
-        RefreshSkillPoint();
-    }
-
-    private void HideDetailPanel()
-    {
-        selectedSkill = null;
-        skillNameTxt.text = "";
-        skillDescTxt.text = "";
-        skillIconImg.sprite = null;
-        skillCostTxt.text = "";
-        unlockBtn.gameObject.SetActive(false);
-        levelUpBtn.gameObject.SetActive(false);
-    }
-
-    private void AttemptUnlock()
-    {
-        if (selectedSkill == null) return;
-
-        if (!playerSkillController.CanUnlockSkill(selectedSkill)) return;
-
-        playerSkillController.UnlockSkill(selectedSkill);
-        RefreshSkillTree();
-        ShowDetailPanel(selectedSkill);
-    }
-
-    private void AttemptLevelUp()
-    {
-        if (selectedSkill == null) return;
-
-        if (!playerSkillController.CanLevelUpSkill(selectedSkill)) return;
-
-        playerSkillController.LevelUpSkill(selectedSkill);
-        ShowDetailPanel(selectedSkill);
-    }
-
-    private void RefreshSkillPoint()
-    {
-        skillPointTxt.text = $"남은 포인트: {playerSkillController.AvailableSkillPoints:N0}";
+        gameObject.SetActive(false);
     }
 }
