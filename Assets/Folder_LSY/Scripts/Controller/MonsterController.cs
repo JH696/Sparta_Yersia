@@ -19,6 +19,8 @@ public class MonsterController : BaseCharacter
 
     private void Start()
     {
+        InitStat(monsterData);
         Debug.Log($"몬스터 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana}/{MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
     }
+
 }
