@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillTreeUI : MonoBehaviour
@@ -20,6 +18,18 @@ public class SkillTreeUI : MonoBehaviour
     [SerializeField] private Sprite natureIcon;
     [SerializeField] private Sprite physicalIcon;
 
+    [Header("노드·라인 컨테이너")]
+    [SerializeField] private RectTransform nodeContainer;
+    [SerializeField] private RectTransform lineContainer;
+
+    [Header("풀 매니저")]
+    [SerializeField] private SkillTreePool pool;
+
+    [Header("상세 패널")]
+    [SerializeField] private SkillDetailUI detailUI;
+
+    private SkillData[] allSkills;
+
     private void Awake()
     {
         // 버튼 이벤트 연결
@@ -27,6 +37,8 @@ public class SkillTreeUI : MonoBehaviour
         iceButton.onClick.AddListener(() => OnTypeBtnClick(ESkillType.Ice));
         natureButton.onClick.AddListener(() => OnTypeBtnClick(ESkillType.Nature));
         physicalButton.onClick.AddListener(() => OnTypeBtnClick(ESkillType.Physical));
+
+        allSkills = Resources.LoadAll<SkillData>("SkillDatas");
     }
 
     private void OnTypeBtnClick(ESkillType type)
