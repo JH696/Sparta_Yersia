@@ -12,13 +12,13 @@ public class SkillTreeUI : MonoBehaviour
     [SerializeField] private Transform nodeContainer;
 
     [Header("스킬 상세 정보 UI")]
-    [SerializeField] private TextMeshProUGUI skillNameText;
-    [SerializeField] private TextMeshProUGUI skillDescText;
-    [SerializeField] private Image skillIconImage;
-    [SerializeField] private TextMeshProUGUI skillCostText;
-    [SerializeField] private Button unlockButton;
-    [SerializeField] private Button levelUpButton;
-    [SerializeField] private TextMeshProUGUI skillPointText;
+    [SerializeField] private TextMeshProUGUI skillNameTxt;
+    [SerializeField] private TextMeshProUGUI skillDescTxt;
+    [SerializeField] private Image skillIconImg;
+    [SerializeField] private TextMeshProUGUI skillCostTxt;
+    [SerializeField] private Button unlockBtn;
+    [SerializeField] private Button levelUpBtn;
+    [SerializeField] private TextMeshProUGUI skillPointTxt;
 
     [Header("현재 타입 필터")]
     [SerializeField] private ESkillType currentType = ESkillType.Fire;
@@ -30,8 +30,8 @@ public class SkillTreeUI : MonoBehaviour
     private void Start()
     {
         playerSkillController = FindObjectOfType<PlayerSkillController>();
-        unlockButton.onClick.AddListener(AttemptUnlock);
-        levelUpButton.onClick.AddListener(AttemptLevelUp);
+        unlockBtn.onClick.AddListener(AttemptUnlock);
+        levelUpBtn.onClick.AddListener(AttemptLevelUp);
 
         RefreshSkillTree();
         RefreshSkillPoint();
@@ -59,7 +59,7 @@ public class SkillTreeUI : MonoBehaviour
         {
             var nodeObj = Instantiate(skillNodePrefab, nodeContainer);
             var nodeUI = nodeObj.GetComponent<SkillNodeUI>();
-            //nodeUI.Setup(this, data, playerSkillController);
+            nodeUI.Setup(this, selectedSkill, playerSkillController);
             spawnedNodes.Add(nodeUI);
         }
     }
@@ -72,14 +72,14 @@ public class SkillTreeUI : MonoBehaviour
 
     private void ShowDetailPanel(SkillData data)
     {
-        skillNameText.text = data.DisplayName;
-        skillDescText.text = data.Description;
-        skillIconImage.sprite = data.Icon;
-        skillCostText.text = $"해금 비용: {data.BaseUnlockCost} p";
+        skillNameTxt.text = data.DisplayName;
+        skillDescTxt.text = data.Description;
+        skillIconImg.sprite = data.Icon;
+        skillCostTxt.text = $"해금 비용: {data.BaseUnlockCost} p";
 
         bool isUnlocked = playerSkillController.HasSkillUnlocked(data.SkillID);
-        unlockButton.gameObject.SetActive(!isUnlocked);
-        levelUpButton.gameObject.SetActive(!isUnlocked);
+        unlockBtn.gameObject.SetActive(!isUnlocked);
+        levelUpBtn.gameObject.SetActive(!isUnlocked);
 
         RefreshSkillPoint();
     }
@@ -87,12 +87,12 @@ public class SkillTreeUI : MonoBehaviour
     private void HideDetailPanel()
     {
         selectedSkill = null;
-        skillNameText.text = string.Empty;
-        skillDescText.text = string.Empty;
-        skillIconImage.sprite = null;
-        skillCostText.text = string.Empty;
-        unlockButton.gameObject.SetActive(false);
-        levelUpButton.gameObject.SetActive(false);
+        skillNameTxt.text = string.Empty;
+        skillDescTxt.text = string.Empty;
+        skillIconImg.sprite = null;
+        skillCostTxt.text = string.Empty;
+        unlockBtn.gameObject.SetActive(false);
+        levelUpBtn.gameObject.SetActive(false);
     }
 
     // 스킬 레벨업 시도
@@ -126,6 +126,6 @@ public class SkillTreeUI : MonoBehaviour
 
     private void RefreshSkillPoint()
     {
-        skillPointText.text = $"남은 스킬 포인트: {playerSkillController.AvailableSkillPoints:N0}";
+        skillPointTxt.text = $"남은 스킬 포인트: {playerSkillController.AvailableSkillPoints:N0}";
     }
 }

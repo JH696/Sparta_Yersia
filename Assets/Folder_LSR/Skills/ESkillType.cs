@@ -4,5 +4,4 @@
     Ice,
     Nature,
     Physical,
-    All
 }
