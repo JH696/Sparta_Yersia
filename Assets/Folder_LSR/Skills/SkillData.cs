@@ -41,13 +41,13 @@ public class SkillData : ScriptableObject
     [SerializeField, Tooltip("쿨타임(초)")] private float coolTime;
     public float CoolTime => coolTime;
 
-    [SerializeField, Tooltip("사정거리(유닛단위)")] private float range;
+    [SerializeField, Tooltip("공격 몬스터 범위(수)")] private float range;
     public float Range => range;
 
-    [SerializeField, Tooltip("투사체/효과 데미지")] private float damage;
+    [SerializeField, Tooltip("데미지")] private float damage;
     public float Damage => damage;
 
-    [SerializeField, Tooltip("스킬 사용 시 소비할 마나량")] private float manaCost;
+    [SerializeField, Tooltip("사용 시 소비할 마나량")] private float manaCost;
     public float ManaCost => manaCost;
 
     [Header("레벨업 보너스")]
