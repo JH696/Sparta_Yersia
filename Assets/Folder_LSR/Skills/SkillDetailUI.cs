@@ -33,10 +33,8 @@ public class SkillDetailUI : MonoBehaviour
 
         // 정보 표시
         skillNameTxt.text = skill.SkillName;
-        tierTxt.text = $"등급: {skill.Tier}";
+        tierTxt.text = $"등급: {skill.SkillTier}";
         damageTxt.text = $"데미지: {skill.Damage}";
-        manaCostTxt.text = $"공격시 마나소모량: {skill.ManaCost}";
-        levelTxt.text = $"레벨 {skillController.GetSkillLevel(skill)} / {skill.MaxLevel}";
         myPointsText.text = $"보유 스킬 포인트: {skillController.AvailableSkillPoints()}";
 
         // 버튼 세팅

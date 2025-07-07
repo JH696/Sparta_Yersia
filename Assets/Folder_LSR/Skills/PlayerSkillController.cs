@@ -22,13 +22,13 @@ public class PlayerSkillController : MonoBehaviour
     // 스킬이 해금 되었는가
     public bool IsUnlocked(SkillData skillData)
     {
-        return skillLevels.ContainsKey(skillData.SkillId);
+        return skillLevels.ContainsKey(skillData.Id);
     }
 
     // 현재 레벨
     public int GetSkillLevel(SkillData skillData)
     {
-        return IsUnlocked(skillData) ? skillLevels[skillData.SkillId] : 0;
+        return IsUnlocked(skillData) ? skillLevels[skillData.Id] : 0;
     }
 
     // 잠금 해제 가능 여부 (테스트용) - 포인트으로 가능.
@@ -43,16 +43,16 @@ public class PlayerSkillController : MonoBehaviour
         if (IsUnlocked(skill)) return;
 
         availableSkillPoints--;
-        skillLevels[skill.SkillId] = 1; // 기본 레벨 1로 해금
+        skillLevels[skill.Id] = 1; // 기본 레벨 1로 해금
     }
 
     // 스킬 레벨업 (최대 레벨 미만일 떄만)
     public void LevelUpSkill(SkillData skill)
     {
         if (!IsUnlocked(skill)) return;
-        int currentLevel = skillLevels[skill.SkillId];
-        if (currentLevel >= skill.MaxLevel) return;
-        skillLevels[skill.SkillId] = currentLevel + 1;
+        int currentLevel = skillLevels[skill.Id];
+        //if (currentLevel >= skill.MaxLevel) return;
+        skillLevels[skill.Id] = currentLevel + 1;
     }
 
 }
