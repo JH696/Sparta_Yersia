@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour
 {
     [Header("플레이어 참조")]
-    [SerializeField] private PlayerController player;
+    [SerializeField] private Player player;
 
     [Header("게이지 이미지")]
     [SerializeField] private Image HpGauge;

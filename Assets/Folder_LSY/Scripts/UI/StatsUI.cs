@@ -48,7 +48,7 @@ public class StatsUI : MonoBehaviour
 
     public void RefreshUI()
     {
-        bool isPlayer = currentCharacter is PlayerController;
+        bool isPlayer = currentCharacter is Player;
         bool isPet = currentCharacter is PetController;
 
         // 공통 스탯 표시
@@ -73,7 +73,7 @@ public class StatsUI : MonoBehaviour
 
         if (isPlayer)
         {
-            PlayerController player = currentCharacter as PlayerController;
+            Player player = currentCharacter as Player;
 
             if (YPTxt != null) YPTxt.text = $"YP : {player.YP}";
             if (ProfileImg != null && player.PlayerData != null)

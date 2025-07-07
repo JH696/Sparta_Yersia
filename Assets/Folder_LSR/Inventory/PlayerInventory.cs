@@ -6,6 +6,7 @@ public class PlayerInventory : MonoBehaviour
 {
     // 인벤토리 변경 이벤트
     public event Action OnInventoryChanged;
+
     // 아이템 추가 실패 이벤트 - 스택초과
     public event Action<string> OnAddFail;
 
