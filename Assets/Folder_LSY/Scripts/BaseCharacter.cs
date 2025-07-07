@@ -23,6 +23,21 @@ public abstract class BaseCharacter : MonoBehaviour
         Stat.SetBaseStats(statData);
     }
 
+    public virtual float GainDamage(float power)
+    {
+        float roll = UnityEngine.Random.Range(0f, 100f); // 치명타 계산
+        bool isCritical = roll <= Luck; // luck과 같거나 그보다 작으면
+
+
+        float attack = Attack; // 공격력
+        float damage = Attack * (1 + power); // 공격력 * 스킬 배율
+        float finalDamage = Mathf.Max(1, isCritical ? damage * 1.5f : damage); // 치명타 피해 적용
+
+        Debug.Log($"최종 피해량: {finalDamage}");
+        return finalDamage;
+    }
+
+
     // 데미지 입음
     public virtual void TakeDamage(float amount)
     {

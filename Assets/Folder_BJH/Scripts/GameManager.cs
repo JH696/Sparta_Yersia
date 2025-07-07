@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject Player;
 
+    public TurnCharacter TurnCharacter;
+
     private void Awake()
     {
         if (Instance != null)
