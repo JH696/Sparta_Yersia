@@ -59,7 +59,7 @@ public class InventoryUI : MonoBehaviour
     private EItemCategory currentCategory = EItemCategory.All;
 
     private ItemSlot currentSlot;
-    private PlayerController player;
+    private Player player;
 
     private void Awake()
     {
@@ -140,7 +140,7 @@ public class InventoryUI : MonoBehaviour
         detailPanel.SetActive(false);
 
         // 플레이어 찾기
-        player = GameManager.Instance.Player.GetComponent<PlayerController>();
+        player = GameManager.Instance.Player.GetComponent<Player>();
         if (player == null)
         {
             Debug.LogWarning("[InventoryUI] Player를 찾을 수 없습니다. Equip/Use 호출이 동작하지 않습니다.");

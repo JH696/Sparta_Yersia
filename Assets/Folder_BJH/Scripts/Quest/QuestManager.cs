@@ -89,8 +89,8 @@ public class QuestManager : MonoBehaviour
             //TestPlayer.Instance.playerQuest.AddQuestItem(pet); 
         }
 
-        GameManager.Instance.Player.GetComponent<PlayerController>().AddExp(questData.RewardExp);
-        GameManager.Instance.Player.GetComponent<PlayerController>().AddYP(questData.RewardYP);
+        GameManager.Instance.Player.GetComponent<Player>().AddExp(questData.RewardExp);
+        GameManager.Instance.Player.GetComponent<Player>().AddYP(questData.RewardYP);
     }
 
     // 퀘스트 해금
@@ -99,7 +99,7 @@ public class QuestManager : MonoBehaviour
         QuestData quest = Resources.Load<QuestData>($"QuestDatas/{id}");
 
         if (quest == null)
-        {
+        { 
             Debug.LogError($"Quest Manager: 해당 퀘스트는 존재하지 않습니다.");
             return;
         }
