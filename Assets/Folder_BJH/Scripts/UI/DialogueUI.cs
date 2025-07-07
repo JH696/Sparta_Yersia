@@ -23,9 +23,8 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private DialogueData curDialogueData;
     [SerializeField] public NPC curNpc;
 
-    [Header("타이핑 / 대화창 이탈 속도")]
+    [Header("타이핑 속도")]
     [SerializeField] private float typingSpeed = 0.05f;
-    [SerializeField] private float leaveDelay = 1;
 
     private int curLineIndex;
     private Coroutine typingCoroutine;

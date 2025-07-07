@@ -9788,7 +9788,6 @@ MonoBehaviour:
     Lines: []
   curNpc: {fileID: 0}
   typingSpeed: 0.05
-  leaveDelay: 2
 --- !u!1 &2965755219596646821
 GameObject:
   m_ObjectHideFlags: 0
@@ -18069,7 +18068,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8133095233882845657}
-  - component: {fileID: 8133095233882845658}
   m_Layer: 5
   m_Name: Player UI
   m_TagString: Untagged
@@ -19980,23 +19978,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8133095233882845658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7361707154956831921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53b9b69d6dfc01249bf88983830d7c5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 339172516712891039}
-  HpGauge: {fileID: 1650722827236288416}
-  ManaGauge: {fileID: 2779395323264391882}
-  ExpGauge: {fileID: 8250874549319602720}
-  ProfileImg: {fileID: 3896162034250116405}
 --- !u!1 &8134666425344794657
 GameObject:
   m_ObjectHideFlags: 0

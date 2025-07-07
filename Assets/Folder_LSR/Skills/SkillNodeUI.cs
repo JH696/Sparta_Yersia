@@ -1,44 +1,47 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class SkillNodeUI : MonoBehaviour
 {
-    [Header("UI 컴포넌트")]
-    [SerializeField] private Image iconImage;
-    [SerializeField] private Image lockOverlay;
-    [SerializeField] private Image fillGauge;
-    [SerializeField] private Image effectOverlay;
-    [SerializeField] private Button nodeButton;
+    [SerializeField] private Image iconImg;
+    [SerializeField] private Button btn;
+    [SerializeField] private GameObject lockOverlay;
 
-    private SkillData skillData;
-    private PlayerSkillController playerSkillController;
-    private SkillTreeUI skillTreeUI;
+    private SkillData data;
+    private SkillDetailUI detailUI;
+    private PlayerSkillController skillController;
 
     private void Awake()
     {
-        nodeButton.onClick.AddListener(OnNodeClick);
+        skillController = FindObjectOfType<PlayerSkillController>();
     }
 
-    public void Setup(SkillTreeUI treeUI, SkillData data, PlayerSkillController controller)
+    // 스킬 데이터, 상세UI 전달 받아 세팅
+    public void SetData(SkillData skillData, SkillDetailUI detailUI)
     {
-        // 초기화
+        this.data = skillData;
+        this.detailUI = detailUI;
+
+        iconImg.sprite = data.Icon;
+
+        // 잠금 상태
+        RefreshLockState();
+
+        // 클릭시 상세패널 표시
+        btn.onClick.RemoveAllListeners();
+        btn.onClick.AddListener(() => detailUI.Show(data, this));
     }
 
-    private void UpdateNodeUI()
+    public void SetUnlocked(bool unlocked)
     {
-        // 락 해제 가능 상태
-        // 락 상태
+        iconImg.color = unlocked ? Color.white : new Color(1f, 1f, 1f, 0.7f);
     }
 
-    private IEnumerator AnimateEffect()
+    public void RefreshLockState()
     {
-        // 효과 애니메이션 구현
-        yield return new WaitForSeconds(0.5f);
-    }
-
-    private void OnNodeClick()
-    {
-        skillTreeUI.SelectSkill(skillData);
+        bool unlocked = skillController.IsUnlocked(data);
+        btn.interactable = unlocked;
+        iconImg.color = unlocked ? Color.white : new Color(1f, 1f, 1f, 0.7f);
+        lockOverlay.SetActive(!unlocked);
     }
 }

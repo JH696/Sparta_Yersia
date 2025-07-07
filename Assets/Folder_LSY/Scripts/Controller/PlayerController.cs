@@ -59,7 +59,7 @@ public class PlayerController : BaseCharacter, ILevelable
     private void HandleInput()
     {
         // 대화 중이라면 이동 입력 무시
-        if (DialogueManager.Instance.IsDialogueActive) return;
+        //if (DialogueManager.Instance.IsDialogueActive) return;
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -74,11 +74,11 @@ public class PlayerController : BaseCharacter, ILevelable
     private void HandleMovement()
     {
         // 대화 중이라면 이동 중지
-        if (DialogueManager.Instance.IsDialogueActive)
-        {
-            isMoving = false;
-            return;
-        }
+        //if (DialogueManager.Instance.IsDialogueActive)
+        //{
+        //    isMoving = false;
+        //    return;
+        //}
 
         if (!isMoving) return;
 

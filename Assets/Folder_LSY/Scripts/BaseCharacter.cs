@@ -28,6 +28,8 @@ public abstract class BaseCharacter : MonoBehaviour
     {
         float finalDamage = Mathf.Max(1f, amount - Defense);
         Stat.SetCurrentHp(CurrentHp - finalDamage);
+
+        Debug.Log($"받은 피해: {amount} 남은 체력: {CurrentHp}/{MaxHp}");
     }
 
     // HP 회복

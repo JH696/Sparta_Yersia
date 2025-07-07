@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f73cc05d01bfb3b4a8893c4fc788f7e7, type: 3}
-  m_Name: New Skill Library
+  m_Script: {fileID: 11500000, guid: edfa1ce4fa83a714b8a20140cf466a7a, type: 3}
+  m_Name: NormalStatData 1
   m_EditorClassIdentifier: 
-  AllSkills: []
+  maxHp: 50
+  maxMana: 0
+  attack: 10
+  defense: 10
+  luck: 5
+  speed: 5

@@ -1,136 +1,58 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// 플레이어의 스킬 해금 및 레벨 상태를 관리
-/// </summary>
 public class PlayerSkillController : MonoBehaviour
 {
-    [Header("스킬 포인트")]
-    [SerializeField] private int availableSkillPoints = 0;
+    [Header("초기 스킬 포인트")]
+    [SerializeField] private int initialSkillPoints = 0;
 
-    [Header("플레이어 등급(초/중/상)")]
-    [SerializeField] private ETier playerTier = ETier.Basic;
-
-    [Header("해금된 스킬 ID")]
-    [SerializeField] private List<string> unlockedSkillIDs = new List<string>();
-
-    [Header("스킬 레벨")]
-    [SerializeField] private Dictionary<string, int> skillLevels = new Dictionary<string, int>();
-
-    public int AvailableSkillPoints => availableSkillPoints;
-    public ETier PlayerTier => playerTier;
+    private int availableSkillPoints;
+    private Dictionary<string, int> skillLevels = new Dictionary<string, int>();
 
     private void Awake()
     {
-        skillLevels = new Dictionary<string, int>();
+        availableSkillPoints = initialSkillPoints;
     }
 
-    // 스킬 레벨업시 필요한 포인트
-    public bool HasSkillUnlocked(string skillID)
+    public int AvailableSkillPoints()
     {
-        return unlockedSkillIDs.Contains(skillID);
+        return availableSkillPoints;
     }
 
-    // 스킬 락 해제 가능여부
-    public bool CanUnlockSkill(SkillData data)
+    // 스킬이 해금 되었는가
+    public bool IsUnlocked(SkillData skillData)
     {
-        if (HasSkillUnlocked(data.SkillID)) return false;
-        if (playerTier < data.TierRequirement) return false;
-        if (availableSkillPoints < data.BaseUnlockCost) return false;
-
-        return true;
+        return skillLevels.ContainsKey(skillData.SkillId);
     }
 
-    // 스킬 락 해제
-    public void UnlockSkill(SkillData data)
+    // 현재 레벨
+    public int GetSkillLevel(SkillData skillData)
     {
-        if (!CanUnlockSkill(data)) return;
-
-        availableSkillPoints -= data.BaseUnlockCost;
-        unlockedSkillIDs.Add(data.SkillID);
-        skillLevels[data.SkillID] = 1; // 기본 레벨 1로 설정
-
-        // 플레이어에게 마나 보너스 적용 - 상의 필요하나 테스트용으로 구현
-        var stats = GetComponent<CharacterStats>();
-        if (stats != null)
-        {
-            stats.AddMaxMana(data.ManaBonusOnUnlock);
-        }
-
-        Debug.Log($"[PlayerSkill]스킬 '{data.DisplayName}' 해금됨! 현재 스킬 포인트: {availableSkillPoints}");
+        return IsUnlocked(skillData) ? skillLevels[skillData.SkillId] : 0;
     }
 
-    // 스킬 레벨업 가능여부
-    public bool CanLevelUpSkill(SkillData data)
+    // 잠금 해제 가능 여부 (테스트용) - 포인트으로 가능.
+    public bool CanUnlock(SkillData skillData)
     {
-        if (!HasSkillUnlocked(data.SkillID)) return false;
-        if (!skillLevels.ContainsKey(data.SkillID)) return false;
-
-        int currentLevel = skillLevels[data.SkillID];
-        if (currentLevel >= data.MaxLevel) return false;
-
-        return availableSkillPoints >= GetLevelUpCost(currentLevel + 1);
+        return !IsUnlocked(skillData) && availableSkillPoints > 0;
     }
 
-    // 스킬 레벨업 비용 계산
-    private int GetLevelUpCost(int level)
+    // 스킬 잠금 해제 (레벨 1로 해금 및 포인트 차감)
+    public void UnlockSkill(SkillData skill)
     {
-        if (level <= 10) return 1000 + (level - 1) * 500; // 예시: 레벨 1은 1000, 레벨 2는 1500, 레벨 3은 2000 등
-        return 1000;
+        if (IsUnlocked(skill)) return;
+
+        availableSkillPoints--;
+        skillLevels[skill.SkillId] = 1; // 기본 레벨 1로 해금
     }
 
-    // 스킬 레벨업
-    public void LevelUpSkill(SkillData data)
+    // 스킬 레벨업 (최대 레벨 미만일 떄만)
+    public void LevelUpSkill(SkillData skill)
     {
-        if (!CanLevelUpSkill(data)) return;
-
-        int currentLevel = skillLevels[data.SkillID];
-        int cost = GetLevelUpCost(currentLevel + 1);
-
-        availableSkillPoints -= cost;
-
-        if (currentLevel + 1 <= 10)
-        {
-            skillLevels[data.SkillID] = currentLevel + 1;
-            Debug.Log($"[PlayerSkill] '{data.DisplayName}' 레벨업성공! {skillLevels[data.SkillID]}, point: {availableSkillPoints}");
-        }
-        else
-        {
-            bool success = RandomHighLvUpSuccess(currentLevel + 1);
-            if (success)
-            {
-                skillLevels[data.SkillID] = currentLevel + 1;
-                Debug.Log($"[PlayerSkill] '{currentLevel + 1}로 레벨업 성공");
-            }
-            else
-            {
-                Debug.Log($"[PlayerSkill] '{currentLevel + 1}로 레벨업 실패");
-            }
-        }
+        if (!IsUnlocked(skill)) return;
+        int currentLevel = skillLevels[skill.SkillId];
+        if (currentLevel >= skill.MaxLevel) return;
+        skillLevels[skill.SkillId] = currentLevel + 1;
     }
 
-    // 특정레벨 이상 레벨업 성공 확률 계산
-    private bool RandomHighLvUpSuccess(int level)
-    {
-        // 점진적으로 성공 확률 감소
-        float successRate = 0.9f - 0.05f * (level - 11); // 레벨 11부터 확률 감소
-        successRate = Mathf.Clamp(successRate, 0.1f, 0.9f); // 최소 10%, 최대 90%
-        return Random.value <= successRate;
-    }
-
-    public void AddSkillPoints(int points)
-    {
-        availableSkillPoints += points;
-    }
-
-    public void SetPlayerTier(ETier tier)
-    {
-        playerTier = tier;
-    }
-
-    public int GetSkillLevel(string skillID)
-    {
-        return skillLevels.ContainsKey(skillID) ? skillLevels[skillID] : 0;
-    }
 }
