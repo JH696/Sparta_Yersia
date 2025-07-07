@@ -2,11 +2,6 @@
 using System.Linq;
 using UnityEngine;
 
-public interface IInteractable
-{
-    void Interact();
-}
-
 public class NPC : MonoBehaviour, IInteractable
 {
     [Header("NPC 데이터")]
