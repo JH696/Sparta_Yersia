@@ -16,15 +16,18 @@ public class TargetHandler : MonoBehaviour
     [SerializeField] private EActionType curAction = EActionType.None;
     [SerializeField] private BaseCharacter curCharacter;
     [SerializeField] private SkillData curSkill;
-    [SerializeField] private ItemData curitem;
+    [SerializeField] private ItemData curItem;
 
     [Header("버튼")]
     [SerializeField] private Button allowButton;
     [SerializeField] private Button cancelButton;
 
-    [Header("타겟 리스트 / 최대 타겟 수 ")]
+    [Header("타겟 리스트 / 최대 타겟 수")]
     [SerializeField] private List<BaseCharacter> targets;
     [SerializeField] private float targetCount;
+
+    [Header("타겟 포인터")]
+    [SerializeField] private TargetPointer tPointer;
 
     public void Start()
     {
@@ -44,19 +47,24 @@ public class TargetHandler : MonoBehaviour
 
     public void SingleTargeting()
     {
+        ShowButtons();
         curAction = EActionType.BaseAttack;
         targetCount = 1;
     }
 
     public void SkillTargeting(SkillData skill)
     {
+        ShowButtons();
         curAction = EActionType.UseSkill;
+        curSkill = skill;
         this.targetCount = skill.Range;
     }
 
     public void ItemTargeting(ItemData item)
     {
+        ShowButtons(); 
         curAction = EActionType.UseItem;
+        curItem = item;
         targetCount = 1;
     }
 
@@ -80,31 +88,63 @@ public class TargetHandler : MonoBehaviour
 
     private void AddTargets(BaseCharacter target)
     {
-        if (targets.Count < targetCount)
+        if (targets.Count < targetCount && !targets.Contains(target))
         {
-            targets.Add(target);
             Debug.Log($"타겟 추가됨 {target.name}");
+            targets.Add(target);
+            tPointer.AddPoint(target.gameObject.transform);
+        }
+        else if (targets.Count >= targetCount && !targets.Contains(target))
+        {
+            Debug.Log($"타겟 변경됨 {targets[0].name} -> {target.name}");
+            targets.Remove(targets[0]);
+            targets.Add(target);
+            tPointer.AddPoint(target.gameObject.transform);
         }
         else
         {
+            Debug.Log($"타겟 제거됨 {target.name}");
             targets.Remove(targets[0]);
-            targets.Add(target);
-            Debug.Log($"타겟 변경됨 {targets[0].name} -> {target.name}");
+            tPointer.RemovePoint(target.gameObject.transform);
         }
     }
 
     private void OnCancelButton()
     {
+        ResetTraget();
+        HideButtons();
+        BattleUI.Instance.GoBack();
+    }
+
+    private void ResetTraget()
+    {
         curAction = EActionType.None;
         targetCount = 0;
-        curCharacter = null;
         curSkill = null;
-        curitem = null;
+        curItem = null;
         targets.Clear();
     }
 
-    public void OnAllowButton()
+    private void ShowButtons()
     {
+        allowButton.gameObject.SetActive(true);
+        cancelButton.gameObject.SetActive(true);
+    }
+
+    private void HideButtons()
+    {
+        allowButton.gameObject.SetActive(false);
+        cancelButton.gameObject.SetActive(false);
+    }
+
+    private void OnAllowButton()
+    {
+        if (targets.Count == 0)
+        {
+            Debug.Log($"대상을 지정해주세요");
+            return;
+        }
+
         foreach (var target in targets)
         {
             if (curAction == EActionType.BaseAttack)
@@ -114,13 +154,30 @@ public class TargetHandler : MonoBehaviour
             else if (curAction == EActionType.UseSkill)
             {
                 target.TakeDamage(curCharacter.GainDamage(curSkill.Damage));
+              //curCharacter.ReduceMana(curSkill.ManaCost);
             }
             else if (curAction == EActionType.UseItem)
             {
-                return;
+                foreach (var item in curItem.ItemStats)
+                {
+                    switch (item.eStat)
+                    {
+                        case EStatType.MaxHp:
+                            Debug.Log($"{target.name}의 체력이 {item.value}만큼 회복됨");
+                            target.HealHP(item.value);
+                            break;
+                        case EStatType.MaxMana:
+                            Debug.Log($"{target.name}의 마나가 {item.value}만큼 회복됨");
+                            target.HealMana(item.value);
+                            break;
+                    }
+                }
+
             }
         }
 
-        OnCancelButton();
+        ResetTraget();
+        HideButtons();
+        BattleUI.Instance.ShowActionButtons();
     }
 }

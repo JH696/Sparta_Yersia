@@ -13,10 +13,11 @@ public class ActionButtons : MonoBehaviour
     [SerializeField] private Button restButton;
     [SerializeField] private Button runButton;
 
-    [Header("타겟팅")]
-    [SerializeField] private TargetHandler targetHandler;
+    [Header("스킬 / 아이템 버튼")]
+    [SerializeField] private SkillButtons skillButtons;
+    [SerializeField] private ItemButtons itemButtons;
 
-    void Start()
+   void Start()
     {
         attackButton.onClick.AddListener(OnAttackButton);
         skillButton.onClick.AddListener(OnSkillButton);
@@ -33,21 +34,28 @@ public class ActionButtons : MonoBehaviour
 
     private void OnAttackButton()
     {
-        targetHandler.SetCharacter(curCharacter);
-        targetHandler.SingleTargeting();
+        Debug.Log("일반 공격 중");
+        BattleUI.Instance.SingleTargeting();
     }
 
     private void OnSkillButton()
     {
+        Debug.Log("스킬 선택");
+        skillButtons.SetSkillButton();
+        this.gameObject.SetActive(false);
     }
+
     private void OnItemButton()
     {
-
+        Debug.Log("아이템 선택");
+        itemButtons.SetItemButton();
+        this.gameObject.SetActive(false);
     }
 
     private void OnRestButton()
     {
-
+        Debug.Log("마나 회복");
+        curCharacter.HealMana(curCharacter.MaxMana * 0.1f);
     }
 
     private void OnRunButton()
