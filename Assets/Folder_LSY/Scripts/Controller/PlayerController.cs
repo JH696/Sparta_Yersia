@@ -95,18 +95,18 @@ public class PlayerController : BaseCharacter, ILevelable
         }
     }
 
-    // 플레이어가 상호작용 키(F)를 눌렀을 때 주변 NPC를 감지하고 상호작용을 수행합니다
     private void HandleInteractionInput()
     {
         if (!Input.GetKeyDown(KeyCode.F)) return;
 
-        Collider2D npcCollider = Physics2D.OverlapCircle(transform.position, interactRange, npcLayerMask);
-        if (npcCollider == null) return;
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, interactRange, npcLayerMask);
+        if (hit == null) return;
 
-        NPC npc = npcCollider.GetComponent<NPC>();
-        if (npc == null) return;
-
-        npc.Interact();
+        IInteractable interactable = hit.GetComponent<IInteractable>();
+        if (interactable != null)
+        {
+            interactable.Interact();
+        }
     }
 
     // 경험치 추가 메서드
