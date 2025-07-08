@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     private DialogueUI dialogueUI;
     private PlayerUI playerUI;
     private StatUIController statUIController;
-    private SkillTreeUI skillTreeUI;
+    //private SkillTreeUI skillTreeUI;
 
     private void Awake()
     {
@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
         dialogueUI = FindObjectOfType<DialogueUI>(includeInactive: true);
         playerUI = FindObjectOfType<PlayerUI>(includeInactive: true);
         statUIController = FindObjectOfType<StatUIController>(includeInactive: true);
-        skillTreeUI = FindObjectOfType<SkillTreeUI>(includeInactive: true);
+        //skillTreeUI = FindObjectOfType<SkillTreeUI>(includeInactive: true);
     }
 
     // 인벤토리 UI 표시
@@ -151,23 +151,23 @@ public class UIManager : MonoBehaviour
     }
 
     // 스킬트리 UI 표시/숨기기
-    public void ShowSkillTreeUI()
-    {
-        if (skillTreeUI == null)
-        {
-            Debug.LogWarning("[UIManager] SkillTreeUI를 찾을 수 없습니다.");
-            return;
-        }
-        skillTreeUI.Show();
-    }
+    //public void ShowSkillTreeUI()
+    //{
+    //    if (skillTreeUI == null)
+    //    {
+    //        Debug.LogWarning("[UIManager] SkillTreeUI를 찾을 수 없습니다.");
+    //        return;
+    //    }
+    //    skillTreeUI.Show();
+    //}
 
-    public void HideSkillTreeUI()
-    {
-        if (skillTreeUI == null)
-        {
-            Debug.LogWarning("[UIManager] SkillTreeUI를 찾을 수 없습니다.");
-            return;
-        }
-        skillTreeUI.Hide();
-    }
+    //public void HideSkillTreeUI()
+    //{
+    //    if (skillTreeUI == null)
+    //    {
+    //        Debug.LogWarning("[UIManager] SkillTreeUI를 찾을 수 없습니다.");
+    //        return;
+    //    }
+    //    skillTreeUI.Hide();
+    //}
 }

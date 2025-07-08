@@ -1,58 +1,56 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
+// 플레이어 스킬 전반 ( 해금, 사용, 쿨타임, 다음 스킬 해금 등)
 public class PlayerSkillController : MonoBehaviour
 {
-    [Header("초기 스킬 포인트")]
-    [SerializeField] private int initialSkillPoints = 0;
+    [Header("스킬 데이터 목록 SO")]
 
-    private int availableSkillPoints;
-    private Dictionary<string, int> skillLevels = new Dictionary<string, int>();
+    [Header("플레이어 스킬 포인트")]
+    [SerializeField] private int skillPoints = 100000; // 임시로 포인트 부여
+
+    // 키: SkillData.Id, 값: SkillStatus 인스턴스
+    private Dictionary<string, SkillStatus> skillStatuses = new Dictionary<string, SkillStatus>();
+
+    //스킬 상태 변경 알림 이벤트(UI)
+    public event Action<SkillStatus> OnSkillStateChanged;
+    public event Action<SkillStatus> OnSkillLevelUp;
 
     private void Awake()
     {
-        availableSkillPoints = initialSkillPoints;
+        // SO → SkillStatus 인스턴스 생성 및 등록
     }
 
-    public int AvailableSkillPoints()
+    private void Start()
     {
-        return availableSkillPoints;
+        // 초급 스킬 자동 해금 - 임시 로직
+        foreach (var status in skillStatuses.Values)
+        {
+            if (status.Data.SkillTier == ETier.Basic)
+            {
+                status.Unlock();
+            }
+        }
     }
 
-    // 스킬이 해금 되었는가
-    public bool IsUnlocked(SkillData skillData)
+    /// <summary>스킬 사용 시도</summary>
+    public void TryUseSkill(string skillID)
     {
-        return skillLevels.ContainsKey(skillData.Id);
+        if (!skillStatuses.TryGetValue(skillID, out var status)) return;
     }
 
-    // 현재 레벨
-    public int GetSkillLevel(SkillData skillData)
+    private void ApplySkillEffect(SkillData data)
     {
-        return IsUnlocked(skillData) ? skillLevels[skillData.Id] : 0;
+        float atk = GetPlayerAttackPower();
+        float dmg = data.Damage + atk * data.Coefficient;
+        Debug.Log($"[{data.Id}] 사용, 데미지: {dmg}");
     }
 
-    // 잠금 해제 가능 여부 (테스트용) - 포인트으로 가능.
-    public bool CanUnlock(SkillData skillData)
+    private void NotifySkillChanged(SkillStatus status)
     {
-        return !IsUnlocked(skillData) && availableSkillPoints > 0;
+
     }
 
-    // 스킬 잠금 해제 (레벨 1로 해금 및 포인트 차감)
-    public void UnlockSkill(SkillData skill)
-    {
-        if (IsUnlocked(skill)) return;
-
-        availableSkillPoints--;
-        skillLevels[skill.Id] = 1; // 기본 레벨 1로 해금
-    }
-
-    // 스킬 레벨업 (최대 레벨 미만일 떄만)
-    public void LevelUpSkill(SkillData skill)
-    {
-        if (!IsUnlocked(skill)) return;
-        int currentLevel = skillLevels[skill.Id];
-        //if (currentLevel >= skill.MaxLevel) return;
-        skillLevels[skill.Id] = currentLevel + 1;
-    }
-
+    private float GetPlayerAttackPower() => 50f; // TODO: 실제 스탯 연결
 }

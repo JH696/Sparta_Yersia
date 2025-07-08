@@ -3,11 +3,8 @@ using UnityEngine;
 
 // 정적 데이터만
 [CreateAssetMenu(fileName = "SF_a01", menuName = "Data/SkillData")]
-public class SkillData : ScriptableObject
+public class SkillData : ScriptableObject, ISkillInfo
 {
-    [Header("아이콘")]
-    [SerializeField] private Sprite icon;
-
     [Header("ID / 이름")]
     [SerializeField] private string skillID;
     [SerializeField] private string skillName;
@@ -29,18 +26,26 @@ public class SkillData : ScriptableObject
     [Tooltip("쿨타임(초)")]
     [SerializeField] private float coolTime;
 
-    [Header("해당 스킬 이후, 다음 해금 대상 목록(SO 참조)")]
+    [Header("다음 해금 스킬 목록(SO 참조)")]
     [SerializeField] private List<SkillData> unlockNext = new List<SkillData>();
 
-    // 프로퍼티
+    [Header("아이콘")]
+    [SerializeField] private Sprite icon;
+    [Header("마나 소모량")]
+    [SerializeField] private int manaCost = 0;
+
+    // ISkillInfo 
     public string Id => skillID;
     public string SkillName => skillName;
-    public Sprite Icon => icon;
     public ESkillType SkillType => type;
     public ETier SkillTier => tier;
     public float Damage => damage;
     public float Coefficient => coefficient;
     public float Range => range;
     public float CoolTime => coolTime;
-    public IReadOnlyList<SkillData> UnlockNext => unlockNext;
+    public IReadOnlyList<ISkillInfo> UnlockNext => unlockNext.ConvertAll(x => (ISkillInfo)x);
+
+    // 추가 속성
+    public Sprite Icon => icon;
+    public int ManaCost => manaCost;
 }

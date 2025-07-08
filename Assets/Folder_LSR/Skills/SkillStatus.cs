@@ -1,60 +1,79 @@
 ﻿using System;
 using UnityEngine;
 
-public class SkillStatus : MonoBehaviour
+public class SkillStatus
 {
-    public SkillData Data { get; }
+    public ISkillInfo Data { get; }
     public ESkillState State { get; private set; }
-    public float RemainCooltime { get; private set; }
+    public bool IsOnCoolTime { get; private set; }
+    public int Level { get; private set; }
 
     public bool IsUnlocked => State != ESkillState.Locked;
-    public bool CanUse => State == ESkillState.Available || State == ESkillState.ReadyCoolTime;
+    public bool CanUse => IsUnlocked && !IsOnCoolTime;
+    public bool CanLevelUp(int availablePoint) => IsUnlocked && availablePoint >= NextLevelCost();
 
     public event Action<SkillStatus> OnStateChanged;
+    public event Action<SkillStatus> OnLevelUp;
 
     public SkillStatus(SkillData data)
     {
         Data = data;
         State = ESkillState.Locked;
-        RemainCooltime = 0f;
+        IsOnCoolTime = false;
+        Level = 0;
     }
 
-    // 해금 (잠금 해제)
+    /// <summary>
+    /// 퀘스트완료 혹은 그 외 방법으로 해금 (잠금 해제) 
+    /// </summary>
     public void Unlock()
     {
-        if (State == ESkillState.Locked)
-        {
-            State = ESkillState.Available;
-            OnStateChanged?.Invoke(this);
-        }
-        else
-        {
-            Debug.LogWarning($"Skill {Data.SkillName} is already unlocked.");
-        }
+        if (State != ESkillState.Locked) return;
+
+        State = ESkillState.Available;
+        Level = 1;
+        OnStateChanged?.Invoke(this);
     }
 
-    // 스킬 사용 -> 쿨타임 시작
+    /// <summary>
+    /// 스킬 사용 처리 (쿨타임 시작)
+    /// </summary>
     public void Use()
     {
         if (!CanUse) return;
 
+        IsOnCoolTime = true;
         State = ESkillState.OnCoolTIme;
-        RemainCooltime = Data.CoolTime;
         OnStateChanged?.Invoke(this);
     }
 
-    // 쿨타임 업데이트 -> 준비 완료 상태전환
-    public void UpdateCoolTime(float deltaTime)
+    /// <summary>
+    /// 쿨타임 해제 (재사용 가능 상태로 전환)
+    /// </summary>
+    public void ResetCoolTime()
     {
-        if (State == ESkillState.OnCoolTIme)
-        {
-            RemainCooltime -= deltaTime;
-            if (RemainCooltime <= 0f)
-            {
-                RemainCooltime = 0f;
-                State = ESkillState.ReadyCoolTime;
-                OnStateChanged?.Invoke(this);
-            }
-        }
+        if (!IsOnCoolTime) return;
+
+        IsOnCoolTime = false;
+        State = ESkillState.ReadyCoolTime;
+        OnStateChanged?.Invoke(this);
+    }
+
+    // 레벨업 시도
+    public bool LevelUp(ref int availablePoint)
+    {
+        int cost = NextLevelCost();
+        if (!IsUnlocked || availablePoint < cost) return false;
+
+        availablePoint -= cost;
+        Level++;
+        OnLevelUp?.Invoke(this);
+        return true;
+    }
+
+    // 다음 레벨업에 필요한 스킬 포인트 비용: 임시 계산식임 - 언제든지 변경가능
+    public int NextLevelCost()
+    {
+        return Level * Level + 1;
     }
 }
