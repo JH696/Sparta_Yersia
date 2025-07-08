@@ -12,16 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f19af68ad88a454fb38b9d1416924c6, type: 3}
   m_Name: SN_01_a
   m_EditorClassIdentifier: 
+  skillID: 
   skillName: "\uC790\uC5F01"
-  type: 2
+  type: 0
   tier: 1
-  icon: {fileID: 680645575, guid: b9322abd4f2aaad4c979c052daa67961, type: 3}
-  maxLevel: 30
-  coolTime: 5
-  range: 2
   damage: 10
+  coefficient: 3
+  range: 2
+  coolTime: 5
+  unlockNext: []
+  icon: {fileID: 680645575, guid: b9322abd4f2aaad4c979c052daa67961, type: 3}
   manaCost: 5
-  statBonuses:
-  - StatType: 1
-    BonusPerLevel: 5
-  prerequisites: []

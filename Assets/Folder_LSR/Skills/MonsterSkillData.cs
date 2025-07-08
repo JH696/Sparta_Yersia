@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-// 정적 데이터만
-[CreateAssetMenu(fileName = "SF_a01", menuName = "Data/SkillData")]
-public class SkillData : ScriptableObject, ISkillInfo
+[CreateAssetMenu(fileName = "MSF_a01", menuName = "Data/MonsterSkillData")]
+public class MonsterSkillData : ScriptableObject, ISkillInfo
 {
     [Header("ID / 이름")]
     [SerializeField] private string skillID;
@@ -26,14 +26,6 @@ public class SkillData : ScriptableObject, ISkillInfo
     [Tooltip("쿨타임(초)")]
     [SerializeField] private float coolTime;
 
-    [Header("다음 해금 스킬 목록(SO 참조)")]
-    [SerializeField] private List<SkillData> unlockNext = new List<SkillData>();
-
-    [Header("아이콘")]
-    [SerializeField] private Sprite icon;
-    [Header("마나 소모량")]
-    [SerializeField] private int manaCost = 0;
-
     // ISkillInfo 
     public string Id => skillID;
     public string SkillName => skillName;
@@ -43,9 +35,7 @@ public class SkillData : ScriptableObject, ISkillInfo
     public float Coefficient => coefficient;
     public float Range => range;
     public float CoolTime => coolTime;
-    public IReadOnlyList<ISkillInfo> UnlockNext => unlockNext.ConvertAll(nextSkill => (ISkillInfo)nextSkill);
 
-    // 추가 속성
-    public Sprite Icon => icon;
-    public int ManaCost => manaCost;
+    // 몬스터 스킬은 해금X : 빈 리스트 반환
+    public IReadOnlyList<ISkillInfo> UnlockNext => Array.Empty<ISkillInfo>();
 }

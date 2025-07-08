@@ -1,21 +1,20 @@
 ﻿using System;
-using UnityEngine;
 
 public class SkillStatus
 {
     public ISkillInfo Data { get; }
     public ESkillState State { get; private set; }
-    public bool IsOnCoolTime { get; private set; }
     public int Level { get; private set; }
+    public bool IsOnCoolTime { get; private set; }
 
     public bool IsUnlocked => State != ESkillState.Locked;
     public bool CanUse => IsUnlocked && !IsOnCoolTime;
-    public bool CanLevelUp(int availablePoint) => IsUnlocked && availablePoint >= NextLevelCost();
+    public bool CanLevelUp(int points) => IsUnlocked && points >= NextLevelCost();
 
     public event Action<SkillStatus> OnStateChanged;
     public event Action<SkillStatus> OnLevelUp;
 
-    public SkillStatus(SkillData data)
+    public SkillStatus(ISkillInfo data)
     {
         Data = data;
         State = ESkillState.Locked;
@@ -23,9 +22,7 @@ public class SkillStatus
         Level = 0;
     }
 
-    /// <summary>
-    /// 퀘스트완료 혹은 그 외 방법으로 해금 (잠금 해제) 
-    /// </summary>
+    /// <summary> 퀘스트완료 혹은 그 외 방법으로 해금 (잠금 해제)  </summary>
     public void Unlock()
     {
         if (State != ESkillState.Locked) return;
@@ -35,9 +32,7 @@ public class SkillStatus
         OnStateChanged?.Invoke(this);
     }
 
-    /// <summary>
-    /// 스킬 사용 처리 (쿨타임 시작)
-    /// </summary>
+    /// <summary> 스킬 사용 처리 (쿨타임 시작) </summary>
     public void Use()
     {
         if (!CanUse) return;
@@ -47,9 +42,7 @@ public class SkillStatus
         OnStateChanged?.Invoke(this);
     }
 
-    /// <summary>
-    /// 쿨타임 해제 (재사용 가능 상태로 전환)
-    /// </summary>
+    /// <summary> 쿨타임 해제 (재사용 가능 상태로 전환) </summary>
     public void ResetCoolTime()
     {
         if (!IsOnCoolTime) return;
@@ -60,12 +53,12 @@ public class SkillStatus
     }
 
     // 레벨업 시도
-    public bool LevelUp(ref int availablePoint)
+    public bool LevelUp(ref int points)
     {
         int cost = NextLevelCost();
-        if (!IsUnlocked || availablePoint < cost) return false;
+        if (!IsUnlocked || points < cost) return false;
 
-        availablePoint -= cost;
+        points -= cost;
         Level++;
         OnLevelUp?.Invoke(this);
         return true;
