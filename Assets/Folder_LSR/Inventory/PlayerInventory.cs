@@ -65,9 +65,41 @@ public class PlayerInventory : MonoBehaviour
         return GetCount(data.ID); // 아이템 ID로 개수 조회
     }
 
-    // 전체 아이템 목록 반환
+    // 전체 아이템 목록 반환 (ID, 갯수만 필요할 때)
     public Dictionary<string, int> GetAllItems()
     {
         return new Dictionary<string, int>(itemDic); // 현재 아이템 목록 복사하여 반환
+    }
+
+    /// <summary>
+    /// 보유 중인 ItemData 객체 리스트 반환
+    /// 사용 예시: GetAllItemData(itemDB)
+    /// </summary>
+    public List<ItemData> GetAllItemData(ItemData[] data)
+    {
+        var result = new List<ItemData>();
+        foreach (var item in data)
+        {
+            if (itemDic.ContainsKey(item.ID))
+            {
+                result.Add(item);
+            }
+        }
+        return result; // 현재 아이템 목록에 있는 ItemData 객체 리스트 반환
+    }
+
+    /// <summary>
+    /// 보유 중인 특정 카테고리만 SO 리스트로 반환
+    /// 사용 예시: GetItemsByCategory(EItemCategory.Consumable, itemDB)
+    /// </summary>
+    public List<ItemData> GetItemsByCategory(EItemCategory category, ItemData[] data)
+    {
+        var result = new List<ItemData>();
+        foreach (var item in data)
+        {
+            if (item.Category == category && itemDic.ContainsKey(item.ID))
+                result.Add(item);
+        }
+        return result;
     }
 }
