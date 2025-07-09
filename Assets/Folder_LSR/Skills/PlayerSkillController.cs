@@ -30,10 +30,10 @@ public class PlayerSkillController : MonoBehaviour
             }
         }
 
-        // SO 중 ISkillInfo 인터페이스를 구현한 데이터만 필터링
+        // SO 중 ISkillBase 인터페이스를 구현한 데이터만 필터링
         foreach (var obj in skillDataList)
         {
-            if (obj is ISkillInfo info)
+            if (obj is ISkillBase info)
             {
                 var status = new SkillStatus(info);
                 status.OnStateChanged += skillState => OnSkillStateChanged?.Invoke(skillState);
@@ -57,7 +57,6 @@ public class PlayerSkillController : MonoBehaviour
 
     public void UnlockSkill(string id) =>
         skillStatuses.Find(skillState => skillState.Data.Id == id)?.Unlock();
-
 
     public void LevelUpSkill(string id)
     {

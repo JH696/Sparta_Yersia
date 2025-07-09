@@ -3,7 +3,7 @@ using UnityEngine;
 
 // 정적 데이터만
 [CreateAssetMenu(fileName = "SF_a01", menuName = "Data/SkillData")]
-public class SkillData : ScriptableObject, ISkillInfo
+public class SkillData : ScriptableObject, ISkillBase
 {
     [Header("ID / 이름")]
     [SerializeField] private string skillID;
@@ -14,7 +14,7 @@ public class SkillData : ScriptableObject, ISkillInfo
     [SerializeField] private ETier tier;
 
     [Header("전투용 스탯")]
-    [Tooltip("기본 데미지")] [SerializeField] private int damage;
+    [Tooltip("기본 데미지")] [SerializeField] private float damage;
     [Tooltip("공격력 계수")] [SerializeField] private int coefficient;
     [Tooltip("공격 범위")] [SerializeField] private int range;
     [Tooltip("쿨타임(초)")] [SerializeField] private int coolTime;
@@ -27,16 +27,16 @@ public class SkillData : ScriptableObject, ISkillInfo
     [Header("마나 소모량")]
     [SerializeField] private int manaCost = 0;
 
-    // ISkillInfo 
+    // ISkillBase 
     public string Id => skillID;
     public string SkillName => skillName;
     public ESkillType SkillType => type;
     public ETier SkillTier => tier;
-    public int Damage => damage;
+    public float Damage => damage;
     public int Coefficient => coefficient;
     public int Range => range;
     public int CoolTime => coolTime;
-    public IReadOnlyList<ISkillInfo> UnlockNext => unlockNext.ConvertAll(nextSkill => (ISkillInfo)nextSkill);
+    public IReadOnlyList<ISkillBase> UnlockNext => unlockNext.ConvertAll(nextSkill => (ISkillBase)nextSkill);
 
     // 추가 속성
     public Sprite Icon => icon;

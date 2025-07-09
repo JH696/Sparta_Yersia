@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 
-public interface ISkillInfo
+public interface ISkillBase
 {
     string Id { get; }
     string SkillName { get; }
     ESkillType SkillType { get; }
     ETier SkillTier { get; }
-    int Damage { get; }
+    float Damage { get; }
     int Coefficient { get; }
     int Range { get; }
     int CoolTime { get; }
-    IReadOnlyList<ISkillInfo> UnlockNext { get; }
+    IReadOnlyList<ISkillBase> UnlockNext { get; }
 }

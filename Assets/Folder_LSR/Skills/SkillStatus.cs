@@ -2,7 +2,7 @@
 
 public class SkillStatus
 {
-    public ISkillInfo Data { get; }
+    public ISkillBase Data { get; }
     public ESkillState State { get; private set; }
     public int Level { get; private set; }
     public int CoolTime { get; private set; }
@@ -14,9 +14,9 @@ public class SkillStatus
     public event Action<SkillStatus> OnStateChanged;
     public event Action<SkillStatus> OnLevelUp;
 
-    public SkillStatus(ISkillInfo info)
+    public SkillStatus(ISkillBase data)
     {
-        Data = info;
+        Data = data;
         State = ESkillState.Locked;
         CoolTime = 0;
         Level = 0;

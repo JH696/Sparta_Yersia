@@ -13,9 +13,9 @@ public class CharacterSkill : MonoBehaviour
     {
         foreach (var obj in skillDataList)
         {
-            if (obj is ISkillInfo info)
+            if (obj is ISkillBase data)
             {
-                skillStatus.Add(new SkillStatus(info));
+                //skillStatus.Add(new SkillStatus(data));
             }
         }
     }
