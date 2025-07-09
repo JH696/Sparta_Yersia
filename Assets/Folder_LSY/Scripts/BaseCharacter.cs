@@ -17,7 +17,7 @@ public abstract class BaseCharacter : MonoBehaviour
 
 
     // 외부 데이터로부터 스탯을 초기화
-    public virtual void InitStat(ICharacterStatData statData)
+    public virtual void InitStat(CharacterData statData)
     {
         if (statData == null) return;
         Stat.SetBaseStats(statData);

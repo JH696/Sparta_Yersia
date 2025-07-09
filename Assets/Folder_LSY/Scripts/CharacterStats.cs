@@ -12,7 +12,7 @@ public class CharacterStats
     public float Luck;
     public float Speed;
 
-    public void SetBaseStats(ICharacterStatData data)
+    public void SetBaseStats(CharacterData data)
     {
         if (data == null) return;
 
