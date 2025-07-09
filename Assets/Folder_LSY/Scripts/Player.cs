@@ -3,16 +3,20 @@
 public class Player : BaseCharacter, ILevelable
 {
     [Header("플레이어 데이터")]
-    [SerializeField] private PlayerData playerData;
-    public PlayerData PlayerData => playerData; // 읽기 전용
+    [SerializeField] private CharacterData playerData;
+    public CharacterData PlayerData => playerData; // 읽기 전용
 
-    // 플레이어의 프로필 아이콘을 PlayerData에서 가져옴
-    public Sprite ProfileIcon => playerData == null ? null : playerData.GetDefaultProfileIcon();
+    // 레벨, YP 관련 데이터 인터페이스로 접근
+    private ILevelData LevelData => playerData as ILevelData;
+    private IYPHolder YPData => playerData as IYPHolder;
+
+    // 성별 (플레이어 전용)
+    public EGender Gender { get; private set; } = EGender.Male;
 
     // 레벨, 경험치
     public int Level { get; private set; } = 1;
     public int CurrentExp { get; private set; } = 0;
-    public int ExpToNextLevel => playerData == null ? 100 * Level : playerData.BaseExpToLevelUp * Level;
+    public int ExpToNextLevel => LevelData?.BaseExpToLevelUp * Level ?? 100 * Level;
 
     [Header("YP(화폐)")]
     private int yp = 0;
@@ -20,12 +24,14 @@ public class Player : BaseCharacter, ILevelable
 
     public void Init()
     {
-        if (playerData == null) return;
+        if (playerData == null || LevelData == null) return;
 
         InitStat(playerData);
-        Level = playerData.StartLevel;
-        CurrentExp = playerData.StartExp;
-        yp = playerData.StartYP;
+        Level = LevelData.StartLevel;
+        CurrentExp = LevelData.StartExp;
+        yp = YPData.StartYP;
+
+        Gender = (playerData as PlayerData)?.gender ?? EGender.Male;
     }
 
     // 경험치 추가 메서드
@@ -44,7 +50,7 @@ public class Player : BaseCharacter, ILevelable
         Level++;
         Debug.Log($"플레이어 레벨업 현재 레벨: {Level}");
 
-        float multiplier = playerData == null ? 1.1f : playerData.StatMultiplierPerLevel;
+        float multiplier = LevelData?.StatMultiplierPerLevel ?? 1.1f;
         Stat.MultiplyStats(multiplier);
     }
 

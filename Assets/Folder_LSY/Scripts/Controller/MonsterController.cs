@@ -3,24 +3,28 @@
 public class MonsterController : BaseCharacter
 {
     [Header("몬스터 데이터")]
-    [SerializeField, Tooltip("몬스터의 이름과 ID가 포함된 데이터")] private MonsterData monsterData;
+    [SerializeField, Tooltip("몬스터의 이름과 ID가 포함된 데이터")]
+    private MonsterData monsterData;
 
-    //protected override void Awake()
-    //{
-    //    base.Awake();
-    //    if (monsterData == null || monsterData.WorldSprite == null) return;
+    public MonsterData MonsterData => monsterData;
 
-    //    var spriteRenderer = GetComponent<SpriteRenderer>();
-    //    if (spriteRenderer != null)
-    //    {
-    //        spriteRenderer.sprite = monsterData.WorldSprite;
-    //    }
-    //}
-
-    private void Start()
+    private void Awake()
     {
-        InitStat(monsterData);
-        Debug.Log($"몬스터 스탯 확인: HP {CurrentHp}/{MaxHp}, MP {CurrentMana}/{MaxMana}, Attack {Attack}, Defense {Defense}, Luck {Luck}, Speed {Speed}");
+        if (monsterData == null) return;
+
+        InitStat(monsterData); // 스탯 초기화
+
+        ApplyMonsterSprite();
     }
 
+    private void ApplyMonsterSprite()
+    {
+        if (monsterData == null || monsterData.WorldSprite == null) return;
+
+        var spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.sprite = monsterData.WorldSprite;
+        }
+    }
 }

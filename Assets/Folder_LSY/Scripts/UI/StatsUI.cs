@@ -77,17 +77,20 @@ public class StatsUI : MonoBehaviour
 
             if (YPTxt != null) YPTxt.text = $"YP : {player.YP}";
             if (ProfileImg != null && player.PlayerData != null)
-                ProfileImg.sprite = player.PlayerData.GetDefaultProfileIcon();
+                ProfileImg.sprite = player.PlayerData.Icon;
 
-            if (GenderTxt != null && player.PlayerData != null)
+            if (GenderTxt != null)
             {
-                switch (player.PlayerData.gender)
+                switch (player.Gender)
                 {
                     case EGender.Male:
                         GenderTxt.text = "성별 : 남성";
                         break;
                     case EGender.Female:
                         GenderTxt.text = "성별 : 여성";
+                        break;
+                    default:
+                        GenderTxt.text = "성별 : 알 수 없음";
                         break;
                 }
             }
