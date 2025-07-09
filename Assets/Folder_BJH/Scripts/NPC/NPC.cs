@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class NPC : MonoBehaviour, IInteractable
+public class NPC : BaseCharacter, IInteractable
 {
     [Header("NPC 데이터")]
     [SerializeField] private NPCData npcData;

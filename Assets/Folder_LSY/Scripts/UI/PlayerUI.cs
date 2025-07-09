@@ -19,7 +19,7 @@ public class PlayerUI : MonoBehaviour
         // 프로필 초기화 (플레이어가 할당되어 있을 경우)
         if (player != null && player.PlayerData != null && ProfileImg != null)
         {
-            ProfileImg.sprite = player.PlayerData.GetDefaultProfileIcon();
+            ProfileImg.sprite = player.PlayerData.Icon;
         }
     }
 

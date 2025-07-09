@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-[CreateAssetMenu(fileName = "CharacterStatData", menuName = "Data/CharacterStatData")]
-public class CharacterStatData : ScriptableObject, ICharacterStatData
+[Serializable]
+public abstract class CharacterData : ScriptableObject, ICharacterStatData
 {
-    [Header("기본 스탯")]
+    public Sprite WorldSprite;
+    public Sprite Icon;
+
+    [Header("기초 스탯")]
     [SerializeField] private float maxHp = 100f;
     [SerializeField] private float maxMana = 80f;
     [SerializeField] private float attack = 20f;
@@ -11,7 +15,6 @@ public class CharacterStatData : ScriptableObject, ICharacterStatData
     [SerializeField] private float luck = 5f;
     [SerializeField] private float speed = 10f;
 
-    // 인터페이스 구현부 (외부 접근용)
     public float MaxHp => maxHp;
     public float MaxMana => maxMana;
     public float Attack => attack;

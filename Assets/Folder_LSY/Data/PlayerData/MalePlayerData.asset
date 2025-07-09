@@ -10,14 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 232c82f799049f44c80f5f20a65e0ee6, type: 3}
-  m_Name: PlayerData
+  m_Name: MalePlayerData
   m_EditorClassIdentifier: 
-  gender: 1
-  MaleIcon: {fileID: 21300000, guid: 86fa667ebe324d542a53c662accb4e60, type: 3}
-  FemaleIcon: {fileID: 21300000, guid: 5c79458e6322d4944bea395b43540d78, type: 3}
-  StatData: {fileID: 11400000, guid: 7e532aabe4291474b978e80e9f801c44, type: 2}
-  StartLevel: 1
-  StartExp: 0
-  BaseExpToLevelUp: 100
-  StatMultiplierPerLevel: 1.1
-  StartYP: 0
+  WorldSprite: {fileID: 21300000, guid: 86fa667ebe324d542a53c662accb4e60, type: 3}
+  Icon: {fileID: 21300000, guid: 86fa667ebe324d542a53c662accb4e60, type: 3}
+  maxHp: 100
+  maxMana: 80
+  attack: 20
+  defense: 10
+  luck: 5
+  speed: 10
+  gender: 0
+  startLevel: 1
+  startExp: 0
+  baseExpToLevelUp: 100
+  statMultiplierPerLevel: 1.1
+  startYP: 0
