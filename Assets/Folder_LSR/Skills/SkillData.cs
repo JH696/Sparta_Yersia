@@ -14,17 +14,10 @@ public class SkillData : ScriptableObject, ISkillInfo
     [SerializeField] private ETier tier;
 
     [Header("전투용 스탯")]
-    [Tooltip("기본 데미지")]
-    [SerializeField] private float damage;
-
-    [Tooltip("공격력 계수")]
-    [SerializeField] private float coefficient;
-
-    [Tooltip("공격 범위")]
-    [SerializeField] private float range;
-
-    [Tooltip("쿨타임(초)")]
-    [SerializeField] private float coolTime;
+    [Tooltip("기본 데미지")] [SerializeField] private int damage;
+    [Tooltip("공격력 계수")] [SerializeField] private int coefficient;
+    [Tooltip("공격 범위")] [SerializeField] private int range;
+    [Tooltip("쿨타임(초)")] [SerializeField] private int coolTime;
 
     [Header("다음 해금 스킬 목록(SO 참조)")]
     [SerializeField] private List<SkillData> unlockNext = new List<SkillData>();
@@ -39,10 +32,10 @@ public class SkillData : ScriptableObject, ISkillInfo
     public string SkillName => skillName;
     public ESkillType SkillType => type;
     public ETier SkillTier => tier;
-    public float Damage => damage;
-    public float Coefficient => coefficient;
-    public float Range => range;
-    public float CoolTime => coolTime;
+    public int Damage => damage;
+    public int Coefficient => coefficient;
+    public int Range => range;
+    public int CoolTime => coolTime;
     public IReadOnlyList<ISkillInfo> UnlockNext => unlockNext.ConvertAll(nextSkill => (ISkillInfo)nextSkill);
 
     // 추가 속성

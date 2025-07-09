@@ -5,20 +5,20 @@ public class SkillStatus
     public ISkillInfo Data { get; }
     public ESkillState State { get; private set; }
     public int Level { get; private set; }
-    public bool IsOnCoolTime { get; private set; }
+    public int CoolTime { get; private set; }
 
     public bool IsUnlocked => State != ESkillState.Locked;
-    public bool CanUse => IsUnlocked && !IsOnCoolTime;
+    public bool CanUse => IsUnlocked && CoolTime == 0;
     public bool CanLevelUp(int points) => IsUnlocked && points >= NextLevelCost();
 
     public event Action<SkillStatus> OnStateChanged;
     public event Action<SkillStatus> OnLevelUp;
 
-    public SkillStatus(ISkillInfo data)
+    public SkillStatus(ISkillInfo info)
     {
-        Data = data;
+        Data = info;
         State = ESkillState.Locked;
-        IsOnCoolTime = false;
+        CoolTime = 0;
         Level = 0;
     }
 
@@ -37,17 +37,30 @@ public class SkillStatus
     {
         if (!CanUse) return;
 
-        IsOnCoolTime = true;
+        CoolTime = Data.CoolTime;
         State = ESkillState.OnCoolTIme;
         OnStateChanged?.Invoke(this);
+    }
+
+    /// <summary> 쿨타임 감소 처리 </summary>
+    public void ReduceCoolTime()
+    {
+        if (CoolTime == 0) return; // 쿨타임이 0이면 감소하지 않음
+        CoolTime--; // 1이상일 때만 감소
+
+        if (CoolTime == 0) // 감소 후 0이 되면 다시 사용 가능 상태로 전환
+        {
+            State = ESkillState.ReadyCoolTime;
+            OnStateChanged?.Invoke(this);
+        }
     }
 
     /// <summary> 쿨타임 해제 (재사용 가능 상태로 전환) </summary>
     public void ResetCoolTime()
     {
-        if (!IsOnCoolTime) return;
+        if (CoolTime == 0) return;
 
-        IsOnCoolTime = false;
+        CoolTime = 0;
         State = ESkillState.ReadyCoolTime;
         OnStateChanged?.Invoke(this);
     }

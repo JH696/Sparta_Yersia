@@ -6,9 +6,9 @@ public interface ISkillInfo
     string SkillName { get; }
     ESkillType SkillType { get; }
     ETier SkillTier { get; }
-    float Damage { get; }
-    float Coefficient { get; }
-    float Range { get; }
-    float CoolTime { get; }
+    int Damage { get; }
+    int Coefficient { get; }
+    int Range { get; }
+    int CoolTime { get; }
     IReadOnlyList<ISkillInfo> UnlockNext { get; }
 }
