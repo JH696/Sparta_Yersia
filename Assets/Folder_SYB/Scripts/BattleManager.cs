@@ -17,7 +17,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] int maxGauge = 100;
     GameObject player;
     GameObject enemy;
-    CharacterStatData characterStatData;
+    CharacterData characterData;
     bool isEnemy = false;
     //행동에 당하는 오브젝트
     GameObject targetObject;
