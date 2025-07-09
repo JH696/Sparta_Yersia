@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5464072b60ddbd4489f1a0aebf582802, type: 3}
   m_Name: P_p01
   m_EditorClassIdentifier: 
+  WorldSprite: {fileID: 21300000, guid: ef0d5caea4a18784dbebc98bfa07d7ca, type: 3}
+  Icon: {fileID: 21300000, guid: ef0d5caea4a18784dbebc98bfa07d7ca, type: 3}
+  maxHp: 25
+  maxMana: 30
+  attack: 10
+  defense: 5
+  luck: 5
+  speed: 5
   PetID: P_p01
   PetName: "\uB450\uB354\uC9C0"
-  StatData: {fileID: 11400000, guid: 596535273a1b1fe4c96e0c163a03c5ab, type: 2}
   sprites:
   - WorldSprite: {fileID: 21300000, guid: ef0d5caea4a18784dbebc98bfa07d7ca, type: 3}
     Icon: {fileID: 21300000, guid: ef0d5caea4a18784dbebc98bfa07d7ca, type: 3}
@@ -25,9 +32,9 @@ MonoBehaviour:
   evoLevels:
   - Level: 5
   - Level: 10
-  StartLevel: 1
-  StartExp: 0
-  BaseExpToLevelUp: 100
-  StatMultiplierPerLevel: 1.1
+  startLevel: 1
+  startExp: 0
+  baseExpToLevelUp: 50
+  statMultiplierPerLevel: 1.1
   StatMultiplier: 1.5
   CurrentEvoStage: 0
