@@ -1,58 +1,124 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
+// 플레이어 스킬 전반 ( 해금, 사용, 쿨타임, 다음 스킬 해금 등)
 public class PlayerSkillController : MonoBehaviour
 {
-    [Header("초기 스킬 포인트")]
-    [SerializeField] private int initialSkillPoints = 0;
+    [Header("스킬 데이터 목록 SO")]
+    [SerializeField] private List<ScriptableObject> skillDataList;
 
-    private int availableSkillPoints;
-    private Dictionary<string, int> skillLevels = new Dictionary<string, int>();
+    [Header("플레이어 스킬 포인트")]
+    [SerializeField] private int skillPoints = 100000; // 임시로 포인트 부여
+
+    private CharacterStats playerStats;
+    private List<SkillStatus> skillStatuses = new List<SkillStatus>();
+
+    //스킬 상태 변경 알림 이벤트(UI)
+    public event Action<SkillStatus> OnSkillStateChanged;
+    public event Action<SkillStatus> OnSkillLevelUp;
 
     private void Awake()
     {
-        availableSkillPoints = initialSkillPoints;
+        // GameManager에 연결된 플레이어 스탯 가져오기
+        if (GameManager.Instance != null && GameManager.Instance.Player != null)
+        {
+            playerStats = GameManager.Instance.Player.GetComponent<CharacterStats>();
+            if (playerStats == null)
+            {
+                Debug.LogError("[PlayerSkillController] 플레이어 스탯을 찾을 수 없습니다.");
+            }
+        }
+
+        // SO 중 ISkillInfo 인터페이스를 구현한 데이터만 필터링
+        foreach (var obj in skillDataList)
+        {
+            if (obj is ISkillInfo info)
+            {
+                var status = new SkillStatus(info);
+                status.OnStateChanged += skillState => OnSkillStateChanged?.Invoke(skillState);
+                status.OnLevelUp += skillState => OnSkillLevelUp?.Invoke(skillState);
+                skillStatuses.Add(status);
+            }
+        }
     }
 
-    public int AvailableSkillPoints()
+    private void Start()
     {
-        return availableSkillPoints;
+        // 초급 스킬 자동 해금 - 임시 로직
+        foreach (var status in skillStatuses)
+        {
+            if (status.Data.SkillTier == ETier.Basic)
+            {
+                status.Unlock();
+            }
+        }
     }
 
-    // 스킬이 해금 되었는가
-    public bool IsUnlocked(SkillData skillData)
+    public void UnlockSkill(string id) =>
+        skillStatuses.Find(skillState => skillState.Data.Id == id)?.Unlock();
+
+    /// <summary>
+    /// 배틀매니져에서 턴마다 호출
+    /// </summary>
+    public void UseSkill(string id)
     {
-        return skillLevels.ContainsKey(skillData.Id);
+        var status = skillStatuses.Find(skillState => skillState.Data.Id == id);
+        if (status == null || !status.CanUse) return;
+
+        // 마나 소모 로직
+        int cost = (status.Data is SkillData skillDatas) ? skillDatas.ManaCost : 0;
+        if (cost > 0)
+        {
+            if (playerStats == null || playerStats.CurrentMana < cost)
+            {
+                Debug.Log("스킬 사용 실패: 마나 부족");
+                return;
+            }
+            playerStats.SetCurrentMana(playerStats.CurrentMana - cost);
+        }
+
+        status.Use();
+
+        // 실제 스탯 연동된 데미지 계산
+        float atk = (playerStats != null) ? playerStats.Attack : 0f;
+        float damage = status.Data.Damage + (status.Data.Coefficient * atk);
+        Debug.Log($"[{id}] 를 사용했습니다. 데미지: {damage}");
     }
 
-    // 현재 레벨
-    public int GetSkillLevel(SkillData skillData)
+    /// <summary>
+    /// 배틀매니져에서 턴마다 호출
+    /// </summary>
+    public void CompleteCoolTime(string id)
     {
-        return IsUnlocked(skillData) ? skillLevels[skillData.Id] : 0;
+        var status = skillStatuses.Find(skillState => skillState.Data.Id == id);
+        if (status == null)
+        {
+            Debug.LogWarning($"[PlayerSkillController] 스킬 {id}상태를 찾을 수 없습니다.");
+            return;
+        }
+        status.ResetCoolTime();
     }
 
-    // 잠금 해제 가능 여부 (테스트용) - 포인트으로 가능.
-    public bool CanUnlock(SkillData skillData)
+    public void LevelUpSkill(string id)
     {
-        return !IsUnlocked(skillData) && availableSkillPoints > 0;
+        var status = skillStatuses.Find(skillState => skillState.Data.Id == id);
+        if (status == null)
+        {
+            Debug.LogWarning($"[PlayerSkillController] 스킬 {id} 상태를 찾을 수 없습니다.");
+            return;
+        }
+        status.LevelUp(ref skillPoints);
     }
 
-    // 스킬 잠금 해제 (레벨 1로 해금 및 포인트 차감)
-    public void UnlockSkill(SkillData skill)
+    // 실제 플레이어 공격력 반환
+    private float GetPlayerAttackPower()
     {
-        if (IsUnlocked(skill)) return;
-
-        availableSkillPoints--;
-        skillLevels[skill.Id] = 1; // 기본 레벨 1로 해금
+        if (playerStats == null)
+        {
+            Debug.LogWarning("[PlayerSkillController] 플레이어 스탯을 찾을 수 없습니다. 기본 공격력 0 반환");
+            return 0f;
+        }
+        return playerStats.Attack;
     }
-
-    // 스킬 레벨업 (최대 레벨 미만일 떄만)
-    public void LevelUpSkill(SkillData skill)
-    {
-        if (!IsUnlocked(skill)) return;
-        int currentLevel = skillLevels[skill.Id];
-        //if (currentLevel >= skill.MaxLevel) return;
-        skillLevels[skill.Id] = currentLevel + 1;
-    }
-
 }
