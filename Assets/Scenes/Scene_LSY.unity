@@ -17001,6 +17001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c462332659e624ba4286cde950f28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playGauge: 0
   npcData: {fileID: 11400000, guid: f1056d10aa089274393111005f8e2c28, type: 2}
   questIcon: {fileID: 37298982}
   AssignerQuests: []
@@ -18875,6 +18876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c462332659e624ba4286cde950f28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playGauge: 0
   npcData: {fileID: 11400000, guid: 68919cf3c57adfd469b873c180688558, type: 2}
   questIcon: {fileID: 1525036136}
   AssignerQuests: []
@@ -24807,6 +24809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4140144ab3445b4193d8fc0552b30fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playGauge: 0
   playerData: {fileID: 11400000, guid: 6932ffbd4bfcef34bb517e52c7ccc3ca, type: 2}
 --- !u!114 &1689150045
 MonoBehaviour:
@@ -24823,8 +24826,7 @@ MonoBehaviour:
   maxPets: 2
   maxNpcs: 1
   player: {fileID: 1689150037}
-  partyMembers:
-  - {fileID: 2629362764856383467}
+  partyMembers: []
 --- !u!1 &1689404400
 GameObject:
   m_ObjectHideFlags: 0
@@ -30779,6 +30781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef0f963352fdda48b6f13c54d300b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playGauge: 0
   petData: {fileID: 11400000, guid: 05e42ee64f85d9443b7e0fd71b72f48f, type: 2}
 --- !u!114 &7028810881374934310
 MonoBehaviour:

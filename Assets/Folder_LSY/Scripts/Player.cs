@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Player : BaseCharacter, ILevelable
 {
@@ -21,6 +22,11 @@ public class Player : BaseCharacter, ILevelable
     [Header("YP(화폐)")]
     private int yp = 0;
     public int YP => yp;
+
+    private void Awake()
+    {
+        Init();
+    }
 
     public void Init()
     {

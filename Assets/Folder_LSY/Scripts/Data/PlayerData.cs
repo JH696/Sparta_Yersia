@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Data/PlayerData")]
 public class PlayerData : CharacterData, ILevelData, IYPHolder
@@ -14,6 +15,10 @@ public class PlayerData : CharacterData, ILevelData, IYPHolder
 
     [Header("YP (화폐)")]
     public int startYP = 0;
+
+    [Header("초기 스킬 리스트")]
+    [SerializeField] private List<SkillData> startSkills = new List<SkillData>();
+    public IReadOnlyList<SkillData> StartSkills => startSkills;
 
     public int StartLevel => startLevel;
     public int StartExp => startExp;
