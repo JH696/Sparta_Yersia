@@ -10,32 +10,32 @@ public class B_DButtons : MonoBehaviour
     [Header("타겟 시스템")]
     [SerializeField] private B_TargetSystem targetSystem;
 
-    public void SetSkillButton(BaseCharacter character)
+    public void SetSkillButton(B_CharacterSlot slot)
     {
-    //    this.gameObject.SetActive(true);
+        this.gameObject.SetActive(true);
 
-    //    List<SkillStatus> curSkills = character.characterSkill.curSkills;
+        List<SkillStatus> curSkills = slot.CurrentSkill();
 
-    //    for (int i = 0; i < dButtons.Count; i++)
-    //    {
-    //        B_DynamicButton dButton = dButtons[i].GetComponent<B_DynamicButton>();
+        for (int i = 0; i < dButtons.Count; i++)
+        {
+            B_DynamicButton dButton = dButtons[i].GetComponent<B_DynamicButton>();
 
-    //        dButton.SetIcon(curSkills[i].Data.Icon);
+            dButton.SetIcon(curSkills[i].Data.Icon);
 
-    //        if (curSkills[i].CoolTime != 0)
-    //        {
-    //            dButton.SetText($"{curSkills[i].CoolTime}");
-    //            dButton.SetColor(Color.gray);
-    //        }
+            if (curSkills[i].Cooldown != 0)
+            {
+                dButton.SetText($"{curSkills[i].Cooldown}");
+                dButton.SetColor(Color.gray);
+            }
 
-    //        dButtons[i].onClick.RemoveAllListeners();
+            dButtons[i].onClick.RemoveAllListeners();
 
-    //        dButtons[i].onClick.AddListener(() =>
-    //        {
-    //            targetSystem.SetBeforeUI(this.gameObject);
-    //            targetSystem.SkillTargeting(character, curSkills[i].);
-    //        });
-    //    }
+            dButtons[i].onClick.AddListener(() =>
+            {
+                targetSystem.SetBeforeUI(this.gameObject);
+                targetSystem.SkillTargeting(curSkills[i].Data);
+            });
+        }
     }
 
 

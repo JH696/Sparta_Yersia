@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public enum ECharacterType
 {
@@ -72,7 +74,7 @@ public class B_CharacterSlot : MonoBehaviour
             {
                 TurnStart();
             }
-            if (type == ECharacterType.Enemy)
+            else if (type == ECharacterType.Enemy)
             {
                 Debug.Log("MonsterAction");
             }
@@ -86,6 +88,25 @@ public class B_CharacterSlot : MonoBehaviour
         if (character == null) return;
 
         this.gauge = gauge;
+    }
+
+    public List<SkillStatus> CurrentSkill()
+    {
+        if (character is Player player)
+        {
+            return player.Skill.AllStatuses2;
+        }
+        else if (character is NPC npc)
+        {
+
+        }
+        else if (character is Pet)
+        {
+        }
+        else if (Character is Monster)
+        {
+
+        }
     }
 
     private void TurnStart()

@@ -7,12 +7,13 @@ public class Player : BaseCharacter, ILevelable
     [SerializeField] private PlayerData playerData;
     [SerializeField] private PlayerQuest quest;
     [SerializeField] private PlayerInventory inventory;
+    [SerializeField] private CharacterSkill skill;
 
-    public override Sprite Icon => playerData.Icon;
-
+    public override Sprite Icon => playerData.Icon; // 읽기 전용
     public CharacterData PlayerData => playerData; // 읽기 전용
     public PlayerQuest Quest => quest; // 읽기 전용
     public PlayerInventory Inventory => inventory; // 읽기 전용
+    public CharacterSkill Skill => skill; // 읽기 전용
 
     // 레벨, YP 관련 데이터 인터페이스로 접근
     private ILevelData LevelData => playerData as ILevelData;
@@ -40,6 +41,7 @@ public class Player : BaseCharacter, ILevelable
         if (playerData == null || LevelData == null) return;
 
         InitStat(playerData);
+        skill.Init(playerData.startingSkills);
         Level = LevelData.StartLevel;
         CurrentExp = LevelData.StartExp;
         yp = YPData.StartYP;

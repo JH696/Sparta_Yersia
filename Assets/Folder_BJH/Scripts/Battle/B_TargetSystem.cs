@@ -9,7 +9,7 @@ public class B_TargetSystem : MonoBehaviour
     [SerializeField] private B_Characters chars;
 
     [Header("사용 스킬")]
-    [SerializeField] private SkillData useSkill;
+    [SerializeField] private SkillBase useSkill;
 
     [Header("사용 아이템")]
     [SerializeField] private ItemData useItem;
@@ -99,11 +99,11 @@ public class B_TargetSystem : MonoBehaviour
         beforeObj = gameObject;
     }
     
-    public void SkillTargeting(SkillData skill)
+    public void SkillTargeting(SkillBase skill)
     {
         isTargeting = true;
         useSkill = skill;
-        //maxCount = skill.Range;
+        maxCount = skill.Range;
         cancelBtn.gameObject.SetActive(true);
         allowBtn.gameObject.SetActive(true);
     }

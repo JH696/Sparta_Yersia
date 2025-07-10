@@ -45,7 +45,7 @@ public class B_AButtons : MonoBehaviour
 
         this.gameObject.SetActive(false);
 
-        dBtns.SetSkillButton();
+        dBtns.SetSkillButton(chars.SpotLight);
     }
 
     public void OnItemButton()

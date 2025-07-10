@@ -2,7 +2,7 @@
 
 public class DamageCalculator
 {
-    public float DamageCalculate(BaseCharacter attacker, BaseCharacter target, SkillData skill)
+    public float DamageCalculate(BaseCharacter attacker, BaseCharacter target, SkillBase skill)
     {
         // 공격자 능력치
         float atk = attacker.Attack;
