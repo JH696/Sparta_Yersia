@@ -49,7 +49,7 @@ public class StatsUI : MonoBehaviour
     public void RefreshUI()
     {
         bool isPlayer = currentCharacter is Player;
-        bool isPet = currentCharacter is PetController;
+        bool isPet = currentCharacter is Pet;
 
         // 공통 스탯 표시
         if (currentCharacter != null)
@@ -100,7 +100,7 @@ public class StatsUI : MonoBehaviour
         }
         else if (isPet)
         {
-            PetController pet = currentCharacter as PetController;
+            Pet pet = currentCharacter as Pet;
 
             if (ProfileImg != null && pet.PetData != null)
                 ProfileImg.sprite = pet.PetData.GetCurrentProfileIcon();
