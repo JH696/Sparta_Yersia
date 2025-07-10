@@ -94,19 +94,19 @@ public class B_CharacterSlot : MonoBehaviour
     {
         if (character is Player player)
         {
-            return player.Skill.AllStatusesa;
+            return player.Skill.AllStatuses;
         }
         else if (character is NPC npc)
         {
-            return npc.Skill.AllStatusesa;
+            return npc.Skill.AllStatuses;
         }
         else if (character is Pet pet)
         {
-            return pet.Skill.AllStatusesa;
+            return pet.Skill.AllStatuses;
         }
         else if (Character is Monster monster)
         {
-            return monster.Skill.AllStatusesa;
+            return monster.Skill.AllStatuses;
         }
 
         Debug.Log("알 수 없는 유형입니다.");
