@@ -108,6 +108,9 @@ public class B_CharacterSlot : MonoBehaviour
         {
             return monster.Skill.AllStatusesa;
         }
+
+        Debug.Log("알 수 없는 유형입니다.");
+        return null;
     }
 
     private void TurnStart()
