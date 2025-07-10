@@ -28,5 +28,5 @@ public class PetSkillController : MonoBehaviour
     }
 
     public SkillStatus[] GetUsableSkills()
-        => _characterSkill.AllStatuses.Where(status => status.CanUse).ToArray();
+        => _characterSkill.AllStatusesa.Where(status => status.CanUse).ToArray();
 }
