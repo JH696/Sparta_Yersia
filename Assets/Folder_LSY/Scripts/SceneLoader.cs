@@ -1,14 +1,19 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine.SceneManagement;
 
 public static class SceneLoader
 {
-    // Enum을 기반으로 씬을 로드합니다.
+    // 현재 로드된 씬을 나타내는 enum 값
+    public static EScene CurrentScene { get; private set; } = EScene.Scene_LSY; // 기본 초기값 설정
+
+    // Enum을 기반으로 씬을 로드
     public static void LoadScene(EScene scene)
     {
         string sceneName = scene.ToString();
 
         if (!IsSceneInBuildSettings(sceneName)) return;
+
+        // 씬 변경 시점에 현재 씬 enum 값 업데이트
+        CurrentScene = scene;
 
         SceneManager.LoadScene(sceneName);
     }

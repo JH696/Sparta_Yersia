@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PetController : BaseCharacter, ILevelable
+public class Pet : BaseCharacter, ILevelable
 {
     [Header("펫 데이터")]
     [SerializeField, Tooltip("펫의 이름과 ID가 포함된 데이터")]

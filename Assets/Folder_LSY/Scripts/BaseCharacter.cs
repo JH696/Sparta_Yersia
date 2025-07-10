@@ -80,4 +80,7 @@ public abstract class BaseCharacter : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} 사망 처리");
     }
+
+    // 행동력 게이지
+    public float playGauge;
 }

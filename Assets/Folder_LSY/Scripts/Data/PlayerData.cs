@@ -16,6 +16,10 @@ public class PlayerData : CharacterData, ILevelData, IYPHolder, ICharacterSkillS
     [Header("YP (화폐)")]
     public int startYP = 0;
 
+    [Header("초기 스킬 리스트")]
+    [SerializeField] private List<SkillData> startSkills = new List<SkillData>();
+    public IReadOnlyList<SkillData> StartSkills => startSkills;
+
     public int StartLevel => startLevel;
     public int StartExp => startExp;
     public int BaseExpToLevelUp => baseExpToLevelUp;

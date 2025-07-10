@@ -27,6 +27,12 @@ public class PlayerParty : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // 실행 시 초기 상태에 맞게 팔로우 체인 갱신
+        UpdateFollowChain();
+    }
+
     // 펫 추가 (최대 2마리)
     public void AddPet(GameObject pet)
     {
@@ -34,6 +40,8 @@ public class PlayerParty : MonoBehaviour
 
         partyMembers.Add(pet);
         Debug.Log($"펫 {pet.name} 파티에 추가됨");
+
+        UpdateFollowChain();
     }
 
     // NPC 추가 (최대 1명)
@@ -43,6 +51,8 @@ public class PlayerParty : MonoBehaviour
 
         partyMembers.Add(npc);
         Debug.Log($"NPC {npc.name} 파티에 추가됨");
+
+        UpdateFollowChain();
     }
 
     // 파티 멤버 제거
@@ -50,6 +60,8 @@ public class PlayerParty : MonoBehaviour
     {
         if (partyMembers.Remove(member))
             Debug.Log($"{member.name} 파티에서 제거됨");
+
+        UpdateFollowChain();
     }
 
     // 현재 파티 내 펫 수 계산
@@ -58,7 +70,7 @@ public class PlayerParty : MonoBehaviour
         int count = 0;
         foreach (var member in partyMembers)
         {
-            if (member.GetComponent<PetController>() != null)
+            if (member.GetComponent<Pet>() != null)
                 count++;
         }
         return count;
@@ -83,5 +95,50 @@ public class PlayerParty : MonoBehaviour
         if (player != null) fullParty.Add(player);
         fullParty.AddRange(partyMembers);
         return fullParty;
+    }
+
+    // 정렬된 파티 멤버 반환 (우선순위: Player → NPC → Pet)
+    public List<GameObject> GetSortedPartyMembers()
+    {
+        var sortedList = new List<GameObject>();
+
+        if (player != null)
+            sortedList.Add(player); // 무조건 맨 앞
+
+        // NPC 1명만 추가
+        foreach (var member in partyMembers)
+        {
+            if (member.GetComponent<NPC>() != null)
+            {
+                sortedList.Add(member);
+                break;
+            }
+        }
+
+        // 펫은 순서대로 최대 2마리 추가
+        foreach (var member in partyMembers)
+        {
+            if (member.GetComponent<Pet>() != null)
+            {
+                sortedList.Add(member);
+            }
+        }
+
+        return sortedList;
+    }
+
+    // 정렬된 순서에 따라 따라가기 체인 설정
+    private void UpdateFollowChain()
+    {
+        var sorted = GetSortedPartyMembers();
+
+        for (int i = 1; i < sorted.Count; i++)
+        {
+            var follower = sorted[i].GetComponent<FollowerController>();
+            if (follower != null)
+            {
+                follower.SetFollowTarget(sorted[i - 1].transform);
+            }
+        }
     }
 }
