@@ -3,10 +3,10 @@ using UnityEngine;
 
 // 정적 데이터만
 [CreateAssetMenu(fileName = "SF_a01", menuName = "Data/SkillData")]
-public class SkillData : ScriptableObject, ISkillInfo
+public class SkillData : SkillBase
 {
     [Header("ID / 이름")]
-    [SerializeField] private string skillID;
+    [SerializeField] private string id;
     [SerializeField] private string skillName;
 
     [Header("속성 / 등급")]
@@ -14,38 +14,29 @@ public class SkillData : ScriptableObject, ISkillInfo
     [SerializeField] private ETier tier;
 
     [Header("전투용 스탯")]
-    [Tooltip("기본 데미지")]
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
+    [SerializeField] private int coefficient;
+    [SerializeField] private int range;
+    [SerializeField] private int cooldown;
 
-    [Tooltip("공격력 계수")]
-    [SerializeField] private float coefficient;
-
-    [Tooltip("공격 범위")]
-    [SerializeField] private float range;
-
-    [Tooltip("쿨타임(초)")]
-    [SerializeField] private float coolTime;
-
-    [Header("다음 해금 스킬 목록(SO 참조)")]
+    [Header("다음 해금 스킬 목록")]
     [SerializeField] private List<SkillData> unlockNext = new List<SkillData>();
 
-    [Header("아이콘")]
+    [Header("아이콘 & 마나 소모량")]
     [SerializeField] private Sprite icon;
-    [Header("마나 소모량")]
-    [SerializeField] private int manaCost = 0;
+    [SerializeField] private int manaCost;
 
-    // ISkillInfo 
-    public string Id => skillID;
-    public string SkillName => skillName;
-    public ESkillType SkillType => type;
-    public ETier SkillTier => tier;
-    public float Damage => damage;
-    public float Coefficient => coefficient;
-    public float Range => range;
-    public float CoolTime => coolTime;
-    public IReadOnlyList<ISkillInfo> UnlockNext => unlockNext.ConvertAll(nextSkill => (ISkillInfo)nextSkill);
+    public override string Id => id;
+    public override string SkillName => skillName;
+    public override ESkillType SkillType => type;
+    public override ETier SkillTier => tier;
+    public override int Damage => damage;
+    public override int Coefficient => coefficient;
+    public override int Range => range;
+    public override int Cooldown => cooldown;
+    public override IReadOnlyList<SkillBase> UnlockNext
+        => unlockNext.ConvertAll(x => (SkillBase)x);
 
-    // 추가 속성
-    public Sprite Icon => icon;
-    public int ManaCost => manaCost;
+    public override Sprite Icon => icon;
+    public override int ManaCost => manaCost;
 }

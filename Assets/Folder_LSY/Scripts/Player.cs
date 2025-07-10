@@ -5,7 +5,11 @@ public class Player : BaseCharacter, ILevelable
 {
     [Header("플레이어 데이터")]
     [SerializeField] private CharacterData playerData;
+    [SerializeField] private PlayerQuest quest;
+    [SerializeField] private PlayerInventory inventory;
     public CharacterData PlayerData => playerData; // 읽기 전용
+    public PlayerQuest Quest => quest; // 읽기 전용
+    public PlayerInventory Inventory => inventory; // 읽기 전용
 
     // 레벨, YP 관련 데이터 인터페이스로 접근
     private ILevelData LevelData => playerData as ILevelData;

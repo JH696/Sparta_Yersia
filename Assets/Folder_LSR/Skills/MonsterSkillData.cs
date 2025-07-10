@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MSF_a01", menuName = "Data/MonsterSkillData")]
-public class MonsterSkillData : ScriptableObject, ISkillInfo
+public class MonsterSkillData : SkillBase
 {
     [Header("ID / 이름")]
-    [SerializeField] private string skillID;
+    [SerializeField] private string id;
     [SerializeField] private string skillName;
 
     [Header("속성 / 등급")]
@@ -14,28 +14,19 @@ public class MonsterSkillData : ScriptableObject, ISkillInfo
     [SerializeField] private ETier tier;
 
     [Header("전투용 스탯")]
-    [Tooltip("기본 데미지")]
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
+    [SerializeField] private int coefficient;
+    [SerializeField] private int range;
+    [SerializeField] private int cooldown;
 
-    [Tooltip("공격력 계수")]
-    [SerializeField] private float coefficient;
-
-    [Tooltip("공격 범위")]
-    [SerializeField] private float range;
-
-    [Tooltip("쿨타임(초)")]
-    [SerializeField] private float coolTime;
-
-    // ISkillInfo 
-    public string Id => skillID;
-    public string SkillName => skillName;
-    public ESkillType SkillType => type;
-    public ETier SkillTier => tier;
-    public float Damage => damage;
-    public float Coefficient => coefficient;
-    public float Range => range;
-    public float CoolTime => coolTime;
-
-    // 몬스터 스킬은 해금X : 빈 리스트 반환
-    public IReadOnlyList<ISkillInfo> UnlockNext => Array.Empty<ISkillInfo>();
+    public override string Id => id;
+    public override string SkillName => skillName;
+    public override ESkillType SkillType => type;
+    public override ETier SkillTier => tier;
+    public override int Damage => damage;
+    public override int Coefficient => coefficient;
+    public override int Range => range;
+    public override int Cooldown => cooldown;
+    public override IReadOnlyList<SkillBase> UnlockNext
+        => System.Array.Empty<SkillBase>();
 }

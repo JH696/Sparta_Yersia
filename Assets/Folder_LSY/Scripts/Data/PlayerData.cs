@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Data/PlayerData")]
-public class PlayerData : CharacterData, ILevelData, IYPHolder
+public class PlayerData : CharacterData, ILevelData, IYPHolder, ICharacterSkillSetData
 {
     [Header("플레이어 성별")]
     public EGender gender = EGender.Male;
@@ -25,4 +25,11 @@ public class PlayerData : CharacterData, ILevelData, IYPHolder
     public int BaseExpToLevelUp => baseExpToLevelUp;
     public float StatMultiplierPerLevel => statMultiplierPerLevel;
     public int StartYP => startYP;
+
+    [Header("플레이어 시작 스킬 목록")]
+    [Tooltip("SkillBase 구현 SO(SkillData 등)를 드래그하세요")]
+    public List<SkillBase> startingSkills = new List<SkillBase>();
+
+    // 인터페이스 구현
+    public List<SkillBase> StartingSkills => startingSkills;
 }

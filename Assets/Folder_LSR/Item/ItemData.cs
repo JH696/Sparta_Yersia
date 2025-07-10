@@ -47,6 +47,7 @@ public class ItemData : ScriptableObject
 
     [Header("아이템 효과")]
     [SerializeField] private List<ItemStat> itemStats = new List<ItemStat>();
+
     [Serializable]
     public struct ItemStat
     {
