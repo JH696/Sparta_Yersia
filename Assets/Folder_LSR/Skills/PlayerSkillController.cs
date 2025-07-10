@@ -42,19 +42,19 @@ public class PlayerSkillController : MonoBehaviour
         _skillHolder.Init(_playerData.startingSkills.Cast<SkillBase>());
 
         // 기본 등급 스킬 자동 해금
-        foreach (var basicSkillStatus in _skillHolder.AllStatuses.Where(status => status.Data.SkillTier == ETier.Basic))
+        foreach (var basicSkillStatus in _skillHolder.AllStatusesa.Where(status => status.Data.SkillTier == ETier.Basic))
             basicSkillStatus.Unlock();
     }
 
     public void UnlockSkill(string skillId)
     {
-        var skillStatus = _skillHolder.AllStatuses.FirstOrDefault(x => x.Data.Id == skillId);
+        var skillStatus = _skillHolder.AllStatusesa.FirstOrDefault(x => x.Data.Id == skillId);
         skillStatus?.Unlock();
     }
 
     public bool LevelUpSkill(string skillId)
     {
-        var skillStatus = _skillHolder.AllStatuses.FirstOrDefault(x => x.Data.Id == skillId);
+        var skillStatus = _skillHolder.AllStatusesa.FirstOrDefault(x => x.Data.Id == skillId);
         return skillStatus != null && skillStatus.LevelUp(ref _skillPoints);
     }
 

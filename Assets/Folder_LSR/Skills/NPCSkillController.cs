@@ -22,11 +22,11 @@ public class NPCSkillController : MonoBehaviour
     {
         _affinity = Mathf.Clamp(_affinity + amount, 0, 100);
         int unlockCount = _affinity / 20; // 임시 20% 단위
-        var list = _characterSkill.AllStatuses;
+        var list = _characterSkill.AllStatusesa;
         for (int i = 0; i < unlockCount && i < list.Count; i++)
             list[i].Unlock();
     }
 
     public SkillStatus[] GetUsableSkills()
-        => _characterSkill.AllStatuses.Where(status => status.CanUse).ToArray();
+        => _characterSkill.AllStatusesa.Where(status => status.CanUse).ToArray();
 }

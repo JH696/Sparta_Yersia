@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterSkill : MonoBehaviour
 {
     private List<SkillStatus> skillStatuses = new List<SkillStatus>();
-    public IReadOnlyList<SkillStatus> AllStatuses => skillStatuses;
+    public List<SkillStatus> AllStatusesa => skillStatuses; // IReadOnlyList<SkillStatus> 에서 변경
 
     /// <summary>
     /// 캐릭터 생성 시 호출: 시작 스킬 목록으로 상태 리스트 초기화
