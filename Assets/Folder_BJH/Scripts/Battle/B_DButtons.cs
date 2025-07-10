@@ -14,12 +14,13 @@ public class B_DButtons : MonoBehaviour
     {
         this.gameObject.SetActive(true);
 
-        List<SkillStatus> curSkills = slot.CurrentSkill();
+        List<SkillStatus> curSkills = slot.GetLearnedSkill();
 
-        for (int i = 0; i < dButtons.Count; i++)
+        for (int i = 0; i < curSkills.Count; i++)
         {
             B_DynamicButton dButton = dButtons[i].GetComponent<B_DynamicButton>();
 
+            dButton.gameObject.SetActive(true);
             dButton.SetIcon(curSkills[i].Data.Icon);
 
             if (curSkills[i].Cooldown != 0)
@@ -32,6 +33,7 @@ public class B_DButtons : MonoBehaviour
 
             dButtons[i].onClick.AddListener(() =>
             {
+                dButton.ResetButton();
                 targetSystem.SetBeforeUI(this.gameObject);
                 targetSystem.SkillTargeting(curSkills[i].Data);
             });

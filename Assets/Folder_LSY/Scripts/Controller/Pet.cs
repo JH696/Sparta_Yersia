@@ -10,6 +10,7 @@ public class Pet : BaseCharacter, ILevelable
     public override Sprite Icon => petData.Icon;
 
     public PetData PetData => petData; // 읽기 전용
+    public CharacterSkill Skill => skill; // 읽기 전용
 
     // 레벨, 경험치
     public int Level { get; private set; } = 1;

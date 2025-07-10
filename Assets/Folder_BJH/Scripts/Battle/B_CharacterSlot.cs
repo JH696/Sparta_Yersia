@@ -90,22 +90,23 @@ public class B_CharacterSlot : MonoBehaviour
         this.gauge = gauge;
     }
 
-    public List<SkillStatus> CurrentSkill()
+    public List<SkillStatus> GetLearnedSkill()
     {
         if (character is Player player)
         {
-            return player.Skill.AllStatuses2;
+            return player.Skill.AllStatusesa;
         }
         else if (character is NPC npc)
         {
-
+            return npc.Skill.AllStatusesa;
         }
-        else if (character is Pet)
+        else if (character is Pet pet)
         {
+            return pet.Skill.AllStatusesa;
         }
-        else if (Character is Monster)
+        else if (Character is Monster monster)
         {
-
+            return monster.Skill.AllStatusesa;
         }
     }
 

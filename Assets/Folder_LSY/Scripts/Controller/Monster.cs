@@ -10,6 +10,7 @@ public class Monster : BaseCharacter
     public override Sprite Icon => monsterData.Icon;
 
     public MonsterData MonsterData => monsterData;
+    public CharacterSkill Skill => skill; // 읽기 전용
 
     private void Awake()
     {

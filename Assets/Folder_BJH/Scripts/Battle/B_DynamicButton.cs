@@ -21,4 +21,12 @@ public class B_DynamicButton : MonoBehaviour
     {
         text.text = message;
     }
+
+    public void ResetButton()
+    {
+        icon.sprite = null;
+        icon.color = Color.white;
+        text = null;    
+        this.gameObject.SetActive(false);
+    }
 }

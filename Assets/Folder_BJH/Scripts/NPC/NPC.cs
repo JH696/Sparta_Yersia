@@ -19,6 +19,7 @@ public class NPC : BaseCharacter, IInteractable
     [SerializeField] private CharacterSkill skill;
 
     public override Sprite Icon => npcData.Icon;
+    public CharacterSkill Skill => skill;
 
     private void Awake()
     {
