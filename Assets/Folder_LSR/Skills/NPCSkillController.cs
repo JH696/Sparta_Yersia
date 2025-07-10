@@ -3,30 +3,32 @@ using UnityEngine;
 
 public class NPCSkillController : MonoBehaviour
 {
-    private CharacterSkill _characterSkill;
-    private NPCData _npcData;
-    private int _affinity;
-    private int _unlockThreshold;
+    private CharacterSkill characterSkill;
+    private NPCData npcData;
+    private int affinity;
+    private int unlockSkill;
 
-    public void Init(CharacterSkill characterSkill, NPCData npcData, int initialAffinity, int unlockThreshold)
+    public void Init(CharacterSkill skill, NPCData data, int initialAffinity, int unlock)
     {
-        _characterSkill = characterSkill;
-        _npcData = npcData;
-        _affinity = initialAffinity;
-        _unlockThreshold = unlockThreshold;
+        characterSkill = skill;
+        npcData = data;
+        affinity = initialAffinity;
+        unlockSkill = unlock;
 
-        _characterSkill.Init(_npcData.startingSkills.Cast<SkillBase>());
+        characterSkill.Init(npcData.startingSkills.Cast<SkillBase>());
     }
 
     public void IncreaseAffinity(int amount)
     {
-        _affinity = Mathf.Clamp(_affinity + amount, 0, 100);
-        int unlockCount = _affinity / 20; // 임시 20% 단위
-        var list = _characterSkill.AllStatuses;
+        affinity = Mathf.Clamp(affinity + amount, 0, 100);
+        int unlockCount = affinity / 20; // 임시 20% 단위
+        var list = characterSkill.AllStatuses;
         for (int i = 0; i < unlockCount && i < list.Count; i++)
+        {
             list[i].Unlock();
+        }
     }
 
     public SkillStatus[] GetUsableSkills()
-        => _characterSkill.AllStatuses.Where(status => status.CanUse).ToArray();
+        => characterSkill.AllStatuses.Where(status => status.CanUse).ToArray();
 }
