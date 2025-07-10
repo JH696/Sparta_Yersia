@@ -21,6 +21,9 @@ public class CharacterSkill : MonoBehaviour
 
     /// <summary>
     /// 전투 턴이 끝날 때마다 호출: 쿨다운(턴 단위) 감소
+    /// 이게 이미 ID 구분없이 모든 스킬 쿨다운을 깎아주는 메소드입니다.
+    /// 예시: TickCooldowns(2) -> 모든 스킬의 쿨다운을 2턴씩 감소시킴
+    /// 기본적으로는 1턴씩 감소시키지만, 필요에 따라 여러 턴을 한 번에 감소시킬 수 있습니다.
     /// </summary>
     public void TickCooldowns(int turns = 1)
     {
@@ -32,6 +35,11 @@ public class CharacterSkill : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 위 메서드가 존재하나, 모든 스킬 쿨다운을 1턴씩 감소시키는 편의 메서드입니다.
+    /// </summary>
+    public void TickAllCooldowns() => TickCooldowns(1);
 
     /// <summary>
     /// 전투 중 스킬 사용 시도
@@ -54,4 +62,5 @@ public class CharacterSkill : MonoBehaviour
         skillStatus.ResetCooldown();
         return true;
     }
+
 }
