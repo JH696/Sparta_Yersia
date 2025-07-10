@@ -5,6 +5,9 @@ public class Pet : BaseCharacter, ILevelable
     [Header("펫 데이터")]
     [SerializeField, Tooltip("펫의 이름과 ID가 포함된 데이터")]
     private PetData petData;
+
+    public override Sprite Icon => petData.Icon;
+
     public PetData PetData => petData; // 읽기 전용
 
     // 레벨, 경험치

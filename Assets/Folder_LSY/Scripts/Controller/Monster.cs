@@ -6,6 +6,8 @@ public class Monster : BaseCharacter
     [SerializeField, Tooltip("몬스터의 이름과 ID가 포함된 데이터")]
     private MonsterData monsterData;
 
+    public override Sprite Icon => monsterData.Icon;
+
     public MonsterData MonsterData => monsterData;
 
     private void Awake()

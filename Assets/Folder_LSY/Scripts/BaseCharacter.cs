@@ -4,6 +4,8 @@ public abstract class BaseCharacter : MonoBehaviour
 {
     protected CharacterStats Stat = new CharacterStats();
 
+    // 아이콘은 자식 클래스에서 설정
+    public virtual Sprite Icon => null;
     public float MaxHp => Stat.MaxHp;
     public float CurrentHp => Stat.CurrentHp;
     public float MaxMana => Stat.MaxMana;

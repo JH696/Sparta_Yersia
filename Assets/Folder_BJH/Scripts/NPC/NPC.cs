@@ -16,6 +16,7 @@ public class NPC : BaseCharacter, IInteractable
     [Header("진행 중인 퀘스트")]
     [SerializeField] private List<QuestData> ReceiverQuests;
 
+    public override Sprite Icon => npcData.Icon;
 
     public void OnEnable()
     {

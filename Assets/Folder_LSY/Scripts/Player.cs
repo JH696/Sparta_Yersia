@@ -7,6 +7,9 @@ public class Player : BaseCharacter, ILevelable
     [SerializeField] private CharacterData playerData;
     [SerializeField] private PlayerQuest quest;
     [SerializeField] private PlayerInventory inventory;
+
+    public override Sprite Icon => playerData.Icon;
+
     public CharacterData PlayerData => playerData; // 읽기 전용
     public PlayerQuest Quest => quest; // 읽기 전용
     public PlayerInventory Inventory => inventory; // 읽기 전용
