@@ -7,6 +7,10 @@ public class PlayerData : CharacterData, ILevelData, IYPHolder, ICharacterSkillS
     [Header("플레이어 성별")]
     public EGender gender = EGender.Male;
 
+    [Header("플레이어 계급")]
+    [Tooltip("초급(Basic), 중급(Advanced), 상급(Expert)")]
+    public ETier tier = ETier.Basic;
+
     [Header("레벨 및 경험치")]
     public int startLevel = 1;
     public int startExp = 0;
@@ -18,7 +22,7 @@ public class PlayerData : CharacterData, ILevelData, IYPHolder, ICharacterSkillS
 
     [Header("초기 스킬 리스트")]
     [SerializeField] private List<SkillData> startSkills = new List<SkillData>();
-    public IReadOnlyList<SkillData> StartSkills => startSkills;
+    public List<SkillData> StartSkills => startSkills;
 
     public int StartLevel => startLevel;
     public int StartExp => startExp;
