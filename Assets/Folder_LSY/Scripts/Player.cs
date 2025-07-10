@@ -7,6 +7,7 @@ public class Player : BaseCharacter, ILevelable
     [SerializeField] private PlayerData playerData;
     [SerializeField] private PlayerQuest quest;
     [SerializeField] private PlayerInventory inventory;
+    [SerializeField] private CharacterSkill skill;
 
     public override Sprite Icon => playerData.Icon;
 
@@ -40,6 +41,7 @@ public class Player : BaseCharacter, ILevelable
         if (playerData == null || LevelData == null) return;
 
         InitStat(playerData);
+        skill.Init(playerData.startingSkills);
         Level = LevelData.StartLevel;
         CurrentExp = LevelData.StartExp;
         yp = YPData.StartYP;

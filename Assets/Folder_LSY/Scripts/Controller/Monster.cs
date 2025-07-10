@@ -5,6 +5,7 @@ public class Monster : BaseCharacter
     [Header("몬스터 데이터")]
     [SerializeField, Tooltip("몬스터의 이름과 ID가 포함된 데이터")]
     private MonsterData monsterData;
+    [SerializeField] private CharacterSkill skill;
 
     public override Sprite Icon => monsterData.Icon;
 
@@ -15,7 +16,7 @@ public class Monster : BaseCharacter
         if (monsterData == null) return;
 
         InitStat(monsterData); // 스탯 초기화
-
+        skill.Init(monsterData.startingSkills);
         ApplyMonsterSprite();
     }
 
