@@ -1,70 +1,51 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+// 스킬 공통 상태 보관 컴포넌트
 public class CharacterSkill : MonoBehaviour
 {
-    [Header("스킬 데이터 목록 SO")]
-    [SerializeField] private List<ScriptableObject> skillDataList;
-    private List<SkillStatus> skillStatus = new List<SkillStatus>();
+    private List<SkillStatus> skillStatuses = new List<SkillStatus>();
+    public IReadOnlyList<SkillStatus> AllStatuses => skillStatuses;
 
-    public IReadOnlyList<SkillStatus> AllStatuses => skillStatus;
-
-    private void Awake()
+    /// <summary>
+    /// 캐릭터 생성 시 호출: 시작 스킬 목록으로 상태 리스트 초기화
+    /// </summary>
+    public void Init(IEnumerable<SkillBase> templates)
     {
-        foreach (var obj in skillDataList)
-        {
-            if (obj is ISkillBase data)
-            {
-                //skillStatus.Add(new SkillStatus(data));
-            }
-        }
+        skillStatuses.Clear();
+        foreach (var tpl in templates)
+            skillStatuses.Add(new SkillStatus(tpl));
     }
 
-    private void Update()
+    /// <summary>
+    /// 전투 턴이 끝날 때마다 호출: 쿨다운(턴 단위) 감소
+    /// </summary>
+    public void TickCooldowns(int deltaTurns = 1)
     {
-        // 쿨타임 감소 처리
-        float deltaTime = Time.deltaTime;
-        foreach (var status in skillStatus)
-        {
-            //status.
-        }
+        for (int i = 0; i < deltaTurns; i++)
+            foreach (var s in skillStatuses)
+                s.ReduceCooldown();
+    }
+
+    /// <summary>
+    /// 전투 중 스킬 사용 시도
+    /// </summary>
+    public bool TryUseSkill(string id)
+    {
+        var s = skillStatuses.Find(x => x.Data.Id == id);
+        if (s == null || !s.CanUse) return false;
+        s.Use();
+        return true;
+    }
+
+    /// <summary>
+    /// 쿨다운 즉시 초기화 (스킬 즉시 재사용)
+    /// </summary>
+    public bool ResetCooldown(string id)
+    {
+        var s = skillStatuses.Find(x => x.Data.Id == id);
+        if (s == null || s.Cooldown == 0) return false;
+        s.ResetCooldown();
+        return true;
     }
 }
-
-///// <summary> 배틀매니져에서 턴마다 호출 </summary>
-//public void UseSkill(string id)
-//{
-//    var status = skillStatus.Find(skillState => skillState.Data.Id == id);
-//    if (status == null || !status.CanUse) return;
-
-//    // 마나 소모 로직
-//    int cost = (status.Data is SkillData skillDatas) ? skillDatas.ManaCost : 0;
-//    if (cost > 0)
-//    {
-//        if (playerStats == null || playerStats.CurrentMana < cost)
-//        {
-//            Debug.Log("스킬 사용 실패: 마나 부족");
-//            return;
-//        }
-//        playerStats.SetCurrentMana(playerStats.CurrentMana - cost);
-//    }
-
-//    status.Use();
-
-//    // 실제 스탯 연동된 데미지 계산
-//    float atk = (playerStats != null) ? playerStats.Attack : 0f;
-//    float damage = status.Data.Damage + (status.Data.Coefficient * atk);
-//    Debug.Log($"[{id}] 를 사용했습니다. 데미지: {damage}");
-//}
-
-///// <summary> 배틀매니져에서 턴마다 호출 </summary>
-//public void CompleteCoolTime(string id)
-//{
-//    var status = skillStatus.Find(skillState => skillState.Data.Id == id);
-//    if (status == null)
-//    {
-//        Debug.LogWarning($"[PlayerSkillController] 스킬 {id}상태를 찾을 수 없습니다.");
-//        return;
-//    }
-//    status.ResetCoolTime();
-//}

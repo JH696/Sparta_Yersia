@@ -1,9 +1,10 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "PetData", menuName = "Data/PetData")]
-public class PetData : CharacterData, ILevelData
+public class PetData : CharacterData, ILevelData, ICharacterSkillSetData
 {
     [Header("펫 ID 및 이름")]
     public string PetID;
@@ -29,6 +30,10 @@ public class PetData : CharacterData, ILevelData
     [Range(0, 2)]
     public int CurrentEvoStage = 0;
 
+    [Header("펫 시작 스킬 목록")]
+    [Tooltip("SkillBase 구현 SO를 드래그하세요")]
+    public List<SkillBase> startingSkills = new List<SkillBase>();
+
     public Sprite GetCurrentProfileIcon() =>
         sprites != null && sprites.Length > CurrentEvoStage ? sprites[CurrentEvoStage].Icon : null;
 
@@ -39,6 +44,8 @@ public class PetData : CharacterData, ILevelData
     public int StartExp => startExp;
     public int BaseExpToLevelUp => baseExpToLevelUp;
     public float StatMultiplierPerLevel => statMultiplierPerLevel;
+
+    public List<SkillBase> StartingSkills => startingSkills;
 }
 
 [Serializable]

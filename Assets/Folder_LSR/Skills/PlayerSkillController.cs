@@ -1,82 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Linq;
 using UnityEngine;
 
 // 플레이어 스킬 전반 ( 해금, 사용, 쿨타임, 다음 스킬 해금 등)
 public class PlayerSkillController : MonoBehaviour
 {
-    [Header("스킬 데이터 목록 SO")]
-    [SerializeField] private List<ScriptableObject> skillDataList;
+    private CharacterSkill _skillHolder;
+    private PlayerData _playerData;
+    private int _skillPoints;
 
-    [Header("플레이어 스킬 포인트")]
-    [SerializeField] private int skillPoints = 100000; // 임시로 포인트 부여
+    /// <summary>
+    /// 외부에서 반드시 Init으로 초기화해주기. 아래 주석부분 복사 붙여넣기후 주석 해제하여 사용하면 됨.
+    //void SetupParty()
+    //{
+    //    // 플레이어 세팅
+    //    var playerGO = Instantiate(playerPrefab);
+    //    var charSkill = playerGO.GetComponent<CharacterSkill>();
+    //    var playerCtrl = playerGO.AddComponent<PlayerSkillController>();
+    //    playerCtrl.Init(charSkill, playerDataAsset, startingSkillPoints);
 
-    private CharacterStats playerStats;
-    private List<SkillStatus> skillStatuses = new List<SkillStatus>();
+    //    // NPC 세팅
+    //    var npcGO = Instantiate(npcPrefab);
+    //    var npcSkill = npcGO.GetComponent<CharacterSkill>();
+    //    var npcCtrl = npcGO.AddComponent<NPCSkillController>();
+    //    npcCtrl.Init(npcSkill, npcDataAsset, initialAffinity, unlockThreshold);
 
-    //스킬 상태 변경 알림 이벤트(UI)
-    public event Action<SkillStatus> OnSkillStateChanged;
-    public event Action<SkillStatus> OnSkillLevelUp;
-
-    private void Awake()
+    //    // 펫 세팅
+    //    var petGO = Instantiate(petPrefab);
+    //    var petSkill = petGO.GetComponent<CharacterSkill>();
+    //    var petCtrl = petGO.AddComponent<PetSkillController>();
+    //    petCtrl.Init(petSkill, petDataAsset, petEvoStage);
+    //}
+    /// </summary>
+    public void Init(CharacterSkill skillHolder, PlayerData playerData, int startingPoints)
     {
-        // GameManager에 연결된 플레이어 스탯 가져오기
-        if (GameManager.Instance != null && GameManager.Instance.Player != null)
-        {
-            playerStats = GameManager.Instance.Player.GetComponent<CharacterStats>();
-            if (playerStats == null)
-            {
-                Debug.LogError("[PlayerSkillController] 플레이어 스탯을 찾을 수 없습니다.");
-            }
-        }
+        _skillHolder = skillHolder;
+        _playerData = playerData;
 
-        // SO 중 ISkillBase 인터페이스를 구현한 데이터만 필터링
-        foreach (var obj in skillDataList)
-        {
-            if (obj is ISkillBase info)
-            {
-                var status = new SkillStatus(info);
-                status.OnStateChanged += skillState => OnSkillStateChanged?.Invoke(skillState);
-                status.OnLevelUp += skillState => OnSkillLevelUp?.Invoke(skillState);
-                skillStatuses.Add(status);
-            }
-        }
+        _skillPoints = startingPoints;
+
+        // 스킬 리스트 초기화
+        _skillHolder.Init(_playerData.startingSkills.Cast<SkillBase>());
+
+        // 기본 등급 스킬 자동 해금
+        foreach (var s in _skillHolder.AllStatuses.Where(x => x.Data.SkillTier == ETier.Basic))
+            s.Unlock();
     }
 
-    private void Start()
+    public void UnlockSkill(string id)
     {
-        // 초급 스킬 자동 해금 - 임시 로직
-        foreach (var status in skillStatuses)
-        {
-            if (status.Data.SkillTier == ETier.Basic)
-            {
-                status.Unlock();
-            }
-        }
+        var s = _skillHolder.AllStatuses.FirstOrDefault(x => x.Data.Id == id);
+        s?.Unlock();
     }
 
-    public void UnlockSkill(string id) =>
-        skillStatuses.Find(skillState => skillState.Data.Id == id)?.Unlock();
-
-    public void LevelUpSkill(string id)
+    public bool LevelUpSkill(string id)
     {
-        var status = skillStatuses.Find(skillState => skillState.Data.Id == id);
-        if (status == null)
-        {
-            Debug.LogWarning($"[PlayerSkillController] 스킬 {id} 상태를 찾을 수 없습니다.");
-            return;
-        }
-        status.LevelUp(ref skillPoints);
+        var s = _skillHolder.AllStatuses.FirstOrDefault(x => x.Data.Id == id);
+        return s != null && s.LevelUp(ref _skillPoints);
     }
 
-    // 실제 플레이어 공격력 반환
-    private float GetPlayerAttackPower()
+    public bool TryUseEquippedSkill(string id)
     {
-        if (playerStats == null)
-        {
-            Debug.LogWarning("[PlayerSkillController] 플레이어 스탯을 찾을 수 없습니다. 기본 공격력 0 반환");
-            return 0f;
-        }
-        return playerStats.Attack;
+        return _skillHolder.TryUseSkill(id);
     }
 }
