@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class B_TargetSystem : MonoBehaviour
 {
-    [Header("공격자")]
-    [SerializeField] private BaseCharacter character;
+    [Header("캐릭터")]
+    [SerializeField] private B_Characters chars;
 
     [Header("사용 스킬")]
-    [SerializeField] private SkillData useSkill;
+    [SerializeField] private SkillBase useSkill;
 
     [Header("사용 아이템")]
     [SerializeField] private ItemData useItem;
 
     [Header("타겟 리스트")]
-    [SerializeField] private List<BaseCharacter> targets;
+    [SerializeField] private List<B_CharacterSlot> targets;
 
     [Header("최대 타겟 수")]
     [SerializeField] private float maxCount;
@@ -28,7 +28,7 @@ public class B_TargetSystem : MonoBehaviour
     [SerializeField] private Button cancelBtn;
 
     [Header("이전 위치")]
-    [SerializeField] private GameObject beforeUI;
+    [SerializeField] private GameObject beforeObj;
 
     private void Start()
     {
@@ -51,9 +51,16 @@ public class B_TargetSystem : MonoBehaviour
 
                 if (hit.collider != null)
                 {
-                    BaseCharacter target = hit.collider.GetComponent<B_CharacterSlot>().GetCharacter();
+                    B_CharacterSlot target = hit.collider.GetComponent<B_CharacterSlot>();
 
-                    AddTarget(target);
+                    if (target.Character != null)
+                    {
+                        AddTarget(target);
+                    }
+                    else
+                    {
+                        Debug.Log("캐릭터가 존재하지 않습니다.");
+                    }
                 }
                 else
                 {
@@ -63,7 +70,7 @@ public class B_TargetSystem : MonoBehaviour
         }
     }
 
-    private void AddTarget(BaseCharacter target)
+    private void AddTarget(B_CharacterSlot target)
     {
         // 이미 타겟에 포함된 경우 → 제거
         if (targets.Contains(target))
@@ -89,57 +96,66 @@ public class B_TargetSystem : MonoBehaviour
 
     public void SetBeforeUI(GameObject gameObject)
     {
-        gameObject.SetActive(false);
-        beforeUI = gameObject;
+        beforeObj = gameObject;
     }
     
-    public void SkillTargeting(BaseCharacter character, SkillData skill)
+    public void SkillTargeting(SkillBase skill)
     {
         isTargeting = true;
         useSkill = skill;
-        //maxCount = skill.Range;
-        this.character = character;   
+        maxCount = skill.Range;
+        cancelBtn.gameObject.SetActive(true);
+        allowBtn.gameObject.SetActive(true);
     }
 
-    public void ItemTargeting(BaseCharacter character, ItemData item)
+    public void ItemTargeting(ItemData item)
     {
         isTargeting = true;
         useItem = item; 
         maxCount = 1;
-        this.character = character;
+        cancelBtn.gameObject.SetActive(true);
+        allowBtn.gameObject.SetActive(true);
     }
 
-    public void Targeting(BaseCharacter character)
+    public void Targeting()
     {
         isTargeting = true;
         maxCount = 1;
-        this.character = character;
+        cancelBtn.gameObject.SetActive(true);
+        allowBtn.gameObject.SetActive(true);
     }
 
     private void OnAllowButton()
     {
+        if (targets.Count == 0)
+        {
+            Debug.Log("지정된 대상이 없습니다.");
+            return;
+        }
+
         if (useItem == null || isTargeting)
         {
             DamageCalculator cal = new DamageCalculator();
 
-            foreach (BaseCharacter target in targets)
+            foreach (B_CharacterSlot target in targets)
             {
-                target.TakeDamage(cal.DamageCalculate(character, target, useSkill));
+                target.Character.TakeDamage(cal.DamageCalculate(chars.SpotLight.Character, target.Character, useSkill));
+                target.ChangeStatus();
             }
         }
         else if (useItem != null || isTargeting)
         {
-            foreach (BaseCharacter target in targets)
+            foreach (B_CharacterSlot target in targets)
             {
                 foreach (var item in useItem.ItemStats)
                 {
                     switch (item.eStat)
                     {
                         case EStatType.MaxHp:
-                            target.HealHP(item.value);
+                            target.Character.HealHP(item.value);
                             break;
                         case EStatType.MaxMana:
-                            target.HealMana(item.value);
+                            target.Character.HealMana(item.value);
                             break;
 
                     }
@@ -147,25 +163,25 @@ public class B_TargetSystem : MonoBehaviour
             }
         }
 
+        chars.ResetSpotLight();
         ResetTargeting();
     }
 
     private void ResetTargeting()
     {
         isTargeting = false;
-        character = null;
         useSkill = null;
         useItem = null;
-        beforeUI = null;
+        beforeObj = null;
         maxCount = 0;
         targets.Clear();
-        cancelBtn.enabled = false;
-        allowBtn.enabled = false;
+        cancelBtn.gameObject.SetActive(false);
+        allowBtn.gameObject.SetActive(false);
     }
 
     private void OnCancelButton()
     {
+        beforeObj.SetActive(true);
         ResetTargeting();
-        beforeUI.SetActive(true);
     }
 }

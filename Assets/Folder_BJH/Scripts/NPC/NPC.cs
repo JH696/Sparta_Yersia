@@ -16,6 +16,18 @@ public class NPC : BaseCharacter, IInteractable
     [Header("진행 중인 퀘스트")]
     [SerializeField] private List<QuestData> ReceiverQuests;
 
+    [SerializeField] private CharacterSkill skill;
+
+    public override Sprite Icon => npcData.Icon;
+    public CharacterSkill Skill => skill;
+
+    private void Awake()
+    {
+        if (npcData == null) return;
+
+        InitStat(npcData); // 스탯 초기화
+        skill.Init(npcData.startingSkills);
+    }
 
     public void OnEnable()
     {
