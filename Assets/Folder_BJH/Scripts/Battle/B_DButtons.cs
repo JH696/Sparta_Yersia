@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class B_DButtonEditor : MonoBehaviour
+public class B_DButtons : MonoBehaviour
 {
     [Header("기본 버튼")]
     [SerializeField] private List<Button> dButtons;

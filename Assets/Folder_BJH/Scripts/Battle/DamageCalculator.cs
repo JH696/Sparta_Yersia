@@ -12,10 +12,15 @@ public class DamageCalculator
         float def = target.Defense;
         float spd = target.Speed;
 
+        Debug.Log($"공격자 공격력: {atk}, 행운: {luck}");
+        Debug.Log($"피격자 방어력: {def}, 속도: {spd}");
+
         // 데미지 계산
         float power = skill == null? atk : atk * skill.Damage;
         float damage = IsCritical(luck) ? power * 1.5f : power;
         float finalDamage = IsDodge(spd) ? damage * 0 : damage - (target.Defense * 0.5f);
+
+        Debug.Log($"최종 데미지: {finalDamage}");
 
         return finalDamage;
     }
@@ -25,7 +30,7 @@ public class DamageCalculator
     {
         float roll = Random.Range(0, 100);
 
-        if (luck <= roll)
+        if (luck >= roll)
         {
             return true;
         }
@@ -38,7 +43,7 @@ public class DamageCalculator
     {
         float roll = Random.Range(0, 100);
 
-        if (speed <= roll)
+        if (speed >= roll)
         {
             return true;
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class Player : BaseCharacter, ILevelable
 {
     [Header("플레이어 데이터")]
-    [SerializeField] private CharacterData playerData;
+    [SerializeField] private PlayerData playerData;
     [SerializeField] private PlayerQuest quest;
     [SerializeField] private PlayerInventory inventory;
 

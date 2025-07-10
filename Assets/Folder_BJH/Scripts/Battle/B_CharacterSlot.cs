@@ -20,18 +20,62 @@ public class B_CharacterSlot : MonoBehaviour
     [Header("연결된 게이지 UI")]
     [SerializeField] private B_ActionGauge gauge;
 
+    [Header("몬스터 액션")]
+    [SerializeField] private MonsterAction mAction;
+
+    [Header("캐릭터 행동 중 여부")]
+    [SerializeField] private bool hasTurn;
+
+    public ECharacterType Type => type;
+    public BaseCharacter Character => character;
+
     public void SetCharSlot(BaseCharacter character)
     {
-        this.character = character; 
+        this.character = character;
+        this.gameObject.SetActive(true);
     }
 
-    public void IncreaseAPoint(float amount)
+    public void ResetSlot()
     {
-        actionPoint += amount;
+        actionPoint = 0;
+        character = null;
+        hasTurn = false;
+        gauge.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
+    }
+
+    public void ChangeStatus()
+    {
+        if (character.IsDead)
+        {
+            if (type == ECharacterType.Enemy)
+            {
+                ResetSlot();
+            }
+
+            //character.IsDIe();
+        }
+    }
+
+    public void IncreaseAPoint()
+    {
+        if (character == null) return;
+
+        actionPoint += character.Speed * Time.deltaTime;
 
         if (actionPoint >= 100)
         {
-            actionPoint = 100;
+            actionPoint = 0;
+            gauge.RefreshGauge(actionPoint);
+
+            if (type == ECharacterType.Ally)
+            {
+                TurnStart();
+            }
+            if (type == ECharacterType.Enemy)
+            {
+                Debug.Log("MonsterAction");
+            }
         }
 
         gauge.RefreshGauge(actionPoint);
@@ -39,16 +83,25 @@ public class B_CharacterSlot : MonoBehaviour
 
     public void LinkActionGauge(B_ActionGauge gauge)
     {
+        if (character == null) return;
+
         this.gauge = gauge;
     }
 
-    public bool IsAPointMax()
+    private void TurnStart()
     {
-        return actionPoint >= 100;
+        hasTurn = true;
+        gauge.gameObject.SetActive(false);
     }
 
-    public BaseCharacter GetCharacter()
+    public void TurnEnd()
     {
-        return character;
+        gauge.gameObject.SetActive(true);
+        hasTurn = false;
+    }
+
+    public bool HasTurn()
+    {
+        return hasTurn;
     }
 }
