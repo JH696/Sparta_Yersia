@@ -3,30 +3,30 @@ using UnityEngine;
 
 public class PetSkillController : MonoBehaviour
 {
-    private CharacterSkill _skillHolder;
+    private CharacterSkill _characterSkill;
     private PetData _petData;
     private int _evoStage;
 
     /// <summary>
     /// 외부에서 반드시 Init으로 초기화해 주어야 합니다.
     /// </summary>
-    public void Init(CharacterSkill skillHolder, PetData petData, int evoStage)
+    public void Init(CharacterSkill characterSkill, PetData petData, int evoStage)
     {
-        _skillHolder = skillHolder;
+        _characterSkill = characterSkill;
         _petData = petData;
         _evoStage = Mathf.Clamp(evoStage, 1, 3);
 
         var templates = _petData.startingSkills
             .Cast<SkillBase>()
             .Take(_evoStage);
-        _skillHolder.Init(templates);
+        _characterSkill.Init(templates);
     }
 
-    public bool UsePetSkill(string id)
+    public bool UsePetSkill(string skillId)
     {
-        return _skillHolder.TryUseSkill(id);
+        return _characterSkill.TryUseSkill(skillId);
     }
 
     public SkillStatus[] GetUsableSkills()
-        => _skillHolder.AllStatuses.Where(s => s.CanUse).ToArray();
+        => _characterSkill.AllStatuses.Where(status => status.CanUse).ToArray();
 }

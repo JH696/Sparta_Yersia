@@ -13,39 +13,45 @@ public class CharacterSkill : MonoBehaviour
     public void Init(IEnumerable<SkillBase> templates)
     {
         skillStatuses.Clear();
-        foreach (var tpl in templates)
-            skillStatuses.Add(new SkillStatus(tpl));
+        foreach (var skillTemplate in templates)
+        {
+            skillStatuses.Add(new SkillStatus(skillTemplate));
+        }
     }
 
     /// <summary>
     /// 전투 턴이 끝날 때마다 호출: 쿨다운(턴 단위) 감소
     /// </summary>
-    public void TickCooldowns(int deltaTurns = 1)
+    public void TickCooldowns(int turns = 1)
     {
-        for (int i = 0; i < deltaTurns; i++)
-            foreach (var s in skillStatuses)
-                s.ReduceCooldown();
+        for (int i = 0; i < turns; i++)
+        {
+            foreach (var skillStatus in skillStatuses)
+            {
+                skillStatus.ReduceCooldown();
+            }
+        }
     }
 
     /// <summary>
     /// 전투 중 스킬 사용 시도
     /// </summary>
-    public bool TryUseSkill(string id)
+    public bool TryUseSkill(string skillId)
     {
-        var s = skillStatuses.Find(x => x.Data.Id == id);
-        if (s == null || !s.CanUse) return false;
-        s.Use();
+        var skillStatus = skillStatuses.Find(status => status.Data.Id == skillId);
+        if (skillStatus == null || !skillStatus.CanUse) return false;
+        skillStatus.Use();
         return true;
     }
 
     /// <summary>
     /// 쿨다운 즉시 초기화 (스킬 즉시 재사용)
     /// </summary>
-    public bool ResetCooldown(string id)
+    public bool ResetCooldown(string skillId)
     {
-        var s = skillStatuses.Find(x => x.Data.Id == id);
-        if (s == null || s.Cooldown == 0) return false;
-        s.ResetCooldown();
+        var skillStatus = skillStatuses.Find(status => status.Data.Id == skillId);
+        if (skillStatus == null || skillStatus.Cooldown == 0) return false;
+        skillStatus.ResetCooldown();
         return true;
     }
 }
