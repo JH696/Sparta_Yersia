@@ -21,4 +21,9 @@ public class MonsterData : CharacterData, ICharacterSkillSetData
 
     // 인터페이스 구현
     public List<SkillBase> StartingSkills => startingSkills;
+
+    [Header("처치 보상")]
+    public int ypDrop = 0;
+    public int expDrop = 0;
+    public List<DropItemData> dropItems = new List<DropItemData>();
 }
