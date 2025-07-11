@@ -19,14 +19,6 @@ public class PlayerParty : MonoBehaviour
     [Header("파티 멤버 리스트 (펫, NPC 혼합)")]
     [SerializeField] private List<GameObject> partyMembers = new List<GameObject>();
 
-    private void Awake()
-    {
-        if (player == null)
-        {
-            Debug.LogError("Player GameObject가 할당되어 있지 않습니다.");
-        }
-    }
-
     private void Start()
     {
         // 실행 시 초기 상태에 맞게 팔로우 체인 갱신
@@ -116,11 +108,14 @@ public class PlayerParty : MonoBehaviour
         }
 
         // 펫은 순서대로 최대 2마리 추가
+        int petCount = 0;
         foreach (var member in partyMembers)
         {
             if (member.GetComponent<Pet>() != null)
             {
+                if (petCount >= maxPets) break;
                 sortedList.Add(member);
+                petCount++;
             }
         }
 
