@@ -35,7 +35,7 @@ public class SkillData : SkillBase
     public override int Range => range;
     public override int Cooldown => cooldown;
     public override IReadOnlyList<SkillBase> UnlockNext
-        => unlockNext.ConvertAll(x => (SkillBase)x);
+        => unlockNext.ConvertAll(status => (SkillBase)status);
 
     public override Sprite Icon => icon;
     public override int ManaCost => manaCost;

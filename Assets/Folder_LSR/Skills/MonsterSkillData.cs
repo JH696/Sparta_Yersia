@@ -28,5 +28,5 @@ public class MonsterSkillData : SkillBase
     public override int Range => range;
     public override int Cooldown => cooldown;
     public override IReadOnlyList<SkillBase> UnlockNext
-        => System.Array.Empty<SkillBase>();
+        => Array.Empty<SkillBase>();
 }

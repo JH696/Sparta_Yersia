@@ -1,65 +1,74 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-// 플레이어 스킬 전반 ( 해금, 사용, 쿨타임, 다음 스킬 해금 등)
+// 플레이어 스킬 전반 (해금, 레벨업, 장착 여부 등)
 public class PlayerSkillController : MonoBehaviour
 {
-    private CharacterSkill _skillHolder;
-    private PlayerData _playerData;
-    private int _skillPoints;
+    private CharacterSkill characterSkill;
+    private PlayerData playerData;
+    private int skillPoints;
 
-    /// <summary>
-    /// 외부에서 반드시 Init으로 초기화해주기. 아래 주석부분 복사 붙여넣기후 주석 해제하여 사용하면 됨.
-    //void SetupParty()
-    //{
-    //    // 플레이어 세팅
-    //    var playerGO = Instantiate(playerPrefab);
-    //    var charSkill = playerGO.GetComponent<CharacterSkill>();
-    //    var playerCtrl = playerGO.AddComponent<PlayerSkillController>();
-    //    playerCtrl.Init(charSkill, playerDataAsset, startingSkillPoints);
+    private readonly HashSet<string> equippedSkillIds = new HashSet<string>();
 
-    //    // NPC 세팅
-    //    var npcGO = Instantiate(npcPrefab);
-    //    var npcSkill = npcGO.GetComponent<CharacterSkill>();
-    //    var npcCtrl = npcGO.AddComponent<NPCSkillController>();
-    //    npcCtrl.Init(npcSkill, npcDataAsset, initialAffinity, unlockThreshold);
-
-    //    // 펫 세팅
-    //    var petGO = Instantiate(petPrefab);
-    //    var petSkill = petGO.GetComponent<CharacterSkill>();
-    //    var petCtrl = petGO.AddComponent<PetSkillController>();
-    //    petCtrl.Init(petSkill, petDataAsset, petEvoStage);
-    //}
-    /// </summary>
-    public void Init(CharacterSkill skillHolder, PlayerData playerData, int startingPoints)
+    public void Init(CharacterSkill skill, PlayerData data, int startingPoints)
     {
-        _skillHolder = skillHolder;
-        _playerData = playerData;
-
-        _skillPoints = startingPoints;
+        characterSkill = skill;
+        playerData = data;
+        skillPoints = startingPoints;
 
         // 스킬 리스트 초기화
-        _skillHolder.Init(_playerData.startingSkills.Cast<SkillBase>());
+        characterSkill.Init(playerData.startingSkills.Cast<SkillBase>());
 
-        // 기본 등급 스킬 자동 해금
-        foreach (var basicSkillStatus in _skillHolder.AllStatusesa.Where(status => status.Data.SkillTier == ETier.Basic))
+        // 기본 스킬 자동 해금
+        foreach (var basicSkillStatus
+            in characterSkill.AllStatuses.
+            Where(status => status.Data.SkillTier == ETier.Basic))
+        {
             basicSkillStatus.Unlock();
+        }
     }
 
+    // 스킬 해금
     public void UnlockSkill(string skillId)
     {
-        var skillStatus = _skillHolder.AllStatusesa.FirstOrDefault(x => x.Data.Id == skillId);
+        var skillStatus = characterSkill.AllStatuses.FirstOrDefault(status => status.Data.Id == skillId);
         skillStatus?.Unlock();
     }
 
+    // 스킬 레벨업
     public bool LevelUpSkill(string skillId)
     {
-        var skillStatus = _skillHolder.AllStatusesa.FirstOrDefault(x => x.Data.Id == skillId);
-        return skillStatus != null && skillStatus.LevelUp(ref _skillPoints);
+        var skillStatus = characterSkill.AllStatuses.FirstOrDefault(status => status.Data.Id == skillId);
+        if (skillStatus == null) return false;
+        return skillStatus != null && skillStatus.LevelUp(ref skillPoints);
     }
 
+    // 스킬 장착 여부 확인
+    public bool IsEquipped(string skillId)
+    {
+        return equippedSkillIds.Contains(skillId);
+    }
+
+    // 스킬 장착
+    public void EquipSkill(string skillId)
+    {
+        if (!equippedSkillIds.Contains(skillId))
+        {
+            equippedSkillIds.Add(skillId);
+        }
+    }
+
+    // 스킬 해제
+    public void UnEquipSkill(string skillId)
+    {
+        equippedSkillIds.Remove(skillId);
+    }
+
+    // 전투용 장착 스킬 사용 시도
     public bool TryUseEquippedSkill(string skillId)
     {
-        return _skillHolder.TryUseSkill(skillId);
+        if (!IsEquipped(skillId)) return false;
+        return characterSkill.TryUseSkill(skillId);
     }
 }
