@@ -10,33 +10,39 @@ public class B_DButtons : MonoBehaviour
     [Header("타겟 시스템")]
     [SerializeField] private B_TargetSystem targetSystem;
 
-    public void SetSkillButton(B_CharacterSlot slot)
+    public void SetSkillButton(List<SkillStatus> skills)
     {
-        this.gameObject.SetActive(true);
+        int count = Mathf.Min(skills.Count, dButtons.Count);
 
-        List<SkillStatus> curSkills = slot.GetLearnedSkill();
-
-        for (int i = 0; i < curSkills.Count; i++)
+        for (int i = 0; i < count; i++)
         {
+            this.gameObject.SetActive(true);
+
+            SkillStatus skill = skills[i];
             B_DynamicButton dButton = dButtons[i].GetComponent<B_DynamicButton>();
 
             dButton.gameObject.SetActive(true);
-            dButton.SetIcon(curSkills[i].Data.Icon);
-
-            if (curSkills[i].Cooldown != 0)
-            {
-                dButton.SetText($"{curSkills[i].Cooldown}");
-                dButton.SetColor(Color.gray);
-            }
+            dButton.SetIcon(skill.Data.Icon);
 
             dButtons[i].onClick.RemoveAllListeners();
 
-            dButtons[i].onClick.AddListener(() =>
+            if (skill.Cooldown != 0)
             {
-                dButton.ResetButton();
-                targetSystem.SetBeforeUI(this.gameObject);
-                targetSystem.SkillTargeting(curSkills[i].Data);
-            });
+                dButton.SetText($"{skill.Cooldown}");
+                dButton.SetColor(Color.gray);
+            }
+            else
+            {
+                int capturedIndex = i;
+                dButtons[i].onClick.AddListener(() => targetSystem.SetBeforeUI(this.gameObject));
+                dButtons[i].onClick.AddListener(() => targetSystem.SkillTargeting(skills[capturedIndex]));
+            }
+        }
+
+        for (int i = skills.Count; i < dButtons.Count; i++)
+        {
+            dButtons[i].gameObject.SetActive(false);
+            dButtons[i].onClick.RemoveAllListeners();
         }
     }
 

@@ -34,7 +34,7 @@ public class SkillStatus
     /// <summary>스킬 사용 시 호출 (쿨다운 턴 설정)</summary>
     public void Use()
     {
-        if (!CanUse) return;
+        //if (!CanUse) return;
         Cooldown = Data.Cooldown;
         State = ESkillState.OnCooldown;
         OnStateChanged?.Invoke(this);

@@ -26,7 +26,7 @@ public class B_DynamicButton : MonoBehaviour
     {
         icon.sprite = null;
         icon.color = Color.white;
-        text = null;    
+        text.text = "";    
         this.gameObject.SetActive(false);
     }
 }

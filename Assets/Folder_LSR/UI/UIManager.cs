@@ -21,7 +21,6 @@ public class UIManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         // 씬 로드시 UI 초기화 및 이벤트 구독
         SceneManager.sceneLoaded += OnSceneLoaded;

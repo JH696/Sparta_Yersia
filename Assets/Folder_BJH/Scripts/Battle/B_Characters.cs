@@ -18,6 +18,11 @@ public class B_Characters : MonoBehaviour
     public List<B_CharacterSlot> Slots => slots;
     public B_CharacterSlot SpotLight => spotLight;
 
+    private void Awake()
+    {
+        B_Manager.Instance.SetCharacters(this);
+    }
+
     private void Start()
     {
         LinkAllGauges();
@@ -26,6 +31,27 @@ public class B_Characters : MonoBehaviour
     private void Update()
     {
         IncreaseAPoint();
+    }
+
+    public void SetAllySlots()
+    {
+        List<B_CharacterSlot> allySlots = slots.FindAll(slot => slot.Type == ECharacterType.Ally);
+        List<GameObject> myParty = GameManager.Instance.Player.GetComponent<PlayerParty>().GetFullPartyMembers();
+
+        for (int i = 0; i < myParty.Count; i++)
+        {
+            allySlots[i].SetCharSlot(myParty[i]);
+        }
+    }
+
+    public void SetEnemySlots(List<GameObject> monsters)
+    {
+        List<B_CharacterSlot> enemySlots = slots.FindAll(slot => slot.Type == ECharacterType.Enemy);
+
+        for (int i = 0;i < monsters.Count; i++)
+        {
+            enemySlots[i].SetCharSlot(monsters[i]);
+        }
     }
 
     public void ResetSpotLight()

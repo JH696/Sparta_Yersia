@@ -3,27 +3,21 @@ using UnityEngine;
 
 public class BattleTrigger : MonoBehaviour
 {
-    [SerializeField] private EScene battleScene;
-
     [Header("배틀에 등장할 몬스터 데이터 리스트")]
-    [SerializeField] private List<MonsterData> monsterDataList = new List<MonsterData>();
+    [SerializeField] private List<GameObject> monsterList = new List<GameObject>();
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
 
-        var playerParty = other.GetComponent<PlayerParty>();
-        if (playerParty == null)
+        Debug.Log("충돌");
+
+        if (monsterList.Count == 0)
         {
-            Debug.LogWarning("PlayerParty 컴포넌트를 찾을 수 없습니다.");
+            Debug.LogWarning("PlayerParty 컴포넌트를 찾을 수 없거나, 몬스터 리스트가 비었습니다.");
             return;
         }
 
-        // BattleManager가 있다면 여기에 데이터 전달
-        //BattleManager.monsterDataList = new List<MonsterData>(monsterDataList);
-        //BattleManager.playerPartyList = playerParty.GetFullPartyMembers();
-
-        // 씬 전환
-        SceneLoader.LoadScene(battleScene);
+        B_Manager.Instance.EnterBattle(monsterList);
     }
 }

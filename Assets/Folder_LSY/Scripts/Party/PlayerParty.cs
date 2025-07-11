@@ -19,16 +19,13 @@ public class PlayerParty : MonoBehaviour
     [Header("파티 멤버 리스트 (펫, NPC 혼합)")]
     [SerializeField] private List<GameObject> partyMembers = new List<GameObject>();
 
-    private void Awake()
-    {
+    private void Start()
+    { 
         if (player == null)
         {
-            Debug.LogError("Player GameObject가 할당되어 있지 않습니다.");
+            player = GameManager.Instance.Player;
         }
-    }
 
-    private void Start()
-    {
         // 실행 시 초기 상태에 맞게 팔로우 체인 갱신
         UpdateFollowChain();
     }
@@ -92,7 +89,6 @@ public class PlayerParty : MonoBehaviour
     public List<GameObject> GetFullPartyMembers()
     {
         var fullParty = new List<GameObject>();
-        if (player != null) fullParty.Add(player);
         fullParty.AddRange(partyMembers);
         return fullParty;
     }

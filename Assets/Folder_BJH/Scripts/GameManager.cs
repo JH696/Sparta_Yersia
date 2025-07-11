@@ -8,16 +8,23 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        // 싱글톤 설정
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        if (Player != null)
+        {
+            DontDestroyOnLoad(Player);
+            Debug.Log(Player.name);
+        }
         else
         {
-            Instance = this;
+            Debug.LogWarning("Player not found in scene.");
         }
-
-        DontDestroyOnLoad(gameObject);
     }
 }

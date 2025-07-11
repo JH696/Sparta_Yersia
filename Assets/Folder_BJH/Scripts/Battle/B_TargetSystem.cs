@@ -9,7 +9,7 @@ public class B_TargetSystem : MonoBehaviour
     [SerializeField] private B_Characters chars;
 
     [Header("사용 스킬")]
-    [SerializeField] private SkillBase useSkill;
+    [SerializeField] private SkillStatus useSkill = null;
 
     [Header("사용 아이템")]
     [SerializeField] private ItemData useItem;
@@ -96,14 +96,15 @@ public class B_TargetSystem : MonoBehaviour
 
     public void SetBeforeUI(GameObject gameObject)
     {
+        gameObject.SetActive(false);
         beforeObj = gameObject;
     }
     
-    public void SkillTargeting(SkillBase skill)
+    public void SkillTargeting(SkillStatus skill)
     {
         isTargeting = true;
         useSkill = skill;
-        maxCount = skill.Range;
+        maxCount = skill.Data.Range;
         cancelBtn.gameObject.SetActive(true);
         allowBtn.gameObject.SetActive(true);
     }
@@ -133,17 +134,18 @@ public class B_TargetSystem : MonoBehaviour
             return;
         }
 
-        if (useItem == null || isTargeting)
-        {
-            DamageCalculator cal = new DamageCalculator();
+        DamageCalculator cal = new DamageCalculator();
 
+        if (useSkill != null)
+        {
             foreach (B_CharacterSlot target in targets)
             {
-                target.Character.TakeDamage(cal.DamageCalculate(chars.SpotLight.Character, target.Character, useSkill));
+                target.Character.TakeDamage(cal.DamageCalculate(chars.SpotLight.Character, target.Character, useSkill.Data));
+                useSkill.Use();
                 target.ChangeStatus();
             }
         }
-        else if (useItem != null || isTargeting)
+        else if (useItem != null)
         {
             foreach (B_CharacterSlot target in targets)
             {
@@ -162,8 +164,18 @@ public class B_TargetSystem : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            foreach (B_CharacterSlot target in targets)
+            {
+                target.Character.TakeDamage(cal.DamageCalculate(chars.SpotLight.Character, target.Character, null));
+                target.ChangeStatus();
+            }
+        }
 
+        chars.SpotLight.ChangeStatus();
         chars.ResetSpotLight();
+
         ResetTargeting();
     }
 
