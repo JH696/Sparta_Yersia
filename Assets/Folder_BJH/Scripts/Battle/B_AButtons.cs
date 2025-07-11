@@ -22,7 +22,13 @@ public class B_AButtons : MonoBehaviour
 
     public void SetActionButton()
     { 
-        this.gameObject.SetActive(true);   
+        this.gameObject.SetActive(true);
+
+        attackBtn.onClick.RemoveAllListeners();
+        skillBtn.onClick.RemoveAllListeners();
+        itemBtn.onClick.RemoveAllListeners();
+        RestBtn.onClick.RemoveAllListeners();
+        RunBtn.onClick.RemoveAllListeners();
 
         attackBtn.onClick.AddListener(OnAttackButton);
         skillBtn.onClick.AddListener(OnSkillButton);
@@ -45,7 +51,7 @@ public class B_AButtons : MonoBehaviour
 
         CharacterSkill characterSkill = chars.SpotLight.GetLearnedSkill();
 
-        List<SkillStatus> skills = characterSkill.AllStatusesa;
+        List<SkillStatus> skills = characterSkill.AllStatuses;
 
         if (skills.Count <= 0) return;
 
@@ -60,7 +66,11 @@ public class B_AButtons : MonoBehaviour
     {
         Debug.Log("아이템 액션");
 
+        if (GameManager.Instance.Player.GetComponent<PlayerInventory>().GetAllItems().Count < 0)  return;
+
         this.gameObject.SetActive(false);
+
+        dBtns.SetItemButton();
     }
 
     public void OnRestButton()

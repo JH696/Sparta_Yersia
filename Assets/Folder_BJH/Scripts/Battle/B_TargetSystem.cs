@@ -77,6 +77,7 @@ public class B_TargetSystem : MonoBehaviour
         {
             Debug.Log($"타겟 제거됨: {target.name}");
             targets.Remove(target);
+            target.ResetPointer();
             return;
         }
 
@@ -85,13 +86,16 @@ public class B_TargetSystem : MonoBehaviour
         {
             Debug.Log($"타겟 추가됨: {target.name}");
             targets.Add(target);
+            target.SetPointer();
             return;
         }
 
         // 타겟 수가 제한 이상이면 → 가장 오래된 타겟 교체
         Debug.Log($"타겟 변경됨: {targets[0].name} -> {target.name}");
+        targets[0].ResetPointer();
         targets.RemoveAt(0);
         targets.Add(target);
+        target.SetPointer();
     }
 
     public void SetBeforeUI(GameObject gameObject)
@@ -147,6 +151,8 @@ public class B_TargetSystem : MonoBehaviour
         }
         else if (useItem != null)
         {
+            GameManager.Instance.Player.GetComponent<PlayerInventory>().RemoveItem(useItem);
+
             foreach (B_CharacterSlot target in targets)
             {
                 foreach (var item in useItem.ItemStats)
@@ -175,7 +181,6 @@ public class B_TargetSystem : MonoBehaviour
 
         chars.SpotLight.ChangeStatus();
         chars.ResetSpotLight();
-
         ResetTargeting();
     }
 
@@ -186,6 +191,10 @@ public class B_TargetSystem : MonoBehaviour
         useItem = null;
         beforeObj = null;
         maxCount = 0;
+        foreach (B_CharacterSlot target in targets)
+        {
+            target.ResetPointer();
+        }
         targets.Clear();
         cancelBtn.gameObject.SetActive(false);
         allowBtn.gameObject.SetActive(false);

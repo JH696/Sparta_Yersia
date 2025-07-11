@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 public class B_PartyUI : MonoBehaviour
 {
@@ -17,11 +15,9 @@ public class B_PartyUI : MonoBehaviour
     [Header("생성된 프리팹")]
     [SerializeField] private List<B_ProfilePrefab> profiles;
 
-
-    private void Start()
+    private void OnEnable()
     {
-        SetPartyProfile();
-        RefreshProfiles();
+        B_Manager.Instance.InBattle += SetPartyProfile;
     }
 
     public void SetPartyProfile()

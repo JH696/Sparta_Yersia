@@ -14,6 +14,7 @@ public class B_ProfilePrefab : MonoBehaviour
     public void SetProfile(BaseCharacter character)
     {
         this.character = character;
+        RefreshGauge();
     }
 
     public void RefreshGauge()

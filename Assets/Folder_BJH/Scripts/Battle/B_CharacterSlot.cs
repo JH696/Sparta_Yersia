@@ -20,8 +20,8 @@ public class B_CharacterSlot : MonoBehaviour
     [Header("연결된 게이지 UI")]
     [SerializeField] private B_ActionGauge gauge;
 
-    [Header("몬스터 액션")]
-    [SerializeField] private MonsterAction mAction;
+    [Header("포인터")]
+    [SerializeField] private GameObject pointer;
 
     [Header("캐릭터 행동 중 여부")]
     [SerializeField] private bool hasTurn;
@@ -81,6 +81,16 @@ public class B_CharacterSlot : MonoBehaviour
             }
         }
         gauge.RefreshGauge(actionPoint);
+    }
+
+    public void SetPointer()
+    {
+        pointer.SetActive(true);
+    }
+
+    public void ResetPointer()
+    {
+        pointer.SetActive(false);   
     }
 
     public void LinkActionGauge(B_ActionGauge gauge)

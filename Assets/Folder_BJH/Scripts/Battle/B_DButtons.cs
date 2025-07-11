@@ -46,14 +46,48 @@ public class B_DButtons : MonoBehaviour
         }
     }
 
+    public void SetItemButton()
+    {
+        this.gameObject.SetActive(true);
 
-    //private void OnItemButton(BaseCharacter character)
-    //{
-    //    this.gameObject.SetActive(true);
+        PlayerInventory inventory = GameManager.Instance.Player.GetComponent<PlayerInventory>();
 
-    //    //Dictionary<string, int> curItems = GameManager.Instance.GetComponent<Player>().Inventory.GetAllItems();
+        Dictionary<string, int> allitems = inventory.GetAllItems();
 
-    //    //Dictionary<string, int> filteredItems =
-    //    //    curItems.Where(pair => pair.Value.data > ).ToDictionary(pair => pair.Key, pair => pair.Value);
-    //}
+        List<ItemData> items = new List<ItemData>();
+
+        foreach (KeyValuePair<string, int> pair in allitems)
+        {
+            items.Add(inventory.SearchItemToID(pair.Key));
+
+            Debug.Log(pair.Key);
+        }
+
+        Debug.Log(items[0]);
+        Debug.Log(items[1]);
+
+        inventory.GetItemsByCategory(EItemCategory.Consumable, items);
+
+        int count = Mathf.Min(items.Count, dButtons.Count);
+
+        for (int i = 0; i < count; i++)
+        {
+            ItemData item = items[i];
+            B_DynamicButton dButton = dButtons[i].GetComponent<B_DynamicButton>();
+
+            dButton.gameObject.SetActive(true);
+            dButton.SetIcon(item.Icon);
+
+            dButtons[i].onClick.RemoveAllListeners();
+
+            if (inventory.GetCount(item) > 0)
+            {
+                dButton.SetText($"{inventory.GetCount(item)}");
+            }
+
+                int capturedIndex = i;
+                dButtons[i].onClick.AddListener(() => targetSystem.SetBeforeUI(this.gameObject));
+                dButtons[i].onClick.AddListener(() => targetSystem.ItemTargeting(item));
+        }
+    }
 }

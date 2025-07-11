@@ -11,6 +11,7 @@ public class B_Manager : MonoBehaviour
 
     [SerializeField] private B_Characters chars;
 
+    public event System.Action InBattle;
 
     private IEnumerator Battle(List<GameObject> monsters)
     {
@@ -50,5 +51,7 @@ public class B_Manager : MonoBehaviour
     {
         chars.SetAllySlots();
         chars.SetEnemySlots(monsters);
+
+        InBattle?.Invoke();
     }
 }
