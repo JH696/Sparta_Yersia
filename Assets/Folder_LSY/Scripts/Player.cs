@@ -31,6 +31,15 @@ public class Player : BaseCharacter, ILevelable
     private int yp = 0;
     public int YP => yp;
 
+    [Header("펫 관련")]
+    [SerializeField] private List<Pet> ownedPets = new List<Pet>();    // 보유한 펫 목록
+    [SerializeField] private List<Pet> equippedPets = new List<Pet>(); // 장착한 펫 목록 (최대 2마리)
+    public List<Pet> OwnedPets => ownedPets;
+    public List<Pet> EquippedPets => equippedPets;
+
+    [Header("파티 관리")]
+    [SerializeField] private PlayerParty playerParty;
+
     private void Awake()
     {
         Init();
@@ -157,5 +166,78 @@ public class Player : BaseCharacter, ILevelable
                 Stat.Speed += value;
                 break;
         }
+    }
+
+    public void AddPetFromPrefab(Pet petPrefab)
+    {
+        if (petPrefab == null) return;
+
+        // 이미 보유 중인지 PetData 기준으로 검사
+        if (ownedPets.Exists(p => p.PetData == petPrefab.PetData)) return;
+
+        Pet newPet = Instantiate(petPrefab);
+        newPet.gameObject.SetActive(false); // 보유한 펫은 기본 비활성화
+        ownedPets.Add(newPet);
+        Debug.Log($"[Player] 펫 지급됨: {newPet.PetData.PetName}");
+    }
+
+    // 보유 펫 추가
+    public void AddPet(Pet pet)
+    {
+        if (pet == null) return;
+
+        if (ownedPets.Exists(p => p.PetData == pet.PetData)) return;
+
+        pet.gameObject.SetActive(false);
+        ownedPets.Add(pet);
+        Debug.Log($"[Player] 펫 지급됨: {pet.PetData.PetName}");
+    }
+
+    /// <summary>
+    /// 펫 장착 (씬 오브젝트 활성화)
+    /// </summary>
+    public void EquipPet(Pet pet)
+    {
+        if (pet == null || !ownedPets.Contains(pet)) return;
+
+        if (equippedPets.Contains(pet))
+        {
+            Debug.Log($"[Player] 이미 장착 중: {pet.PetData.PetName}");
+            return;
+        }
+
+        if (equippedPets.Count >= 2)
+        {
+            Debug.LogWarning("펫은 최대 2마리까지만 장착할 수 있습니다.");
+            return;
+        }
+
+        pet.gameObject.SetActive(true);
+        equippedPets.Add(pet);
+        Debug.Log($"[Player] 펫 장착됨: {pet.PetData.PetName}");
+
+        if (playerParty != null)
+            playerParty.AddPet(pet.gameObject);
+    }
+
+    /// <summary>
+    /// 펫 장착 해제 (씬 오브젝트 비활성화)
+    /// </summary>
+    public void UnequipPet(Pet pet)
+    {
+        if (pet == null || !equippedPets.Contains(pet)) return;
+
+        equippedPets.Remove(pet);
+        pet.gameObject.SetActive(false);
+        Debug.Log($"[Player] 펫 해제됨: {pet.PetData.PetName}");
+
+        if (playerParty != null)
+            playerParty.RemoveMember(pet.gameObject);
+    }
+
+    // 펫 보유 여부 확인
+    public bool HasPet(Pet pet)
+    {
+        return ownedPets.Contains(pet);
     }
 }
