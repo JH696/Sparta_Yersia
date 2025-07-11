@@ -19,6 +19,7 @@ public class StatsUI : MonoBehaviour
     [Header("플레이어 전용 UI")]
     [SerializeField] private TMP_Text YPTxt;
     [SerializeField] private TMP_Text GenderTxt;
+    [SerializeField] private TMP_Text TierTxt;
     [SerializeField] private GameObject PlayerInfo;
 
     [Header("펫 전용 UI")]
@@ -91,6 +92,25 @@ public class StatsUI : MonoBehaviour
                         break;
                     default:
                         GenderTxt.text = "성별 : 알 수 없음";
+                        break;
+                }
+            }
+
+            if (TierTxt != null && player.PlayerData is PlayerData playerData)
+            {
+                switch (playerData.tier)
+                {
+                    case ETier.Basic:
+                        TierTxt.text = "등급 : 초급 마법사";
+                        break;
+                    case ETier.Advanced:
+                        TierTxt.text = "등급 : 중급 마법사";
+                        break;
+                    case ETier.Expert:
+                        TierTxt.text = "등급 : 상급 마법사";
+                        break;
+                    default:
+                        TierTxt.text = "등급 : 알 수 없음";
                         break;
                 }
             }
