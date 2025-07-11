@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum ECharacterType
 {
@@ -22,8 +20,8 @@ public class B_CharacterSlot : MonoBehaviour
     [Header("연결된 게이지 UI")]
     [SerializeField] private B_ActionGauge gauge;
 
-    [Header("몬스터 액션")]
-    [SerializeField] private MonsterAction mAction;
+    [Header("포인터")]
+    [SerializeField] private GameObject pointer;
 
     [Header("캐릭터 행동 중 여부")]
     [SerializeField] private bool hasTurn;
@@ -31,10 +29,11 @@ public class B_CharacterSlot : MonoBehaviour
     public ECharacterType Type => type;
     public BaseCharacter Character => character;
 
-    public void SetCharSlot(BaseCharacter character)
+    public void SetCharSlot(GameObject character)
     {
-        this.character = character;
+        this.character = character.GetComponent<BaseCharacter>();
         this.gameObject.SetActive(true);
+        gauge.gameObject.SetActive(true);
     }
 
     public void ResetSlot()
@@ -48,6 +47,8 @@ public class B_CharacterSlot : MonoBehaviour
 
     public void ChangeStatus()
     {
+
+
         if (character.IsDead)
         {
             if (type == ECharacterType.Enemy)
@@ -79,8 +80,17 @@ public class B_CharacterSlot : MonoBehaviour
                 Debug.Log("MonsterAction");
             }
         }
-
         gauge.RefreshGauge(actionPoint);
+    }
+
+    public void SetPointer()
+    {
+        pointer.SetActive(true);
+    }
+
+    public void ResetPointer()
+    {
+        pointer.SetActive(false);   
     }
 
     public void LinkActionGauge(B_ActionGauge gauge)
@@ -90,23 +100,23 @@ public class B_CharacterSlot : MonoBehaviour
         this.gauge = gauge;
     }
 
-    public List<SkillStatus> GetLearnedSkill()
+    public CharacterSkill GetLearnedSkill()
     {
         if (character is Player player)
         {
-            return player.Skill.AllStatusesa;
+            return player.Skill;
         }
         else if (character is NPC npc)
         {
-            return npc.Skill.AllStatusesa;
+            return npc.Skill;
         }
         else if (character is Pet pet)
         {
-            return pet.Skill.AllStatusesa;
+            return pet.Skill;
         }
         else if (Character is Monster monster)
         {
-            return monster.Skill.AllStatusesa;
+            return monster.Skill;
         }
 
         Debug.Log("알 수 없는 유형입니다.");

@@ -1,7 +1,7 @@
 ﻿public enum EScene
 {
     //MainScene,
-    //BattleScene
+    BattleScene,
 
     Scene_LSY,
     Scene_LSY_Battle

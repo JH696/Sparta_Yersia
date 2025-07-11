@@ -20,7 +20,12 @@ public class PlayerParty : MonoBehaviour
     [SerializeField] private List<GameObject> partyMembers = new List<GameObject>();
 
     private void Start()
-    {
+    { 
+        if (player == null)
+        {
+            player = GameManager.Instance.Player;
+        }
+
         // 실행 시 초기 상태에 맞게 팔로우 체인 갱신
         UpdateFollowChain();
     }
@@ -84,7 +89,6 @@ public class PlayerParty : MonoBehaviour
     public List<GameObject> GetFullPartyMembers()
     {
         var fullParty = new List<GameObject>();
-        if (player != null) fullParty.Add(player);
         fullParty.AddRange(partyMembers);
         return fullParty;
     }

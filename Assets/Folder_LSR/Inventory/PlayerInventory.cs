@@ -92,7 +92,7 @@ public class PlayerInventory : MonoBehaviour
     /// 보유 중인 특정 카테고리만 SO 리스트로 반환
     /// 사용 예시: GetItemsByCategory(EItemCategory.Consumable, itemDB)
     /// </summary>
-    public List<ItemData> GetItemsByCategory(EItemCategory category, ItemData[] data)
+    public List<ItemData> GetItemsByCategory(EItemCategory category, List<ItemData> data)
     {
         var result = new List<ItemData>();
         foreach (var item in data)
@@ -101,5 +101,16 @@ public class PlayerInventory : MonoBehaviour
                 result.Add(item);
         }
         return result;
+    }
+
+    /// <summary>
+    /// 전체 아이템 리스트에서 아이디로 아이템 찾기
+    /// 사용 예시: SearchItemToID(I_c101)
+    /// </summary>
+    public ItemData SearchItemToID(string ID)
+    {
+        ItemData item = Resources.Load<ItemData>($"ItemDatas/{ID}");
+
+        return item;
     }
 }

@@ -21,6 +21,8 @@ public class Pet : BaseCharacter, ILevelable
     {
         if (petData == null) return;
 
+        DontDestroyOnLoad(this.gameObject);
+
         InitStat(petData); // 스탯 초기화
         skill.Init(petData.startingSkills);
         Level = 1;

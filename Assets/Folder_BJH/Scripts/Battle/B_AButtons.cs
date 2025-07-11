@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class B_AButtons : MonoBehaviour
@@ -21,7 +22,13 @@ public class B_AButtons : MonoBehaviour
 
     public void SetActionButton()
     { 
-        this.gameObject.SetActive(true);   
+        this.gameObject.SetActive(true);
+
+        attackBtn.onClick.RemoveAllListeners();
+        skillBtn.onClick.RemoveAllListeners();
+        itemBtn.onClick.RemoveAllListeners();
+        RestBtn.onClick.RemoveAllListeners();
+        RunBtn.onClick.RemoveAllListeners();
 
         attackBtn.onClick.AddListener(OnAttackButton);
         skillBtn.onClick.AddListener(OnSkillButton);
@@ -36,29 +43,38 @@ public class B_AButtons : MonoBehaviour
 
         targetSystem.SetBeforeUI(this.gameObject);
         targetSystem.Targeting();
-        this.gameObject.SetActive(false);
     }
 
     public void OnSkillButton()
     {
         Debug.Log("스킬 액션");
 
+        CharacterSkill characterSkill = chars.SpotLight.GetLearnedSkill();
+
+        List<SkillStatus> skills = characterSkill.AllStatuses;
+
+        if (skills.Count <= 0) return;
+
+        characterSkill.TickAllCooldowns();
+
         this.gameObject.SetActive(false);
 
-        dBtns.SetSkillButton(chars.SpotLight);
+        dBtns.SetSkillButton(skills);
     }
 
     public void OnItemButton()
     {
         Debug.Log("아이템 액션");
 
+        if (GameManager.Instance.Player.GetComponent<PlayerInventory>().GetAllItems().Count < 0)  return;
+
         this.gameObject.SetActive(false);
+
+        dBtns.SetItemButton();
     }
 
     public void OnRestButton()
     {
-        Debug.Log("휴식");
-
         BaseCharacter target = chars.SpotLight.Character;
         target.HealMana(target.MaxMana * 0.1f);
 

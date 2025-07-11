@@ -9,7 +9,7 @@ public class B_TargetSystem : MonoBehaviour
     [SerializeField] private B_Characters chars;
 
     [Header("사용 스킬")]
-    [SerializeField] private SkillBase useSkill;
+    [SerializeField] private SkillStatus useSkill = null;
 
     [Header("사용 아이템")]
     [SerializeField] private ItemData useItem;
@@ -77,6 +77,7 @@ public class B_TargetSystem : MonoBehaviour
         {
             Debug.Log($"타겟 제거됨: {target.name}");
             targets.Remove(target);
+            target.ResetPointer();
             return;
         }
 
@@ -85,25 +86,29 @@ public class B_TargetSystem : MonoBehaviour
         {
             Debug.Log($"타겟 추가됨: {target.name}");
             targets.Add(target);
+            target.SetPointer();
             return;
         }
 
         // 타겟 수가 제한 이상이면 → 가장 오래된 타겟 교체
         Debug.Log($"타겟 변경됨: {targets[0].name} -> {target.name}");
+        targets[0].ResetPointer();
         targets.RemoveAt(0);
         targets.Add(target);
+        target.SetPointer();
     }
 
     public void SetBeforeUI(GameObject gameObject)
     {
+        gameObject.SetActive(false);
         beforeObj = gameObject;
     }
     
-    public void SkillTargeting(SkillBase skill)
+    public void SkillTargeting(SkillStatus skill)
     {
         isTargeting = true;
         useSkill = skill;
-        maxCount = skill.Range;
+        maxCount = skill.Data.Range;
         cancelBtn.gameObject.SetActive(true);
         allowBtn.gameObject.SetActive(true);
     }
@@ -133,18 +138,21 @@ public class B_TargetSystem : MonoBehaviour
             return;
         }
 
-        if (useItem == null || isTargeting)
-        {
-            DamageCalculator cal = new DamageCalculator();
+        DamageCalculator cal = new DamageCalculator();
 
+        if (useSkill != null)
+        {
             foreach (B_CharacterSlot target in targets)
             {
-                target.Character.TakeDamage(cal.DamageCalculate(chars.SpotLight.Character, target.Character, useSkill));
+                target.Character.TakeDamage(cal.DamageCalculate(chars.SpotLight.Character, target.Character, useSkill.Data));
+                useSkill.Use();
                 target.ChangeStatus();
             }
         }
-        else if (useItem != null || isTargeting)
+        else if (useItem != null)
         {
+            GameManager.Instance.Player.GetComponent<PlayerInventory>().RemoveItem(useItem);
+
             foreach (B_CharacterSlot target in targets)
             {
                 foreach (var item in useItem.ItemStats)
@@ -162,7 +170,16 @@ public class B_TargetSystem : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            foreach (B_CharacterSlot target in targets)
+            {
+                target.Character.TakeDamage(cal.DamageCalculate(chars.SpotLight.Character, target.Character, null));
+                target.ChangeStatus();
+            }
+        }
 
+        chars.SpotLight.ChangeStatus();
         chars.ResetSpotLight();
         ResetTargeting();
     }
@@ -174,6 +191,10 @@ public class B_TargetSystem : MonoBehaviour
         useItem = null;
         beforeObj = null;
         maxCount = 0;
+        foreach (B_CharacterSlot target in targets)
+        {
+            target.ResetPointer();
+        }
         targets.Clear();
         cancelBtn.gameObject.SetActive(false);
         allowBtn.gameObject.SetActive(false);

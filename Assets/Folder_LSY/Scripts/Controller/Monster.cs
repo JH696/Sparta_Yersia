@@ -15,7 +15,7 @@ public class Monster : BaseCharacter
     private void Awake()
     {
         if (monsterData == null) return;
-
+        DontDestroyOnLoad(this.gameObject);
         InitStat(monsterData); // 스탯 초기화
         skill.Init(monsterData.startingSkills);
         ApplyMonsterSprite();

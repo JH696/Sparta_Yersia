@@ -43,6 +43,8 @@ public class Player : BaseCharacter, ILevelable
     private void Awake()
     {
         Init();
+        //this.transform.SetParent(null);
+        //DontDestroyOnLoad(this.gameObject);
     }
 
     public void Init()
