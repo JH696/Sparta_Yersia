@@ -51,10 +51,23 @@ public class StatUIController : MonoBehaviour
         if (PetInfo != null) PetInfo.SetActive(false);
     }
 
+    private void UpdateEquippedPets()
+    {
+        if (player == null) return;
+
+        Player playerComponent = player as Player;
+        if (playerComponent == null) return;
+
+        pet1 = playerComponent.EquippedPets.Count > 0 ? playerComponent.EquippedPets[0] : null;
+        pet2 = playerComponent.EquippedPets.Count > 1 ? playerComponent.EquippedPets[1] : null;
+    }
+
     // Pet1의 스탯을 표시
     public void ShowPet1Stats()
     {
         if (statsUIObject == null || statsUI == null) return;
+
+        UpdateEquippedPets();
 
         if (!StatUI)
         {
@@ -63,6 +76,7 @@ public class StatUIController : MonoBehaviour
         }
 
         statsUI.SetTarget(pet1);
+
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
         if (PetInfo != null) PetInfo.SetActive(true);
     }
@@ -72,6 +86,8 @@ public class StatUIController : MonoBehaviour
     {
         if (statsUIObject == null || statsUI == null) return;
 
+        UpdateEquippedPets();
+
         if (!StatUI)
         {
             StatUI = true;
@@ -79,6 +95,7 @@ public class StatUIController : MonoBehaviour
         }
 
         statsUI.SetTarget(pet2);
+
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
         if (PetInfo != null) PetInfo.SetActive(true);
     }
