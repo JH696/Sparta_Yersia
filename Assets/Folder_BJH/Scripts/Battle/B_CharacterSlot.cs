@@ -1,86 +1,78 @@
-﻿using UnityEngine;
-
-public enum ECharacterType
-{
-    Ally,
-    Enemy
-}
+﻿using System.Threading;
+using UnityEngine;
 
 public class B_CharacterSlot : MonoBehaviour
 {
-    [Header("슬롯 타입")]
-    [SerializeField] private ECharacterType type;
-
     [Header("등록된 캐릭터")]
     [SerializeField] private BaseCharacter character;
 
-    [Header("캐릭터 행동력")]
-    [SerializeField] private float actionPoint;
+    [Header("캐릭터 상태 UI")]
+    [SerializeField] private B_CharacterStatUI cStatUI;
 
-    [Header("연결된 게이지 UI")]
-    [SerializeField] private B_ActionGauge gauge;
+    [Header("행동력, 게이지")]
+    [SerializeField] private float actionPoint;
+    [SerializeField] private B_ActionGauge aGauge;
 
     [Header("포인터")]
     [SerializeField] private GameObject pointer;
 
-    [Header("캐릭터 행동 중 여부")]
+    [Header("캐릭터 헹동 중 여부")]
     [SerializeField] private bool hasTurn;
 
-    public ECharacterType Type => type;
     public BaseCharacter Character => character;
 
-    public void SetCharSlot(GameObject character)
+    public void Start()
     {
-        this.character = character.GetComponent<BaseCharacter>();
-        this.gameObject.SetActive(true);
-        gauge.gameObject.SetActive(true);
+        character.StatusChanged += UpdateStatUI;
     }
 
-    public void ResetSlot()
+    public void OnDisable()
+    {
+        character.StatusChanged -= UpdateStatUI;
+    }
+
+    public virtual void SetCharSlot(GameObject character)
+    {
+        this.character = character.GetComponent<BaseCharacter>();
+        aGauge.SetGauge(this, null);
+        cStatUI.SetProfile(this.character);
+        this.gameObject.SetActive(true);
+    }
+
+    public virtual void ResetSlot()
     {
         actionPoint = 0;
-        character = null;
-        hasTurn = false;
-        gauge.gameObject.SetActive(false);
+        //character = null;
+        aGauge.ResetGauge();
         this.gameObject.SetActive(false);
     }
 
-    public void ChangeStatus()
+    public void UpdateStatUI()
     {
-
+        cStatUI.RefreshGauge(character);
 
         if (character.IsDead)
         {
-            if (type == ECharacterType.Enemy)
-            {
-                ResetSlot();
-            }
+            Debug.Log("캐릭터가 죽었습니다");
 
-            //character.IsDIe();
+            B_Manager.Instance.UpACount();
+            ResetSlot();
         }
     }
 
     public void IncreaseAPoint()
     {
-        if (character == null) return;
+        if (character == null || character.IsDead) return;
 
         actionPoint += character.Speed * Time.deltaTime;
 
         if (actionPoint >= 100)
         {
             actionPoint = 0;
-            gauge.RefreshGauge(actionPoint);
-
-            if (type == ECharacterType.Ally)
-            {
-                TurnStart();
-            }
-            else if (type == ECharacterType.Enemy)
-            {
-                Debug.Log("MonsterAction");
-            }
+            TurnStart();
         }
-        gauge.RefreshGauge(actionPoint);
+
+        aGauge.RefreshGauge(actionPoint);
     }
 
     public void SetPointer()
@@ -91,13 +83,6 @@ public class B_CharacterSlot : MonoBehaviour
     public void ResetPointer()
     {
         pointer.SetActive(false);   
-    }
-
-    public void LinkActionGauge(B_ActionGauge gauge)
-    {
-        if (character == null) return;
-
-        this.gauge = gauge;
     }
 
     public CharacterSkill GetLearnedSkill()
@@ -123,20 +108,20 @@ public class B_CharacterSlot : MonoBehaviour
         return null;
     }
 
+    public bool HasTurn()
+    {
+        return hasTurn;
+    }
+
     private void TurnStart()
     {
         hasTurn = true;
-        gauge.gameObject.SetActive(false);
+        aGauge.gameObject.SetActive(false);
     }
 
     public void TurnEnd()
     {
-        gauge.gameObject.SetActive(true);
         hasTurn = false;
-    }
-
-    public bool HasTurn()
-    {
-        return hasTurn;
+        aGauge.gameObject.SetActive(true);
     }
 }

@@ -30,6 +30,11 @@ public class QuestManager : MonoBehaviour
         NextStoryQuestUnlock();
     }
 
+    public void SetQuestUI(QuestUI questUI)
+    {
+        this.questUI = questUI;
+    }
+
     // 현재 수락 가능한 퀘스트 목록 반환
     public List<QuestData> GetAvailableQuests()
     {

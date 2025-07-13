@@ -45,7 +45,8 @@ public class DamageCalculator
 
         if (speed >= roll)
         {
-            return true;
+            // 트루로 나중에 수정
+            return false;
         }
 
         return false;

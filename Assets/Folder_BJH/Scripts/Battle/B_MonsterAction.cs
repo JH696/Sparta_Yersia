@@ -1,18 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterAction : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private B_Characters chars;
 
-    // Update is called once per frame
-    void Update()
+    public void MonsterAttack(BaseCharacter monster)
     {
+        DamageCalculator cal = new DamageCalculator();
         
+        List<BaseCharacter> targets = new List<BaseCharacter>();
+
+        foreach (B_CharacterSlot slot in chars.CSlots)
+        {
+            if (slot.Character != null)
+            {
+                if (!slot.Character.IsDead)
+                {
+                    targets.Add(slot.Character);
+                }
+            }
+        }
+
+        int roll = Random.Range(0, targets.Count);
+
+        if (targets.Count <= 0) return;
+
+        targets[roll].TakeDamage(cal.DamageCalculate(monster, targets[roll], null));
     }
 }

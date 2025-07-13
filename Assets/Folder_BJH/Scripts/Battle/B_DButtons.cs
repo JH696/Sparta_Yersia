@@ -7,20 +7,33 @@ public class B_DButtons : MonoBehaviour
     [Header("기본 버튼")]
     [SerializeField] private List<Button> dButtons;
 
+    [Header("뒤로가기 버튼")]
+    [SerializeField] private Button returnButton;
+
+    [Header("배틀 버튼")]
+    [SerializeField] private GameObject bButton;
+
+
     [Header("타겟 시스템")]
     [SerializeField] private B_TargetSystem targetSystem;
+
+    public void Start()
+    {
+        returnButton.onClick.AddListener(OnReturnButton);
+    }
 
     public void SetSkillButton(List<SkillStatus> skills)
     {
         int count = Mathf.Min(skills.Count, dButtons.Count);
 
+        this.gameObject.SetActive(true);
+
         for (int i = 0; i < count; i++)
         {
-            this.gameObject.SetActive(true);
+            B_DynamicButton dButton = dButtons[i].GetComponent<B_DynamicButton>();
+            dButton.ResetButton();
 
             SkillStatus skill = skills[i];
-            B_DynamicButton dButton = dButtons[i].GetComponent<B_DynamicButton>();
-
             dButton.gameObject.SetActive(true);
             dButton.SetIcon(skill.Data.Icon);
 
@@ -34,8 +47,7 @@ public class B_DButtons : MonoBehaviour
             else
             {
                 int capturedIndex = i;
-                dButtons[i].onClick.AddListener(() => targetSystem.SetBeforeUI(this.gameObject));
-                dButtons[i].onClick.AddListener(() => targetSystem.SkillTargeting(skills[capturedIndex]));
+                dButtons[i].onClick.AddListener(() => targetSystem.SkillTargeting(skills[capturedIndex], this.gameObject));
             }
         }
 
@@ -63,17 +75,23 @@ public class B_DButtons : MonoBehaviour
             Debug.Log(pair.Key);
         }
 
-        Debug.Log(items[0]);
-        Debug.Log(items[1]);
+        for (int i = 0; i < dButtons.Count; i++)
+        {
+            B_DynamicButton dButton = dButtons[i].GetComponent<B_DynamicButton>();
+            dButton.ResetButton();
+        }
 
-        inventory.GetItemsByCategory(EItemCategory.Consumable, items);
+        List<ItemData> cItems = inventory.GetItemsByCategory(EItemCategory.Consumable, items);
+        int count = Mathf.Min(cItems.Count, dButtons.Count);
 
-        int count = Mathf.Min(items.Count, dButtons.Count);
+        if (cItems.Count <= 0) return;
 
         for (int i = 0; i < count; i++)
         {
-            ItemData item = items[i];
             B_DynamicButton dButton = dButtons[i].GetComponent<B_DynamicButton>();
+            dButton.ResetButton();
+
+            ItemData item = cItems[i];
 
             dButton.gameObject.SetActive(true);
             dButton.SetIcon(item.Icon);
@@ -85,9 +103,14 @@ public class B_DButtons : MonoBehaviour
                 dButton.SetText($"{inventory.GetCount(item)}");
             }
 
-                int capturedIndex = i;
-                dButtons[i].onClick.AddListener(() => targetSystem.SetBeforeUI(this.gameObject));
-                dButtons[i].onClick.AddListener(() => targetSystem.ItemTargeting(item));
+            int capturedIndex = i;
+            dButtons[i].onClick.AddListener(() => targetSystem.ItemTargeting(item, this.gameObject));
         }
+    }
+
+    private void OnReturnButton()
+    {
+        this.gameObject.SetActive(false);
+        bButton.SetActive(true);
     }
 }

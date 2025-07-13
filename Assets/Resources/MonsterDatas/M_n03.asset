@@ -12,9 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f31c11c4d16c149a6db51bb4968c56, type: 3}
   m_Name: M_n03
   m_EditorClassIdentifier: 
+  WorldSprite: {fileID: 0}
+  Icon: {fileID: 0}
+  maxHp: 100
+  maxMana: 80
+  attack: 20
+  defense: 10
+  luck: 5
+  speed: 5
   MonsterID: M_n03
   MonsterName: "\uB291\uB300"
   MonsterType: 0
-  StatData: {fileID: 0}
-  WorldSprite: {fileID: 0}
-  Icon: {fileID: 0}
+  startSkills: []
+  startingSkills: []
+  ypDrop: 50
+  expDrop: 50
+  dropItems:
+  - itemData: {fileID: 11400000, guid: 6100e50b0f2df1843a7dfac6a3a1b7ec, type: 2}
+    dropChance: 1
+    amount: 1

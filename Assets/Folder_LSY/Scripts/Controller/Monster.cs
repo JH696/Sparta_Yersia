@@ -31,4 +31,52 @@ public class Monster : BaseCharacter
             spriteRenderer.sprite = monsterData.WorldSprite;
         }
     }
+
+    protected override void CharacterDie()
+    {
+        KillCountUP();
+        DropItem();
+    }
+
+    private void DropItem()
+    {
+        BattleReward reward = new BattleReward();
+
+        float totalChance = 0;
+
+        // 총 확률 합산
+        foreach (DropItemData i in MonsterData.dropItems)
+        {
+            totalChance += i.dropChance;
+        }
+
+        // 랜덤 값 뽑기
+        float roll = Random.Range(0f, totalChance);
+        float current = 0f;
+
+        ItemData selectedItem = null;
+
+        // 누적 확률로 아이템 선택
+        foreach (DropItemData i in MonsterData.dropItems)
+        {
+            current += i.dropChance;
+            if (roll < current)
+            {
+                selectedItem = i.itemData;
+                break;
+            }
+        }
+
+        // 보상 세팅
+        reward.RewardEXP = MonsterData.expDrop;
+        reward.RewardYP = MonsterData.ypDrop;
+        reward.DropItem = selectedItem;
+
+        B_Manager.Instance.AddBattleRewards(reward);
+    }
+
+    private void KillCountUP()
+    {
+        GameManager.Instance.Player.GetComponent<Player>().Quest.KillMonster(MonsterData);
+    }
 }

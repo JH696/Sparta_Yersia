@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class B_TargetSystem : MonoBehaviour
 {
@@ -15,7 +18,8 @@ public class B_TargetSystem : MonoBehaviour
     [SerializeField] private ItemData useItem;
 
     [Header("타겟 리스트")]
-    [SerializeField] private List<B_CharacterSlot> targets;
+    [SerializeField] private List<B_CharacterSlot> aTargets;
+    [SerializeField] private List<B_MonsterSlot> mTargets;
 
     [Header("최대 타겟 수")]
     [SerializeField] private float maxCount;
@@ -51,61 +55,89 @@ public class B_TargetSystem : MonoBehaviour
 
                 if (hit.collider != null)
                 {
-                    B_CharacterSlot target = hit.collider.GetComponent<B_CharacterSlot>();
+                    B_CharacterSlot aTarget = hit.collider.GetComponent<B_CharacterSlot>();
+                    B_MonsterSlot mTarget = hit.collider.GetComponent<B_MonsterSlot>();
 
-                    if (target.Character != null)
+                    if (aTarget != null)
                     {
-                        AddTarget(target);
+                        AddAllyTarget(aTarget);
+                    }
+                    else if (mTarget != null)
+                    {
+                        AddEnemyTarget(mTarget);
                     }
                     else
                     {
-                        Debug.Log("캐릭터가 존재하지 않습니다.");
+                        Debug.Log("타겟이 없습니다");
                     }
-                }
-                else
-                {
-                    Debug.Log("클릭한 위치에 콜라이더 없음");
                 }
             }
         }
     }
 
-    private void AddTarget(B_CharacterSlot target)
+    private void AddAllyTarget(B_CharacterSlot target)
     {
         // 이미 타겟에 포함된 경우 → 제거
-        if (targets.Contains(target))
+        if (aTargets.Contains(target))
         {
-            Debug.Log($"타겟 제거됨: {target.name}");
-            targets.Remove(target);
+            aTargets.Remove(target);
             target.ResetPointer();
             return;
         }
 
         // 타겟 수가 제한 미만이면 → 추가
-        if (targets.Count < maxCount)
+        if (aTargets.Count + mTargets.Count < maxCount)
         {
-            Debug.Log($"타겟 추가됨: {target.name}");
-            targets.Add(target);
+            aTargets.Add(target);
             target.SetPointer();
             return;
         }
 
-        // 타겟 수가 제한 이상이면 → 가장 오래된 타겟 교체
-        Debug.Log($"타겟 변경됨: {targets[0].name} -> {target.name}");
-        targets[0].ResetPointer();
-        targets.RemoveAt(0);
-        targets.Add(target);
-        target.SetPointer();
+        if (aTargets.Count != 0)
+        {
+            // 타겟 수가 제한 이상이면 → 가장 오래된 타겟 교체
+            aTargets[0].ResetPointer();
+            aTargets.RemoveAt(0);
+            aTargets.Add(target);
+            target.SetPointer();
+        }
     }
 
-    public void SetBeforeUI(GameObject gameObject)
+    private void AddEnemyTarget(B_MonsterSlot target)
     {
-        gameObject.SetActive(false);
-        beforeObj = gameObject;
+        // 이미 타겟에 포함된 경우 → 제거
+        if (mTargets.Contains(target))
+        {
+            mTargets.Remove(target);
+            target.ResetPointer();
+            return;
+        }
+
+        // 타겟 수가 제한 미만이면 → 추가
+        if (mTargets.Count + aTargets.Count < maxCount)
+        {
+            mTargets.Add(target);
+            target.SetPointer();
+            return;
+        }
+
+        if (mTargets.Count != 0)
+        {
+            // 타겟 수가 제한 이상이면 → 가장 오래된 타겟 교체
+            mTargets[0].ResetPointer();
+            mTargets.RemoveAt(0);
+            mTargets.Add(target);
+            target.SetPointer();
+        }
     }
     
-    public void SkillTargeting(SkillStatus skill)
+    public void SkillTargeting(SkillStatus skill, GameObject gameObject)
     {
+        if (skill.Data.ManaCost > chars.SpotLight.Character.CurrentMana) return;
+
+        gameObject.SetActive(false);
+        beforeObj = gameObject;
+
         isTargeting = true;
         useSkill = skill;
         maxCount = skill.Data.Range;
@@ -113,8 +145,11 @@ public class B_TargetSystem : MonoBehaviour
         allowBtn.gameObject.SetActive(true);
     }
 
-    public void ItemTargeting(ItemData item)
+    public void ItemTargeting(ItemData item, GameObject gameObject)
     {
+        gameObject.SetActive(false);
+        beforeObj = gameObject;
+
         isTargeting = true;
         useItem = item; 
         maxCount = 1;
@@ -122,8 +157,11 @@ public class B_TargetSystem : MonoBehaviour
         allowBtn.gameObject.SetActive(true);
     }
 
-    public void Targeting()
+    public void Targeting(GameObject gameObject)
     {
+        gameObject.SetActive(false);
+        beforeObj = gameObject;
+
         isTargeting = true;
         maxCount = 1;
         cancelBtn.gameObject.SetActive(true);
@@ -132,54 +170,66 @@ public class B_TargetSystem : MonoBehaviour
 
     private void OnAllowButton()
     {
-        if (targets.Count == 0)
+        if (aTargets.Count == 0 && mTargets.Count == 0)
         {
             Debug.Log("지정된 대상이 없습니다.");
             return;
         }
 
+        B_CharacterSlot slot = chars.SpotLight;
+
+        List<BaseCharacter> targets = new List<BaseCharacter>();
+
+        targets.AddRange(aTargets
+            .Where(slot => slot.Character != null)
+            .Select(slot => slot.Character));
+
+        targets.AddRange(mTargets
+            .Where(slot => slot.Monster != null)
+            .Select(slot => slot.Monster));
+
         DamageCalculator cal = new DamageCalculator();
 
         if (useSkill != null)
         {
-            foreach (B_CharacterSlot target in targets)
+            slot.Character.HealMana(-useSkill.Data.ManaCost);
+            useSkill.Use();
+
+            foreach (BaseCharacter target in targets)
             {
-                target.Character.TakeDamage(cal.DamageCalculate(chars.SpotLight.Character, target.Character, useSkill.Data));
-                useSkill.Use();
-                target.ChangeStatus();
+                target.TakeDamage(cal.DamageCalculate(slot.Character, target, useSkill.Data));
             }
         }
         else if (useItem != null)
         {
-            GameManager.Instance.Player.GetComponent<PlayerInventory>().RemoveItem(useItem);
+            GameManager.Instance.Player.GetComponent<Player>().Inventory.RemoveItem(useItem);
 
-            foreach (B_CharacterSlot target in targets)
+            foreach (BaseCharacter target in targets)
             {
                 foreach (var item in useItem.ItemStats)
                 {
                     switch (item.eStat)
                     {
                         case EStatType.MaxHp:
-                            target.Character.HealHP(item.value);
+                            target.HealHP(item.value);
                             break;
                         case EStatType.MaxMana:
-                            target.Character.HealMana(item.value);
+                            target.HealMana(item.value);
                             break;
 
                     }
                 }
             }
+
         }
         else
         {
-            foreach (B_CharacterSlot target in targets)
+            foreach (BaseCharacter target in targets)
             {
-                target.Character.TakeDamage(cal.DamageCalculate(chars.SpotLight.Character, target.Character, null));
-                target.ChangeStatus();
+                target.TakeDamage(cal.DamageCalculate(slot.Character, target, null));
             }
         }
 
-        chars.SpotLight.ChangeStatus();
         chars.ResetSpotLight();
         ResetTargeting();
     }
@@ -191,11 +241,19 @@ public class B_TargetSystem : MonoBehaviour
         useItem = null;
         beforeObj = null;
         maxCount = 0;
-        foreach (B_CharacterSlot target in targets)
+
+        foreach (B_CharacterSlot target in aTargets)
         {
             target.ResetPointer();
         }
-        targets.Clear();
+
+        foreach (B_MonsterSlot target in mTargets)
+        {
+            target.ResetPointer();
+        }
+
+        aTargets.Clear();
+        mTargets.Clear();
         cancelBtn.gameObject.SetActive(false);
         allowBtn.gameObject.SetActive(false);
     }

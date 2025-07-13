@@ -4,18 +4,22 @@ using UnityEngine;
 public class B_Characters : MonoBehaviour
 {
     [Header("캐릭터 슬롯")]
-    [SerializeField] private List<B_CharacterSlot> slots;
+    [SerializeField] private List<B_CharacterSlot> cSlots;
 
-    [Header("행동력 게이지")]
-    [SerializeField] private List<B_ActionGauge> gauges;
+    [Header("몬스터 슬롯")]
+    [SerializeField] private List<B_MonsterSlot> mSlots;
 
     [Header("배틀 UI")]
-    [SerializeField] private BattleUI ui;
+    [SerializeField] private BattleButton ui;
 
     [Header("행동 중인 캐릭터")]
     [SerializeField] private B_CharacterSlot spotLight;
 
-    public List<B_CharacterSlot> Slots => slots;
+    [Header("전투 종료 여부")]
+    [SerializeField] private bool isOver;
+
+    public List<B_CharacterSlot> CSlots => cSlots;
+    public List<B_MonsterSlot> MSlots => mSlots;
     public B_CharacterSlot SpotLight => spotLight;
 
     private void Awake()
@@ -23,34 +27,31 @@ public class B_Characters : MonoBehaviour
         B_Manager.Instance.SetCharacters(this);
     }
 
-    private void Start()
-    {
-        LinkAllGauges();
-    }
-
     private void Update()
     {
         IncreaseAPoint();
     }
 
+    public void StopBattle()
+    {
+        isOver = true;
+    }
+
     public void SetAllySlots()
     {
-        List<B_CharacterSlot> allySlots = slots.FindAll(slot => slot.Type == ECharacterType.Ally);
         List<GameObject> myParty = GameManager.Instance.Player.GetComponent<PlayerParty>().GetFullPartyMembers();
 
         for (int i = 0; i < myParty.Count; i++)
         {
-            allySlots[i].SetCharSlot(myParty[i]);
+            CSlots[i].SetCharSlot(myParty[i]);
         }
     }
 
     public void SetEnemySlots(List<GameObject> monsters)
     {
-        List<B_CharacterSlot> enemySlots = slots.FindAll(slot => slot.Type == ECharacterType.Enemy);
-
-        for (int i = 0;i < monsters.Count; i++)
+        for (int i = 0; i < monsters.Count; i++)
         {
-            enemySlots[i].SetCharSlot(monsters[i]);
+            MSlots[i].SetMonSlot(monsters[i]);
         }
     }
 
@@ -63,25 +64,29 @@ public class B_Characters : MonoBehaviour
     // 전체 슬롯 행동력 상승 메서드
     private void IncreaseAPoint()
     {
-        foreach (var slot in slots)
-        {
-            if (!CharHasTurn())
-            {
-                slot.IncreaseAPoint();
+        if (CharHasTurn() || isOver) return;
 
-                if (slot.HasTurn())
-                {
-                    spotLight = slot;
-                    ui.SetButton(spotLight.transform);
-                    break;
-                }
+        foreach (var slot in CSlots)
+        {
+            slot.IncreaseAPoint();
+
+            if (slot.HasTurn())
+            {
+                spotLight = slot;
+                ui.SetButton(spotLight.transform);
+                break;
             }
+        }
+
+        foreach (var slot in MSlots)
+        {
+            slot.IncreaseAPoint();
         }
     }
 
     private bool CharHasTurn()
     {
-        foreach (var slot in slots)
+        foreach (var slot in CSlots)
         {
             if (slot.HasTurn())
             {
@@ -90,19 +95,5 @@ public class B_Characters : MonoBehaviour
         }
 
         return false;
-    }
-
-    private void LinkAllGauges()
-    {
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (gauges[i] == null)
-            {
-                Debug.Log("[B_Characters]: 슬롯의 수와 게이지의 수가 일치하지 않습니다.");
-                break;
-            }
-
-            gauges[i].SetGauge(slots[i]);
-        }
     }
 }

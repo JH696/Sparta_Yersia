@@ -5,11 +5,14 @@ public class Player : BaseCharacter, ILevelable
 {
     [Header("플레이어 데이터")]
     [SerializeField] private PlayerData playerData;
+    [SerializeField] private PlayerParty party;
     [SerializeField] private PlayerQuest quest;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private CharacterSkill skill;
 
     public override Sprite Icon => playerData.Icon; // 읽기 전용
+
+    public PlayerParty Party => party;
     public CharacterData PlayerData => playerData; // 읽기 전용
     public PlayerQuest Quest => quest; // 읽기 전용
     public PlayerInventory Inventory => inventory; // 읽기 전용

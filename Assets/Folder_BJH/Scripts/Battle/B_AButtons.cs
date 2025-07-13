@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class B_AButtons : MonoBehaviour
@@ -41,8 +42,7 @@ public class B_AButtons : MonoBehaviour
     {
         Debug.Log("기본 공격");
 
-        targetSystem.SetBeforeUI(this.gameObject);
-        targetSystem.Targeting();
+        targetSystem.Targeting(this.gameObject);
     }
 
     public void OnSkillButton()
@@ -66,8 +66,6 @@ public class B_AButtons : MonoBehaviour
     {
         Debug.Log("아이템 액션");
 
-        if (GameManager.Instance.Player.GetComponent<PlayerInventory>().GetAllItems().Count < 0)  return;
-
         this.gameObject.SetActive(false);
 
         dBtns.SetItemButton();
@@ -84,8 +82,13 @@ public class B_AButtons : MonoBehaviour
 
     public void OnRunBtn()
     {
-        Debug.Log("도주");
+        float roll = Random.Range(0f, 100f);
+        if (roll <= chars.SpotLight.Character.Luck)
+        {
+            SceneManager.LoadSceneAsync("Scene_BJH");
+        }
 
         this.gameObject.SetActive(false);
+        chars.ResetSpotLight();
     }
 }
