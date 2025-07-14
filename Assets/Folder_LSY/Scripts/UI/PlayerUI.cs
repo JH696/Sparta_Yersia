@@ -16,6 +16,8 @@ public class PlayerUI : MonoBehaviour
 
     private void Start()
     {
+        player = GameManager.Instance.Player.GetComponent<Player>();
+
         // 프로필 초기화 (플레이어가 할당되어 있을 경우)
         if (player != null && player.PlayerData != null && ProfileImg != null)
         {

@@ -17,6 +17,9 @@ public class StatUIController : MonoBehaviour
 
     private void Start()
     {
+        player = GameManager.Instance.Player.GetComponent<Player>();
+
+
         if (statsUIObject != null) statsUIObject.SetActive(false);
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
         if (PetInfo != null) PetInfo.SetActive(false);

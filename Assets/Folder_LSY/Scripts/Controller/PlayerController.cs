@@ -20,9 +20,9 @@ public class PlayerController : MonoBehaviour
 
     private Player player;
 
-    private void Awake()
+    private void Start()
     {
-        player = GetComponent<Player>();
+        player = GameManager.Instance.Player.GetComponent<Player>();
     }
 
     private void Update()
@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
         {
             if (testPetPrefab != null)
             {
+                Debug.Log(player);
+
                 // 프리팹을 Player의 AddPetFromPrefab 메서드에 넘겨서 처리
                 player.AddPetFromPrefab(testPetPrefab);
             }
@@ -61,6 +63,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInput()
     {
+        if (DialogueManager.Instance.IsDialogueActive) return;
+
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 mousePos = Input.mousePosition;
