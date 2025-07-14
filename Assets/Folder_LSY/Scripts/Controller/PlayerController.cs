@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [Header("상호작용")]
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
     [SerializeField, Tooltip("상호작용 대상이 될 NPC의 레이어 마스크")] private LayerMask npcLayerMask;
-
+    [SerializeField, Tooltip("이동이 가능한 위치 레이어")] private LayerMask moveableLayerMask;
     [Header("테스트용 펫 프리팹")]
     [SerializeField] private Pet testPetPrefab;
 
@@ -67,13 +67,19 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = 10f;
-            targetPos = Camera.main.ScreenToWorldPoint(mousePos);
-            targetPos.z = 0f;
-            isMoving = true;
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouseWorldPos.z = 0f;
+
+            // 지정된 레이어에 대해서만 Raycast
+            RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, 0f, moveableLayerMask);
+            if (hit.collider != null)
+            {
+                targetPos = mouseWorldPos;
+                isMoving = true;
+            }
         }
     }
+
 
     private void HandleMovement()
     {

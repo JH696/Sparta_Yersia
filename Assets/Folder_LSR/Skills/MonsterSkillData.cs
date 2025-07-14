@@ -23,7 +23,7 @@ public class MonsterSkillData : SkillBase
     public override string SkillName => skillName;
     public override ESkillType SkillType => type;
     public override ETier SkillTier => tier;
-    public override int Damage => damage;
+    public override float Damage => damage;
     public override int Coefficient => coefficient;
     public override int Range => range;
     public override int Cooldown => cooldown;

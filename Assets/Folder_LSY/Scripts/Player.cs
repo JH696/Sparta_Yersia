@@ -178,7 +178,7 @@ public class Player : BaseCharacter, ILevelable
         if (petPrefab == null) return;
 
         // 이미 보유 중인지 PetData 기준으로 검사
-        if (ownedPets.Exists(p => p.PetData == petPrefab.PetData)) return;
+        //if (ownedPets.Exists(p => p.PetData == petPrefab.PetData)) return;
 
         Pet newPet = Instantiate(petPrefab);
         newPet.gameObject.SetActive(false); // 보유한 펫은 기본 비활성화

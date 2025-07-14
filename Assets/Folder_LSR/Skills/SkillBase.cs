@@ -8,7 +8,7 @@ public abstract class SkillBase : ScriptableObject
     public abstract string SkillName { get; }
     public abstract ESkillType SkillType { get; }
     public abstract ETier SkillTier { get; }
-    public abstract int Damage { get; }
+    public abstract float Damage { get; }
     public abstract int Coefficient { get; }
     public abstract int Range { get; }
     public abstract int Cooldown { get; }

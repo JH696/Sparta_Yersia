@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     private DialogueUI dialogueUI;
     private PlayerUI playerUI;
     private StatUIController statUIController;
+    private PetUIController petUIController;
     //private SkillTreeUI skillTreeUI;
 
     private void Awake()
@@ -39,6 +40,7 @@ public class UIManager : MonoBehaviour
         dialogueUI = FindObjectOfType<DialogueUI>(includeInactive: true);
         playerUI = FindObjectOfType<PlayerUI>(includeInactive: true);
         statUIController = FindObjectOfType<StatUIController>(includeInactive: true);
+        petUIController = FindObjectOfType<PetUIController>(includeInactive: true);
         //skillTreeUI = FindObjectOfType<SkillTreeUI>(includeInactive: true);
     }
 
@@ -169,4 +171,14 @@ public class UIManager : MonoBehaviour
     //    }
     //    skillTreeUI.Hide();
     //}
+
+    public void ShowPetUI()
+    {
+        petUIController.gameObject.SetActive(true);
+    }
+
+    public void HidePetUI()
+    {
+        petUIController.gameObject.SetActive(false);
+    }
 }
