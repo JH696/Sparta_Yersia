@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Portal : MonoBehaviour, IInteractable
 {
+    [SerializeField] private Transform playerModel;
+
     // 이동 대상 위치
     [SerializeField] private Transform destination;
 
@@ -37,7 +39,7 @@ public class Portal : MonoBehaviour, IInteractable
         yield return portalEffect.PlayBeforeTeleport();
 
         // 실제 위치 이동
-        GameManager.Instance.Player.transform.position = destination.position;
+        playerModel.position = destination.position;    
 
         // 이동 후 연출 실행
         yield return portalEffect.PlayAfterTeleport();

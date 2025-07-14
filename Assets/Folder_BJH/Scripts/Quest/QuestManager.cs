@@ -83,15 +83,16 @@ public class QuestManager : MonoBehaviour
     // 퀘스트 보상 획득
     private void GetQRawards(QuestData questData)
     {
+        Player player = GameManager.Instance.Player.GetComponent<Player>();
+
         foreach (ItemData item in questData.RewardItems)
         {
-            GameManager.Instance.Player.GetComponent<PlayerInventory>().AddItem(item, 1);
+            player.GetComponent<PlayerInventory>().AddItem(item, 1);
         }
         
-        foreach (PetData pet in questData.RewardPets)
+        foreach (Pet pet in questData.RewardPets)
         {
-            Debug.Log($"펫 획득: {pet.PetName}");
-            //TestPlayer.Instance.playerQuest.AddQuestItem(pet); 
+            player.AddPetFromPrefab(pet);
         }
 
         GameManager.Instance.Player.GetComponent<Player>().AddExp(questData.RewardExp);

@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public struct BattleReward
 {
@@ -27,6 +28,13 @@ public class B_Manager : MonoBehaviour
     [Header("캐릭터")]
     [SerializeField] private B_Characters chars;
 
+    [Header("월드 위치 저장")]
+    [SerializeField] private float positionX;
+    [SerializeField] private float positionY;
+
+    [Header("충돌체")]
+    [SerializeField] private GameObject trigger;
+
     [Header("배틀 UI")]
     [SerializeField] private BattleUI ui;
 
@@ -35,6 +43,10 @@ public class B_Manager : MonoBehaviour
 
     public event System.Action InBattle;
 
+    public GameObject Trigger => trigger;
+
+    public float X => positionX;
+    public float Y => positionY;
 
     private void Awake()
     {
@@ -49,6 +61,16 @@ public class B_Manager : MonoBehaviour
         }
     }
 
+    public void SetTrigger(GameObject gameObject)
+    {
+        trigger = gameObject;   
+    }
+
+    public void SavaModelPosition(Transform transform)
+    {
+        positionX = transform.position.x;
+        positionY = transform.position.y;
+    }
 
     public void UpECount()
     {

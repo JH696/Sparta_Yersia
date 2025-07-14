@@ -5,6 +5,8 @@ public class Player : BaseCharacter, ILevelable
 {
     [Header("플레이어 데이터")]
     [SerializeField] private PlayerData playerData;
+
+    [Header("플레이어 정보")]
     [SerializeField] private PlayerParty party;
     [SerializeField] private PlayerQuest quest;
     [SerializeField] private PlayerInventory inventory;
