@@ -31,9 +31,8 @@ public class StatsUI : MonoBehaviour
     [Header("진화 단계 미달성 시 대체 이미지")]
     [SerializeField] private Sprite unknownIcon;  // '?' 이미지
 
-    [Header("레벨 / 경험치 UI")]
+    [Header("레벨 UI")]
     [SerializeField] private TMP_Text LevelTxt;
-    [SerializeField] private Image ExpGauge;
 
     [Header("기본값 (널일 때 표시용)")]
     [SerializeField] private string defaultPetName = "이름";
@@ -189,19 +188,11 @@ public class StatsUI : MonoBehaviour
         {
             if (LevelTxt != null)
                 LevelTxt.text = $"Lv. {levelable.Level}";
-
-            if (ExpGauge != null)
-                ExpGauge.fillAmount = (levelable.ExpToNextLevel > 0)
-                    ? (float)levelable.CurrentExp / levelable.ExpToNextLevel
-                    : 0f;
         }
         else
         {
             if (LevelTxt != null)
                 LevelTxt.text = "Lv";
-
-            if (ExpGauge != null)
-                ExpGauge.fillAmount = 0f;
         }
     }
 }
