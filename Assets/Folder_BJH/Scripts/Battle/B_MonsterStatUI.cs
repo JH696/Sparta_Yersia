@@ -21,7 +21,7 @@ public class B_MonsterStatUI : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle
             (canvasRect, screenPos, Camera.main, out localPoint);
 
-        localPoint.y += 1.35f;
+        localPoint.y += 1.25f;
 
         this.GetComponent<RectTransform>().localPosition = localPoint;
         this.gameObject.SetActive(true);

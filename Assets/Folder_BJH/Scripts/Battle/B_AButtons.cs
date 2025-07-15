@@ -22,7 +22,9 @@ public class B_AButtons : MonoBehaviour
     [SerializeField] private B_TargetSystem targetSystem;
 
     public void SetActionButton()
-    { 
+    {
+        Debug.Log("버튼 활성화");
+
         this.gameObject.SetActive(true);
 
         attackBtn.onClick.RemoveAllListeners();
