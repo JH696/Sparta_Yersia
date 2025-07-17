@@ -4,11 +4,11 @@ using UnityEngine;
 
 public enum E_EquipType
 {
-    Weapon,
-    Hat,
-    Accessory,
-    Clothes,
-    Shoes,
+    Weapon = 0,
+    Hat = 1,
+    Accessory = 2,
+    Clothes = 3,
+    Shoes = 4,
 }
 
 public struct ItemValue
@@ -51,7 +51,7 @@ public class EquipItemData : BaseItem
     [Header("가격")]
     public int Price;
 
-    public void Equip(CharacterStats stats)
+    public void Equip(CharacterStatus status)
     {
         if (IsEquipped) return;
 
@@ -61,11 +61,11 @@ public class EquipItemData : BaseItem
 
         foreach (ItemValue iv in Values)
         {
-            stats.IncreaseStat(iv.Stat, iv.Value);
+            status.stat.IncreaseStat(iv.Stat, iv.Value);
         }
     }   
 
-    public void Unequip(CharacterStats stats)
+    public void Unequip(CharacterStatus status)
     {
         if (!IsEquipped) return;
 
@@ -73,7 +73,7 @@ public class EquipItemData : BaseItem
 
         foreach (ItemValue iv in Values)
         {
-            stats.DecreaseStat(iv.Stat, iv.Value);
+            status.stat.DecreaseStat(iv.Stat, iv.Value);
         }
     }
 
@@ -101,9 +101,24 @@ public class ConsumeItemData : BaseItem
     [Header("가격")]
     public int Price;
 
-    public void Use()
+    public void Consume(CharacterStatus status)
     {
-        // 플레이어 능력치 증가
+        foreach (ItemValue iv in Values)
+        {
+            if (iv.Stat == EStatType.MaxHp)
+            {
+                status.RecoverHealth(iv.Value);
+            }
+            else if (iv.Stat == EStatType.MaxMana)
+            {
+                status.RecoverMana(iv.Value);
+            }
+            else
+            {
+                // status.stat.IncreaseStat(iv.Stat, iv.Value);
+                // 지속 시간 적용
+            }
+        }
     }
 
     public override E_CategoryType GetCategory()

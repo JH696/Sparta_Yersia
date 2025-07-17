@@ -59,7 +59,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     }
 
     // 인벤토리/장착판넬 공통 슬롯 초기화
-    public void SetSlot(ItemStatus status, int count, Action<ItemStatus> onClick)
+    public void SetSlot(ItemStatus status, Action<ItemStatus> onClick)
     {
         if (status == null) return;
 
@@ -68,7 +68,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
         icon.sprite = status.Data.Icon;
         icon.enabled = true;
-        stack.text = count.ToString();
+        stack.text = status.Stack.ToString();
+
+        status.StatusChanged += RefreshSlot; // 상태 변경 이벤트 구독
     }
 
     // IPointerClickHandler 인터페이스 구현(클릭 이벤트 처리)
@@ -85,17 +87,30 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         onClickAction = onclick;
     }
 
+    public void RefreshSlot()
+    {
+        if (status.Stack <= 0)
+        {
+            icon.sprite = null;
+            icon.enabled = false;
+            stack.text = string.Empty;
+            return;
+        }
+
+        icon.sprite = status.Data.Icon;
+        icon.enabled = true;
+
+        if (status.Stack > 1)
+        {
+            stack.text = status.Stack.ToString();
+        }
+    }
+
     // 아이템 슬롯 비우기
     public void SlotClear()
     {
         status = null;
         onClickAction = null;
-
-        icon.sprite = null;
-        icon.enabled = false;
-
-        stack.text = string.Empty;
-
         //SelectSlot(false);
     }
 

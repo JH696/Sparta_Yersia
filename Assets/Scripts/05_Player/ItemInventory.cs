@@ -9,8 +9,8 @@ public class ItemStatus
     public int Stack { get; private set; }
     public bool IsFull => Stack == Data.MaxStack;
 
-    public event Action StatusChanged;
-
+    public event Action StatusChanged; // 아이템 상태 변경 이벤트
+    public event Action OnEmpty; // 아이템이 비었을 때 호출
     public ItemStatus(BaseItem data)
     {
         Data = data;
@@ -20,15 +20,21 @@ public class ItemStatus
     public void UseItem()
     {
         Stack--;
+
+        if (Stack == 0)
+        {
+            OnEmpty?.Invoke();
+        }
+
         StatusChanged?.Invoke();
     }
+
 
     public void StackItem()
     {
         if (IsFull) return;
 
         Stack++;
-        StatusChanged?.Invoke();
     }
 
     /// <summary>
@@ -52,11 +58,12 @@ public class ItemInventory
 
     public event Action InventoryChanged;
 
-
     // 아이템 인벤토리 아이템 추가
     public void AddItem(BaseItem data)
     {
         ItemStatus status = new ItemStatus(data);
+
+        status.OnEmpty += () => RemoveItem(status.Data);
 
         if (HasItem(data))
         {
@@ -84,7 +91,6 @@ public class ItemInventory
 
         items.Remove(items[GetItemIndex(data)]);
         
-
         InventoryChanged?.Invoke();
     }
 
