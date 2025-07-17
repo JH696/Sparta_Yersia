@@ -178,7 +178,7 @@ public class B_TargetSystem : MonoBehaviour
 
         B_CharacterSlot slot = chars.SpotLight;
 
-        List<BaseCharacter> targets = new List<BaseCharacter>();
+        List<CharacterStatus> targets = new List<CharacterStatus>();
 
         targets.AddRange(aTargets
             .Where(slot => slot.Character != null)
@@ -195,7 +195,7 @@ public class B_TargetSystem : MonoBehaviour
             slot.Character.HealMana(-useSkill.Data.ManaCost);
             useSkill.Use();
 
-            foreach (BaseCharacter target in targets)
+            foreach (CharacterStatus target in targets)
             {
                 target.TakeDamage(cal.DamageCalculate(slot.Character, target, useSkill.Data));
             }
@@ -204,7 +204,7 @@ public class B_TargetSystem : MonoBehaviour
         {
             GameManager.Instance.Player.GetComponent<Player>().Inventory.RemoveItem(useItem);
 
-            foreach (BaseCharacter target in targets)
+            foreach (CharacterStatus target in targets)
             {
                 foreach (var item in useItem.ItemStats)
                 {
@@ -224,7 +224,7 @@ public class B_TargetSystem : MonoBehaviour
         }
         else
         {
-            foreach (BaseCharacter target in targets)
+            foreach (CharacterStatus target in targets)
             {
                 target.TakeDamage(cal.DamageCalculate(slot.Character, target, null));
             }

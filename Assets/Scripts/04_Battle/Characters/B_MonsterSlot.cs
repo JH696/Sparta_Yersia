@@ -3,7 +3,7 @@
 public class B_MonsterSlot : MonoBehaviour
 {
     [Header("등록된 몬스터")]
-    [SerializeField] private BaseCharacter monster;
+    [SerializeField] private CharacterStatus monster;
 
     [Header("몬스터 상태 UI")]
     [SerializeField] private B_MonsterStatUI mStatUI;
@@ -18,7 +18,7 @@ public class B_MonsterSlot : MonoBehaviour
     [Header("포인터")]
     [SerializeField] private GameObject pointer;
 
-    public BaseCharacter Monster => monster;
+    public CharacterStatus Monster => monster;
 
     public void Start()
     {
@@ -32,7 +32,7 @@ public class B_MonsterSlot : MonoBehaviour
 
     public void SetMonSlot(GameObject monster)
     {
-        this.monster = monster.GetComponent<BaseCharacter>();
+        this.monster = monster.GetComponent<CharacterStatus>();
         aGauge.SetGauge(null, this);
         mStatUI.SetGauge(this);
         this.gameObject.SetActive(true);

@@ -38,9 +38,9 @@ public class StatsUI : MonoBehaviour
     [SerializeField] private string defaultPetName = "이름";
     [SerializeField] private string defaultEvoStage = "성장 단계";
 
-    private BaseCharacter currentCharacter;
+    private CharacterStatus currentCharacter;
 
-    public void SetTarget(BaseCharacter character)
+    public void SetTarget(CharacterStatus character)
     {
         currentCharacter = character; // null이어도 그대로 저장
         RefreshUI();
