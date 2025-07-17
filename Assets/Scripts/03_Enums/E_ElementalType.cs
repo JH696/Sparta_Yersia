@@ -1,4 +1,4 @@
-﻿public enum ESkillType
+﻿public enum E_ElementalType
 {
     Fire,
     Ice,

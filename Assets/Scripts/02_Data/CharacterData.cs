@@ -2,23 +2,16 @@
 using UnityEngine;
 
 [Serializable]
-public abstract class CharacterData : ScriptableObject, ICharacterStatData
+public class StatData : ScriptableObject
 {
-    public Sprite WorldSprite;
-    public Sprite Icon;
-
     [Header("기초 스탯")]
-    [SerializeField] private float maxHp = 100f;
-    [SerializeField] private float maxMana = 80f;
-    [SerializeField] private float attack = 20f;
-    [SerializeField] private float defense = 10f;
-    [SerializeField] private float luck = 5f;
-    [SerializeField] private float speed = 10f;
+    public float MaxHp = 100f;
+    public float MaxMana = 80f;
+    public float Attack = 20f;
+    public float Defense = 10f;
+    public float Luck = 5f;
+    public float Speed = 10f;
 
-    public float MaxHp => maxHp;
-    public float MaxMana => maxMana;
-    public float Attack => attack;
-    public float Defense => defense;
-    public float Luck => luck;
-    public float Speed => speed;
+    [Header("스탯 상승치")]
+    public float Multiplier = 1.1f;
 }

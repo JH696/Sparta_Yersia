@@ -1,8 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [System.Serializable]
 public class CharacterStats
 {
+    // 레벨 관련
+    public int Level;
+    public int Exp;
+    public int MaxExp;
+    // 기본 능력치
     public float MaxHp;
     public float CurrentHp;
     public float MaxMana;
@@ -11,8 +17,11 @@ public class CharacterStats
     public float Defense;
     public float Luck;
     public float Speed;
+    // 이벤트
+    public event System.Action LevelUP; // 예: 플레이어 스킬 포인트 획득, 펫 스프라이트 변화
+    public event System.Action StatusChanged; // UI 연결
 
-    public void SetBaseStats(CharacterData data)
+    public void SetBaseStats(StatData data)
     {
         if (data == null) return;
 
@@ -28,9 +37,17 @@ public class CharacterStats
         Speed = data.Speed;
     }
 
-    // 스탯을 배율로 증가 (레벨업, 진화)
+    public void AddExp(int amount)
+    {
+        Exp += amount;
 
-    public void MultiplyStats(float multiplier)
+        if (Exp >= MaxExp)
+        {
+            //levelup
+        }
+    }
+
+    public void LevelUp(float multiplier)
     {
         MaxHp *= multiplier;
         CurrentHp = MaxHp;
@@ -42,25 +59,73 @@ public class CharacterStats
         Defense *= multiplier;
         Luck *= multiplier;
         Speed *= multiplier;
+
+        LevelUP?.Invoke();
     }
 
-    // 현재 HP/Mana가 Max를 넘지 않도록 조정
-
-    public void SetCurrentHp(float hp)
+    public void SetCurrentHp(float amount)
     {
+        float hp = CurrentHp + amount;
         CurrentHp = Mathf.Clamp(hp, 0, MaxHp);
     }
 
-    public void SetCurrentMana(float mana)
+    public void SetCurrentMana(float amount)
     {
+        float mana = CurrentMana + amount;
         CurrentMana = Mathf.Clamp(mana, 0, MaxMana);
     }
 
-
-    // 스탯을 증가시키는 메소드 - 스킬에 사용 (선량 추가- 만약 이미 추가하신것있으면 지워도 됨. 임시로 추가한거임)
-    public void AddMaxMana(float amount)
+    public void IncreaseStat(EStatType statType, float amount)
     {
-        MaxMana += amount;
-        CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana);
+        switch (statType)
+        {
+            case EStatType.MaxHp:
+                MaxHp += Mathf.Max(amount, 0); break;
+
+            case EStatType.MaxMana:
+                MaxMana += Mathf.Max(amount, 0); break;
+
+            case EStatType.Attack:
+                Attack += Mathf.Max(amount, 0); break;
+
+            case EStatType.Defense:
+                Defense += Mathf.Max(amount, 0); break;
+
+            case EStatType.Luck:
+                Luck += Mathf.Max(amount, 0); break;
+
+            case EStatType.Speed:
+                Speed += Mathf.Max(amount, 0); break;
+
+            default:
+                return;
+        }
+    }
+
+    public void DecreaseStat(EStatType statType, float amount)
+    {
+        switch (statType)
+        {
+            case EStatType.MaxHp:
+                MaxHp -= Mathf.Max(amount, MaxHp); break;
+
+            case EStatType.MaxMana:
+                MaxMana -= Mathf.Max(amount, MaxMana); break;
+
+            case EStatType.Attack:
+                Attack -= Mathf.Max(amount, Attack); break;
+
+            case EStatType.Defense:
+                Defense -= Mathf.Max(amount, Defense); break;
+
+            case EStatType.Luck:
+                Luck -= Mathf.Max(amount, Luck); break;
+
+            case EStatType.Speed:
+                Speed -= Mathf.Max(amount, Speed); break;
+
+            default:
+                return;
+        }
     }
 }

@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public enum EItemCategory
-{
-    Equipment,
-    Consumable,
-    Quest,
-    All,
-}
-
-public enum EEquipType
+public enum E_EquipType
 {
     Weapon,
     Hat,
@@ -19,73 +11,117 @@ public enum EEquipType
     Shoes,
 }
 
-[CreateAssetMenu(fileName = "I_e01", menuName = "Data/ItemData")]
-public class ItemData : ScriptableObject
+public struct ItemValue
 {
-    [Header("아이템 카테고리")]
-    [SerializeField] private EItemCategory category;
+    public EStatType Stat;
+    public int Value;
+}
 
-    [Header("장비타입")]
-    [SerializeField] private EEquipType equipType;
+// 스킬 데이터 부모 클래스
+[System.Serializable]
+public abstract class BaseItem : ScriptableObject
+{
+    [Header("ID / 이름")]
+    public string ID;
+    public string Name;
 
-    public string ID => name;// ScriptableObject의 이름을 ID로 사용
-
-    [Header("표시할 이름")]
-    [SerializeField] private string itemName;
-    public string ItemName => itemName;
+    [Header("최대 중첩 수")]
+    public int MaxStack = 24;
 
     [Header("아이콘")]
-    [SerializeField] private Sprite icon;
-    public Sprite Icon => icon;
+    public Sprite Icon;
 
-    [Header("최대 소유가능 개수")]
-    [SerializeField] private int maxStack = 24;
-    public int MaxStack => maxStack;
+    public abstract E_CategoryType GetCategory();
+}
 
-    [Header("구매가")]
+// 장비 아이템
+[System.Serializable]
+[CreateAssetMenu(fileName = "I_e00", menuName = "Data/장비 아이템")]
+public class EquipItemData : BaseItem
+{
+    [Header("장비 타입")]
+    public E_EquipType Type;
+
+    [Header("장착 여부")]
+    public bool IsEquipped;
+
+    [Header("장비 성능")]
+    public List<ItemValue> Values;
+
+    [Header("가격")]
     public int Price;
 
-    [Header("아이템 효과")]
-    [SerializeField] private List<ItemStat> itemStats = new List<ItemStat>();
-
-    [Serializable]
-    public struct ItemStat
+    public void Equip(CharacterStats stats)
     {
-        public EStatType eStat;
-        public int value;
-    }
+        if (IsEquipped) return;
 
-    public IReadOnlyList<ItemStat> ItemStats => itemStats;
+        IsEquipped = true;
 
-    public EItemCategory Category => category;
-    public EEquipType EquipType => equipType;
+        if (Values.Count <= 0) return;
 
-    /// <summary>
-    /// EStatType에 해당하는 아이템 효과 값을 반환 (없으면 0 반환)
-    /// </summary>
-    public int GetStatValue(EStatType type)
-    {
-        foreach (var stat in itemStats)
+        foreach (ItemValue iv in Values)
         {
-            if (stat.eStat == type) return stat.value;
-
+            stats.IncreaseStat(iv.Stat, iv.Value);
         }
-        return 0; // 해당하는 효과가 없으면 0 반환
-    }
+    }   
 
-    // 인벤토리에서 소모형 아이템 사용 로직
-    public void OnUse()
+    public void Unequip(CharacterStats stats)
     {
-        Debug.Log($"소모형 아이템 사용됨: {itemName}");
-        // TODO: 아이템 사용 효과를 실제 게임 로직에 연결 -플레이어에서 
+        if (!IsEquipped) return;
+
+        IsEquipped = false;
+
+        foreach (ItemValue iv in Values)
+        {
+            stats.DecreaseStat(iv.Stat, iv.Value);
+        }
     }
 
-    // 인벤토리에서 장착형 아이템 장착 로직
-    public void OnEquip()
+
+    public override E_CategoryType GetCategory()
     {
-        Debug.Log($"장착형 아이템 장착됨: {itemName}");
-        // TODO: 아이템 장착 로직 - 플레이어에서
+        return E_CategoryType.Equip;
+    }
+}
+
+// 소비 아이템
+[System.Serializable]
+[CreateAssetMenu(fileName = "I_c00", menuName = "Data/소비 아이템")]
+public class ConsumeItemData : BaseItem
+{
+    [Header("카테고리")]
+    [SerializeField] private E_CategoryType Category = E_CategoryType.Consume;
+
+    [Header("소모품 성능")]
+    public List<ItemValue> Values;
+
+    [Header("효과 지속 턴")]
+    public int Duration;
+
+    [Header("가격")]
+    public int Price;
+
+    public void Use()
+    {
+        // 플레이어 능력치 증가
     }
 
+    public override E_CategoryType GetCategory()
+    {
+        return E_CategoryType.Consume;
+    }
+}
 
+// 일반 아이템 (퀘스트 아이템)
+[System.Serializable]
+[CreateAssetMenu(fileName = "I_q00", menuName = "Data/퀘스트 아이템")]
+public class QuestItemData : BaseItem
+{
+    [Header("설명")]
+    public string Description;
+
+    public override E_CategoryType GetCategory()
+    {
+        return E_CategoryType.Quest;
+    }
 }

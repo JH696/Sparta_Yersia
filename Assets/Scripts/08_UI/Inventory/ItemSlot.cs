@@ -6,35 +6,39 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
+    [Header("등록된 아이템 상태")]
+    [SerializeField] private ItemStatus status;
+
     [Header("아이템 아이콘")]
-    [SerializeField] private Image Icon;
+    [SerializeField] private Image icon;
+
     [Header("아이템 수량")]
-    [SerializeField] private TextMeshProUGUI CountText;
+    [SerializeField] private TextMeshProUGUI stack;
+
     [Header("슬롯 배경")]
     [SerializeField] private Image bgImg;
 
-    private ItemData data;
-    public ItemData Data => data;
+    public ItemStatus Status => status;
 
-    private Action<ItemData> onClickAction;
+    private Action<ItemStatus> onClickAction;
     private Color defaultBgColor;
 
-    private void Awake()
+    private void Start()
     {
-        if (Icon == null)
+        if (icon == null)
         {
             foreach (var img in GetComponentsInChildren<Image>(true))
             {
                 if (img.gameObject != gameObject)
                 {
-                    Icon = img;
+                    icon = img;
                     break;
                 }
             }
         }
-        if (CountText == null)
+        if (stack == null)
         {
-            CountText = GetComponentInChildren<TextMeshProUGUI>(true);
+            stack = GetComponentInChildren<TextMeshProUGUI>(true);
         }
 
         // 배경 이미지가 없으면 기본 색상 저장
@@ -51,89 +55,65 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     // 슬롯 아이템 세팅 확인
     public bool HasData()
     {
-        return data != null;
+        return status != null;
     }
 
     // 인벤토리/장착판넬 공통 슬롯 초기화
-    public void Setup(ItemData itemdata, int count, Action<ItemData> onClick)
+    public void SetSlot(ItemStatus status, int count, Action<ItemStatus> onClick)
     {
-        if (itemdata == null)
-        {
-            Clear();
-            return;
-        }
+        if (status == null) return;
 
-        data = itemdata;
+        this.status = status;
         onClickAction = onClick;
 
-        Icon.sprite = data.Icon;
-        Icon.enabled = true;
-
-        // 수량 텍스트가 있을 때만 처리해야함. 없으면 무시
-        if (CountText != null)
-        {
-            CountText.text = count > 1 ? count.ToString() : string.Empty; // 아이템 개수 표시
-            CountText.gameObject.SetActive(count > 1);
-        }
-    }
-
-    // 장착판넬 전용 초기화: 수량 X
-    public void SetupEquip(ItemData data, Action<ItemData> onClick)
-    {
-        Setup(data, 1, onClick); // 장착 아이템은 개수가 1개로 고정
-        if (CountText != null)
-        {
-            CountText.gameObject.SetActive(false);
-        }
+        icon.sprite = status.Data.Icon;
+        icon.enabled = true;
+        stack.text = count.ToString();
     }
 
     // IPointerClickHandler 인터페이스 구현(클릭 이벤트 처리)
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (data == null || onClickAction == null) return;
+        if (status == null || onClickAction == null) return;
 
-        onClickAction(data);
+        onClickAction(status);
     }
 
     // 빈슬롯 클릭 시
-    public void OnClickEmptySlot(Action<ItemData> onclick)
+    public void OnClickEmptySlot(Action<ItemStatus> onclick)
     {
         onClickAction = onclick;
     }
 
     // 아이템 슬롯 비우기
-    public void Clear()
+    public void SlotClear()
     {
-        data = null;
+        status = null;
         onClickAction = null;
 
-        Icon.sprite = null;
-        Icon.enabled = false;
+        icon.sprite = null;
+        icon.enabled = false;
 
-        if (CountText != null)
-        {
-            CountText.text = string.Empty;
-            CountText.gameObject.SetActive(false);
-        }
+        stack.text = string.Empty;
 
-        SelectSlot(false);
+        //SelectSlot(false);
     }
 
     // 클릭 강조
-    public void SelectSlot(bool on)
-    {
-        if (bgImg != null)
-        {
-            bgImg.color = on ? InventoryUI.SelectedSlotColor : InventoryUI.NormalSlotColor;
-        }
-    }
+    //public void SelectSlot(bool on)
+    //{
+    //    if (bgImg != null)
+    //    {
+    //        bgImg.color = on ? InventoryUI.SelectedSlotColor : InventoryUI.NormalSlotColor;
+    //    }
+    //}
 
     // 클릭 강조 해제
-    public void UnSelectSlot()
-    {
-        if (bgImg != null)
-        {
-            bgImg.color = defaultBgColor; // 기본 배경색으로 초기화
-        }
-    }
+    //public void UnSelectSlot()
+    //{
+    //    if (bgImg != null)
+    //    {
+    //        bgImg.color = defaultBgColor; // 기본 배경색으로 초기화
+    //    }
+    //}
 }
