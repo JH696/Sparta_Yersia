@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using Unity.VisualScripting;
 
 [System.Serializable]
 public class PlayerStatus : CharacterStatus
@@ -22,7 +20,7 @@ public class PlayerStatus : CharacterStatus
         PlayerName = playerName;
 
         this.PlayerData = data;
-        this.stat = new CharacterStats(data.GetComponent<StatData>());
+        this.stat = new CharacterStats(data);
 
         party = new PlayerParty();
         quest = new PlayerQuest();

@@ -5,6 +5,9 @@ public class Player : MonoBehaviour
     [Header("플레이어 상태")]
     [SerializeField] private PlayerStatus status;
 
+    [Header("플레이어 데이터")]
+    [SerializeField] private PlayerData playerData;
+
     [Header("월드에서 보여질 스프라이트")]
     public SpriteRenderer worldSprite;
 
@@ -38,13 +41,16 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        status = new PlayerStatus(playerData,"Player"); // 플레이어 데이터와 이름 설정
+
+
         ChangeSprite();
     }
 
     private void ChangeSprite()
     {
         if (status == null) return;
-        //worldSprite = status.PlayerData.월드스프라이트
+        worldSprite.sprite = status.PlayerData.WSprite;
     }
 
     //public void SetLevel(int level)

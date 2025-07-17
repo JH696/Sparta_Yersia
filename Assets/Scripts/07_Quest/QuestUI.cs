@@ -24,7 +24,7 @@ public class QuestUI : MonoBehaviour
 
     private void Start()
     {
-        Player = GameManager.Instance.Player;
+       // Player = GameManager.Instance.Player;
         QuestManager.Instance.SetQuestUI(this);
 
         RefreshQuestUI();

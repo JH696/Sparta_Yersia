@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        player = GameManager.Instance.Player.GetComponent<Player>();
+       // player = GameManager.Instance.Player.GetComponent<Player>();
     }
 
     private void Update()

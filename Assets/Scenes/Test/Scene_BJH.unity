@@ -732,15 +732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df64283ade1fce144907caa2f3e97be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 5868924951691442565}
-  petSlotPrefab: {fileID: 4963771494877470536, guid: 33e780025ae986b4ba8a06e061ec879e, type: 3}
-  slotParent: {fileID: 1172057393}
-  baseSlots:
-  - {fileID: 1896273287}
-  - {fileID: 669251415}
-  - {fileID: 678794859}
-  - {fileID: 1006495888}
-  backBtn: {fileID: 328996673}
 --- !u!114 &367502371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1035,8 +1026,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 466912887}
-  - component: {fileID: 466912886}
-  - component: {fileID: 466912885}
   m_Layer: 0
   m_Name: Monster 2
   m_TagString: Untagged
@@ -1044,32 +1033,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &466912885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 466912884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e07755ed0fc2062498f9ebf2e3001de7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &466912886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 466912884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e3126cd8cf7901498dff6cc82941954, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 9141255a228952545bc5ac47af66e6e4, type: 2}
-  skill: {fileID: 466912885}
 --- !u!4 &466912887
 Transform:
   m_ObjectHideFlags: 0
@@ -1922,10 +1885,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2247533516843948a4497da8ba8e3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petImage: {fileID: 354195398}
-  infoTxt: {fileID: 2084885944}
-  equipBtn: {fileID: 1446035680}
-  equipBtnTxt: {fileID: 988978513}
 --- !u!224 &669251416
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2038,10 +1997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2247533516843948a4497da8ba8e3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petImage: {fileID: 2121249848}
-  infoTxt: {fileID: 1896637234}
-  equipBtn: {fileID: 733495608}
-  equipBtnTxt: {fileID: 589676112}
 --- !u!224 &678794860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3525,7 +3480,6 @@ GameObject:
   - component: {fileID: 913543513}
   - component: {fileID: 913543517}
   - component: {fileID: 913543515}
-  - component: {fileID: 913543518}
   m_Layer: 0
   m_Name: DD Managers
   m_TagString: Untagged
@@ -3575,26 +3529,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ce9872b8b9561b429fa667a97ac1abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 3404059447536266643}
---- !u!114 &913543518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913543511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeef664941f462840ba8a7c2acfb195c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyCount: 0
-  partyCount: 0
-  chars: {fileID: 0}
-  positionX: 0
-  positionY: 0
-  trigger: {fileID: 0}
-  ui: {fileID: 0}
 --- !u!1 &933458257
 GameObject:
   m_ObjectHideFlags: 0
@@ -4260,10 +4194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2247533516843948a4497da8ba8e3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petImage: {fileID: 1236567547}
-  infoTxt: {fileID: 1472848177}
-  equipBtn: {fileID: 1451961575}
-  equipBtnTxt: {fileID: 588922777}
 --- !u!224 &1006495889
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6800,7 +6730,6 @@ GameObject:
   - component: {fileID: 1245598640}
   - component: {fileID: 1245598644}
   - component: {fileID: 1245598643}
-  - component: {fileID: 1245598645}
   m_Layer: 0
   m_Name: Player Model
   m_TagString: Player
@@ -6970,18 +6899,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1245598645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245598639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87de02af52d88ba41bf96c7667bcefaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1251630559
 GameObject:
   m_ObjectHideFlags: 0
@@ -12203,8 +12120,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1763282106}
-  - component: {fileID: 1763282105}
-  - component: {fileID: 1763282104}
   m_Layer: 0
   m_Name: Monster 1
   m_TagString: Untagged
@@ -12212,32 +12127,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1763282104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763282103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e07755ed0fc2062498f9ebf2e3001de7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1763282105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763282103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e3126cd8cf7901498dff6cc82941954, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 3be44273dd9b1154ab481f2017f2397c, type: 2}
-  skill: {fileID: 1763282104}
 --- !u!4 &1763282106
 Transform:
   m_ObjectHideFlags: 0
@@ -12716,10 +12605,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2247533516843948a4497da8ba8e3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petImage: {fileID: 860678158}
-  infoTxt: {fileID: 1663760545}
-  equipBtn: {fileID: 626949530}
-  equipBtnTxt: {fileID: 2102425443}
 --- !u!224 &1896273288
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16228,9 +16113,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statsUIObject: {fileID: 2838091}
   statsUI: {fileID: 859763383113718219}
-  player: {fileID: 5868924951691442565}
-  pet1: {fileID: 0}
-  pet2: {fileID: 0}
   PlayerInfo: {fileID: 7970924221124182452}
   PetInfo: {fileID: 6905988533449485647}
 --- !u!1 &1530919389799790619
@@ -16293,8 +16175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d27985268e34e54eb0262f41dc831c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 1385217128837422495}
-  CountText: {fileID: 0}
+  icon: {fileID: 0}
+  stack: {fileID: 0}
   bgImg: {fileID: 1385217128837422495}
 --- !u!1 &1580628809996854448
 GameObject:
@@ -17338,23 +17220,6 @@ RectTransform:
   m_AnchoredPosition: {x: 250, y: -12.5}
   m_SizeDelta: {x: 275, y: 100}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &2027096033241333536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5293154846245277028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0c462332659e624ba4286cde950f28c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcData: {fileID: 11400000, guid: 68919cf3c57adfd469b873c180688558, type: 2}
-  questIcon: {fileID: 465563775}
-  AssignerQuests: []
-  ReceiverQuests: []
-  skill: {fileID: 5293154846245277030}
 --- !u!114 &2031348095320714370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18414,7 +18279,6 @@ MonoBehaviour:
   curDialogueData:
     DialogueID: 
     Lines: []
-  curNpc: {fileID: 0}
   typingSpeed: 0.05
 --- !u!1 &2965755219596646821
 GameObject:
@@ -19111,10 +18975,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1914600871913270173}
   - component: {fileID: 1013363398061450774}
-  - component: {fileID: 5868924951691442562}
-  - component: {fileID: 5868924951691442564}
   - component: {fileID: 5868924951691442565}
   - component: {fileID: 5868924951691442566}
+  - component: {fileID: 5868924951691442568}
+  - component: {fileID: 5868924951691442567}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -19668,8 +19532,6 @@ GameObject:
   - component: {fileID: 4147913176200331407}
   - component: {fileID: 3698358784831696232}
   - component: {fileID: 7422726605273119767}
-  - component: {fileID: 7422726605273119766}
-  - component: {fileID: 7422726605273119768}
   m_Layer: 8
   m_Name: NPC Rie
   m_TagString: Untagged
@@ -21575,8 +21437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d27985268e34e54eb0262f41dc831c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 7606000859084111}
-  CountText: {fileID: 0}
+  icon: {fileID: 0}
+  stack: {fileID: 0}
   bgImg: {fileID: 7606000859084111}
 --- !u!224 &4720968742384536865
 RectTransform:
@@ -22269,8 +22131,6 @@ GameObject:
   - component: {fileID: 4806249624535008185}
   - component: {fileID: 5219766695018655326}
   - component: {fileID: 5293154846245277029}
-  - component: {fileID: 2027096033241333536}
-  - component: {fileID: 5293154846245277030}
   m_Layer: 8
   m_Name: NPC Helonneu
   m_TagString: Untagged
@@ -22323,18 +22183,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5293154846245277030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5293154846245277028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e07755ed0fc2062498f9ebf2e3001de7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &5294074548727191089
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22367,8 +22215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d27985268e34e54eb0262f41dc831c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 3772944544249882210}
-  CountText: {fileID: 0}
+  icon: {fileID: 0}
+  stack: {fileID: 0}
   bgImg: {fileID: 3772944544249882210}
 --- !u!114 &5334597793653556593
 MonoBehaviour:
@@ -23129,8 +22977,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d27985268e34e54eb0262f41dc831c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 3787158144592874784}
-  CountText: {fileID: 0}
+  icon: {fileID: 0}
+  stack: {fileID: 0}
   bgImg: {fileID: 3787158144592874784}
 --- !u!222 &5782872932845076877
 CanvasRenderer:
@@ -23285,30 +23133,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -15}
   m_SizeDelta: {x: 20, y: -15}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &5868924951691442562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3404059447536266643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5133f6c965c5e0040b3855533b87776a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5868924951691442564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3404059447536266643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e07755ed0fc2062498f9ebf2e3001de7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5868924951691442565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23321,31 +23145,149 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4140144ab3445b4193d8fc0552b30fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: 6932ffbd4bfcef34bb517e52c7ccc3ca, type: 2}
-  party: {fileID: 5868924951691442566}
-  quest: {fileID: 1013363398061450774}
-  inventory: {fileID: 5868924951691442562}
-  skill: {fileID: 5868924951691442564}
-  ownedPets: []
-  equippedPets: []
-  playerParty: {fileID: 5868924951691442566}
---- !u!114 &5868924951691442566
-MonoBehaviour:
+  status:
+    stat:
+      level: 0
+      exp: 0
+      maxExp: 0
+      maxHp: 0
+      currentHp: 0
+      maxMana: 0
+      currentMana: 0
+      attack: 0
+      defense: 0
+      luck: 0
+      speed: 0
+    IsDead: 0
+    PlayerName: 
+    PlayerData: {fileID: 0}
+    quest: {fileID: 0}
+  playerData: {fileID: 11400000, guid: c04251b80bf0c3948a51e3dd635596f5, type: 2}
+  worldSprite: {fileID: 5868924951691442566}
+--- !u!212 &5868924951691442566
+SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3404059447536266643}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33c3c0ee87ebc754d8aeda2656129771, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxPets: 2
-  maxNpcs: 1
-  player: {fileID: 3404059447536266643}
-  partyMembers:
-  - {fileID: 3404059447536266643}
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!61 &5868924951691442567
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3404059447536266643}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.0001, y: 0.0001}
+  m_EdgeRadius: 0
+--- !u!50 &5868924951691442568
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3404059447536266643}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &5954044591367826016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25495,8 +25437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d27985268e34e54eb0262f41dc831c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 7076518625063447967}
-  CountText: {fileID: 0}
+  icon: {fileID: 0}
+  stack: {fileID: 0}
   bgImg: {fileID: 7076518625063447967}
 --- !u!224 &7235995836970085298
 RectTransform:
@@ -25719,23 +25661,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7422726605273119766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3627213916230159954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0c462332659e624ba4286cde950f28c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcData: {fileID: 11400000, guid: f1056d10aa089274393111005f8e2c28, type: 2}
-  questIcon: {fileID: 1617305612}
-  AssignerQuests: []
-  ReceiverQuests: []
-  skill: {fileID: 7422726605273119768}
 --- !u!61 &7422726605273119767
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25781,18 +25706,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7422726605273119768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3627213916230159954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e07755ed0fc2062498f9ebf2e3001de7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &7433544347093915286
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26647,28 +26560,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b728b06d2611f54fa06e734e25fd4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotSelectedColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
-  slotNormalColor: {r: 1, g: 1, b: 1, a: 1}
+  category: 0
   openBtn: {fileID: 6751122065996700630}
   closeBtn: {fileID: 6569780317217578054}
-  categoryAll: {fileID: 5161876196824565681}
-  categoryEquip: {fileID: 6514637271421790186}
-  categoryConsum: {fileID: 6687912575575481538}
-  categoryQuest: {fileID: 3946672555326533468}
-  actionBtn: {fileID: 3301758532876085781}
+  all: {fileID: 0}
+  equip: {fileID: 0}
+  consume: {fileID: 0}
+  quest: {fileID: 0}
+  useBtn: {fileID: 0}
   cancelBtn: {fileID: 618701866322160173}
-  CategorySelectedColor: {r: 0, g: 1, b: 0, a: 1}
-  CategoryNormalColor: {r: 1, g: 1, b: 1, a: 1}
-  detailPanel: {fileID: 6187806567931932338}
-  itemNameText: {fileID: 7442703795608464890}
-  itemEffectText: {fileID: 3546369647335411167}
-  slotContent: {fileID: 4323871964931922608}
+  infoPanel: {fileID: 0}
+  itemName: {fileID: 0}
+  itemInfo: {fileID: 0}
+  slotParent: {fileID: 0}
   slotPrefab: {fileID: 2673617789053718609, guid: 0ba99a7955bc0764b9374db07f664436, type: 3}
   slotCount: 20
   equipPanel: {fileID: 7005209519732947325}
-  capacityPopup: {fileID: 7782488877140079125}
-  capacityCanvasGroup: {fileID: 4366632834292320384}
-  capacityPopupText: {fileID: 7701051870858441311}
 --- !u!1 &7786195922061610340
 GameObject:
   m_ObjectHideFlags: 0
