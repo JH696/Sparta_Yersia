@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Data/PlayerData")]
-public class PlayerData : CharacterData, ILevelData, IYPHolder, ICharacterSkillSetData
+public class PlayerData : StatData, ILevelData, IYPHolder, ICharacterSkillSetData
 {
     [Header("플레이어 성별")]
     public EGender gender = EGender.Male;
