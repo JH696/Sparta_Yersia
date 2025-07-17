@@ -3,10 +3,6 @@
 [System.Serializable]
 public class PlayerStatus : CharacterStatus
 {
-    // 플레이어 이름
-    public string PlayerName; // 플레이어 이름
-    // 플레이어 데이터
-    public PlayerData PlayerData;
     public PlayerParty party;
     public PlayerQuest quest;
     // 인벤토리, 장비
@@ -14,6 +10,10 @@ public class PlayerStatus : CharacterStatus
     public CharacterEquipment equipment;
     // 스킬
     public SkillInventory skills;
+    // 플레이어 이름
+    public string PlayerName; // 플레이어 이름
+    // 플레이어 데이터
+    public PlayerData PlayerData;
 
     public PlayerStatus(PlayerData data, string playerName)
     {

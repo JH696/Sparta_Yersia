@@ -34,15 +34,11 @@ public class Player : MonoBehaviour
     //public List<Pet> OwnedPets => ownedPets;
     //public List<Pet> EquippedPets => equippedPets;
 
-    [Header("파티 관리")]
-    [SerializeField] private PlayerParty playerParty;
-
     public PlayerStatus Status => status; // 읽기 전용
 
     private void Start()
     {
         status = new PlayerStatus(playerData,"Player"); // 플레이어 데이터와 이름 설정
-
 
         ChangeSprite();
     }

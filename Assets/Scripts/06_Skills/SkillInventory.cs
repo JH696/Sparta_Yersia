@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
+
 // 스킬 데이터 + 스킬 상태
+[Serializable]
 public class SkillStatus
 {
     public SkillData Data { get; private set; }
@@ -39,6 +42,7 @@ public class SkillStatus
 }
 
 // 캐릭터 스킬 상태 저장, 관리 클래스
+[Serializable]
 public class SkillInventory
 {
     [SerializeField] private List<SkillStatus> skills = new List<SkillStatus>();

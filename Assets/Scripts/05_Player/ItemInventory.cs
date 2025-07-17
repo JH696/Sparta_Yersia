@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 // 아이템 데이터 + 아이템 상태
+[Serializable]
 public class ItemStatus
 {
     public BaseItem Data { get; private set; }
@@ -51,6 +53,7 @@ public class ItemStatus
     }
 }
 
+[Serializable]
 public class CharacterEquipment
 {
     public EquipItemData Weapon;
@@ -152,14 +155,11 @@ public class CharacterEquipment
     }
 }
 
+[Serializable]
 public class ItemInventory
 {
     [SerializeField] private List<ItemStatus> items = new List<ItemStatus>();
-
-    [SerializeField] private List<EquipItemData> equipedItems = new List<EquipItemData>();
-
     public List<ItemStatus> Items => items;
-    public List<EquipItemData> EquipedItems => equipedItems;
 
     public event Action InventoryChanged;
 
@@ -167,7 +167,6 @@ public class ItemInventory
     public ItemInventory()
     {
         items = null;
-        equipedItems = null;
     }   
 
     public void AddItem(BaseItem data)

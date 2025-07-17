@@ -1,10 +1,9 @@
 ﻿public abstract class CharacterStatus
-{
-    // 캐릭터 스탯
-    public CharacterStats stat;
+{    
     // 사망 여부
     public bool IsDead;
-
+    // 캐릭터 스탯
+    public CharacterStats stat;
     public virtual void TakeDamage(float amount)
     {
         stat.SetCurrentHp(stat.CurrentHp - amount);
