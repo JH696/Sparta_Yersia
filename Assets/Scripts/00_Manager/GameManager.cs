@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GlobalSaveManager.Save(Player.GetComponent<Player>());
+            //GlobalSaveManager.Save(Player.GetComponent<Player>());
         }
     }
 }

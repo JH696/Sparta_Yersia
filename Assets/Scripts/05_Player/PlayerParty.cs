@@ -12,115 +12,115 @@ public class PlayerParty
 
     //프리팹 (빈 오브젝트 + 펫 스크립트, 팔로워)
 
-    public void Awake()
-    {
-        // 전체 펫 불러오기
-        curPets = SaveManger.Pets;
-        // 파티 펫도 불러오기
-        partyPets = SaveManger.PartyPets ?? new List<PetStatus>();
-    }
+//    public void Awake()
+//    {
+//        // 전체 펫 불러오기
+//        //curPets = SaveManger.Pets;
+//        //// 파티 펫도 불러오기
+//        //partyPets = SaveManger.PartyPets ?? new List<PetStatus>();
+//    }
 
-    public void AddPet(PetStatus status)
-    {
-        // 보유 중인지 확인하고 보유 중이라면 장착 리스트에 포함 시킨다
-        if (status == null)
-        {
-            Debug.LogWarning("추가할 펫이 null입니다.");
-            return;
-        }
+//    public void AddPet(PetStatus status)
+//    {
+//        // 보유 중인지 확인하고 보유 중이라면 장착 리스트에 포함 시킨다
+//        if (status == null)
+//        {
+//            Debug.LogWarning("추가할 펫이 null입니다.");
+//            return;
+//        }
 
-        // 이미 보유 중인지 확인
-        if (!curPets.Contains(status))
-        {
-            Debug.LogWarning($"보유하지 않은 펫을 파티에 추가할 수 없습니다: {status.data}");
-            return;
-        }
+//        // 이미 보유 중인지 확인
+//        if (!curPets.Contains(status))
+//        {
+//            Debug.LogWarning($"보유하지 않은 펫을 파티에 추가할 수 없습니다: {status.data}");
+//            return;
+//        }
 
-        // 이미 파티에 포함되었는지, 최대 수 초과 체크
-        if (partyPets.Contains(status))
-        {
-            Debug.Log($"이미 파티에 포함된 펫입니다: {status.data}");
-            return;
-        }
+//        // 이미 파티에 포함되었는지, 최대 수 초과 체크
+//        if (partyPets.Contains(status))
+//        {
+//            Debug.Log($"이미 파티에 포함된 펫입니다: {status.data}");
+//            return;
+//        }
 
-        if (partyPets.Count >= maxPartyPets)
-        {
-            Debug.LogWarning($"파티에는 최대 {maxPartyPets}마리의 펫만 장착할 수 있습니다.");
-            return;
-        }
+//        if (partyPets.Count >= maxPartyPets)
+//        {
+//            Debug.LogWarning($"파티에는 최대 {maxPartyPets}마리의 펫만 장착할 수 있습니다.");
+//            return;
+//        }
 
-        partyPets.Add(status);
-        Debug.Log($"펫 {status.data} 파티에 추가됨");
+//        partyPets.Add(status);
+//        Debug.Log($"펫 {status.data} 파티에 추가됨");
 
-        RefreshPartyState();
-    }
+//        RefreshPartyState();
+//    }
 
-    public void RemovePet(PetStatus status)
-    {
-        // 파티에서 제거
-        if (partyPets.Remove(status))
-        {
-            Debug.Log($"펫 {status.data} 파티에서 제거됨");
+//    public void RemovePet(PetStatus status)
+//    {
+//        // 파티에서 제거
+//        if (partyPets.Remove(status))
+//        {
+//            Debug.Log($"펫 {status.data} 파티에서 제거됨");
 
-            RefreshPartyState();
-        }
-        else
-        {
-            Debug.LogWarning($"파티에 없는 펫입니다: {status.data}");
-        }
-    }
+//            RefreshPartyState();
+//        }
+//        else
+//        {
+//            Debug.LogWarning($"파티에 없는 펫입니다: {status.data}");
+//        }
+//    }
 
-    public void SaveCurPets() // 전투 복귀시 전체 펫을 잃지 않기 위해
-    {
-        // 세이브 매니저로 넘겨주기
-        SaveManger.Pets = curPets;
-        Debug.Log($"현재 보유 펫 {curPets.Count}마리 저장 처리");
-    }
+//    public void SaveCurPets() // 전투 복귀시 전체 펫을 잃지 않기 위해
+//    {
+//        // 세이브 매니저로 넘겨주기
+//        SaveManger.Pets = curPets;
+//        Debug.Log($"현재 보유 펫 {curPets.Count}마리 저장 처리");
+//    }
 
-    public void SavePartyPets() // 전투에서 참조 
-    {
-        // 세이브 매니저로 넘겨주기
-        SaveManger.PartyPets = partyPets;
-        Debug.Log($"현재 파티 펫 {partyPets.Count}마리 저장 처리");
-    }
+//    public void SavePartyPets() // 전투에서 참조 
+//    {
+//        // 세이브 매니저로 넘겨주기
+//        SaveManger.PartyPets = partyPets;
+//        Debug.Log($"현재 파티 펫 {partyPets.Count}마리 저장 처리");
+//    }
 
-    /// <summary>
-    /// 파티 펫을 순서대로 반환 (필요시 추후 Follow 시스템에 사용)
-    /// </summary>
-    public List<PetStatus> GetOrderedParty()
-    {
-        return new List<PetStatus>(partyPets);
-    }
+//    /// <summary>
+//    /// 파티 펫을 순서대로 반환 (필요시 추후 Follow 시스템에 사용)
+//    /// </summary>
+//    public List<PetStatus> GetOrderedParty()
+//    {
+//        return new List<PetStatus>(partyPets);
+//    }
 
-    /// <summary>
-    /// 파티 상태 변경 후 호출: 팔로우 체인 갱신, UI 갱신 등 후처리 수행
-    /// </summary>
-    public void RefreshPartyState()
-    {
-        RefreshFollowChain();
-        RefreshUI();
-    }
+//    /// <summary>
+//    /// 파티 상태 변경 후 호출: 팔로우 체인 갱신, UI 갱신 등 후처리 수행
+//    /// </summary>
+//    public void RefreshPartyState()
+//    {
+//        RefreshFollowChain();
+//        RefreshUI();
+//    }
 
-    private void RefreshFollowChain()
-    {
-        // TODO: 파티 펫 순서대로 팔로우 체인 설정
-        // 예시: partyPets 순서대로 Follower 컴포넌트 연결
-        for (int i = 1; i < partyPets.Count; i++)
-        {
-            var follower = partyPets[i].GetComponent<Follower>();
-            if (follower != null)
-            {
-                follower.target = partyPets[i - 1].transform;
-            }
-        }
-    }
+//    private void RefreshFollowChain()
+//    {
+//        // TODO: 파티 펫 순서대로 팔로우 체인 설정
+//        // 예시: partyPets 순서대로 Follower 컴포넌트 연결
+//        for (int i = 1; i < partyPets.Count; i++)
+//        {
+//            var follower = partyPets[i].GetComponent<Follower>();
+//            if (follower != null)
+//            {
+//                follower.target = partyPets[i - 1].transform;
+//            }
+//        }
+//    }
 
-    private void RefreshUI()
-    {
-        // TODO: UI 갱신 처리
-        // 예) UIManager.Instance.RefreshPartyUI(partyPets);
-        Debug.Log("파티 UI 갱신 처리");
-    }
+//    private void RefreshUI()
+//    {
+//        // TODO: UI 갱신 처리
+//        // 예) UIManager.Instance.RefreshPartyUI(partyPets);
+//        Debug.Log("파티 UI 갱신 처리");
+//    }
 }
 
 ///// <summary>

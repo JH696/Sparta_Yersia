@@ -47,7 +47,7 @@ public class QuestManager : MonoBehaviour
         if (questData == null || !AvailableQuests.Contains(questData)) return;
 
         AvailableQuests.Remove(questData);
-        GameManager.Instance.Player.GetComponent<PlayerQuest>().AddMyQ(questData);
+       // GameManager.Instance.Player.GetComponent<PlayerQuest>().AddMyQ(questData);
         questUI.RefreshQuestUI();
         QuestUpdate?.Invoke();
     }
@@ -62,9 +62,9 @@ public class QuestManager : MonoBehaviour
             NextStoryQuestUnlock();
         }
 
-        GameManager.Instance.Player.GetComponent<PlayerQuest>().RemoveMyQ(questData);
+       // GameManager.Instance.Player.GetComponent<PlayerQuest>().RemoveMyQ(questData);
         SubmitQItems(questData);
-        GetQRawards(questData);
+        //GetQRawards(questData);
         questUI.RefreshQuestUI();
         QuestUpdate?.Invoke();
 
@@ -76,28 +76,28 @@ public class QuestManager : MonoBehaviour
     {
         foreach (var item in questData.TargetItem)
         {
-            GameManager.Instance.Player.GetComponent<PlayerInventory>().RemoveItem(item.ItemData, item.ItemCount);
+          //  GameManager.Instance.Player.GetComponent<PlayerInventory>().RemoveItem(item.ItemData, item.ItemCount);
         }
     }
 
     // 퀘스트 보상 획득
-    private void GetQRawards(QuestData questData)
-    {
-        Player player = GameManager.Instance.Player.GetComponent<Player>();
+    //private void GetQRawards(QuestData questData)
+    //{
+    //    Player player = GameManager.Instance.Player.GetComponent<Player>();
 
-        foreach (ItemData item in questData.RewardItems)
-        {
-            player.GetComponent<PlayerInventory>().AddItem(item, 1);
-        }
+    //    foreach (ItemData item in questData.RewardItems)
+    //    {
+    //        player.GetComponent<PlayerInventory>().AddItem(item, 1);
+    //    }
         
-        foreach (Pet pet in questData.RewardPets)
-        {
-            player.AddPetFromPrefab(pet);
-        }
+    //    foreach (Pet pet in questData.RewardPets)
+    //    {
+    //        player.AddPetFromPrefab(pet);
+    //    }
 
-        GameManager.Instance.Player.GetComponent<Player>().AddExp(questData.RewardExp);
-        GameManager.Instance.Player.GetComponent<Player>().AddYP(questData.RewardYP);
-    }
+    //    GameManager.Instance.Player.GetComponent<Player>().AddExp(questData.RewardExp);
+    //    GameManager.Instance.Player.GetComponent<Player>().AddYP(questData.RewardYP);
+    //}
 
     // 퀘스트 해금
     private void QuestUnlock(string id)

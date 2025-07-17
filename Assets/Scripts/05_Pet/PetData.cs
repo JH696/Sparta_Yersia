@@ -9,7 +9,7 @@ public class PetSavaData
 }
 
 [CreateAssetMenu(fileName = "PetData", menuName = "Data/PetData")]
-public class PetData : StatData
+public class PetData : StatData, ISkillLearnableCharacter
 {
     [Header("펫 ID 및 이름")]
     public string PetID;
@@ -21,7 +21,10 @@ public class PetData : StatData
 
     [Header("펫 시작 스킬 목록")]
     [Tooltip("SkillBase 구현 SO를 드래그하세요")]
-    public List<SkillBase> startingSkills = new List<SkillBase>();
+    [SerializeField] private List<SkillData> startSkills = new List<SkillData>();
+
+    //읽기 전용
+    public List<SkillData> StartSkills => startSkills;
 }
 
 [Serializable]

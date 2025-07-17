@@ -31,28 +31,6 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleInteractionInput();
 
-        // 테스트용 키
-        if (Input.GetKeyDown(KeyCode.H)) player.HealHP(10f);
-        if (Input.GetKeyDown(KeyCode.J)) player.TakeDamage(20f);
-        if (Input.GetKeyDown(KeyCode.E)) player.AddExp(30);
-        if (Input.GetKeyDown(KeyCode.Z)) player.AddYP(100);
-        if (Input.GetKeyDown(KeyCode.X)) player.SpendYP(50);
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log($"플레이어 스탯 확인: HP {player.CurrentHp}/{player.MaxHp}, MP {player.CurrentMana}/{player.MaxMana}, Attack {player.Attack}, Defense {player.Defense}, Luck {player.Luck}, Speed {player.Speed}");
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (testPetPrefab != null)
-            {
-                Debug.Log(player);
-
-                // 프리팹을 Player의 AddPetFromPrefab 메서드에 넘겨서 처리
-                player.AddPetFromPrefab(testPetPrefab);
-            }
-        }
-
         // 펫 UI 열기
         if (Input.GetKeyDown(KeyCode.U) && petUI != null)
         {

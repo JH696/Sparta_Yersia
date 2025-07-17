@@ -164,6 +164,12 @@ public class ItemInventory
     public event Action InventoryChanged;
 
     // 아이템 인벤토리 아이템 추가
+    public ItemInventory()
+    {
+        items = null;
+        equipedItems = null;
+    }   
+
     public void AddItem(BaseItem data)
     {
         ItemStatus status = new ItemStatus(data);

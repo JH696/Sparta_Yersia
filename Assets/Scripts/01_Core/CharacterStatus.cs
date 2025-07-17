@@ -1,24 +1,9 @@
-﻿using Unity.VisualScripting;
-
-public abstract class CharacterStatus
+﻿public abstract class CharacterStatus
 {
-    public PetData data;
+    // 캐릭터 스탯
     public CharacterStats stat;
+    // 사망 여부
     public bool IsDead;
-
-    public virtual void Init(PetData data)
-    {
-        this.data = data;
-        InitStat(data.GetComponent<StatData>());
-    }
-
-    protected virtual void InitStat(StatData statData)
-    {
-        if (stat == null)
-            stat = new CharacterStats();
-
-        stat.SetBaseStats(statData);
-    }
 
     public virtual void TakeDamage(float amount)
     {
@@ -42,18 +27,18 @@ public abstract class CharacterStatus
     }
 
     // 체력 회복
-    public void HealHP(float amount)
+    public void RecoverHealth(float amount)
     {
         if (IsDead) return;
 
-        stat.SetCurrentHp(stat.CurrentHp + amount);
+        stat.SetCurrentHp(amount);
     }
 
     // 마나 회복
-    public void HealMana(float amount)
+    public void RecoverMana(float amount)
     {
         if (IsDead) return;
 
-        stat.SetCurrentMana(stat.CurrentMana + amount);
+        stat.SetCurrentMana(amount);
     }
 }

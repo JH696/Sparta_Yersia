@@ -17,9 +17,6 @@ public class StatUIController : MonoBehaviour
 
     private void Start()
     {
-        player = GameManager.Instance.Player.GetComponent<Player>();
-
-
         if (statsUIObject != null) statsUIObject.SetActive(false);
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
         if (PetInfo != null) PetInfo.SetActive(false);
@@ -48,58 +45,58 @@ public class StatUIController : MonoBehaviour
             statsUIObject.SetActive(true);
         }
 
-        statsUI.SetTarget(player);
+        //statsUI.SetTarget(player);
 
         if (PlayerInfo != null) PlayerInfo.SetActive(true);
         if (PetInfo != null) PetInfo.SetActive(false);
     }
 
-    private void UpdateEquippedPets()
-    {
-        if (player == null) return;
+    //private void UpdateEquippedPets()
+    //{
+    //    if (player == null) return;
 
-        Player playerComponent = player as Player;
-        if (playerComponent == null) return;
+    //    Player playerComponent = player as Player;
+    //    if (playerComponent == null) return;
 
-        pet1 = playerComponent.EquippedPets.Count > 0 ? playerComponent.EquippedPets[0] : null;
-        pet2 = playerComponent.EquippedPets.Count > 1 ? playerComponent.EquippedPets[1] : null;
-    }
+    //    pet1 = playerComponent.EquippedPets.Count > 0 ? playerComponent.EquippedPets[0] : null;
+    //    pet2 = playerComponent.EquippedPets.Count > 1 ? playerComponent.EquippedPets[1] : null;
+    //}
 
     // Pet1의 스탯을 표시
-    public void ShowPet1Stats()
-    {
-        if (statsUIObject == null || statsUI == null) return;
+    //public void ShowPet1Stats()
+    //{
+    //    if (statsUIObject == null || statsUI == null) return;
 
-        UpdateEquippedPets();
+    //    UpdateEquippedPets();
 
-        if (!StatUI)
-        {
-            StatUI = true;
-            statsUIObject.SetActive(true);
-        }
+    //    if (!StatUI)
+    //    {
+    //        StatUI = true;
+    //        statsUIObject.SetActive(true);
+    //    }
 
-        statsUI.SetTarget(pet1);
+    //    statsUI.SetTarget(pet1);
 
-        if (PlayerInfo != null) PlayerInfo.SetActive(false);
-        if (PetInfo != null) PetInfo.SetActive(true);
-    }
+    //    if (PlayerInfo != null) PlayerInfo.SetActive(false);
+    //    if (PetInfo != null) PetInfo.SetActive(true);
+    //}
 
-    // Pet2의 스탯을 표시
-    public void ShowPet2Stats()
-    {
-        if (statsUIObject == null || statsUI == null) return;
+    //// Pet2의 스탯을 표시
+    //public void ShowPet2Stats()
+    //{
+    //    if (statsUIObject == null || statsUI == null) return;
 
-        UpdateEquippedPets();
+    //    UpdateEquippedPets();
 
-        if (!StatUI)
-        {
-            StatUI = true;
-            statsUIObject.SetActive(true);
-        }
+    //    if (!StatUI)
+    //    {
+    //        StatUI = true;
+    //        statsUIObject.SetActive(true);
+    //    }
 
-        statsUI.SetTarget(pet2);
+    //    statsUI.SetTarget(pet2);
 
-        if (PlayerInfo != null) PlayerInfo.SetActive(false);
-        if (PetInfo != null) PetInfo.SetActive(true);
-    }
+    //    if (PlayerInfo != null) PlayerInfo.SetActive(false);
+    //    if (PetInfo != null) PetInfo.SetActive(true);
+    //}
 }

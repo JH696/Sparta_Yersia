@@ -9,22 +9,17 @@ public class Pet : MonoBehaviour
     public SpriteRenderer worldSprite;
 
     /// <summary>
-    /// PetData에 직접 접근할 수 있는 프로퍼티
-    /// PetStatus의 Data 프로퍼티를 통해 안전하게 접근
-    /// </summary>
-    public PetData Data => status?.Data;
-
     private void Start()
     {
-        ChangeS();
+        ChangeSprite();
     }
 
     /// <summary>
     /// 현재 상태에 따른 스프라이트로 변경 적용
     /// </summary>
-    public void ChangeS()
+    public void ChangeSprite()
     {
-        if (Data == null || status == null) return;
+        if (status == null) return;
 
         PetSprite sprite = status.GetPetSprite();
         if (sprite == null || sprite.WorldSprite == null) return;

@@ -10,23 +10,23 @@ public class B_CharacterStatUI : MonoBehaviour
     [SerializeField] private Image hpGauge;
     [SerializeField] private Image mpGauge;
 
-    public void SetProfile(CharacterStatus character)
-    {
-        this.gameObject.SetActive(true);   
-        icon.sprite = character.Icon;
-        RefreshGauge(character);
-    }
+    //public void SetProfile(CharacterStatus character)
+    //{
+    //    this.gameObject.SetActive(true);   
+    //    icon.sprite = character.Icon;
+    //    RefreshGauge(character);
+    //}
 
-    public void ResetGauge()
-    {
-        this.gameObject.SetActive(false);
-        hpGauge.fillAmount = 0;
-        mpGauge.fillAmount = 0;
-    }
+    //public void ResetGauge()
+    //{
+    //    this.gameObject.SetActive(false);
+    //    hpGauge.fillAmount = 0;
+    //    mpGauge.fillAmount = 0;
+    //}
 
-    public void RefreshGauge(CharacterStatus character)
-    {
-        hpGauge.fillAmount = character.CurrentHp / character.MaxHp;
-        mpGauge.fillAmount = character.CurrentMana / character.MaxMana;
-    }
+    //public void RefreshGauge(CharacterStats stat)
+    //{
+    //    hpGauge.fillAmount = stat.CurrentHp / stat.MaxHp;
+    //    mpGauge.fillAmount = stat.CurrentMana / stat.MaxMana;
+    //}
 }

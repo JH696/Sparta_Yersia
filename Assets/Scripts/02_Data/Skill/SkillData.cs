@@ -9,7 +9,7 @@ public class SkillData : ScriptableObject
 
     [Header("속성 / 등급")]
     public E_ElementalType Type;
-    public E_SkillTier Tier;
+    public E_Rank Rank;
 
     [Header("스킬 성능")]
     public float Power;

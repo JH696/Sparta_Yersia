@@ -48,8 +48,8 @@ public class BattleTrigger : MonoBehaviour
             return;
         }
 
-        B_Manager.Instance.SetTrigger(this.gameObject);
-        B_Manager.Instance.SavaModelPosition(other.transform);
-        B_Manager.Instance.EnterBattle(monsterList);
+        //B_Manager.Instance.SetTrigger(this.gameObject);
+        //B_Manager.Instance.SavaModelPosition(other.transform);
+        //B_Manager.Instance.EnterBattle(monsterList);
     }
 }

@@ -44,17 +44,9 @@ public class SkillInventory
     [SerializeField] private List<SkillStatus> skills = new List<SkillStatus>();
     public List<SkillStatus> Skills => skills;
 
-
-    // 스킬 인벤토리 생성
-    public void Init(List<SkillData> datas)
+    public SkillInventory()
     {
-        if (datas != null)
-        {
-            foreach (SkillData s in datas)
-            {
-                AddSkill(s);
-            }
-        }
+        skills = null;
     }
 
     // 스킬 인벤토리 스킬 추가

@@ -1,198 +1,198 @@
-﻿using System.Collections.Generic;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+﻿//using System.Collections.Generic;
+//using System.Collections;
+//using UnityEngine;
+//using UnityEngine.SceneManagement;
+//using UnityEngine.UIElements;
 
-public struct BattleReward
-{
-    public int RewardEXP;
-    public int RewardYP;
-    public ItemData DropItem;
+//public struct BattleReward
+//{
+//    public int RewardEXP;
+//    public int RewardYP;
+//    public ItemData DropItem;
 
-    public BattleReward(int exp, int yp, ItemData item)
-    {
-        RewardEXP = exp;
-        RewardYP = yp;
-        DropItem = item;
-    }
-}
+//    public BattleReward(int exp, int yp, ItemData item)
+//    {
+//        RewardEXP = exp;
+//        RewardYP = yp;
+//        DropItem = item;
+//    }
+//}
 
-public class B_Manager : MonoBehaviour
-{
-    public static B_Manager Instance;
+//public class B_Manager : MonoBehaviour
+//{
+//    public static B_Manager Instance;
 
-    public int enemyCount = 0;
-    public int partyCount = 0; 
+//    public int enemyCount = 0;
+//    public int partyCount = 0; 
 
-    [Header("캐릭터")]
-    [SerializeField] private B_Characters chars;
+//    [Header("캐릭터")]
+//    [SerializeField] private B_Characters chars;
 
-    [Header("월드 위치 저장")]
-    [SerializeField] private float positionX;
-    [SerializeField] private float positionY;
+//    [Header("월드 위치 저장")]
+//    [SerializeField] private float positionX;
+//    [SerializeField] private float positionY;
 
-    [Header("충돌체")]
-    [SerializeField] private GameObject trigger;
+//    [Header("충돌체")]
+//    [SerializeField] private GameObject trigger;
 
-    [Header("배틀 UI")]
-    [SerializeField] private BattleUI ui;
+//    [Header("배틀 UI")]
+//    [SerializeField] private BattleUI ui;
 
-    [Header("전투 보상")]
-    [SerializeField] private List<BattleReward> BattleRewards = new List<BattleReward>();
+//    [Header("전투 보상")]
+//    [SerializeField] private List<BattleReward> BattleRewards = new List<BattleReward>();
 
-    public event System.Action InBattle;
+//    public event System.Action InBattle;
 
-    public GameObject Trigger => trigger;
+//    public GameObject Trigger => trigger;
 
-    public float X => positionX;
-    public float Y => positionY;
+//    public float X => positionX;
+//    public float Y => positionY;
 
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
+//    private void Awake()
+//    {
+//        if (Instance != null)
+//        {
+//            Destroy(gameObject);
+//            return;
+//        }
+//        else
+//        {
+//            Instance = this;
+//        }
+//    }
 
-    public void SetTrigger(GameObject gameObject)
-    {
-        trigger = gameObject;   
-    }
+//    public void SetTrigger(GameObject gameObject)
+//    {
+//        trigger = gameObject;   
+//    }
 
-    public void SavaModelPosition(Transform transform)
-    {
-        positionX = transform.position.x;
-        positionY = transform.position.y;
-    }
+//    public void SavaModelPosition(Transform transform)
+//    {
+//        positionX = transform.position.x;
+//        positionY = transform.position.y;
+//    }
 
-    public void UpECount()
-    {
-        enemyCount++;
+//    public void UpECount()
+//    {
+//        enemyCount++;
 
-        int Count = 0;
+//        int Count = 0;
 
-        foreach (B_MonsterSlot slot in chars.MSlots)
-        {
-            if (slot.Monster != null)
-            {
-                Count++;
-            }
-        }
+//        foreach (B_MonsterSlot slot in chars.MSlots)
+//        {
+//            if (slot.Monster != null)
+//            {
+//                Count++;
+//            }
+//        }
 
-        if (enemyCount >= Count) 
-        {
-            enemyCount = 0;
-            BattleWin();
-            chars.StopBattle();
-        }
-    }
+//        if (enemyCount >= Count) 
+//        {
+//            enemyCount = 0;
+//            BattleWin();
+//            chars.StopBattle();
+//        }
+//    }
 
-    public void UpACount()
-    {
-        partyCount++;
+//    public void UpACount()
+//    {
+//        partyCount++;
 
-        int Count = 0;
+//        int Count = 0;
 
-        foreach (B_CharacterSlot slot in chars.CSlots)
-        {
-            if (slot.Character != null)
-            {
-                Count++;
-            }
-        }
+//        foreach (B_CharacterSlot slot in chars.CSlots)
+//        {
+//            if (slot.Character != null)
+//            {
+//                Count++;
+//            }
+//        }
 
-        if (partyCount >= Count)
-        {
-            Debug.Log("전사");
+//        if (partyCount >= Count)
+//        {
+//            Debug.Log("전사");
 
-            partyCount = 0;
-            BattleLose();
-            chars.StopBattle();
-        }
-    }
+//            partyCount = 0;
+//            BattleLose();
+//            chars.StopBattle();
+//        }
+//    }
 
 
-    public void AddBattleRewards(BattleReward battleRewards)
-    {
-        BattleRewards.Add(battleRewards);
+//    public void AddBattleRewards(BattleReward battleRewards)
+//    {
+//        BattleRewards.Add(battleRewards);
 
-        Debug.Log($"[보상 등록] 현재 총 보상 수: {BattleRewards.Count}");
-    }
+//        Debug.Log($"[보상 등록] 현재 총 보상 수: {BattleRewards.Count}");
+//    }
 
-    private IEnumerator Battle(List<GameObject> monsters)
-    {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("BattleScene");
+//    private IEnumerator Battle(List<GameObject> monsters)
+//    {
+//        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("BattleScene");
 
-        while (!asyncOperation.isDone) yield return null;
+//        while (!asyncOperation.isDone) yield return null;
         
-        StartBattle(monsters);
-    }
+//        StartBattle(monsters);
+//    }
 
-    public void EnterBattle(List<GameObject> monsters)
-    {
-        StartCoroutine(Battle(monsters));
-    }
+//    public void EnterBattle(List<GameObject> monsters)
+//    {
+//        StartCoroutine(Battle(monsters));
+//    }
 
-    public void SetCharacters(B_Characters chars)
-    {
-        this.chars = chars;
-    }
+//    public void SetCharacters(B_Characters chars)
+//    {
+//        this.chars = chars;
+//    }
     
-    public void SetBattleUI(BattleUI ui)
-    {
-        this.ui = ui;
-    }
+//    public void SetBattleUI(BattleUI ui)
+//    {
+//        this.ui = ui;
+//    }
 
-    private void StartBattle(List<GameObject> monsters)
-    {
-        chars.SetAllySlots();
-        chars.SetEnemySlots(monsters);
-        InBattle?.Invoke();
-    }
+//    private void StartBattle(List<GameObject> monsters)
+//    {
+//        chars.SetAllySlots();
+//        chars.SetEnemySlots(monsters);
+//        InBattle?.Invoke();
+//    }
 
-    public void BattleWin()
-    {
-        List<ItemData> toalItem = new List<ItemData>(); 
-        int totalExp = 0;
-        int totalYP = 0;
+//    public void BattleWin()
+//    {
+//        List<ItemData> toalItem = new List<ItemData>(); 
+//        int totalExp = 0;
+//        int totalYP = 0;
 
-        foreach (BattleReward r in BattleRewards)
-        {
-            totalExp += r.RewardEXP;
-            totalYP += r.RewardYP;
-            toalItem.Add(r.DropItem);
-        }
+//        foreach (BattleReward r in BattleRewards)
+//        {
+//            totalExp += r.RewardEXP;
+//            totalYP += r.RewardYP;
+//            toalItem.Add(r.DropItem);
+//        }
 
-        Player player = GameManager.Instance.Player.GetComponent<Player>();
+//        Player player = GameManager.Instance.Player.GetComponent<Player>();
 
-        foreach (GameObject go in player.Party.GetFullPartyMembers())
-        {
-            go.GetComponent<ILevelable>().AddExp(totalExp);
-        }
+//        foreach (GameObject go in player.Party.GetFullPartyMembers())
+//        {
+//            go.GetComponent<ILevelable>().AddExp(totalExp);
+//        }
 
-        player.AddYP(totalYP);
+//        player.AddYP(totalYP);
         
-        foreach (ItemData item in toalItem)
-        {
-            player.Inventory.AddItem(item, 1);
-        }
+//        foreach (ItemData item in toalItem)
+//        {
+//            player.Inventory.AddItem(item, 1);
+//        }
 
-        ui.DisplayWinUI(totalExp, totalYP, toalItem);
+//        ui.DisplayWinUI(totalExp, totalYP, toalItem);
 
-        BattleRewards.Clear();
-    }
+//        BattleRewards.Clear();
+//    }
 
-    public void BattleLose()
-    {
-        Debug.Log("전투 패배");
-        ui.DisplayLoseUI();
-        BattleRewards.Clear();
-    }
-}
+//    public void BattleLose()
+//    {
+//        Debug.Log("전투 패배");
+//        ui.DisplayLoseUI();
+//        BattleRewards.Clear();
+//    }
+//}

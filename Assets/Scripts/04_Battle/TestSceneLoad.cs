@@ -7,6 +7,6 @@ public class TestSceneLoad : MonoBehaviour
     {
         player = GameManager.Instance.Player.GetComponent<Player>();
 
-        GlobalSaveManager.Load(player);
+        //GlobalSaveManager.Load(player);
     }
 }

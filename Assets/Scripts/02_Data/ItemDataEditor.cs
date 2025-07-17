@@ -1,7 +1,7 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
 
-[CustomEditor(typeof(ItemData))]
+[CustomEditor(typeof(BaseItem))]
 public class ItemDataEditor : Editor
 {
     private SerializedProperty categoryProp;
@@ -21,7 +21,7 @@ public class ItemDataEditor : Editor
 
         EditorGUILayout.PropertyField(categoryProp);
 
-        if ((EItemCategory)categoryProp.enumValueIndex == EItemCategory.Equipment)
+        if ((E_CategoryType)categoryProp.enumValueIndex == E_CategoryType.Equip)
         {
             EditorGUILayout.PropertyField(equipTypeProp);
         }

@@ -105,7 +105,7 @@ public class DialogueUI : MonoBehaviour
         }
         else
         {
-            DisplayChoices();
+            //DisplayChoices();
         }
 
         passBtn.SetActive(false);
@@ -214,36 +214,36 @@ public class DialogueUI : MonoBehaviour
         }
         curLineIndex = curDialogueData.Lines.Count;
         passBtn.SetActive(false);
-        DisplayChoices();
+        //DisplayChoices();
     }
 
     // 선택지 버튼 생성
-    private void DisplayChoices()
-    {
-        GameManager.Instance.Player.GetComponent<PlayerQuest>().QuestUpdate();
-        choiceBtns.RemoveChoiceButton();
-        choiceBtns.gameObject.SetActive(true);
+    //private void DisplayChoices()
+    //{
+    //   // GameManager.Instance.Player.GetComponent<PlayerQuest>().QuestUpdate();
+    //    choiceBtns.RemoveChoiceButton();
+    //    choiceBtns.gameObject.SetActive(true);
 
-        foreach (var quest in curNpc.GetReceiverQuests())
-        {
-            GameManager.Instance.Player.GetComponent<PlayerQuest>().GetMyQStatus().TryGetValue(quest.QuestID, out QuestStatus status);
+    //    foreach (var quest in curNpc.GetReceiverQuests())
+    //    {
+    //        GameManager.Instance.Player.GetComponent<PlayerQuest>().GetMyQStatus().TryGetValue(quest.QuestID, out QuestStatus status);
 
-            if (status.IsCleared == true || quest.ConditionType == EConditionType.Investigation)
-            {
-                choiceBtns.SpawnClearBtn(quest);
-            }
-            else if (status.IsCleared == false)
-            {
-                choiceBtns.SpawnReceiveBtn(quest);
-            }
-        }
+    //        if (status.IsCleared == true || quest.ConditionType == EConditionType.Investigation)
+    //        {
+    //            choiceBtns.SpawnClearBtn(quest);
+    //        }
+    //        else if (status.IsCleared == false)
+    //        {
+    //            choiceBtns.SpawnReceiveBtn(quest);
+    //        }
+    //    }
 
-        foreach (var quest in QuestManager.Instance.GetAvailableQuests())
-        {
-            if (quest.AssignerID == curNpc.GetNpcData().NpcID)
-            {
-                choiceBtns.SpawnAssignBtn(quest);
-            }
-        }
-    }
+    //    foreach (var quest in QuestManager.Instance.GetAvailableQuests())
+    //    {
+    //        if (quest.AssignerID == curNpc.GetNpcData().NpcID)
+    //        {
+    //            choiceBtns.SpawnAssignBtn(quest);
+    //        }
+    //    }
+    //}
 }

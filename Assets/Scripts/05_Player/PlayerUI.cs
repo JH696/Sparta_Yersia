@@ -16,42 +16,13 @@ public class PlayerUI : MonoBehaviour
 
     private void Start()
     {
-        player = GameManager.Instance.Player.GetComponent<Player>();
-
         // 프로필 초기화 (플레이어가 할당되어 있을 경우)
-        if (player != null && player.PlayerData != null && ProfileImg != null)
+        if (player != null && player.Status != null && ProfileImg != null)
         {
-            ProfileImg.sprite = player.PlayerData.Icon;
+            ProfileImg.sprite = player.Status.PlayerData.Icon;
         }
     }
 
-    private void Update()
-    {
-        if (player == null) return;
-
-        // HP 게이지 반영
-        if (HpGauge != null)
-        {
-            float ratio = player.MaxHp > 0f ? player.CurrentHp / player.MaxHp : 0f;
-            HpGauge.fillAmount = Mathf.Clamp01(ratio);
-        }
-
-        // Mana 게이지 반영
-        if (ManaGauge != null)
-        {
-            float ratio = player.MaxMana > 0f ? player.CurrentMana / player.MaxMana : 0f;
-            ManaGauge.fillAmount = Mathf.Clamp01(ratio);
-        }
-
-        // 경험치 게이지 반영
-        if (ExpGauge != null && player is ILevelable levelable)
-        {
-            float ratio = levelable.ExpToNextLevel > 0
-                ? (float)levelable.CurrentExp / levelable.ExpToNextLevel
-                : 0f;
-            ExpGauge.fillAmount = Mathf.Clamp01(ratio);
-        }
-    }
 
     public void ShowPlayerUI()
     {
