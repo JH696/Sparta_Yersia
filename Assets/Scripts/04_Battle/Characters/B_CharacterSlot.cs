@@ -4,7 +4,7 @@ using UnityEngine;
 public class B_CharacterSlot : MonoBehaviour
 {
     [Header("등록된 캐릭터")]
-    [SerializeField] private BaseCharacter character;
+    [SerializeField] private CharacterStatus character;
 
     [Header("캐릭터 상태 UI")]
     [SerializeField] private B_CharacterStatUI cStatUI;
@@ -19,7 +19,7 @@ public class B_CharacterSlot : MonoBehaviour
     [Header("캐릭터 헹동 중 여부")]
     [SerializeField] private bool hasTurn;
 
-    public BaseCharacter Character => character;
+    public CharacterStatus Character => character;
 
     public void Start()
     {
@@ -33,7 +33,7 @@ public class B_CharacterSlot : MonoBehaviour
 
     public virtual void SetCharSlot(GameObject character)
     {
-        this.character = character.GetComponent<BaseCharacter>();
+        this.character = character.GetComponent<CharacterStatus>();
         aGauge.SetGauge(this, null);
         cStatUI.SetProfile(this.character);
         this.gameObject.SetActive(true);

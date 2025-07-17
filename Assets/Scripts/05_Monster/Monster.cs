@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public class Monster : BaseCharacter
+public class Monster : CharacterStatus
 {
     [Header("몬스터 데이터")]
     [SerializeField, Tooltip("몬스터의 이름과 ID가 포함된 데이터")]
     private MonsterData monsterData;
     [SerializeField] private CharacterSkill skill;
 
-    public override Sprite Icon => monsterData.Icon;
+    //public override Sprite Icon => monsterData.Icon;
 
     public MonsterData MonsterData => monsterData;
     public CharacterSkill Skill => skill; // 읽기 전용
@@ -15,7 +15,7 @@ public class Monster : BaseCharacter
     private void Awake()
     {
         if (monsterData == null) return;
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
         InitStat(monsterData); // 스탯 초기화
         skill.Init(monsterData.startingSkills);
         ApplyMonsterSprite();
@@ -23,13 +23,13 @@ public class Monster : BaseCharacter
 
     private void ApplyMonsterSprite()
     {
-        if (monsterData == null || monsterData.WorldSprite == null) return;
+        //if (monsterData == null || monsterData.WorldSprite == null) return;
 
-        var spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.sprite = monsterData.WorldSprite;
-        }
+        //var spriteRenderer = GetComponent<SpriteRenderer>();
+        //if (spriteRenderer != null)
+        //{
+        //    spriteRenderer.sprite = monsterData.WorldSprite;
+        //}
     }
 
     protected override void CharacterDie()

@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class NPC : BaseCharacter, IInteractable
+public class NPC : CharacterStatus, IInteractable
 {
     [Header("NPC 데이터")]
     [SerializeField] private NPCData npcData;
@@ -18,7 +18,7 @@ public class NPC : BaseCharacter, IInteractable
 
     [SerializeField] private CharacterSkill skill;
 
-    public override Sprite Icon => npcData.Icon;
+    //public override Sprite Icon => npcData.Icon;
     public CharacterSkill Skill => skill;
 
     private void Awake()

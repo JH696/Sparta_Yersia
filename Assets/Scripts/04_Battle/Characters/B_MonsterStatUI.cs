@@ -36,7 +36,7 @@ public class B_MonsterStatUI : MonoBehaviour
         hpText.text = "";
     }
 
-    public void RefreshGauge(BaseCharacter character)
+    public void RefreshGauge(CharacterStatus character)
     {
         hpGauge.fillAmount = character.CurrentHp / character.MaxHp;
         hpText.text = $"{character.CurrentHp} / {character.MaxHp}";

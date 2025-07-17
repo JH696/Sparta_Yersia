@@ -10,7 +10,7 @@ public class B_CharacterStatUI : MonoBehaviour
     [SerializeField] private Image hpGauge;
     [SerializeField] private Image mpGauge;
 
-    public void SetProfile(BaseCharacter character)
+    public void SetProfile(CharacterStatus character)
     {
         this.gameObject.SetActive(true);   
         icon.sprite = character.Icon;
@@ -24,7 +24,7 @@ public class B_CharacterStatUI : MonoBehaviour
         mpGauge.fillAmount = 0;
     }
 
-    public void RefreshGauge(BaseCharacter character)
+    public void RefreshGauge(CharacterStatus character)
     {
         hpGauge.fillAmount = character.CurrentHp / character.MaxHp;
         mpGauge.fillAmount = character.CurrentMana / character.MaxMana;

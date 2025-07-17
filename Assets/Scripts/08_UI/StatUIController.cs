@@ -5,9 +5,9 @@ public class StatUIController : MonoBehaviour
     [Header("UI 표시 대상")]
     [SerializeField] private GameObject statsUIObject; // UI GameObject 전체
     [SerializeField] private StatsUI statsUI;
-    [SerializeField] private BaseCharacter player;
-    [SerializeField] private BaseCharacter pet1;
-    [SerializeField] private BaseCharacter pet2;
+    [SerializeField] private CharacterStatus player;
+    [SerializeField] private CharacterStatus pet1;
+    [SerializeField] private CharacterStatus pet2;
 
     [Header("추가 UI 오브젝트")]
     [SerializeField] private GameObject PlayerInfo;    // 플레이어 전용 정보 UI

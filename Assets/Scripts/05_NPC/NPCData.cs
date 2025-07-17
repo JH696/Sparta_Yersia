@@ -4,7 +4,7 @@ using UnityEngine;
 
 [Serializable]
 [CreateAssetMenu(fileName = "NPC_NameData", menuName = "Data/NPCData")]
-public class NPCData : CharacterData, ICharacterSkillSetData
+public class NPCData : StatData, ICharacterSkillSetData
 {
     [Header("NPC ID / 이름")]
     public string NpcID;   

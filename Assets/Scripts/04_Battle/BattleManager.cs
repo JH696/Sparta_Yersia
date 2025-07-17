@@ -26,7 +26,7 @@ public class BattleManager : MonoBehaviour
     //행동에 당하는 오브젝트
     GameObject playObject;
     GameObject targetObject;
-    BaseCharacter baseCharacter;
+    CharacterStatus baseCharacter;
     [SerializeField] List<Transform> playerPositionList;
     [SerializeField] List<Transform> enemyPositionList;
     int enemyDeathCount = 0;
@@ -141,7 +141,7 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < list.Count && i < transforms.Count; i++)
         {
             list[i].transform.position = transforms[i].position;
-            baseCharacter = list[i].GetComponent<BaseCharacter>();
+            baseCharacter = list[i].GetComponent<CharacterStatus>();
 
         }
     }
@@ -163,7 +163,7 @@ public class BattleManager : MonoBehaviour
     {
         //데미지 정산 
         //targetObject가 죽었는지 확인 isDie
-        BaseCharacter bc = targetObject.GetComponent<BaseCharacter>();
+        CharacterStatus bc = targetObject.GetComponent<CharacterStatus>();
         if (bc.IsDead == true)
         {
             if (targetObject.CompareTag("enemy") == true)

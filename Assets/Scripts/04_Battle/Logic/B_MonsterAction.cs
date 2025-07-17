@@ -5,11 +5,11 @@ public class MonsterAction : MonoBehaviour
 {
     [SerializeField] private B_Characters chars;
 
-    public void MonsterAttack(BaseCharacter monster)
+    public void MonsterAttack(CharacterStatus monster)
     {
         DamageCalculator cal = new DamageCalculator();
         
-        List<BaseCharacter> targets = new List<BaseCharacter>();
+        List<CharacterStatus> targets = new List<CharacterStatus>();
 
         foreach (B_CharacterSlot slot in chars.CSlots)
         {

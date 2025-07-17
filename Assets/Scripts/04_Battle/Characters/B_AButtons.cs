@@ -75,7 +75,7 @@ public class B_AButtons : MonoBehaviour
 
     public void OnRestButton()
     {
-        BaseCharacter target = chars.SpotLight.Character;
+        CharacterStatus target = chars.SpotLight.Character;
         target.HealMana(target.MaxMana * 0.1f);
 
         this.gameObject.SetActive(false);

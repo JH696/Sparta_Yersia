@@ -27,4 +27,12 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Player not found in scene.");
         }
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GlobalSaveManager.Save(Player.GetComponent<Player>());
+        }
+    }
 }
