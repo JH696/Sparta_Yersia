@@ -1,37 +1,143 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class CharacterStats
+public class CharacterStats // 예외처리 추가 프로퍼티 추가
 {
-    public float MaxHp;
-    public float CurrentHp;
-    public float MaxMana;
-    public float CurrentMana;
-    public float Attack;
-    public float Defense;
-    public float Luck;
-    public float Speed;
+    [SerializeField] private int level;
+    [SerializeField] private int exp;
+    [SerializeField] private int maxExp;
 
-    public void SetBaseStats(CharacterData data)
+    [SerializeField] private float maxHp;
+    [SerializeField] private float currentHp;
+
+    [SerializeField] private float maxMana;
+    [SerializeField] private float currentMana;
+
+    [SerializeField] private float attack;
+    [SerializeField] private float defense;
+    [SerializeField] private float luck;
+    [SerializeField] private float speed;
+
+
+    public event System.Action LevelUP; // 예: 플레이어 스킬 포인트 획득, 펫 스프라이트 변화
+    public event System.Action StatusChanged; // UI 연결
+
+    public int Level
+    {
+        get => level;
+        private set => level = Mathf.Max(0, value);
+    }
+
+    public int Exp
+    {
+        get => exp;
+        private set => exp = Mathf.Max(0, value);
+    }
+
+    public int MaxExp
+    {
+        get => maxExp;
+        set
+        {
+            maxExp = Mathf.Max(1, value); // 최소 1
+            StatusChanged?.Invoke();
+        }
+    }
+
+    public float MaxHp
+    {
+        get => maxHp;
+        private set => maxHp = Mathf.Max(1f, value);
+    }
+
+    public float CurrentHp
+    {
+        get => currentHp;
+        set
+        {
+            currentHp = Mathf.Clamp(value, 0, MaxHp);
+            StatusChanged?.Invoke();
+        }
+    }
+
+    public float MaxMana
+    {
+        get => maxMana;
+        private set => maxMana = Mathf.Max(0f, value);
+    }
+
+    public float CurrentMana
+    {
+        get => currentMana;
+        set
+        {
+            currentMana = Mathf.Clamp(value, 0, MaxMana);
+            StatusChanged?.Invoke();
+        }
+    }
+
+    public float Attack
+    {
+        get => attack;
+        private set => attack = Mathf.Max(0f, value);
+    }
+
+    public float Defense
+    {
+        get => defense;
+        private set => defense = Mathf.Max(0f, value);
+    }
+
+    public float Luck
+    {
+        get => luck;
+        private set => luck = Mathf.Max(0f, value);
+    }
+
+    public float Speed
+    {
+        get => speed;
+        private set => speed = Mathf.Max(0f, value);
+    }
+
+    public void SetBaseStats(StatData data)
     {
         if (data == null) return;
 
-        MaxHp = data.MaxHp;
+        MaxHp = data.maxHp;
         CurrentHp = MaxHp;
 
-        MaxMana = data.MaxMana;
+        MaxMana = data.maxMana;
         CurrentMana = MaxMana;
 
-        Attack = data.Attack;
-        Defense = data.Defense;
-        Luck = data.Luck;
-        Speed = data.Speed;
+        Attack = data.attack;
+        Defense = data.defense;
+        Luck = data.luck;
+        Speed = data.speed;
+
+        StatusChanged?.Invoke();
     }
 
-    // 스탯을 배율로 증가 (레벨업, 진화)
-
-    public void MultiplyStats(float multiplier)
+    public void AddExp(int amount)
     {
+        if (amount <= 0) return;
+
+        Exp += amount;
+
+        while (Exp >= MaxExp)
+        {
+            Exp -= MaxExp;
+            Level++;
+            LevelUp(1.1f); // 기본 레벨업 배수
+        }
+
+        StatusChanged?.Invoke();
+    }
+
+    public void LevelUp(float multiplier)
+    {
+        if (multiplier <= 0f) multiplier = 1.0f;
+
         MaxHp *= multiplier;
         CurrentHp = MaxHp;
 
@@ -42,9 +148,57 @@ public class CharacterStats
         Defense *= multiplier;
         Luck *= multiplier;
         Speed *= multiplier;
+
+        LevelUP?.Invoke();
+        StatusChanged?.Invoke();
     }
 
-    // 현재 HP/Mana가 Max를 넘지 않도록 조정
+    public void ApplyStat(EStatType type, float value)
+    {
+        switch (type)
+        {
+            case EStatType.MaxHp:
+                MaxHp += value;
+                CurrentHp = Mathf.Clamp(CurrentHp, 0, MaxHp);
+                break;
+            case EStatType.MaxMana:
+                MaxMana += value;
+                CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana);
+                break;
+            case EStatType.Attack:
+                Attack += value;
+                break;
+            case EStatType.Defense:
+                Defense += value;
+                break;
+            case EStatType.Luck:
+                Luck += value;
+                break;
+            case EStatType.Speed:
+                Speed += value;
+                break;
+        }
+        StatusChanged?.Invoke();
+    }
+
+    public void MultiplyStats(float multiplier)
+    {
+        if (multiplier <= 0f) multiplier = 1f;
+
+        MaxHp *= multiplier;
+        CurrentHp = MaxHp;
+
+        MaxMana *= multiplier;
+        CurrentMana = MaxMana;
+
+        Attack *= multiplier;
+        Defense *= multiplier;
+        Luck *= multiplier;
+        Speed *= multiplier;
+
+        LevelUP?.Invoke();
+        StatusChanged?.Invoke();
+    }
 
     public void SetCurrentHp(float hp)
     {
@@ -53,14 +207,6 @@ public class CharacterStats
 
     public void SetCurrentMana(float mana)
     {
-        CurrentMana = Mathf.Clamp(mana, 0, MaxMana);
-    }
-
-
-    // 스탯을 증가시키는 메소드 - 스킬에 사용 (선량 추가- 만약 이미 추가하신것있으면 지워도 됨. 임시로 추가한거임)
-    public void AddMaxMana(float amount)
-    {
-        MaxMana += amount;
-        CurrentMana = Mathf.Clamp(CurrentMana, 0, MaxMana);
+        CurrentHp = Mathf.Clamp(mana, 0, MaxMana);
     }
 }
