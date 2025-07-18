@@ -5,22 +5,26 @@ using UnityEngine;
 [System.Serializable]
 public class ItemInventory
 {
-    [SerializeField] private List<ItemStatus> items = new List<ItemStatus>();
+    [SerializeField] private List<ItemStatus> items;
+    [SerializeField] private int maxItemCount;
+    private bool isFull => items.Count >= maxItemCount;
     public List<ItemStatus> Items => items;
+    public int MaxItemCount => maxItemCount;
 
     public event Action InventoryChanged;
 
     // 아이템 인벤토리 아이템 추가
     public ItemInventory()
     {
-        items = null;
+        items = new List<ItemStatus>();
+        maxItemCount = 20; // 기본 최대 아이템 수 설정
     }   
 
     public void AddItem(BaseItem data)
     {
-        ItemStatus status = new ItemStatus(data);
+        if (isFull) { Debug.Log("풀 인벤토리"); return; }
 
-        status.OnEmpty += () => RemoveItem(status.Data);
+        ItemStatus status = new ItemStatus(this, data);
 
         if (HasItem(data))
         {
@@ -30,11 +34,12 @@ public class ItemInventory
             }
             else
             {
-                items[GetItemIndex(data)].StackItem();
+                items[GetItemIndex(data)].StackItem(1);
             }
         }
         else
         {
+            Debug.Log($"아이템 추가: {data.ID}");
             items.Add(status);
         }
 
@@ -46,8 +51,7 @@ public class ItemInventory
     {
         if (!HasItem(data)) return;
 
-        items.Remove(items[GetItemIndex(data)]);
-        
+        items.RemoveAt(GetItemIndex(data));
         InventoryChanged?.Invoke();
     }
 

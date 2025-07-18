@@ -1,5 +1,4 @@
-﻿using Unity.VisualScripting;
-
+﻿
 [System.Serializable]
 public class PlayerStatus : CharacterStatus
 {
@@ -25,8 +24,8 @@ public class PlayerStatus : CharacterStatus
         party = new PlayerParty();
         quest = new PlayerQuest();
         inventory = new ItemInventory();
+        equipment = new ItemEquipment(this);
         skills = new SkillInventory();
-        PlayerName = playerName;
     }
 
     // 플레이어만 가질 수 있는 기능들    

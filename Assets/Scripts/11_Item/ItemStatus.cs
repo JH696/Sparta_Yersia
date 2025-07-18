@@ -1,36 +1,62 @@
 ﻿using System;
+using UnityEngine;
 
 [System.Serializable]
 public class ItemStatus
 {
-    public BaseItem Data { get; private set; }
-    public int Stack { get; private set; }
+    private ItemInventory inventory; // 아이템이 위치한 인벤토리
+
+    [Header("아이템 데이터")]
+    public BaseItem Data;
+
+    [Header("아이템 갯수")]
+    public int Stack;
+
+    private bool isEquiped = false;
+    public bool? IsEquiped
+    {
+        get // 장비 아이템이 아닌 경우에는 'null'
+        {
+            if (Data is EquipItemData)
+            {
+                return isEquiped;
+            }
+            return null;
+        }
+        set // 장비 아이템인 경우에만 설정 가능
+        {
+            if (Data is EquipItemData)
+            {
+                isEquiped = value ?? false;
+            }
+        }
+    }
+
     public bool IsFull => Stack == Data.MaxStack;
 
     public event Action StatusChanged; // 아이템 상태 변경 이벤트
-    public event Action OnEmpty; // 아이템이 비었을 때 호출
-    public ItemStatus(BaseItem data)
+
+    public ItemStatus(ItemInventory inventory, BaseItem data)
     {
+        this.inventory = inventory;
         Data = data;
         Stack = 1;
     }
 
-    public void UseItem()
+    // 아이템 버리기 메서드
+    public void LoseItem(int count)
     {
-        Stack--;
+        Stack -= count;
 
-        if (Stack == 0)
-        {
-            OnEmpty?.Invoke();
-        }
-
-        StatusChanged?.Invoke();
+        inventory.RemoveItem(Data);
     }
-    public void StackItem()
+
+    // 아이템 중첩 메서드
+    public void StackItem(int count)
     {
         if (IsFull) return;
 
-        Stack++;
+        Stack += count;
     }
 
     /// <summary>

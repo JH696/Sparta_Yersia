@@ -1780,14 +1780,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f5eb62427f44e4a93349c867051a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chars: {fileID: 1227127128}
-  attackBtn: {fileID: 1490670997}
-  skillBtn: {fileID: 79843525}
-  itemBtn: {fileID: 1056628316}
-  RestBtn: {fileID: 1150444341}
-  RunBtn: {fileID: 1627504823}
-  dBtns: {fileID: 1879019760}
-  targetSystem: {fileID: 399474759}
 --- !u!1 &244005200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2460,12 +2452,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2648c0586eff144783a54bf9c040b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster: {fileID: 0}
-  mStatUI: {fileID: 1115333650}
-  actionPoint: 0
-  aGauge: {fileID: 1457215292}
-  mAction: {fileID: 988848080}
-  pointer: {fileID: 1619524174}
 --- !u!1 &331667064
 GameObject:
   m_ObjectHideFlags: 0
@@ -2860,9 +2846,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1cc624e713048f44b051440bc338ad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnParent: {fileID: 1504866254}
-  actionBtns: {fileID: 215292816}
-  canvas: {fileID: 1057746549}
 --- !u!114 &399474759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4442,7 +4425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &767214497
 Transform:
   m_ObjectHideFlags: 0
@@ -6110,7 +6093,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9642257055e5ee74b8d90f07f726995c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chars: {fileID: 1227127128}
 --- !u!1 &989994585
 GameObject:
   m_ObjectHideFlags: 0
@@ -7994,12 +7976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2648c0586eff144783a54bf9c040b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster: {fileID: 0}
-  mStatUI: {fileID: 4622431505855686626}
-  actionPoint: 0
-  aGauge: {fileID: 1095949886}
-  mAction: {fileID: 988848080}
-  pointer: {fileID: 717949634}
 --- !u!1 &1182385819
 GameObject:
   m_ObjectHideFlags: 0
@@ -8179,19 +8155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98431caa4cfcf394988fe4c0355a9408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cSlots:
-  - {fileID: 767214501}
-  - {fileID: 427187867}
-  - {fileID: 1945270138}
-  - {fileID: 436682398}
-  mSlots:
-  - {fileID: 1178684676}
-  - {fileID: 1718378906}
-  - {fileID: 1464205727}
-  - {fileID: 330855180}
-  ui: {fileID: 399474758}
-  spotLight: {fileID: 0}
-  isOver: 0
 --- !u!1 &1227997795
 GameObject:
   m_ObjectHideFlags: 0
@@ -9407,12 +9370,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2648c0586eff144783a54bf9c040b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster: {fileID: 0}
-  mStatUI: {fileID: 1801277164}
-  actionPoint: 0
-  aGauge: {fileID: 575985970}
-  mAction: {fileID: 988848080}
-  pointer: {fileID: 1585225553}
 --- !u!1 &1485894065
 GameObject:
   m_ObjectHideFlags: 0
@@ -11125,23 +11082,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 436541cbe4a5a58469d98afa9223b39a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  go: {fileID: 290490951}
-  titleText: {fileID: 1036992287}
-  expText: {fileID: 1983741980}
-  ypText: {fileID: 346896468}
-  icons:
-  - {fileID: 785420625}
-  - {fileID: 1156090693}
-  - {fileID: 1666316010}
-  - {fileID: 1940615507}
-  - {fileID: 1190274901}
-  stacks:
-  - {fileID: 73047614}
-  - {fileID: 1818320489}
-  - {fileID: 885954463}
-  - {fileID: 207649776}
-  - {fileID: 1227997797}
-  okButton: {fileID: 841507662}
 --- !u!1 &1666316008
 GameObject:
   m_ObjectHideFlags: 0
@@ -11375,12 +11315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2648c0586eff144783a54bf9c040b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster: {fileID: 0}
-  mStatUI: {fileID: 959896778}
-  actionPoint: 0
-  aGauge: {fileID: 1069758456}
-  mAction: {fileID: 988848080}
-  pointer: {fileID: 1928795496}
 --- !u!1 &1728593255
 GameObject:
   m_ObjectHideFlags: 0
@@ -12366,15 +12300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c97cacd6ce7a1941a609941b6151e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dButtons:
-  - {fileID: 1168300442}
-  - {fileID: 1436093449}
-  - {fileID: 30948853}
-  - {fileID: 1596876820}
-  - {fileID: 1502159946}
-  returnButton: {fileID: 801979528}
-  bButton: {fileID: 215292814}
-  targetSystem: {fileID: 399474759}
 --- !u!1 &1921221708
 GameObject:
   m_ObjectHideFlags: 0
