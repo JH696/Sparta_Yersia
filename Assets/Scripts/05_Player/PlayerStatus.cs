@@ -7,7 +7,7 @@ public class PlayerStatus : CharacterStatus
     public PlayerQuest quest;
     // 인벤토리, 장비
     public ItemInventory inventory;
-    public CharacterEquipment equipment;
+    public ItemEquipment equipment;
     // 스킬
     public SkillInventory skills;
     // 플레이어 이름

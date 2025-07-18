@@ -1,15 +1,5 @@
 ﻿using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-
-public enum E_EquipType
-{
-    Weapon = 0,
-    Hat = 1,
-    Accessory = 2,
-    Clothes = 3,
-    Shoes = 4,
-}
 
 public struct ItemValue
 {
