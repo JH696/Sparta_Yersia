@@ -63,6 +63,25 @@ public class ConsumeItemData : BaseItem
     {
         return E_CategoryType.Consume;
     }
+
+    public void Consume(CharacterStatus status)
+    { 
+        foreach (ItemValue v in Values)
+        {
+            switch (v.Stat)
+            {
+                case EStatType.MaxHp:
+                    status.RecoverHealth(v.Value);
+                    break;
+                case EStatType.MaxMana:
+                    status.RecoverMana(v.Value);
+                    break;
+                default:
+                    Debug.LogWarning($"[ConsumeItemData] 지원하지 않는 능력치 입니다.");
+                    return;
+            }
+        }
+    }
 }
 
 // 일반 아이템 (퀘스트 아이템)

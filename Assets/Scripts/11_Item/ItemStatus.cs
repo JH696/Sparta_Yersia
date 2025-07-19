@@ -12,26 +12,6 @@ public class ItemStatus
     [Header("아이템 갯수")]
     public int Stack;
 
-    private bool isEquiped = false;
-    public bool? IsEquiped
-    {
-        get // 장비 아이템이 아닌 경우에는 'null'
-        {
-            if (Data is EquipItemData)
-            {
-                return isEquiped;
-            }
-            return null;
-        }
-        set // 장비 아이템인 경우에만 설정 가능
-        {
-            if (Data is EquipItemData)
-            {
-                isEquiped = value ?? false;
-            }
-        }
-    }
-
     public bool IsFull => Stack == Data.MaxStack;
 
     public event Action StatusChanged; // 아이템 상태 변경 이벤트
@@ -47,8 +27,13 @@ public class ItemStatus
     public void LoseItem(int count)
     {
         Stack -= count;
+        
+        if (Stack <= 0)
+        {
+            inventory.RemoveItem(Data);
+        }
 
-        inventory.RemoveItem(Data);
+        StatusChanged?.Invoke();
     }
 
     // 아이템 중첩 메서드
@@ -71,5 +56,6 @@ public class ItemStatus
         }
         return null;
     }
+
 }
 

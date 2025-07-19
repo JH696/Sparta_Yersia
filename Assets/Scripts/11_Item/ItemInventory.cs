@@ -5,7 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class ItemInventory
 {
+    [Header("저장된 아이템들")]
     [SerializeField] private List<ItemStatus> items;
+
+    [Header("인벤토리 최대 용량")]
     [SerializeField] private int maxItemCount;
     private bool isFull => items.Count >= maxItemCount;
     public List<ItemStatus> Items => items;
@@ -52,6 +55,7 @@ public class ItemInventory
         if (!HasItem(data)) return;
 
         items.RemoveAt(GetItemIndex(data));
+
         InventoryChanged?.Invoke();
     }
 

@@ -34,11 +34,13 @@ public class ItemSlot : MonoBehaviour
     {
         if (status == null)
         {
+            icon.enabled = false;
             icon.sprite = null;
             stack.text = string.Empty;
             return;
         }
 
+        icon.enabled = true;
         icon.sprite = status.Data.Icon;
         stack.text = status.Stack > 1 ? status.Stack.ToString() : string.Empty;
     }
@@ -51,8 +53,10 @@ public class ItemSlot : MonoBehaviour
             status.StatusChanged -= UpdateSlot;
             //status.OnEmpty -= ClearSlot;
         }
+
         status = null;
         icon.sprite = null;
+        icon.enabled = false;
         stack.text = string.Empty;
         GetComponent<Button>().onClick.RemoveListener(OnClick); // 슬롯 클릭 이벤트 제거
     }   

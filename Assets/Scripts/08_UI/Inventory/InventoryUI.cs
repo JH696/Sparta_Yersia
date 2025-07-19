@@ -16,6 +16,9 @@ public class InventoryUI : MonoBehaviour
     [Header("인벤토리 주인")]
     [SerializeField] private Player player;
 
+    [Header("인벤토리 패널")]
+    [SerializeField] private GameObject inventoryPanel;
+
     [Header("장비 UI")]
     [SerializeField] private EquipmentUI equipment;
 
@@ -34,8 +37,8 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Button closeBtn;
 
     [Header("인벤토리 버튼")]
-    [SerializeField] private Button button1;
-    [SerializeField] private Button button2;
+    [SerializeField] private Button interactBtn;
+    [SerializeField] private Button discardBtn;
 
     [Header("아이템 정보 패널")]
     [SerializeField] private GameObject infoPanel;
@@ -48,31 +51,23 @@ public class InventoryUI : MonoBehaviour
     [Header("선택된 슬롯")]
     [SerializeField] private ItemSlot selectedSlot;
 
+    public event System.Action ChangeSelctedSlot;
+
     public List<BaseItem> test;
-
-    private void OnEnable()
-    {
-        player.Status.inventory.InventoryChanged += RefreshInventory;
-        // equipment.EquipmentChanged += RefreshInventory;
-    }
-
-    private void OnDisable()
-    {
-        player.Status.inventory.InventoryChanged -= RefreshInventory;
-        // equipment.EquipmentChanged -= RefreshInventory;
-    }
 
     private void Start()
     {
         DisplaySlots();
+
+        player.Status.inventory.InventoryChanged += RefreshInventory;
 
         categoryBtns[0].onClick.AddListener(() => ChangeCategory(E_CategoryType.All));
         categoryBtns[1].onClick.AddListener(() => ChangeCategory(E_CategoryType.Equip));
         categoryBtns[2].onClick.AddListener(() => ChangeCategory(E_CategoryType.Consume));
         categoryBtns[3].onClick.AddListener(() => ChangeCategory(E_CategoryType.Quest));
 
-        button1.onClick.AddListener(OnClick1);
-        button2.onClick.AddListener(OnClick2);
+        interactBtn.onClick.AddListener(OnInteractButton); // 장비, 사용, 사용 불가 버튼 
+        discardBtn.onClick.AddListener(OnDiscardButton); // 아이템 버리기
 
         closeBtn.onClick.AddListener(CloseInventory);
 
@@ -87,12 +82,12 @@ public class InventoryUI : MonoBehaviour
     public void OpenInventory()
     {
         RefreshInventory();
-        this.gameObject.SetActive(true);    
+        inventoryPanel.SetActive(true);    
     }
 
     public void CloseInventory()
     {
-        this.gameObject.SetActive(false);
+        inventoryPanel.SetActive(false);
         ClearSeletedSlot();
     }
 
@@ -103,7 +98,7 @@ public class InventoryUI : MonoBehaviour
         {
             GameObject slotObj = Instantiate(slotPrefab, slotParent);
             ItemSlot slot = slotObj.GetComponent<ItemSlot>();
-            slot.OnClickSlot += SetSeletedSlot;
+            slot.OnClickSlot += SetSelectedSlot;
             slots.Add(slot);
         }
     }
@@ -111,6 +106,8 @@ public class InventoryUI : MonoBehaviour
     // 카테고리에 따른 인벤토리 동기화
     private void RefreshInventory()
     {
+        Debug.Log($"[InventoryUI] 인벤토리 갱신: {category}");
+
         foreach (ItemSlot slot in slots)
         {
             slot.ClearSlot();
@@ -147,26 +144,109 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-
     // 슬롯 선택 시
-    private void SetSeletedSlot(ItemSlot slot)
+    private void SetSelectedSlot(ItemSlot slot)
     {
         selectedSlot = slot;
-        ShowItemDetails(slot.Status.Data);
-        
-        if (slot.Status.Data is EquipItemData equipData)
-        {
-            if (slot.Status.IsEquiped == true)
-            {
-                button1.GetComponentInChildren<TextMeshProUGUI>().text = "장착 해제";
-                return;
-            }
+        ShowItemDetails(selectedSlot.Status.Data);
+        UpdateButton();
+    }
 
-            button1.GetComponentInChildren<TextMeshProUGUI>().text = "장착";
-        }
-        else
+    // 버튼 클릭 이벤트 메서드
+    private void OnInteractButton()
+    {
+        if (selectedSlot == null) return;
+
+        switch (selectedSlot.Status.Data)
         {
-            button1.GetComponentInChildren<TextMeshProUGUI>().text = "사용";
+            case EquipItemData equipData:
+                if (player.Status.equipment.FindEquippedItem(equipData) != null)
+                {
+                    player.Status.equipment.Unequip(equipData.Type);
+                }
+                else
+                {
+                    player.Status.equipment.Equip(equipData);
+                }
+                break;
+
+            case ConsumeItemData consumeData:
+                consumeData.Consume(player.Status);
+                selectedSlot.Status.LoseItem(1);
+                break;
+
+            default:
+                Debug.LogWarning("[InventoryUI] 알 수 없는 아이템 타입입니다.");
+                return;
+        }
+
+        ClearSeletedSlot();
+        UpdateButton();
+    }
+
+    private void OnDiscardButton()
+    {
+        if (selectedSlot == null) return;
+
+        switch (selectedSlot.Status.Data)
+        {
+            default:
+                selectedSlot.Status.LoseItem(1);
+                break;
+
+            case EquipItemData equipItem:
+                player.Status.equipment.Unequip(equipItem.Type);
+                selectedSlot.Status.LoseItem(1);
+                break;
+
+            case QuestItemData questItem:
+                return;
+        }
+
+        ClearSeletedSlot();
+        UpdateButton();
+    }
+
+    // 버튼 오브젝트 업데이트 메서드
+    private void UpdateButton()
+    {
+        if (selectedSlot == null)
+        {
+            interactBtn.gameObject.SetActive(false);
+            discardBtn.gameObject.SetActive(false);
+            return;
+        }
+
+        var buttonText = interactBtn.GetComponentInChildren<TextMeshProUGUI>();
+
+        switch (selectedSlot.Status.Data)
+        {
+            case EquipItemData equipData:
+                bool isEquipped = player.Status.equipment.FindEquippedItem(equipData) != null;
+                interactBtn.gameObject.SetActive(true);
+                discardBtn.gameObject.SetActive(true);
+
+                if (isEquipped)
+                {
+                    buttonText.text = "장비 해제";
+                }
+                else
+                {
+                    buttonText.text = "장비";
+                }
+                break;
+
+            case ConsumeItemData consumeData:
+                interactBtn.gameObject.SetActive(true);
+                discardBtn.gameObject.SetActive(true);
+                buttonText.text = "사용";
+                break;
+
+            default:
+                buttonText.text = string.Empty;
+                interactBtn.gameObject.SetActive(false);
+                discardBtn.gameObject.SetActive(false);
+                break;
         }
     }
 
@@ -206,56 +286,9 @@ public class InventoryUI : MonoBehaviour
     {
         itemName.text = string.Empty;
         itemInfo.text = string.Empty;
-        button1.GetComponentInChildren<TextMeshProUGUI>().text = string.Empty;
     }
 
-    private void OnClick1()
-    {
-        if (selectedSlot == null) return;
 
-        ItemStatus status = selectedSlot.Status;
-        ItemEquipment playerEquipment = player.Status.equipment;
-
-        switch (status.Data)
-        {
-            default:
-                Debug.Log("사용 가능한 형태의 아이템이 아닙니다.");
-                return;
-
-            case EquipItemData equipItem:
-                if (status.IsEquiped == true)
-                {
-                    playerEquipment.Unequip(equipItem.Type);
-                }
-                else
-                {
-                    playerEquipment.Equip(selectedSlot.Status);
-                }
-                break;
-
-            case ConsumeItemData consumeItem:
-
-                break;
-        }
-
-        ClearSeletedSlot();
-    }
-
-    private void OnClick2()
-    {
-        if (selectedSlot == null) return;
-
-        switch (selectedSlot.Status.Data)
-        {
-            default:
-                selectedSlot.Status.LoseItem(1);
-                break;
-
-            case QuestItemData questItem:
-                Debug.Log("퀘스트 아이템은 버릴 수 없습니다.");
-                return;
-        }
-    }
 
     private void ChangeCategory(E_CategoryType category)
     {

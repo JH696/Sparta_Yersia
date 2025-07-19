@@ -28,10 +28,12 @@ public class EquipmentUI : MonoBehaviour
 
             if (icon != null)
             {
+                this.icon[i].enabled = true;
                 this.icon[i].sprite = icon;
             }
             else
             {
+                this.icon[i].enabled = false;
                 this.icon[i].sprite = null;
             }
         }
