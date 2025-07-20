@@ -14,14 +14,14 @@ public class PlayerStatus : CharacterStatus
     public string PlayerName;
     // 플레이어 데이터
     public PlayerData PlayerData;
-    public PlayerWallet wallet;
+    public PlayerWallet Wallet;
 
     // 레벨 및 경험치
     public int Level { get; private set; } = 1;
     public int Exp { get; private set; } = 0;
 
     // 경험치 요구량 계산
-    public int ExpToNextLevel => PlayerData.BaseExpToLevelUp * Level;
+    //public int ExpToNextLevel => PlayerData.BaseExpToLevelUp * Level;
 
     public PlayerStatus(PlayerData data, string playerName)
     {
@@ -35,34 +35,7 @@ public class PlayerStatus : CharacterStatus
         inventory = new ItemInventory();
         equipment = new ItemEquipment(this);
         skills = new SkillInventory(PlayerData);
-        skills = new SkillInventory();
         PlayerName = playerName;
-        wallet = new PlayerWallet();
-    }
-
-    // 플레이어만 가질 수 있는 기능들
-    public void SetLevel(int level)
-    {
-        Level = Mathf.Max(1, level);
-    }
-
-    public void SetExp(int exp)
-    {
-        Exp = Mathf.Max(0, exp);
-    }
-
-    public bool TryAddExp(int amount)
-    {
-        Exp += amount;
-        bool leveledUp = false;
-
-        while (Exp >= ExpToNextLevel)
-        {
-            Exp -= ExpToNextLevel;
-            Level++;
-            leveledUp = true;
-        }
-
-        return leveledUp;
+        Wallet = new PlayerWallet();
     }
 }

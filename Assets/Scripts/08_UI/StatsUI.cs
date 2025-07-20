@@ -69,7 +69,7 @@ public class StatsUI : MonoBehaviour
         if (playerStatus != null)
         {
             // Player UI 업데이트
-            if (YPTxt != null) YPTxt.text = $"YP : {playerStatus.wallet.YP}";
+            if (YPTxt != null) YPTxt.text = $"YP : {playerStatus.Wallet.YP}";
             if (ProfileImg != null && playerStatus.PlayerData != null)
                 ProfileImg.sprite = playerStatus.PlayerData.Icon;
 

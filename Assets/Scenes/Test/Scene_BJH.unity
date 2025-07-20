@@ -13816,8 +13816,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1113985116}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 1527766091954953983}
+        m_TargetAssemblyTypeName: StatUIController, Assembly-CSharp
         m_MethodName: ShowStatUI
         m_Mode: 1
         m_Arguments:
@@ -14235,8 +14235,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1113985116}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 1527766091954953983}
+        m_TargetAssemblyTypeName: StatUIController, Assembly-CSharp
         m_MethodName: ShowPet1Stats
         m_Mode: 1
         m_Arguments:
@@ -15507,7 +15507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statsUIObject: {fileID: 2838091}
   statsUI: {fileID: 859763383113718219}
-  player: {fileID: 0}
+  player: {fileID: 5868924951691442565}
   PlayerInfo: {fileID: 7970924221124182452}
   PetInfo: {fileID: 6905988533449485647}
 --- !u!1 &1530919389799790619
@@ -16877,8 +16877,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1113985116}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 1527766091954953983}
+        m_TargetAssemblyTypeName: StatUIController, Assembly-CSharp
         m_MethodName: ShowStatUI
         m_Mode: 1
         m_Arguments:
@@ -20305,8 +20305,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1113985116}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 1527766091954953983}
+        m_TargetAssemblyTypeName: StatUIController, Assembly-CSharp
         m_MethodName: ShowPet2Stats
         m_Mode: 1
         m_Arguments:
@@ -22337,7 +22337,7 @@ MonoBehaviour:
     IsDead: 0
     stat:
       level: 0
-      exp: 0
+      curExp: 0
       maxExp: 0
       maxHp: 0
       currentHp: 0
@@ -22374,7 +22374,7 @@ MonoBehaviour:
       learnableSkills: []
     PlayerName: 
     PlayerData: {fileID: 0}
-    wallet:
+    Wallet:
       yp: 0
   playerData: {fileID: 11400000, guid: c04251b80bf0c3948a51e3dd635596f5, type: 2}
   worldSprite: {fileID: 5868924951691442566}
@@ -25308,8 +25308,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1113985116}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 1527766091954953983}
+        m_TargetAssemblyTypeName: StatUIController, Assembly-CSharp
         m_MethodName: HideStatUI
         m_Mode: 1
         m_Arguments:
@@ -25753,7 +25753,6 @@ MonoBehaviour:
   selectedSlot: {fileID: 0}
   test:
   - {fileID: 11400000, guid: f7ac4602103f51746bee5c971907269b, type: 2}
-  - {fileID: 11400000, guid: f96447e835c0328418453ec8dc49fa2b, type: 2}
   - {fileID: 11400000, guid: 7932d3bef5258dd4bb32684d0acd19a2, type: 2}
   - {fileID: 11400000, guid: c63b4c3249c887945ae9c56ece8d59b2, type: 2}
   - {fileID: 11400000, guid: f7ac4602103f51746bee5c971907269b, type: 2}

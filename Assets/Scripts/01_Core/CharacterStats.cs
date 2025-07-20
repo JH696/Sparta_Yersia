@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class CharacterStats // 예외처리 추가 프로퍼티 추가
+public class CharacterStats
 {
     [Header("레벨 관련 능력치")]
     [SerializeField] private int level;
-    [SerializeField] private int exp;
+    [SerializeField] private int curExp;
     [SerializeField] private int maxExp;
 
     [Header("기본 능력치")]
@@ -38,8 +38,8 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
 
     public int Exp
     {
-        get => exp;
-        private set => exp = Mathf.Max(0, value);
+        get => curExp;
+        private set => curExp = Mathf.Max(0, value);
     }
 
     public int MaxExp
@@ -87,9 +87,12 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
     {
         if (data == null) return;
 
+        level = 1;
+        curExp = 0;
+        maxExp = 100; // 캐릭터 데이터로 이동 
+
         maxHp = data.maxHp;
         CurrentHp = MaxHp;
-
         maxMana = data.maxMana;
         CurrentMana = MaxMana;
 
@@ -235,5 +238,23 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
     {
         Level = Mathf.Max(1, level);
         StatusChanged?.Invoke();
+    }
+
+    public bool GetExp(int amount)
+    {
+        Exp += amount;
+        bool leveledUp = false;
+
+        while (Exp >= MaxExp)
+        {
+            Exp -= MaxExp;
+            Level++;
+            leveledUp = true;
+
+            // 최대 경험치 증가
+            MaxExp = Mathf.RoundToInt(MaxExp * 1.1f);
+        }
+
+        return leveledUp;
     }
 }

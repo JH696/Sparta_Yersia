@@ -45,7 +45,7 @@ public class StatUIController : MonoBehaviour
             statsUIObject.SetActive(true);
         }
 
-        //statsUI.SetTarget(player);
+        statsUI.SetTarget(player.Status);
 
         if (PlayerInfo != null) PlayerInfo.SetActive(true);
         if (PetInfo != null) PetInfo.SetActive(false);

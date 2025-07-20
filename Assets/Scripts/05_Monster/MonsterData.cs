@@ -21,6 +21,11 @@ public class MonsterData : StatData, ISkillLearnableCharacter
     [Header("시작 스킬 목록")]
     [SerializeField] private List<SkillData> startSkills = new List<SkillData>();
 
+    [Header("학습 가능 스킬 리스트")]
+    [SerializeField] private List<SkillData> learnableSkills = new List<SkillData>();
+
+
     //읽기 전용
     public List<SkillData> StartSkills => startSkills;
+    public List<SkillData> LearnableSkills => learnableSkills;
 }

@@ -27,7 +27,7 @@ public class PetStatus : CharacterStatus
         EvoLevel = 0;
         stat.LevelUP += EvoLevelUp;
         
-        skills = new SkillInventory();
+        skills = new SkillInventory(data);
     }
 
     /// <summary>

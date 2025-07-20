@@ -15,7 +15,7 @@ public class MonsterStatus : CharacterStatus
     {
         this.MonsterData = data;
         this.stat = new CharacterStats(data.GetComponent<StatData>());
-        this.skills = new SkillInventory();
+        this.skills = new SkillInventory(data);
         this.dropTable = data.dropTable;
         this.ExpReward = data.ExpReward;
     }
