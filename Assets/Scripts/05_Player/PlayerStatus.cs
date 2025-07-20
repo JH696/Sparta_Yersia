@@ -25,7 +25,7 @@ public class PlayerStatus : CharacterStatus
         quest = new PlayerQuest();
         inventory = new ItemInventory();
         equipment = new ItemEquipment(this);
-        skills = new SkillInventory();
+        skills = new SkillInventory(PlayerData);
     }
 
     // 플레이어만 가질 수 있는 기능들    

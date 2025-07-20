@@ -18618,7 +18618,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC544\uC774\uD15C \uC124\uBA85/\uD6A8\uACFC"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a71fd3c906599b04b93a88bfc125d079, type: 2}
   m_sharedMaterial: {fileID: 9091255979530684391, guid: a71fd3c906599b04b93a88bfc125d079, type: 2}
@@ -22346,6 +22346,12 @@ MonoBehaviour:
       defense: 0
       luck: 0
       speed: 0
+      bonusHealth: 0
+      bonusMana: 0
+      bonusAttack: 0
+      bonusDefense: 0
+      bonusLuck: 0
+      bonusSpeed: 0
     party:
       maxPartyPets: 2
       curPets: []
@@ -22362,14 +22368,9 @@ MonoBehaviour:
       Accessory: {fileID: 0}
       Clothes: {fileID: 0}
       Shoes: {fileID: 0}
-      bonusHealth: 0
-      bonusMana: 0
-      bonusAttack: 0
-      bonusDefense: 0
-      bonusLuck: 0
-      bonusSpeed: 0
     skills:
       skills: []
+      learnableSkills: []
     PlayerName: 
     PlayerData: {fileID: 0}
   playerData: {fileID: 11400000, guid: c04251b80bf0c3948a51e3dd635596f5, type: 2}
@@ -24909,7 +24910,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC544\uC774\uD15C \uC774\uB984"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a71fd3c906599b04b93a88bfc125d079, type: 2}
   m_sharedMaterial: {fileID: 9091255979530684391, guid: a71fd3c906599b04b93a88bfc125d079, type: 2}
@@ -25750,8 +25751,9 @@ MonoBehaviour:
   test:
   - {fileID: 11400000, guid: f7ac4602103f51746bee5c971907269b, type: 2}
   - {fileID: 11400000, guid: f96447e835c0328418453ec8dc49fa2b, type: 2}
-  - {fileID: 11400000, guid: c5f0c46432f6bd04aa4f43a981d696f1, type: 2}
+  - {fileID: 11400000, guid: 7932d3bef5258dd4bb32684d0acd19a2, type: 2}
   - {fileID: 11400000, guid: c63b4c3249c887945ae9c56ece8d59b2, type: 2}
+  - {fileID: 11400000, guid: f7ac4602103f51746bee5c971907269b, type: 2}
 --- !u!1 &7786195922061610340
 GameObject:
   m_ObjectHideFlags: 0

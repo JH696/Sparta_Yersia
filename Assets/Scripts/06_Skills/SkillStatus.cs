@@ -3,36 +3,51 @@
 [System.Serializable]
 public class SkillStatus
 {
-    public SkillData Data { get; private set; }
-    public int Level { get; private set; }
-    public int CurCooldown { get; private set; }
-    public bool CanUse => CurCooldown == 0;    // 사용 가능 여부
+    [Header("스킬 데이터")]
+    [SerializeField] private SkillData data;
+
+    [Header("스킬 레벨")]
+    [SerializeField] private int level;
+
+    [Header("스킬 쿨타임")]
+    [SerializeField] private int curCooldown;
+
+    // 스킬 최대 레벨
+    private int maxLevel = 5;
+
+    // 읽기 전용
+    public SkillData Data => data;
+    public float Power => data.Power + ((level - 1) * 0.1f); // 레벨마다 10%씩 피해량 증가
+    public int Level => level;
+    public int Cooldown => curCooldown;
+    public bool CanUse => curCooldown == 0;
 
     public SkillStatus(SkillData data)
     {
-        this.Data = data;
-        Level = 1;
-        CurCooldown = 0;
+        this.data = data;
+        level = 1;
+        curCooldown = 0;
     }
 
     // 시전
-    public void Spell(CharacterStats caster, CharacterStats target)
+    public void Spell(CharacterStatus caster)
     {
-        // 데미지 계산 
-        // 마나 감소
-        CurCooldown = Data.Cooldown;
+        if (!CanUse) return;
+
+        curCooldown = data.Cooldown;
     }
 
     // 레벨업
     public void LevelUP()
     {
-        Debug.Log($"{Data.Name} 레벨업");
-        Level++;
+        if (level >= maxLevel) return;
+
+        level++;
     }
 
     // 쿨다운 감소
     public void ReduceCooldown(int amount)
     {
-        CurCooldown -= amount;
+        curCooldown = Mathf.Max(0, curCooldown - amount);
     }
 }

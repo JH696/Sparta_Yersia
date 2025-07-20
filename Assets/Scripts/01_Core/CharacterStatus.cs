@@ -4,9 +4,10 @@
     public bool IsDead;
     // 캐릭터 스탯
     public CharacterStats stat;
+
     public virtual void TakeDamage(float amount)
     {
-        stat.SetCurrentHp(stat.CurrentHp - amount);
+        stat.SetCurrentHp(-amount);
 
         if (IsDead)
         {

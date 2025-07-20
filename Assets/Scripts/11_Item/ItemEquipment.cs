@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public enum E_EquipType
 {
@@ -16,7 +15,7 @@ public enum E_EquipType
 [System.Serializable]
 public class ItemEquipment
 {
-    [SerializeField] private CharacterStatus Owner; // 소유자
+    [SerializeField] private CharacterStatus owner; // 소유자
 
     [Header("현재 장착된 아이템")]
     [SerializeField] private EquipItemData Weapon = null;
@@ -24,20 +23,12 @@ public class ItemEquipment
     [SerializeField] private EquipItemData Accessory = null;
     [SerializeField] private EquipItemData Clothes = null;
     [SerializeField] private EquipItemData Shoes = null;
-    
-    [Header("추가 능력치")]
-    [SerializeField] private float bonusHealth = 0;
-    [SerializeField] private float bonusMana = 0;
-    [SerializeField] private float bonusAttack = 0;
-    [SerializeField] private float bonusDefense = 0;
-    [SerializeField] private float bonusLuck = 0;
-    [SerializeField] private float bonusSpeed = 0;
 
     public event Action EquipmentChanged; // 장비 교체 이벤트
 
     public ItemEquipment(CharacterStatus ower)
     {
-        Owner = ower;
+        this.owner = ower;
 
         EquipmentChanged += UpdateBonusStats;
     }
@@ -59,7 +50,7 @@ public class ItemEquipment
                 return;
         }
 
-        Debug.Log($"[CharacterEquipment] {Owner}이(가) {equipData.Name}을(를) 장착합니다.");
+        Debug.Log($"[CharacterEquipment] {owner}이(가) {equipData.Name}을(를) 장착합니다.");
         EquipmentChanged?.Invoke();
     }
 
@@ -122,13 +113,10 @@ public class ItemEquipment
     // 이벤트로 호출되는 추가 능력치 업데이트 메서드
     private void UpdateBonusStats()
     {
+        CharacterStats stats = owner.stat;
+
         // 기존 추가 능력치 초기화 (장비 해제일 경우 고려)
-        bonusHealth = 0;
-        bonusMana = 0;
-        bonusAttack = 0;
-        bonusDefense = 0;
-        bonusLuck = 0;
-        bonusSpeed = 0;
+        stats.ResetBonusStat();
 
         // 아이템별 추가 능력치 적용
         foreach (var equip in GetAllEquippedItems())
@@ -137,15 +125,7 @@ public class ItemEquipment
 
             foreach (var value in equip.Values)
             {
-                switch (value.Stat)
-                {
-                    case EStatType.MaxHp: bonusHealth += value.Value; break;
-                    case EStatType.MaxMana: bonusMana += value.Value; break;
-                    case EStatType.Attack: bonusAttack += value.Value; break;
-                    case EStatType.Defense: bonusDefense += value.Value; break;
-                    case EStatType.Luck: bonusLuck += value.Value; break;
-                    case EStatType.Speed: bonusSpeed += value.Value; break;
-                }
+                stats.IncreaseBonusStat(value.Stat, value.Value);
             }
         }
     }

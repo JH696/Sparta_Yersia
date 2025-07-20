@@ -3,25 +3,33 @@
 [System.Serializable]
 public class CharacterStats // 예외처리 추가 프로퍼티 추가
 {
+    [Header("레벨 관련 능력치")]
     [SerializeField] private int level;
     [SerializeField] private int exp;
     [SerializeField] private int maxExp;
 
+    [Header("기본 능력치")]
     [SerializeField] private float maxHp;
     [SerializeField] private float currentHp;
-
     [SerializeField] private float maxMana;
     [SerializeField] private float currentMana;
-
     [SerializeField] private float attack;
     [SerializeField] private float defense;
     [SerializeField] private float luck;
     [SerializeField] private float speed;
 
+    [Header("추가 능력치")]
+    [SerializeField] private float bonusHealth = 0;
+    [SerializeField] private float bonusMana = 0;
+    [SerializeField] private float bonusAttack = 0;
+    [SerializeField] private float bonusDefense = 0;
+    [SerializeField] private float bonusLuck = 0;
+    [SerializeField] private float bonusSpeed = 0;
 
     public event System.Action LevelUP; // 예: 플레이어 스킬 포인트 획득, 펫 스프라이트 변화
     public event System.Action StatusChanged; // UI 연결
 
+    // 레벨 관련
     public int Level
     {
         get => level;
@@ -39,16 +47,13 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
         get => maxExp;
         set
         {
-            maxExp = Mathf.Max(1, value); // 최소 1
+            maxExp = Mathf.Max(1, value);
             StatusChanged?.Invoke();
         }
     }
 
-    public float MaxHp
-    {
-        get => maxHp;
-        private set => maxHp = Mathf.Max(1f, value);
-    }
+    // 체력 / 마나
+    public float MaxHp => Mathf.Max(1f, maxHp + bonusHealth);
 
     public float CurrentHp
     {
@@ -60,11 +65,7 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
         }
     }
 
-    public float MaxMana
-    {
-        get => maxMana;
-        private set => maxMana = Mathf.Max(0f, value);
-    }
+    public float MaxMana => Mathf.Max(0f, maxMana + bonusMana);
 
     public float CurrentMana
     {
@@ -76,44 +77,26 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
         }
     }
 
-    public float Attack
-    {
-        get => attack;
-        private set => attack = Mathf.Max(0f, value);
-    }
-
-    public float Defense
-    {
-        get => defense;
-        private set => defense = Mathf.Max(0f, value);
-    }
-
-    public float Luck
-    {
-        get => luck;
-        private set => luck = Mathf.Max(0f, value);
-    }
-
-    public float Speed
-    {
-        get => speed;
-        private set => speed = Mathf.Max(0f, value);
-    }
+    // 공격력 등
+    public float Attack => Mathf.Max(0f, attack + bonusAttack);
+    public float Defense => Mathf.Max(0f, defense + bonusDefense);
+    public float Luck => Mathf.Max(0f, luck + bonusLuck);
+    public float Speed => Mathf.Max(0f, speed + bonusSpeed);
 
     public CharacterStats(StatData data)
     {
         if (data == null) return;
 
-        MaxHp = data.maxHp;
+        maxHp = data.maxHp;
         CurrentHp = MaxHp;
 
-        MaxMana = data.maxMana;
+        maxMana = data.maxMana;
         CurrentMana = MaxMana;
 
-        Attack = data.attack;
-        Defense = data.defense;
-        Luck = data.luck;
-        Speed = data.speed;
+        attack = data.attack;
+        defense = data.defense;
+        luck = data.luck;
+        speed = data.speed;
 
         StatusChanged?.Invoke();
     }
@@ -139,43 +122,43 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
 
         Level++;
 
-        MaxHp *= multiplier;
+        maxHp *= multiplier;
         CurrentHp = MaxHp;
 
-        MaxMana *= multiplier;
+        maxMana *= multiplier;
         CurrentMana = MaxMana;
 
-        Attack *= multiplier;
-        Defense *= multiplier;
-        Luck *= multiplier;
-        Speed *= multiplier;
+        attack *= multiplier;
+        defense *= multiplier;
+        luck *= multiplier;
+        speed *= multiplier;
 
         LevelUP?.Invoke();
         StatusChanged?.Invoke();
     }
 
-    // 캐릭터 능력치 증가
-    public void IncreaseStat(EStatType statType, float amount)
+    // 캐릭터 추가 능력치 증가
+    public void IncreaseBonusStat(EStatType statType, float amount)
     {
         switch (statType)
         {
             case EStatType.MaxHp:
-                MaxHp += Mathf.Max(amount, 0); break;
+                bonusHealth += Mathf.Max(amount, 0); break;
 
             case EStatType.MaxMana:
-                MaxMana += Mathf.Max(amount, 0); break;
+                bonusMana += Mathf.Max(amount, 0); break;
 
             case EStatType.Attack:
-                Attack += Mathf.Max(amount, 0); break;
+                bonusAttack += Mathf.Max(amount, 0); break;
 
             case EStatType.Defense:
-                Defense += Mathf.Max(amount, 0); break;
+                bonusDefense += Mathf.Max(amount, 0); break;
 
             case EStatType.Luck:
-                Luck += Mathf.Max(amount, 0); break;
+                bonusLuck += Mathf.Max(amount, 0); break;
 
             case EStatType.Speed:
-                Speed += Mathf.Max(amount, 0); break;
+                bonusSpeed += Mathf.Max(amount, 0); break;
 
             default:
                 return;
@@ -183,32 +166,45 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
         StatusChanged?.Invoke();
     }
 
-    // 캐릭터 능력치 감소
-    public void DecreaseStat(EStatType statType, float amount)
+    // 캐릭터 추가 능력치 감소
+    public void DecreaseBonusStat(EStatType statType, float amount)
     {
         switch (statType)
         {
             case EStatType.MaxHp:
-                MaxHp -= Mathf.Max(amount, MaxHp); break;
+                bonusHealth -= Mathf.Max(amount, MaxHp); break;
 
             case EStatType.MaxMana:
-                MaxMana -= Mathf.Max(amount, MaxMana); break;
+                bonusMana -= Mathf.Max(amount, MaxMana); break;
 
             case EStatType.Attack:
-                Attack -= Mathf.Max(amount, Attack); break;
+                bonusAttack -= Mathf.Max(amount, Attack); break;
 
             case EStatType.Defense:
-                Defense -= Mathf.Max(amount, Defense); break;
+                bonusDefense -= Mathf.Max(amount, Defense); break;
 
             case EStatType.Luck:
-                Luck -= Mathf.Max(amount, Luck); break;
+                bonusLuck -= Mathf.Max(amount, Luck); break;
 
             case EStatType.Speed:
-                Speed -= Mathf.Max(amount, Speed); break;
+                bonusSpeed -= Mathf.Max(amount, Speed); break;
 
             default:
                 return;
         }
+        StatusChanged?.Invoke();
+    }
+
+    // 추가 능력치 초기화
+    public void ResetBonusStat()
+    {
+        bonusHealth = 0;
+        bonusMana = 0;
+        bonusAttack = 0;
+        bonusDefense = 0;
+        bonusLuck = 0;
+        bonusSpeed = 0;
+        StatusChanged?.Invoke();
     }
 
     // 현재 체력 설정
@@ -223,5 +219,14 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
     {
         float mana = CurrentMana + amount;
         CurrentMana = Mathf.Clamp(mana, 0, MaxMana);
+    }
+
+    // 마나 소모
+    public bool ReduceMana(float amount)
+    {
+        if (CurrentMana < amount) return false;
+
+        CurrentMana -= amount;
+        return true;
     }
 }

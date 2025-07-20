@@ -5,12 +5,27 @@ using UnityEngine;
 [System.Serializable]
 public class SkillInventory
 {
+    [Header("습득한 스킬들")]
     [SerializeField] private List<SkillStatus> skills = new List<SkillStatus>();
-    public List<SkillStatus> Skills => skills;
 
-    public SkillInventory()
+    [Header("습득 가능한 스킬들")]
+    [SerializeField] private List<SkillData> learnableSkills = new List<SkillData>();
+
+    // 읽기 전용
+    public List<SkillStatus> Skills => skills;
+    public List<SkillData> LearnableSkills => learnableSkills;
+
+    public SkillInventory(ISkillLearnableCharacter startSkills)
     {
-        skills = null;
+        foreach (SkillData skill in startSkills.StartSkills)
+        {
+            AddSkill(skill);
+        }   
+
+        foreach (SkillData skill in startSkills.LearnableSkills)
+        {
+            learnableSkills.Add(skill);
+        }
     }
 
     // 스킬 인벤토리 스킬 추가

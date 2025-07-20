@@ -13,20 +13,29 @@ public class ItemSlot : MonoBehaviour
     [Header("아이템 수량")]
     [SerializeField] private TextMeshProUGUI stack;
 
-    //[Header("슬롯 배경")]
-    //[SerializeField] private Image bgImg;
-
     public event System.Action<ItemSlot> OnClickSlot; // 슬롯 클릭 이벤트
     public ItemStatus Status => status;
 
     // 슬롯 초기화
-    public void SetItem(ItemStatus status)
+    public void SetItem(ItemStatus status, PlayerStatus player)
     {
         this.status = status;
         status.StatusChanged += UpdateSlot;
         //status.OnEmpty += ClearSlot;
         UpdateSlot();
         GetComponent<Button>().onClick.AddListener(OnClick); // 슬롯 클릭 이벤트 등록
+
+        if (status.Data is EquipItemData equipData)
+        {
+            if (player.equipment.FindEquippedItem(equipData))
+            {
+                ActiveEquipSlot(); // 장비 아이템이 장착된 경우
+            }
+            else
+            {
+                DeactiveEquipSlot(); // 장비 아이템이 장착되지 않은 경우
+            }
+        }
     }
 
     // 슬롯 업데이트 (자동 호출)
@@ -55,11 +64,28 @@ public class ItemSlot : MonoBehaviour
         }
 
         status = null;
+        icon.color = Color.white;
         icon.sprite = null;
         icon.enabled = false;
         stack.text = string.Empty;
         GetComponent<Button>().onClick.RemoveListener(OnClick); // 슬롯 클릭 이벤트 제거
     }   
+
+    public void ActiveEquipSlot()
+    {
+        if (status == null) return;
+
+        icon.color = Color.red; // 아이콘 색상 활성화
+        stack.text = "E";
+    }
+
+    public void DeactiveEquipSlot()
+    {
+        if (status == null) return;
+
+        icon.color = Color.white;
+        stack.text = status.Stack > 1 ? status.Stack.ToString() : string.Empty;
+    }
 
     public void OnClick()
     {

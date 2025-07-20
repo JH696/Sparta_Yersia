@@ -27,7 +27,7 @@ public abstract class BaseItem : ScriptableObject
 
 // 장비 아이템
 [System.Serializable]
-[CreateAssetMenu(fileName = "I_e00", menuName = "Data/장비 아이템")]
+[CreateAssetMenu(fileName = "I_e00", menuName = "Data/EquipItem")]
 public class EquipItemData : BaseItem
 {
     [Header("장비 분류")]
@@ -47,7 +47,7 @@ public class EquipItemData : BaseItem
 
 // 소비 아이템
 [System.Serializable]
-[CreateAssetMenu(fileName = "I_c00", menuName = "Data/소비 아이템")]
+[CreateAssetMenu(fileName = "I_c00", menuName = "Data/ConsumeItem")]
 public class ConsumeItemData : BaseItem
 {
     [Header("소모품 성능")]
@@ -64,17 +64,17 @@ public class ConsumeItemData : BaseItem
         return E_CategoryType.Consume;
     }
 
-    public void Consume(CharacterStatus status)
+    public void Consume(CharacterStatus consumer)
     { 
         foreach (ItemValue v in Values)
         {
             switch (v.Stat)
             {
                 case EStatType.MaxHp:
-                    status.RecoverHealth(v.Value);
+                    consumer.RecoverHealth(v.Value);
                     break;
                 case EStatType.MaxMana:
-                    status.RecoverMana(v.Value);
+                    consumer.RecoverMana(v.Value);
                     break;
                 default:
                     Debug.LogWarning($"[ConsumeItemData] 지원하지 않는 능력치 입니다.");
@@ -86,7 +86,7 @@ public class ConsumeItemData : BaseItem
 
 // 일반 아이템 (퀘스트 아이템)
 [System.Serializable]
-[CreateAssetMenu(fileName = "I_q00", menuName = "Data/퀘스트 아이템")]
+[CreateAssetMenu(fileName = "I_q00", menuName = "Data/QuestItem")]
 public class QuestItemData : BaseItem
 {
     [Header("설명")]
@@ -95,5 +95,10 @@ public class QuestItemData : BaseItem
     public override E_CategoryType GetCategory()
     {
         return E_CategoryType.Quest;
+    }
+
+    public void Give()
+    {
+        Debug.Log($"[QuestItemData] {Name}을(를) 받았습니다.");
     }
 }

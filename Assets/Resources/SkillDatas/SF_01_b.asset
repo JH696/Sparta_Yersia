@@ -12,14 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f19af68ad88a454fb38b9d1416924c6, type: 3}
   m_Name: SF_01_b
   m_EditorClassIdentifier: 
-  id: SF_01_b
-  skillName: "\uBE14\uB808\uC774\uC988\uC5B4\uB808\uC774"
-  type: 0
-  tier: 2
-  damage: 1
-  coefficient: 2
-  range: 2
-  cooldown: 4
-  unlockNext: []
-  icon: {fileID: 21300000, guid: ceaefce85dfb4e447819b8ef80d15907, type: 3}
-  manaCost: 50
+  ID: SF_01_b
+  Name: "\uBD88\uB369\uC774"
+  Type: 0
+  Rank: 1
+  Power: 2.2
+  Range: 1
+  Cooldown: 3
+  Cost: 50
+  Icon: {fileID: 21300000, guid: 6394653b285c08b418f01d5e1f70bcf2, type: 3}

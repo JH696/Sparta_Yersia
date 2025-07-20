@@ -135,7 +135,7 @@ public class InventoryUI : MonoBehaviour
         {
             if (i < items.Count)
             {
-                slots[i].SetItem(items[i]);
+                slots[i].SetItem(items[i], player.Status);
             }
             else
             {
@@ -163,10 +163,12 @@ public class InventoryUI : MonoBehaviour
                 if (player.Status.equipment.FindEquippedItem(equipData) != null)
                 {
                     player.Status.equipment.Unequip(equipData.Type);
+                    selectedSlot.DeactiveEquipSlot();
                 }
                 else
                 {
                     player.Status.equipment.Equip(equipData);
+                    selectedSlot.ActiveEquipSlot();
                 }
                 break;
 
