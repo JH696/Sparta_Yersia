@@ -224,4 +224,11 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
         float mana = CurrentMana + amount;
         CurrentMana = Mathf.Clamp(mana, 0, MaxMana);
     }
+
+    // 레벨 설정
+    public void SetLevel(int level)
+    {
+        Level = Mathf.Max(1, level);
+        StatusChanged?.Invoke();
+    }
 }

@@ -5,7 +5,7 @@ public class StatUIController : MonoBehaviour
     [Header("UI 표시 대상")]
     [SerializeField] private GameObject statsUIObject; // UI GameObject 전체
     [SerializeField] private StatsUI statsUI;
-    [SerializeField] private CharacterStatus player;
+    [SerializeField] private Player player;
     [SerializeField] private CharacterStatus pet1;
     [SerializeField] private CharacterStatus pet2;
 
@@ -51,52 +51,56 @@ public class StatUIController : MonoBehaviour
         if (PetInfo != null) PetInfo.SetActive(false);
     }
 
-    //private void UpdateEquippedPets()
-    //{
-    //    if (player == null) return;
+    private void UpdateEquippedPets()
+    {
+        if (player == null) return;
 
-    //    Player playerComponent = player as Player;
-    //    if (playerComponent == null) return;
+        Player playerComponent = player as Player;
+        if (playerComponent == null) return;
 
-    //    pet1 = playerComponent.EquippedPets.Count > 0 ? playerComponent.EquippedPets[0] : null;
-    //    pet2 = playerComponent.EquippedPets.Count > 1 ? playerComponent.EquippedPets[1] : null;
-    //}
+        var party = playerComponent.Status.party;
+
+        if (party == null) return;
+
+        pet1 = party.partyPets.Count > 0 ? party.partyPets[0] : null;
+        pet2 = party.partyPets.Count > 1 ? party.partyPets[1] : null;
+    }
 
     // Pet1의 스탯을 표시
-    //public void ShowPet1Stats()
-    //{
-    //    if (statsUIObject == null || statsUI == null) return;
+    public void ShowPet1Stats()
+    {
+        if (statsUIObject == null || statsUI == null) return;
 
-    //    UpdateEquippedPets();
+        UpdateEquippedPets();
 
-    //    if (!StatUI)
-    //    {
-    //        StatUI = true;
-    //        statsUIObject.SetActive(true);
-    //    }
+        if (!StatUI)
+        {
+            StatUI = true;
+            statsUIObject.SetActive(true);
+        }
 
-    //    statsUI.SetTarget(pet1);
+        statsUI.SetTarget(pet1);
 
-    //    if (PlayerInfo != null) PlayerInfo.SetActive(false);
-    //    if (PetInfo != null) PetInfo.SetActive(true);
-    //}
+        if (PlayerInfo != null) PlayerInfo.SetActive(false);
+        if (PetInfo != null) PetInfo.SetActive(true);
+    }
 
-    //// Pet2의 스탯을 표시
-    //public void ShowPet2Stats()
-    //{
-    //    if (statsUIObject == null || statsUI == null) return;
+    // Pet2의 스탯을 표시
+    public void ShowPet2Stats()
+    {
+        if (statsUIObject == null || statsUI == null) return;
 
-    //    UpdateEquippedPets();
+        UpdateEquippedPets();
 
-    //    if (!StatUI)
-    //    {
-    //        StatUI = true;
-    //        statsUIObject.SetActive(true);
-    //    }
+        if (!StatUI)
+        {
+            StatUI = true;
+            statsUIObject.SetActive(true);
+        }
 
-    //    statsUI.SetTarget(pet2);
+        statsUI.SetTarget(pet2);
 
-    //    if (PlayerInfo != null) PlayerInfo.SetActive(false);
-    //    if (PetInfo != null) PetInfo.SetActive(true);
-    //}
+        if (PlayerInfo != null) PlayerInfo.SetActive(false);
+        if (PetInfo != null) PetInfo.SetActive(true);
+    }
 }

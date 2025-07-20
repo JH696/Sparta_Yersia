@@ -40,159 +40,146 @@ public class StatsUI : MonoBehaviour
 
     private CharacterStatus currentCharacter;
 
-    //public void SetTarget(CharacterStatus character)
-    //{
-    //    currentCharacter = character; // null이어도 그대로 저장
-    //    RefreshUI();
-    //}
+    public void SetTarget(CharacterStatus character)
+    {
+        currentCharacter = character; // null이어도 그대로 저장
+        RefreshUI();
+    }
 
-    //public void RefreshUI()
-    //{
-    //    bool isPlayer = currentCharacter is Player;
-    //    bool isPet = currentCharacter is Pet;
+    public void RefreshUI()
+    {
+        if (currentCharacter == null)
+        {
+            ClearUI();
+            return;
+        }
 
-    //    // 공통 스탯 표시
-    //    if (currentCharacter != null)
-    //    {
-    //        HpTxt.text = $"{Mathf.RoundToInt(currentCharacter.CurrentHp)} / {Mathf.RoundToInt(currentCharacter.MaxHp)}";
-    //        MpTxt.text = $"{Mathf.RoundToInt(currentCharacter.CurrentMana)} / {Mathf.RoundToInt(currentCharacter.MaxMana)}";
-    //        AttackTxt.text = $"{Mathf.RoundToInt(currentCharacter.Attack)}";
-    //        DefenseTxt.text = $"{Mathf.RoundToInt(currentCharacter.Defense)}";
-    //        LuckTxt.text = $"{Mathf.RoundToInt(currentCharacter.Luck)}";
-    //        SpeedTxt.text = $"{Mathf.RoundToInt(currentCharacter.Speed)}";
-    //    }
-    //    else
-    //    {
-    //        HpTxt.text = "";
-    //        MpTxt.text = "";
-    //        AttackTxt.text = "";
-    //        DefenseTxt.text = "";
-    //        LuckTxt.text = "";
-    //        SpeedTxt.text = "";
-    //    }
+        // 공통 스탯 표시
+        HpTxt.text = $"{Mathf.RoundToInt(currentCharacter.stat.CurrentHp)} / {Mathf.RoundToInt(currentCharacter.stat.MaxHp)}";
+        MpTxt.text = $"{Mathf.RoundToInt(currentCharacter.stat.CurrentMana)} / {Mathf.RoundToInt(currentCharacter.stat.MaxMana)}";
+        AttackTxt.text = $"{Mathf.RoundToInt(currentCharacter.stat.Attack)}";
+        DefenseTxt.text = $"{Mathf.RoundToInt(currentCharacter.stat.Defense)}";
+        LuckTxt.text = $"{Mathf.RoundToInt(currentCharacter.stat.Luck)}";
+        SpeedTxt.text = $"{Mathf.RoundToInt(currentCharacter.stat.Speed)}";
 
-    //    if (isPlayer)
-    //    {
-    //        Player player = currentCharacter as Player;
+        // Player인지 확인
+        PlayerStatus playerStatus = currentCharacter as PlayerStatus;
+        PetStatus petStatus = currentCharacter as PetStatus;
 
-    //        if (YPTxt != null) YPTxt.text = $"YP : {player.YP}";
-    //        if (ProfileImg != null && player.PlayerData != null)
-    //            ProfileImg.sprite = player.PlayerData.Icon;
+        if (playerStatus != null)
+        {
+            // Player UI 업데이트
+            if (YPTxt != null) YPTxt.text = $"YP : {playerStatus.wallet.YP}";
+            if (ProfileImg != null && playerStatus.PlayerData != null)
+                ProfileImg.sprite = playerStatus.PlayerData.Icon;
 
-    //        if (GenderTxt != null)
-    //        {
-    //            switch (player.Gender)
-    //            {
-    //                case EGender.Male:
-    //                    GenderTxt.text = "성별 : 남성";
-    //                    break;
-    //                case EGender.Female:
-    //                    GenderTxt.text = "성별 : 여성";
-    //                    break;
-    //                default:
-    //                    GenderTxt.text = "성별 : 알 수 없음";
-    //                    break;
-    //            }
-    //        }
+            if (TierTxt != null && playerStatus.PlayerData != null)
+            {
+                switch (playerStatus.PlayerData.Rank)
+                {
+                    case E_Rank.Basic:
+                        TierTxt.text = "등급 : 초급 마법사";
+                        break;
+                    case E_Rank.Advanced:
+                        TierTxt.text = "등급 : 중급 마법사";
+                        break;
+                    case E_Rank.Expert:
+                        TierTxt.text = "등급 : 상급 마법사";
+                        break;
+                    default:
+                        TierTxt.text = "등급 : 알 수 없음";
+                        break;
+                }
+            }
 
-    //        if (TierTxt != null && player. is PlayerData playerData)
-    //        {
-    //            switch (playerData.Rank)
-    //            {
-    //                case E_Rank.Basic:
-    //                    TierTxt.text = "등급 : 초급 마법사";
-    //                    break;
-    //                case E_Rank.Advanced:
-    //                    TierTxt.text = "등급 : 중급 마법사";
-    //                    break;
-    //                case E_Rank.Expert:
-    //                    TierTxt.text = "등급 : 상급 마법사";
-    //                    break;
-    //                default:
-    //                    TierTxt.text = "등급 : 알 수 없음";
-    //                    break;
-    //            }
-    //        }
+            if (PlayerInfo != null) PlayerInfo.SetActive(true);
+            if (PetInfo != null) PetInfo.SetActive(false);
+        }
+        else if (petStatus != null)
+        {
+            // Pet UI 업데이트
+            if (ProfileImg != null && petStatus.PetData != null)
+                ProfileImg.sprite = petStatus.GetCurrentProfileIcon();
+            else if (ProfileImg != null)
+                ProfileImg.sprite = defaultPetProfile;
 
-    //        if (PlayerInfo != null) PlayerInfo.SetActive(true);
-    //        if (PetInfo != null) PetInfo.SetActive(false);
-    //    }
-    //    else if (isPet)
-    //    {
-    //        Pet pet = currentCharacter as Pet;
+            if (PetNameTxt != null)
+                PetNameTxt.text = petStatus.PetData?.PetName ?? defaultPetName;
 
-    //        if (ProfileImg != null && pet.PetData != null)
-    //            ProfileImg.sprite = pet.PetData.GetCurrentProfileIcon();
-    //        else if (ProfileImg != null)
-    //            ProfileImg.sprite = defaultPetProfile;
+            if (EvoStageTxt != null)
+                EvoStageTxt.text = petStatus.PetData != null
+                    ? $"성장 단계 : {petStatus.EvoLevel + 1}"
+                    : defaultEvoStage;
 
-    //        if (PetInfo != null) PetInfo.SetActive(true);
-    //        if (PlayerInfo != null) PlayerInfo.SetActive(false);
+            if (EvoIcons != null)
+            {
+                for (int i = 0; i < EvoIcons.Length; i++)
+                {
+                    if (EvoIcons[i] == null) continue;
 
-    //        if (PetNameTxt != null)
-    //            PetNameTxt.text = pet.PetData?.PetName ?? defaultPetName;
+                    if (petStatus.PetData?.sprites != null && i < petStatus.PetData.sprites.Length)
+                    {
+                        bool isReached = petStatus.EvoLevel >= i;
+                        EvoIcons[i].sprite = isReached ? petStatus.PetData.sprites[i].ProfileIcon : unknownIcon;
+                        EvoIcons[i].color = Color.white;
+                    }
+                    else
+                    {
+                        EvoIcons[i].sprite = unknownIcon;
+                        EvoIcons[i].color = Color.white;
+                    }
+                }
+            }
 
-    //        if (EvoStageTxt != null)
-    //            EvoStageTxt.text = pet.PetData != null
-    //                ? $"성장 단계 : {pet.PetData.CurrentEvoStage + 1}"
-    //                : defaultEvoStage;
+            if (PlayerInfo != null) PlayerInfo.SetActive(false);
+            if (PetInfo != null) PetInfo.SetActive(true);
+        }
+        else
+        {
+            ClearUI();
+        }
 
-    //        if (EvoIcons != null)
-    //        {
-    //            for (int i = 0; i < EvoIcons.Length; i++)
-    //            {
-    //                if (EvoIcons[i] == null) continue;
+        ILevelable levelable = currentCharacter as ILevelable;
 
-    //                if (pet.PetData?.sprites != null && i < pet.PetData.sprites.Length)
-    //                {
-    //                    bool isReached = pet.PetData.CurrentEvoStage >= i;
-    //                    EvoIcons[i].sprite = isReached ? pet.PetData.sprites[i].Icon : unknownIcon;
-    //                    EvoIcons[i].color = Color.white;
-    //                }
-    //                else
-    //                {
-    //                    EvoIcons[i].sprite = unknownIcon;
-    //                    EvoIcons[i].color = Color.white;
-    //                }
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (PlayerInfo != null) PlayerInfo.SetActive(false);
-    //        if (PetInfo != null) PetInfo.SetActive(true);
+        if (levelable != null)
+        {
+            if (LevelTxt != null)
+                LevelTxt.text = $"Lv. {levelable.Level}";
+        }
+        else
+        {
+            if (LevelTxt != null)
+                LevelTxt.text = "Lv";
+        }
+    }
 
-    //        if (ProfileImg != null)
-    //            ProfileImg.sprite = defaultPetProfile;
+    private void ClearUI()
+    {
+        HpTxt.text = "";
+        MpTxt.text = "";
+        AttackTxt.text = "";
+        DefenseTxt.text = "";
+        LuckTxt.text = "";
+        SpeedTxt.text = "";
 
-    //        if (PetNameTxt != null)
-    //            PetNameTxt.text = defaultPetName;
+        if (PlayerInfo != null) PlayerInfo.SetActive(false);
+        if (PetInfo != null) PetInfo.SetActive(false);
 
-    //        if (EvoStageTxt != null)
-    //            EvoStageTxt.text = defaultEvoStage;
+        if (ProfileImg != null) ProfileImg.sprite = defaultPetProfile;
 
-    //        if (EvoIcons != null)
-    //        {
-    //            for (int i = 0; i < EvoIcons.Length; i++)
-    //            {
-    //                if (EvoIcons[i] == null) continue;
-    //                EvoIcons[i].sprite = null;
-    //                EvoIcons[i].color = new Color(1, 1, 1, 0);
-    //            }
-    //        }
-    //    }
+        if (PetNameTxt != null) PetNameTxt.text = defaultPetName;
+        if (EvoStageTxt != null) EvoStageTxt.text = defaultEvoStage;
 
-    //    ILevelable levelable = currentCharacter as ILevelable;
+        if (EvoIcons != null)
+        {
+            for (int i = 0; i < EvoIcons.Length; i++)
+            {
+                if (EvoIcons[i] == null) continue;
+                EvoIcons[i].sprite = null;
+                EvoIcons[i].color = new Color(1, 1, 1, 0);
+            }
+        }
 
-    //    if (levelable != null)
-    //    {
-    //        if (LevelTxt != null)
-    //            LevelTxt.text = $"Lv. {levelable.Level}";
-    //    }
-    //    else
-    //    {
-    //        if (LevelTxt != null)
-    //            LevelTxt.text = "Lv";
-    //    }
-    //}
+        if (LevelTxt != null) LevelTxt.text = "Lv";
+    }
 }

@@ -20,10 +20,13 @@ public class PlayerData : StatData, ISkillLearnableCharacter
     public Sprite DSprite; // 대화
     public Sprite Icon; // 아이콘
 
-    //[Header("플레이어 시작 스킬 목록")]
-    //[Tooltip("SkillBase 구현 SO(SkillData 등)를 드래그하세요")]
-    //public List<SkillData> startingSkills = new List<SkillData>();
+    [Header("플레이어 시작 스킬 목록")]
+    [Tooltip("SkillBase 구현 SO(SkillData 등)를 드래그하세요")]
+    public List<SkillData> startingSkills = new List<SkillData>();
 
-    //// 읽기 전용
-    //public List<SkillData> StartingSkills => startingSkills;
+    // 읽기 전용
+    public List<SkillData> StartingSkills => startingSkills;
+
+    [Header("레벨업 필요 경험치")]
+    public int BaseExpToLevelUp = 100;
 }

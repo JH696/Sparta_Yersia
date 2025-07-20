@@ -15931,6 +15931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statsUIObject: {fileID: 2838091}
   statsUI: {fileID: 859763383113718219}
+  player: {fileID: 0}
   PlayerInfo: {fileID: 7970924221124182452}
   PetInfo: {fileID: 6905988533449485647}
 --- !u!1 &1530919389799790619
@@ -22995,6 +22996,8 @@ MonoBehaviour:
       skills: []
     PlayerName: 
     PlayerData: {fileID: 0}
+    wallet:
+      yp: 0
   playerData: {fileID: 11400000, guid: c04251b80bf0c3948a51e3dd635596f5, type: 2}
   worldSprite: {fileID: 5868924951691442566}
 --- !u!212 &5868924951691442566

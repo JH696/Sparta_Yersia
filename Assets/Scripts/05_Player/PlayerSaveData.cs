@@ -32,6 +32,7 @@ public class PlayerSaveData
     public Dictionary<string, int> Inventory = new Dictionary<string, int>(); // 아이템 ID와 개수의 딕셔너리
     public List<QuestStatusData> questStatusDatas = new List<QuestStatusData>(); // 퀘스트 상태 데이터 리스트
     public List<EliQuestProgressData> eliQuestProgressDatas = new List<EliQuestProgressData>(); // 엘리 퀘스트 진행 데이터 리스트
-    public List<string> ownedPetIDs = new List<string>(); // 소유한 펫 ID 리스트
-    public List<string> equipPetIDs = new List<string>(); // 장착한 펫 ID 리스트
+
+    public List<string> ownedPetIDs = new List<string>();  // 보유한 펫 ID 리스트
+    public List<string> equipPetIDs = new List<string>();  // 장착한 펫 ID 리스트
 }

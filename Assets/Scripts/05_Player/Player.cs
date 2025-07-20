@@ -11,34 +11,11 @@ public class Player : MonoBehaviour
     [Header("월드에서 보여질 스프라이트")]
     public SpriteRenderer worldSprite;
 
-    // 레벨, YP 관련 데이터 인터페이스로 접근
-    //private ILevelData LevelData => playerData as ILevelData;
-    //private IYPHolder YPData => playerData as IYPHolder;
-
-    // 성별 (플레이어 전용)
-    //public EGender Gender { get; private set; } = EGender.Male;
-
-    // 레벨, 경험치
-    //public int Level { get; private set; } = 1;
-    //public int CurrentExp { get; private set; } = 0;
-    //public int ExpToNextLevel => LevelData?.BaseExpToLevelUp * Level ?? 100 * Level;
-
-    //[Header("YP(화폐)")]
-    //private int yp = 0;
-    //public int YP => yp;
-
-    // @@ 플레이어 파티에서 관리 예정 @@
-    //[Header("펫 관련")]
-    //[SerializeField] private List<Pet> ownedPets = new List<Pet>();    // 보유한 펫 목록
-    //[SerializeField] private List<Pet> equippedPets = new List<Pet>(); // 장착한 펫 목록 (최대 2마리)
-    //public List<Pet> OwnedPets => ownedPets;
-    //public List<Pet> EquippedPets => equippedPets;
-
     public PlayerStatus Status => status; // 읽기 전용
 
     private void Start()
     {
-        status = new PlayerStatus(playerData,"Player"); // 플레이어 데이터와 이름 설정
+        status = new PlayerStatus(playerData, "Player"); // 플레이어 데이터와 이름 설정
 
         ChangeSprite();
     }
@@ -49,56 +26,25 @@ public class Player : MonoBehaviour
         worldSprite.sprite = status.PlayerData.WSprite;
     }
 
-    //public void SetLevel(int level)
-    //{
-    //    Level = Mathf.Max(1, level);
-    //}
+    public void SetCurrentHp(float hp)
+    {
+        status.stat.CurrentHp = Mathf.Clamp(hp, 0, status.stat.MaxHp);
+    }
 
-    //public void SetExp(int exp)
-    //{
-    //    CurrentExp = Mathf.Max(0, exp);
-    //}
-
-    //public void SetYP(int amount)
-    //{
-    //    yp = Mathf.Max(0, amount);
-    //}
-
-    //public void SetCurrentHp(float hp)
-    //{
-    //    stat.CurrentHp = Mathf.Clamp(hp, 0, stat.MaxHp);
-    //}
-
-    //public void SetCurrentMana(float mana)
-    //{
-    //    stat.CurrentMana = Mathf.Clamp(mana, 0, stat.MaxMana);
-    //}
-
-    //// YP(돈) 획득 메서드
-    //public void AddYP(int amount)
-    //{
-    //    yp += Mathf.Max(0, amount);
-    //}
-
-    //// YP(돈) 소비 메서드
-    //public bool SpendYP(int amount)
-    //{
-    //    if (yp >= amount)
-    //    {
-    //        yp -= amount;
-    //        return true;
-    //    }
-    //    return false;
-    //}
-
+    public void SetCurrentMana(float mana)
+    {
+        status.stat.CurrentMana = Mathf.Clamp(mana, 0, status.stat.MaxMana);
+    }
 
     //public PlayerSaveData makeSaveData()
     //{
     //    PlayerSaveData data = new PlayerSaveData();
-    //    data.CurrnetHP = stat.CurrentHp;
-    //    data.CurrentMP = stat.CurrentMana;
-    //    data.Level = Level;
-    //    data.YP = YP;
+
+    //    data.CurrnetHP = status.stat.CurrentHp;
+    //    data.CurrentMP = status.stat.CurrentMana;
+    //    data.Level = status.Level;
+    //    data.CurrentExp = status.Exp;
+    //    data.YP = status.wallet.YP;
     //    data.Inventory = inventory.GetAllItems();
 
     //    foreach (var quest in quest.GetMyQStatus())
@@ -125,21 +71,22 @@ public class Player : MonoBehaviour
     //                EnemyID = kvp.Key,
     //                KillCount = kvp.Value
     //            });
-
-    //            data.eliQuestProgressDatas.Add(eliData);
     //        }
+
+    //        data.eliQuestProgressDatas.Add(eliData);
     //        Debug.Log($"엘리 퀘스트 저장: {q.Key}");
     //    }
 
-    //    foreach (var pet in ownedPets)
+    //    foreach (var pet in status.party.curPets)
     //    {
-    //        data.ownedPetIDs.Add(pet.Data.PetID);
+    //        data.ownedPetIDs.Add(pet.PetData.PetID);
     //    }
 
-    //    foreach (var pet in equippedPets)
+    //    foreach (var pet in status.party.partyPets)
     //    {
-    //        data.equipPetIDs.Add(pet.Data.PetID);
+    //        data.equipPetIDs.Add(pet.PetData.PetID);
     //    }
+
     //    Debug.Log($"보유 펫 저장: {data.ownedPetIDs.Count}마리, 장착 펫 저장: {data.equipPetIDs.Count}마리");
 
     //    return data;
@@ -149,20 +96,19 @@ public class Player : MonoBehaviour
     //{
     //    SetCurrentHp(data.CurrnetHP);
     //    SetCurrentMana(data.CurrentMP);
-    //    Level = data.Level;
-    //    yp = data.YP;
-    //    CurrentExp = data.CurrentExp;
+    //    status.SetLevel(data.Level);
+    //    status.SetExp(data.CurrentExp);
+    //    status.wallet.SetYP(data.YP);
 
-    //    foreach (var Item in data.Inventory)
+    //    foreach (var item in data.Inventory)
     //    {
-    //        ItemData itemData = Resources.Load<ItemData>($"ItemDatas/{Item.Key}");
-    //        Inventory.AddItem(itemData, Item.Value);
+    //        BaseItem itemData = Resources.Load<BaseItem>($"ItemDatas/{item.Key}");
+    //        inventory.AddItem(itemData, item.Value);
     //    }
 
     //    foreach (var q in data.questStatusDatas)
     //    {
     //        QuestData questData = Resources.Load<QuestData>($"QuestDatas/{q.QuestID}");
-
     //        quest.AddMyQ(questData);
 
     //        if (q.IsCompleted)
@@ -174,44 +120,41 @@ public class Player : MonoBehaviour
     //    foreach (var eliData in data.eliQuestProgressDatas)
     //    {
     //        QuestData progress = Resources.Load<QuestData>($"QuestDatas/{eliData.QuestID}");
-
     //        quest.AddEliQ(progress);
 
     //        foreach (var countData in eliData.eliCountDatas)
     //        {
-    //            quest.GetEliQProgress()[eliData.QuestID].EliCounts [countData.EnemyID] = countData.KillCount;
+    //            quest.GetEliQProgress()[eliData.QuestID].EliCounts[countData.EnemyID] = countData.KillCount;
     //        }
     //    }
 
+    //    // 펫 보유 리스트 복원: PetData 로드 후 PetStatus 생성하여 PlayerParty에 추가
     //    foreach (var petID in data.ownedPetIDs)
     //    {
-    //        Pet petPrefab = Resources.Load<Pet>($"PetData/{petID}");
-
-    //        if (petPrefab != null)
+    //        PetData petData = Resources.Load<PetData>($"PetData/{petID}");
+    //        if (petData != null)
     //        {
-    //            AddPetFromPrefab(petPrefab);
+    //            var petStatus = new PetStatus(petData);
+    //            status.party.AddPet(petStatus);
     //        }
     //        else
     //        {
-    //            Debug.LogWarning($"펫 프리팹을 찾을 수 없습니다: {petID}");
+    //            Debug.LogWarning($"펫 데이터를 찾을 수 없습니다: {petID}");
     //        }
-    //        Debug.Log($"펫 보유됨: {petID}");
     //    }
 
+    //    // 펫 장착 리스트 복원: 보유한 PetStatus 중 해당 펫을 찾아 PlayerParty에 장착
     //    foreach (var petID in data.equipPetIDs)
     //    {
-    //        Pet petPrefab = Resources.Load<Pet>($"PetData/{petID}");
-
-    //        if (petPrefab != null)
+    //        var petStatus = status.party.curPets.Find(p => p.PetData.PetID == petID);
+    //        if (petStatus != null)
     //        {
-    //            AddPetFromPrefab(petPrefab);
-    //            EquipPet(petPrefab);
+    //            status.party.EquipPet(petStatus);
     //        }
     //        else
     //        {
-    //            Debug.LogWarning($"펫 프리팹을 찾을 수 없습니다: {petID}");
+    //            Debug.LogWarning($"장착할 보유 펫을 찾을 수 없습니다: {petID}");
     //        }
-    //        Debug.Log($"펫 장착됨: {petID}");
     //    }
     //}
 }
