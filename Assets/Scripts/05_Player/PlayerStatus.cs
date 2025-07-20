@@ -33,6 +33,8 @@ public class PlayerStatus : CharacterStatus
         party = new PlayerParty();
         quest = new PlayerQuest();
         inventory = new ItemInventory();
+        equipment = new ItemEquipment(this);
+        skills = new SkillInventory(PlayerData);
         skills = new SkillInventory();
         PlayerName = playerName;
         wallet = new PlayerWallet();

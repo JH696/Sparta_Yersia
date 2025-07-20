@@ -45,12 +45,14 @@ public class PetData : StatData, ISkillLearnableCharacter
     [Tooltip("각 진화 단계에 도달하기 위한 최소 레벨 (0 = 기본, 1 = 1차 진화, 2 = 2차 진화)")]
     public int[] evoLevel = new int[3] { 1, 5, 10 };
 
-    [Header("펫 시작 스킬 목록")]
-    [Tooltip("SkillBase 구현 SO를 드래그하세요")]
+    [Header("초기 스킬 리스트")]
     [SerializeField] private List<SkillData> startSkills = new List<SkillData>();
 
-    //읽기 전용
+    [Header("학습 가능 스킬 리스트")]
+    [SerializeField] private List<SkillData> learnableSkills = new List<SkillData>();
+
     public List<SkillData> StartSkills => startSkills;
+    public List<SkillData> LearnableSkills => learnableSkills;
 }
 
 [Serializable]

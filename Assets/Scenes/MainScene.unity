@@ -732,15 +732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df64283ade1fce144907caa2f3e97be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 5868924951691442565}
-  petSlotPrefab: {fileID: 4963771494877470536, guid: 33e780025ae986b4ba8a06e061ec879e, type: 3}
-  slotParent: {fileID: 1172057393}
-  baseSlots:
-  - {fileID: 1896273287}
-  - {fileID: 669251415}
-  - {fileID: 678794859}
-  - {fileID: 1006495888}
-  backBtn: {fileID: 328996673}
 --- !u!114 &367502371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2724,7 +2715,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_Origin: {x: -8, y: -6, z: 0}
   m_Size: {x: 16, y: 12, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -3359,7 +3350,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_Origin: {x: -2, y: 0, z: 0}
   m_Size: {x: 4, y: 4, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -3575,7 +3566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ce9872b8b9561b429fa667a97ac1abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 3404059447536266643}
 --- !u!114 &913543518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3846,7 +3836,7 @@ Tilemap:
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_Origin: {x: -12, y: -4, z: 0}
   m_Size: {x: 16, y: 20, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -6690,7 +6680,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_Origin: {x: -18, y: -6, z: 0}
   m_Size: {x: 26, y: 23, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -9006,7 +8996,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_Origin: {x: -2, y: -4, z: 0}
   m_Size: {x: 7, y: 8, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -9682,7 +9672,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 3414f95300a65bc4eb2659fbe76ea3b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11375,7 +11365,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_Origin: {x: -19, y: -7, z: 0}
   m_Size: {x: 27, y: 24, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -11782,7 +11772,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
   m_Size: {x: 3, y: 3, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -12528,7 +12518,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.745283, g: 0.745283, b: 0.745283, a: 0.49019608}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_Origin: {x: -18, y: -6, z: 0}
   m_Size: {x: 26, y: 23, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -16228,9 +16218,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statsUIObject: {fileID: 2838091}
   statsUI: {fileID: 859763383113718219}
-  player: {fileID: 5868924951691442565}
-  pet1: {fileID: 0}
-  pet2: {fileID: 0}
   PlayerInfo: {fileID: 7970924221124182452}
   PetInfo: {fileID: 6905988533449485647}
 --- !u!1 &1530919389799790619
@@ -16293,9 +16280,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d27985268e34e54eb0262f41dc831c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 1385217128837422495}
-  CountText: {fileID: 0}
-  bgImg: {fileID: 1385217128837422495}
+  status:
+    Data: {fileID: 0}
+    Stack: 0
+    IsEquipped: 0
+  icon: {fileID: 0}
+  stack: {fileID: 0}
 --- !u!1 &1580628809996854448
 GameObject:
   m_ObjectHideFlags: 0
@@ -17338,23 +17328,6 @@ RectTransform:
   m_AnchoredPosition: {x: 250, y: -12.5}
   m_SizeDelta: {x: 275, y: 100}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &2027096033241333536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5293154846245277028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0c462332659e624ba4286cde950f28c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcData: {fileID: 11400000, guid: 68919cf3c57adfd469b873c180688558, type: 2}
-  questIcon: {fileID: 465563775}
-  AssignerQuests: []
-  ReceiverQuests: []
-  skill: {fileID: 5293154846245277030}
 --- !u!114 &2031348095320714370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18414,7 +18387,6 @@ MonoBehaviour:
   curDialogueData:
     DialogueID: 
     Lines: []
-  curNpc: {fileID: 0}
   typingSpeed: 0.05
 --- !u!1 &2965755219596646821
 GameObject:
@@ -19667,9 +19639,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4147913176200331407}
   - component: {fileID: 3698358784831696232}
-  - component: {fileID: 7422726605273119767}
-  - component: {fileID: 7422726605273119766}
-  - component: {fileID: 7422726605273119768}
+  - component: {fileID: 4147913176200331408}
   m_Layer: 8
   m_Name: NPC Rie
   m_TagString: Untagged
@@ -20884,6 +20854,51 @@ Transform:
   - {fileID: 1617305613}
   m_Father: {fileID: 2122560936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &4147913176200331408
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3627213916230159954}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.52403015, y: 0.13960405}
+    oldSize: {x: 5.12, y: 5.12}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &4150551988521028840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21575,9 +21590,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d27985268e34e54eb0262f41dc831c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 7606000859084111}
-  CountText: {fileID: 0}
-  bgImg: {fileID: 7606000859084111}
+  status:
+    Data: {fileID: 0}
+    Stack: 0
+    IsEquipped: 0
+  icon: {fileID: 0}
+  stack: {fileID: 0}
 --- !u!224 &4720968742384536865
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21651,8 +21669,8 @@ Transform:
   m_GameObject: {fileID: 5293154846245277028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 7.75, y: 1.5, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
+  m_LocalPosition: {x: 7.07, y: 2.52, z: 0}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 465563776}
@@ -22201,15 +22219,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: 8843fdb6fb155e2499f17aa399ff4ee1, type: 3}
-  m_Color: {r: 0.9564274, g: 1, b: 0.5896226, a: 1}
+  m_Sprite: {fileID: -1382024249, guid: ed3f8421f5a33fb4fa76efa0a5b0c685, type: 3}
+  m_Color: {r: 1, g: 0.9292453, b: 0.9292453, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!222 &5220604021011524751
@@ -22269,8 +22287,6 @@ GameObject:
   - component: {fileID: 4806249624535008185}
   - component: {fileID: 5219766695018655326}
   - component: {fileID: 5293154846245277029}
-  - component: {fileID: 2027096033241333536}
-  - component: {fileID: 5293154846245277030}
   m_Layer: 8
   m_Name: NPC Helonneu
   m_TagString: Untagged
@@ -22313,8 +22329,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.52403015, y: 0.13960405}
-    oldSize: {x: 5.12, y: 5.12}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 3.2777777}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -22323,18 +22339,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5293154846245277030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5293154846245277028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e07755ed0fc2062498f9ebf2e3001de7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &5294074548727191089
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22367,9 +22371,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d27985268e34e54eb0262f41dc831c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 3772944544249882210}
-  CountText: {fileID: 0}
-  bgImg: {fileID: 3772944544249882210}
+  status:
+    Data: {fileID: 0}
+    Stack: 0
+    IsEquipped: 0
+  icon: {fileID: 0}
+  stack: {fileID: 0}
 --- !u!114 &5334597793653556593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23129,9 +23136,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d27985268e34e54eb0262f41dc831c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 3787158144592874784}
-  CountText: {fileID: 0}
-  bgImg: {fileID: 3787158144592874784}
+  status:
+    Data: {fileID: 0}
+    Stack: 0
+    IsEquipped: 0
+  icon: {fileID: 0}
+  stack: {fileID: 0}
 --- !u!222 &5782872932845076877
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23321,14 +23331,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4140144ab3445b4193d8fc0552b30fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  status:
+    IsDead: 0
+    stat:
+      level: 0
+      exp: 0
+      maxExp: 0
+      maxHp: 0
+      currentHp: 0
+      maxMana: 0
+      currentMana: 0
+      attack: 0
+      defense: 0
+      luck: 0
+      speed: 0
+    party:
+      maxPartyPets: 2
+      curPets: []
+      partyPets: []
+    quest: {fileID: 0}
+    inventory:
+      items: []
+      maxItemCount: 20
+    equipment:
+      Weapon:
+        Data: {fileID: 0}
+        Stack: 0
+        IsEquipped: 0
+      Hat:
+        Data: {fileID: 0}
+        Stack: 0
+        IsEquipped: 0
+      Accessory:
+        Data: {fileID: 0}
+        Stack: 0
+        IsEquipped: 0
+      Clothes:
+        Data: {fileID: 0}
+        Stack: 0
+        IsEquipped: 0
+      Shoes:
+        Data: {fileID: 0}
+        Stack: 0
+        IsEquipped: 0
+    skills:
+      skills: []
+    PlayerName: 
+    PlayerData: {fileID: 0}
   playerData: {fileID: 11400000, guid: 6932ffbd4bfcef34bb517e52c7ccc3ca, type: 2}
-  party: {fileID: 5868924951691442566}
-  quest: {fileID: 1013363398061450774}
-  inventory: {fileID: 5868924951691442562}
-  skill: {fileID: 5868924951691442564}
-  ownedPets: []
-  equippedPets: []
-  playerParty: {fileID: 5868924951691442566}
+  worldSprite: {fileID: 0}
 --- !u!114 &5868924951691442566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25495,9 +25546,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d27985268e34e54eb0262f41dc831c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Icon: {fileID: 7076518625063447967}
-  CountText: {fileID: 0}
-  bgImg: {fileID: 7076518625063447967}
+  status:
+    Data: {fileID: 0}
+    Stack: 0
+    IsEquipped: 0
+  icon: {fileID: 0}
+  stack: {fileID: 0}
 --- !u!224 &7235995836970085298
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25719,80 +25773,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7422726605273119766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3627213916230159954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0c462332659e624ba4286cde950f28c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcData: {fileID: 11400000, guid: f1056d10aa089274393111005f8e2c28, type: 2}
-  questIcon: {fileID: 1617305612}
-  AssignerQuests: []
-  ReceiverQuests: []
-  skill: {fileID: 7422726605273119768}
---- !u!61 &7422726605273119767
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3627213916230159954}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.52403015, y: 0.13960405}
-    oldSize: {x: 5.12, y: 5.12}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &7422726605273119768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3627213916230159954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e07755ed0fc2062498f9ebf2e3001de7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!222 &7433544347093915286
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26647,28 +26627,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b728b06d2611f54fa06e734e25fd4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotSelectedColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
-  slotNormalColor: {r: 1, g: 1, b: 1, a: 1}
+  player: {fileID: 0}
+  equipment: {fileID: 0}
+  slotParent: {fileID: 0}
+  slotPrefab: {fileID: 2673617789053718609, guid: 0ba99a7955bc0764b9374db07f664436, type: 3}
+  category: 0
+  categoryBtns: []
   openBtn: {fileID: 6751122065996700630}
   closeBtn: {fileID: 6569780317217578054}
-  categoryAll: {fileID: 5161876196824565681}
-  categoryEquip: {fileID: 6514637271421790186}
-  categoryConsum: {fileID: 6687912575575481538}
-  categoryQuest: {fileID: 3946672555326533468}
-  actionBtn: {fileID: 3301758532876085781}
-  cancelBtn: {fileID: 618701866322160173}
-  CategorySelectedColor: {r: 0, g: 1, b: 0, a: 1}
-  CategoryNormalColor: {r: 1, g: 1, b: 1, a: 1}
-  detailPanel: {fileID: 6187806567931932338}
-  itemNameText: {fileID: 7442703795608464890}
-  itemEffectText: {fileID: 3546369647335411167}
-  slotContent: {fileID: 4323871964931922608}
-  slotPrefab: {fileID: 2673617789053718609, guid: 0ba99a7955bc0764b9374db07f664436, type: 3}
-  slotCount: 20
-  equipPanel: {fileID: 7005209519732947325}
-  capacityPopup: {fileID: 7782488877140079125}
-  capacityCanvasGroup: {fileID: 4366632834292320384}
-  capacityPopupText: {fileID: 7701051870858441311}
+  button1: {fileID: 0}
+  button2: {fileID: 0}
+  infoPanel: {fileID: 0}
+  itemName: {fileID: 0}
+  itemInfo: {fileID: 0}
+  slots: []
+  selectedSlot: {fileID: 0}
+  test: []
 --- !u!1 &7786195922061610340
 GameObject:
   m_ObjectHideFlags: 0

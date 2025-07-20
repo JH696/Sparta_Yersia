@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public struct ItemValue
 {
     public EStatType Stat;
@@ -26,47 +27,17 @@ public abstract class BaseItem : ScriptableObject
 
 // 장비 아이템
 [System.Serializable]
-[CreateAssetMenu(fileName = "I_e00", menuName = "Data/장비 아이템")]
+[CreateAssetMenu(fileName = "I_e00", menuName = "Data/EquipItem")]
 public class EquipItemData : BaseItem
 {
-    [Header("장비 타입")]
+    [Header("장비 분류")]
     public E_EquipType Type;
-
-    [Header("장착 여부")]
-    public bool IsEquipped;
 
     [Header("장비 성능")]
     public List<ItemValue> Values;
 
     [Header("가격")]
     public int Price;
-
-    public void Equip(CharacterStatus status)
-    {
-        if (IsEquipped) return;
-
-        IsEquipped = true;
-
-        if (Values.Count <= 0) return;
-
-        foreach (ItemValue iv in Values)
-        {
-            status.stat.IncreaseStat(iv.Stat, iv.Value);
-        }
-    }   
-
-    public void Unequip(CharacterStatus status)
-    {
-        if (!IsEquipped) return;
-
-        IsEquipped = false;
-
-        foreach (ItemValue iv in Values)
-        {
-            status.stat.DecreaseStat(iv.Stat, iv.Value);
-        }
-    }
-
 
     public override E_CategoryType GetCategory()
     {
@@ -76,12 +47,9 @@ public class EquipItemData : BaseItem
 
 // 소비 아이템
 [System.Serializable]
-[CreateAssetMenu(fileName = "I_c00", menuName = "Data/소비 아이템")]
+[CreateAssetMenu(fileName = "I_c00", menuName = "Data/ConsumeItem")]
 public class ConsumeItemData : BaseItem
 {
-    [Header("카테고리")]
-    [SerializeField] private E_CategoryType Category = E_CategoryType.Consume;
-
     [Header("소모품 성능")]
     public List<ItemValue> Values;
 
@@ -91,35 +59,34 @@ public class ConsumeItemData : BaseItem
     [Header("가격")]
     public int Price;
 
-    public void Consume(CharacterStatus status)
-    {
-        foreach (ItemValue iv in Values)
-        {
-            if (iv.Stat == EStatType.MaxHp)
-            {
-                status.RecoverHealth(iv.Value);
-            }
-            else if (iv.Stat == EStatType.MaxMana)
-            {
-                status.RecoverMana(iv.Value);
-            }
-            else
-            {
-                // status.stat.IncreaseStat(iv.Stat, iv.Value);
-                // 지속 시간 적용
-            }
-        }
-    }
-
     public override E_CategoryType GetCategory()
     {
         return E_CategoryType.Consume;
+    }
+
+    public void Consume(CharacterStatus consumer)
+    { 
+        foreach (ItemValue v in Values)
+        {
+            switch (v.Stat)
+            {
+                case EStatType.MaxHp:
+                    consumer.RecoverHealth(v.Value);
+                    break;
+                case EStatType.MaxMana:
+                    consumer.RecoverMana(v.Value);
+                    break;
+                default:
+                    Debug.LogWarning($"[ConsumeItemData] 지원하지 않는 능력치 입니다.");
+                    return;
+            }
+        }
     }
 }
 
 // 일반 아이템 (퀘스트 아이템)
 [System.Serializable]
-[CreateAssetMenu(fileName = "I_q00", menuName = "Data/퀘스트 아이템")]
+[CreateAssetMenu(fileName = "I_q00", menuName = "Data/QuestItem")]
 public class QuestItemData : BaseItem
 {
     [Header("설명")]
@@ -128,5 +95,10 @@ public class QuestItemData : BaseItem
     public override E_CategoryType GetCategory()
     {
         return E_CategoryType.Quest;
+    }
+
+    public void Give()
+    {
+        Debug.Log($"[QuestItemData] {Name}을(를) 받았습니다.");
     }
 }
