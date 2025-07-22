@@ -15,9 +15,9 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
-        fadein = GetComponent<FadeIn>();
+        //fadein = GetComponent<FadeIn>();
         backGround.anchoredPosition = startPosition;
-        StartCoroutine(Scroll());
+        //StartCoroutine(Scroll());
     }
 
     public IEnumerator Scroll()
@@ -27,7 +27,7 @@ public class CameraFollow : MonoBehaviour
         while (elapsedTime < duration)
         {
             float t = Mathf.Clamp01(elapsedTime / duration); // 0~1 보간값
-                                                             //부드럽게 이동
+            //부드럽게 이동
             t = Mathf.SmoothStep(0f, 1f, t);
             // 선형 보간 (Lerp)으로 위치 이동
             backGround.anchoredPosition = Vector2.Lerp(startPosition, endPosition, t);
@@ -37,7 +37,7 @@ public class CameraFollow : MonoBehaviour
         if (elapsedTime >= duration)
         {
             isMoving = false;
-            yield return StartCoroutine(fadein.Fade(0f, 1f));
+            //yield return StartCoroutine(fadein.Fade(0f, 1f));
         }
     }
 }

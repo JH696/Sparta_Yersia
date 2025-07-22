@@ -1,21 +1,24 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FadeIn : MonoBehaviour
 {
     [SerializeField] private CanvasGroup fade;  //로고+버튼들
+    [SerializeField] private CanvasGroup fadeBlack;  //까만화면
     [SerializeField] private float fadeDuration = 1f;
-    CameraFollow CameraFollow;
     private void Awake()
     {
-        // 처음에 투명 상태로 초기화 (항상 활성화된 상태 유지)
-        SetAlpha(0f);
+
     }
 
 
-    public IEnumerator Fade(float from, float to)
+    public IEnumerator Fade(CanvasGroup fade, float from, float to)
     {
         float elapsed = 0f;
+        fade.alpha = 0f;
+        fade.interactable = false;
+        fade.blocksRaycasts = false;
 
         while (elapsed < fadeDuration)
         {
@@ -23,6 +26,10 @@ public class FadeIn : MonoBehaviour
             fade.alpha = Mathf.Lerp(from, to, elapsed / fadeDuration);
             yield return null;
         }
+
+        fade.alpha = 1f;
+        fade.interactable = true;
+        fade.blocksRaycasts = true;
     }
 
     private void SetAlpha(float alpha)
