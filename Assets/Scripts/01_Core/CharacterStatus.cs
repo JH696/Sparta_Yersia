@@ -1,9 +1,20 @@
-﻿public abstract class CharacterStatus
+﻿using UnityEngine;
+
+[System.Serializable]
+public abstract class CharacterStatus
 {    
     // 사망 여부
-    public bool IsDead;
+    public bool IsDead => stat.CurrentHp <= 0;
+
     // 캐릭터 스탯
     public CharacterStats stat;
+    // 인벤토리, 장비
+    public ItemInventory inventory;
+    public ItemEquipment equipment;
+    // 스킬
+    public SkillInventory skills;
+
+    public event System.Action OnCharacterDead;
 
     public virtual void TakeDamage(float amount)
     {
@@ -17,13 +28,8 @@
 
     public virtual void CharacterDie()
     {
-        IsDead = true;
-    }
-
-    public virtual void Revive()
-    {
-        stat.CurrentHp = 1;
-        IsDead = false;
+        OnCharacterDead?.Invoke();
+        Debug.Log($"{this} 사망."); 
     }
 
     // 체력 회복
@@ -40,5 +46,10 @@
         if (IsDead) return;
 
         stat.SetCurrentMana(amount);
+    }
+
+    public virtual Sprite GetWSprite()
+    {
+        return null; // 월드 스프라이트 반환, 자식 클래스에서 구현
     }
 }

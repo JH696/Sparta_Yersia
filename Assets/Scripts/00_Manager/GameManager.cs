@@ -4,6 +4,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public Player player;
+
     private void Awake()
     {
         // 싱글톤 설정

@@ -46,8 +46,12 @@ public class ItemSlot : MonoBehaviour
             icon.enabled = false;
             icon.sprite = null;
             stack.text = string.Empty;
-            return;
+            Debug.LogWarning(icon);
+            return; 
         }
+
+        Debug.Log(status.Data);
+        Debug.Log(icon);
 
         icon.enabled = true;
         icon.sprite = status.Data.Icon;
@@ -66,7 +70,7 @@ public class ItemSlot : MonoBehaviour
         status = null;
         icon.color = Color.white;
         icon.sprite = null;
-        icon.enabled = false;
+        //icon.enabled = false;
         stack.text = string.Empty;
         GetComponent<Button>().onClick.RemoveListener(OnClick); // 슬롯 클릭 이벤트 제거
     }   

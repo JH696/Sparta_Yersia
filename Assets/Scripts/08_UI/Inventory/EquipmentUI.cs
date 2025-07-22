@@ -22,7 +22,9 @@ public class EquipmentUI : MonoBehaviour
     {
         Debug.Log("아이콘 업데이트");
 
-        for (int i = 0; i < icon.Count; i++)
+        int count = Mathf.Min(icon.Count, this.icon.Count);
+
+        for (int i = 0; i < count; i++)
         {
             Sprite icon = player.Status.equipment.GetItemIcon((E_EquipType)i);
 

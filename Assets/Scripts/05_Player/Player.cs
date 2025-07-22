@@ -3,29 +3,13 @@
 public class Player : MonoBehaviour
 {
     [Header("플레이어 상태")]
-    [SerializeField] private PlayerStatus status;
+    [SerializeField] private PlayerStatus status = null;
 
     [Header("플레이어 데이터")]
     [SerializeField] private PlayerData playerData;
 
     [Header("월드에서 보여질 스프라이트")]
     public SpriteRenderer worldSprite;
-
-    // 레벨, YP 관련 데이터 인터페이스로 접근
-    //private ILevelData LevelData => playerData as ILevelData;
-    //private IYPHolder YPData => playerData as IYPHolder;
-
-    // 성별 (플레이어 전용)
-    //public EGender Gender { get; private set; } = EGender.Male;
-
-    // 레벨, 경험치
-    //public int Level { get; private set; } = 1;
-    //public int CurrentExp { get; private set; } = 0;
-    //public int ExpToNextLevel => LevelData?.BaseExpToLevelUp * Level ?? 100 * Level;
-
-    //[Header("YP(화폐)")]
-    //private int yp = 0;
-    //public int YP => yp;
 
     // @@ 플레이어 파티에서 관리 예정 @@
     //[Header("펫 관련")]
@@ -35,10 +19,19 @@ public class Player : MonoBehaviour
     //public List<Pet> EquippedPets => equippedPets;
 
     public PlayerStatus Status => status; // 읽기 전용
+    public PlayerData PlayerData => playerData; // 읽기 전용
 
     private void Start()
     {
-        status = new PlayerStatus(playerData,"Player"); // 플레이어 데이터와 이름 설정
+        if (BattleManager.player != null)
+        {
+            status = BattleManager.player; // 전투 매니저에서 플레이어 상태를 가져옴
+        }
+        else
+        {
+            status = new PlayerStatus(playerData, "Player"); // 플레이어 데이터와 이름 설정
+            Debug.Log("[Player] PlayerStatus가 초기화되었습니다.");
+        }
 
         ChangeSprite();
     }
@@ -46,50 +39,10 @@ public class Player : MonoBehaviour
     private void ChangeSprite()
     {
         if (status == null) return;
-        worldSprite.sprite = status.PlayerData.WSprite;
+        worldSprite.sprite = playerData.WSprite;
     }
 
-    //public void SetLevel(int level)
-    //{
-    //    Level = Mathf.Max(1, level);
-    //}
 
-    //public void SetExp(int exp)
-    //{
-    //    CurrentExp = Mathf.Max(0, exp);
-    //}
-
-    //public void SetYP(int amount)
-    //{
-    //    yp = Mathf.Max(0, amount);
-    //}
-
-    //public void SetCurrentHp(float hp)
-    //{
-    //    stat.CurrentHp = Mathf.Clamp(hp, 0, stat.MaxHp);
-    //}
-
-    //public void SetCurrentMana(float mana)
-    //{
-    //    stat.CurrentMana = Mathf.Clamp(mana, 0, stat.MaxMana);
-    //}
-
-    //// YP(돈) 획득 메서드
-    //public void AddYP(int amount)
-    //{
-    //    yp += Mathf.Max(0, amount);
-    //}
-
-    //// YP(돈) 소비 메서드
-    //public bool SpendYP(int amount)
-    //{
-    //    if (yp >= amount)
-    //    {
-    //        yp -= amount;
-    //        return true;
-    //    }
-    //    return false;
-    //}
 
 
     //public PlayerSaveData makeSaveData()

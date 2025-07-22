@@ -87,6 +87,10 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
     {
         if (data == null) return;
 
+        level = 1;
+        exp = 0;
+        maxExp = 100;
+
         maxHp = data.maxHp;
         CurrentHp = MaxHp;
 
@@ -219,14 +223,5 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
     {
         float mana = CurrentMana + amount;
         CurrentMana = Mathf.Clamp(mana, 0, MaxMana);
-    }
-
-    // 마나 소모
-    public bool ReduceMana(float amount)
-    {
-        if (CurrentMana < amount) return false;
-
-        CurrentMana -= amount;
-        return true;
     }
 }

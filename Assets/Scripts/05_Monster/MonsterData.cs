@@ -2,28 +2,40 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MonsterData", menuName = "Data/MonsterData")]
-public class MonsterData : StatData //ISkillLearnableCharacter
+public class MonsterData : StatData, ISkillLearnableCharacter
 {
-    //[Header("몬스터 ID / 이름")]
-    //public string MonsterID;
-    //public string MonsterName;
+    [Header("몬스터 ID / 이름")]
+    public string MonsterID;
+    public string MonsterName;
 
-    //[Header("몬스터 등급")]
-    //public EMonsterType MonsterType;
+    [Header("서식지")]
+    public E_StageType StageType;
 
-    //[Header("초기 스킬 리스트")]
-    //[SerializeField] private List<SkillData> startSkills = new List<SkillData>();
-    //public IReadOnlyList<SkillData> StartSkills => startSkills;
+    [Header("몬스터 등급")]
+    public EMonsterType MonsterType;
 
-    //[Header("몬스터 시작 스킬 목록")]
-    //[Tooltip("SkillBase 구현 SO(SkillData 등)를 드래그하세요")]
-    //public List<SkillBase> startingSkills = new List<SkillBase>();
+    [Header("초기 스킬 리스트")]
+    [SerializeField] private List<SkillData> startSkills = new List<SkillData>();
 
-    //// 인터페이스 구현
-    //public List<SkillBase> StartingSkills => startingSkills;
+    [Header("학습 가능 스킬 리스트")]
+    [SerializeField] private List<SkillData> learnableSkills = new List<SkillData>();
 
-    //[Header("처치 보상")]
-    //public int ypDrop = 0;
-    //public int expDrop = 0;
-    //public List<DropItemData> dropItems = new List<DropItemData>();
+    [Header("처치 보상")]
+    public int ypDrop = 0;
+    public int expDrop = 0;
+    public List<DropItem> dropItems = new List<DropItem>();
+
+    [Header("몬스터 스프라이트")]
+    public Sprite WSprite; // 월드
+
+
+    public List<SkillData> StartSkills => startSkills;
+    public List<SkillData> LearnableSkills => learnableSkills;
+}
+
+[System.Serializable]
+public struct DropItem
+{
+    public BaseItem itemData;
+    public float dropRate;
 }

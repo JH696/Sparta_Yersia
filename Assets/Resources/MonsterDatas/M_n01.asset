@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f31c11c4d16c149a6db51bb4968c56, type: 3}
   m_Name: M_n01
   m_EditorClassIdentifier: 
-  WorldSprite: {fileID: 21300000, guid: 33bfcc7ab2f4b8544bbefe9cb57ecb11, type: 3}
-  Icon: {fileID: 0}
-  maxHp: 100
+  maxHp: 80
   maxMana: 80
   attack: 20
   defense: 10
   luck: 5
   speed: 10
+  Multiplier: 1.1
   MonsterID: M_n01
   MonsterName: "\uAC70\uBBF8"
+  StageType: 0
   MonsterType: 0
-  startSkills: []
-  startingSkills: []
+  startSkills:
+  - {fileID: 11400000, guid: 6623b5c7106b6c74e9b81517ed28cf80, type: 2}
+  - {fileID: 11400000, guid: 326620fd966e8ff49bfe162af3420433, type: 2}
+  learnableSkills: []
   ypDrop: 30
   expDrop: 50
-  dropItems:
-  - itemData: {fileID: 11400000, guid: 87831238d1c46c6478a6735068868985, type: 2}
-    dropChance: 1
-    amount: 1
+  dropItems: []
+  WSprite: {fileID: 21300000, guid: 8843fdb6fb155e2499f17aa399ff4ee1, type: 3}

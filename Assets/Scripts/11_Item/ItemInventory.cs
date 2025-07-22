@@ -6,7 +6,7 @@ using UnityEngine;
 public class ItemInventory
 {
     [Header("저장된 아이템들")]
-    [SerializeField] private List<ItemStatus> items;
+    [SerializeField] private List<ItemStatus> items = null;
 
     [Header("인벤토리 최대 용량")]
     [SerializeField] private int maxItemCount;
@@ -42,7 +42,6 @@ public class ItemInventory
         }
         else
         {
-            Debug.Log($"아이템 추가: {data.ID}");
             items.Add(status);
         }
 
