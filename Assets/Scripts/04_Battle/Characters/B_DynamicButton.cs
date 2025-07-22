@@ -4,26 +4,56 @@ using UnityEngine.UI;
 
 public class B_DynamicButton : MonoBehaviour
 {
+    [SerializeField] private SkillStatus skill;
+    [SerializeField] private ItemStatus item;
+
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private Image icon;
 
-    public void SetIcon(Sprite sprite)
+    public event System.Action<SkillStatus> OnSkillSelected;
+    public event System.Action<ItemStatus> OnItemSelected;
+    public void SetSkill(SkillStatus status)
     {
-        icon.sprite = sprite;
+        this.gameObject.SetActive(true);    
+
+        int cool = status.Cooldown;
+
+        skill = status;
+        item = null;
+        icon.sprite = status.Data.Icon;
+        icon.color = status.IsCool ? Color.gray : Color.white;
+        text.text = cool > 0 ? cool.ToString() : string.Empty;
+
+        GetComponent<Button>().onClick.AddListener(() =>
+        {
+            if (!status.IsCool)
+            {
+                OnSkillSelected?.Invoke(status);
+            }
+        });
     }
 
-    public void SetColor(Color color)
+    public void SetItem(ItemStatus status)
     {
-        icon.color = color;
-    }
+        this.gameObject.SetActive(true);
 
-    public void SetText(string message)
-    {
-        text.text = message;
+        item = status;
+        icon.sprite = status.Data.Icon;
+        icon.color = Color.white;
+        text.text = status.Stack.ToString();
+
+        GetComponent<Button>().onClick.AddListener(() =>
+        {
+            OnItemSelected?.Invoke(status);
+        });
     }
 
     public void ResetButton()
     {
+        GetComponent<Button>().onClick.RemoveAllListeners();
+
+        skill = null;
+        item = null;
         icon.sprite = null;
         icon.color = Color.white;
         text.text = "";    

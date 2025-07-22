@@ -20,6 +20,7 @@ public class ItemStatus
     {
         this.inventory = inventory;
         Data = data;
+        Debug.Log($"[ItemStatus] 아이템 생성: {Data.Name}, ID: {Data.ID}, 스택: {Stack}");
         Stack = 1;
     }
 

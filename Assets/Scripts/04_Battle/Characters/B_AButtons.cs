@@ -1,86 +1,222 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class B_AButtons : MonoBehaviour
+public enum E_ActionType
 {
-    //[Header("캐릭터")]
-    //[SerializeField] private B_Characters chars;
+    None,
+    Attack,
+    Skill,
+    Item,
+    Rest,
+    Run
+}
 
-    //[Header("행동 버튼")]
-    //[SerializeField] private Button attackBtn;
-    //[SerializeField] private Button skillBtn;
-    //[SerializeField] private Button itemBtn;
-    //[SerializeField] private Button RestBtn;
-    //[SerializeField] private Button RunBtn;
+public class B_BattleButtons : MonoBehaviour
+{
+    [Header("선택한 행동")]
+    [SerializeField] private E_ActionType actionType = E_ActionType.None;
 
-    //[Header("반응형 버튼")]
-    //[SerializeField] private B_DButtons dBtns;
+    [Header("행동 중 여부")]
+    [SerializeField] private CharacterStatus curStatus;
 
-    //[Header("타겟 시스템")]
-    //[SerializeField] private B_TargetSystem targetSystem;
+    [Header("액션 핸들러")]
+    [SerializeField] private B_ActionHandler actionHandler;
 
-    //public void SetActionButton()
-    //{
-    //    Debug.Log("버튼 활성화");
+    [Header("행동 버튼 부모")]
+    [SerializeField] private GameObject aButtonParent;
 
-    //    this.gameObject.SetActive(true);
+    [Header("반응형 버튼 부모")]
+    [SerializeField] private GameObject dButtonParent;
 
-    //    attackBtn.onClick.RemoveAllListeners();
-    //    skillBtn.onClick.RemoveAllListeners();
-    //    itemBtn.onClick.RemoveAllListeners();
-    //    RestBtn.onClick.RemoveAllListeners();
-    //    RunBtn.onClick.RemoveAllListeners();
+    [Header("행동 버튼")]
+    [SerializeField] private Button attackBtn;
+    [SerializeField] private Button skillBtn;
+    [SerializeField] private Button itemBtn;
+    [SerializeField] private Button restBtn;
+    [SerializeField] private Button runBtn;
 
-    //    attackBtn.onClick.AddListener(OnAttackButton);
-    //    skillBtn.onClick.AddListener(OnSkillButton);
-    //    itemBtn.onClick.AddListener(OnItemButton);
-    //    RestBtn.onClick.AddListener(OnRestButton);
-    //    RunBtn.onClick.AddListener(OnRunBtn);
-    //}
+    [Header("스킬 / 아이템 버튼")]
+    [SerializeField] private List<B_DynamicButton> buttons;
+    [SerializeField] private Button returnBtn;
 
-    //public void OnAttackButton()
-    //{
-    //    Debug.Log("기본 공격");
+    [Header("승인 / 취소 버튼")]
+    [SerializeField] private Button allowBtn;
+    [SerializeField] private Button cancelBtn;
 
-    //    targetSystem.Targeting(this.gameObject);
-    //}
+    [Header("선택한 스킬, 아이템")]
+    [SerializeField] private SkillStatus selectedSkill;
+    [SerializeField] private ItemStatus selectedItem;
 
-    //public void OnSkillButton()
-    //{
-    //    Debug.Log("스킬 액션");
 
-    //    CharacterSkill characterSkill = chars.SpotLight.GetLearnedSkill();
+    // 읽기용 버튼 리스트
+    public List<Button> Buttons
+    {
+        get
+        {
+            List<Button> btns = new List<Button>
+            {
+                attackBtn,
+                skillBtn,
+                itemBtn,
+                restBtn,
+                runBtn
+            };
+            return btns;
+        }
+    }
 
-    //    List<SkillStatus> skills = characterSkill.AllStatuses;
+    public void Start()
+    {
+        attackBtn.onClick.AddListener(OnAttackButton);
+        skillBtn.onClick.AddListener(OnSkillButton);
+        itemBtn.onClick.AddListener(OnItemButton);
+        restBtn.onClick.AddListener(OnRestButton);
 
-    //    if (skills.Count <= 0) return;
+        returnBtn.onClick.AddListener(OnReturnButton);
 
-    //    characterSkill.TickAllCooldowns();
+        allowBtn.onClick.AddListener(OnAllowButton);
+        cancelBtn.onClick.AddListener(OnCancelButton);
+    }
 
-    //    this.gameObject.SetActive(false);
+    public void OnTurnStart(B_Slot slot)
+    {
+        curStatus = slot.Character;
 
-    //    dBtns.SetSkillButton(skills);
-    //}
+        Canvas canvas = GetComponentInParent<Canvas>();
+        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+        RectTransform myRect = GetComponent<RectTransform>();
 
-    //public void OnItemButton()
-    //{
-    //    Debug.Log("아이템 액션");
+        // 월드 좌표 → 화면 좌표
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(slot.gameObject.transform.position);
 
-    //    this.gameObject.SetActive(false);
+        // 화면 좌표 → 캔버스 로컬 좌표
+        Vector2 localPoint;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main, out localPoint))
+        {
+            myRect.localPosition = localPoint;
+        }
 
-    //    dBtns.SetItemButton();
-    //}
+        aButtonParent.SetActive(true);
+    }
 
-    //public void OnRestButton()
-    //{
-    //    CharacterStatus target = chars.SpotLight.Character;
-    //    target.HealMana(target.MaxMana * 0.1f);
+    private void OnTurnEnd()
+    {
+        actionType = E_ActionType.None;
+        selectedSkill = null;
+        selectedItem = null;
 
-    //    this.gameObject.SetActive(false);
-    //    chars.ResetSpotLight();
-    //}
+        foreach (var btn in buttons)
+        {
+            btn.OnSkillSelected -= UseSkill;
+            btn.OnItemSelected -= UseItem;
+            btn.ResetButton();
+        }
+
+        allowBtn.gameObject.SetActive(false);
+        cancelBtn.gameObject.SetActive(false);
+
+        if (curStatus.IsDead)
+        {
+            actionHandler.EndTargeting(true);
+            return;
+        }
+
+        actionHandler.EndTargeting(false);
+    }
+
+   public void OnAttackButton()
+   {
+        Debug.Log("기본 공격");
+        actionType = E_ActionType.Attack;
+        actionHandler.StartTargeting(1);
+        ShowAllowButton();
+   }
+
+   public void OnSkillButton()
+   {
+        Debug.Log("스킬 액션");
+
+        foreach (var btn in buttons)
+        {
+            btn.OnSkillSelected -= UseSkill;
+        }
+
+        List<SkillStatus> skills = curStatus.skills.LearnSkills;
+
+        if (skills.Count <= 0) return;
+
+        actionType = E_ActionType.Skill;
+
+        dButtonParent.SetActive(true);
+        aButtonParent.SetActive(false);
+
+        for (int i = 0; i < 5; i++) // 장착 스킬 카운터로 변경
+        {
+            buttons[i].SetSkill(skills[i]);
+            buttons[i].OnSkillSelected += UseSkill;
+        }
+   }
+
+    public void OnItemButton()
+    {
+        Debug.Log("아이템 액션");
+
+        foreach (var btn in buttons)
+        {
+            btn.OnItemSelected -= UseItem;
+        }
+
+        List<ItemStatus> items = BattleManager.player.inventory.Items;
+        List<ItemStatus> filter = items.FindAll(item => item.Data.GetCategory() == E_CategoryType.Consume);
+
+        actionType = E_ActionType.Item;
+        dButtonParent.SetActive(true);
+        aButtonParent.SetActive(false);
+
+        if (filter.Count <= 0) return;
+        
+        for (int i = 0; i < filter.Count; i++)
+        {
+            buttons[i].SetItem(filter[i]);
+            buttons[i].OnItemSelected += UseItem;
+        }
+    }
+
+    private void UseSkill(SkillStatus status)
+    {
+        if (curStatus.stat.CurrentMana < status.Data.Cost) return;
+
+        selectedSkill = status;
+        actionType = E_ActionType.Skill;
+        actionHandler.StartTargeting(status.Data.Range);
+        ShowAllowButton();
+    }
+
+    public void UseItem(ItemStatus status) // 작업 필요
+    {
+        if (status.Stack <= 0) return;
+
+        selectedItem = status;
+        actionType = E_ActionType.Item;
+        actionHandler.StartTargeting(Mathf.Clamp(status.Stack, 1, 3));
+        ShowAllowButton();
+    }
+
+    private void ShowAllowButton()
+    {
+        aButtonParent.SetActive(false);
+        dButtonParent.SetActive(false);
+
+        allowBtn.gameObject.SetActive(true);
+        cancelBtn.gameObject.SetActive(true);
+    }
+
+    public void OnRestButton()
+    {
+        actionType = E_ActionType.Rest;
+        ShowAllowButton();
+    }
 
     //public void OnRunBtn()
     //{
@@ -93,4 +229,91 @@ public class B_AButtons : MonoBehaviour
     //    this.gameObject.SetActive(false);
     //    chars.ResetSpotLight();
     //}
+
+    private void OnAllowButton()
+    {
+        if (actionType != E_ActionType.Rest || actionType == E_ActionType.Run)
+        {
+            if (actionHandler.Targets.Count <= 0)
+            {
+                return;
+            }
+        }
+
+        DamageCalculator cal = new DamageCalculator();
+
+        switch (actionType)
+        {
+            case E_ActionType.Attack:
+                foreach (CharacterStatus target in actionHandler.Targets)
+                {
+                    target.TakeDamage(cal.DamageCalculate(curStatus.stat, target.stat, null));
+                }
+                break;
+ 
+            case E_ActionType.Skill:
+                selectedSkill.Cast(curStatus);
+                foreach (CharacterStatus target in actionHandler.Targets)
+                {
+                    target.TakeDamage(cal.DamageCalculate(curStatus.stat, target.stat, selectedSkill));
+                }
+                break;
+
+            case E_ActionType.Item:
+                foreach (CharacterStatus target in actionHandler.Targets)
+                {
+                    if (selectedItem.Data is ConsumeItemData itemData)
+                    {
+                        itemData.Consume(target);
+                    }
+                    selectedItem.LoseItem(actionHandler.Targets.Count);
+                }
+                break;
+
+            case E_ActionType.Rest:
+                curStatus.RecoverMana(curStatus.stat.MaxMana * 0.1f);
+                break;
+
+            case E_ActionType.Run:
+                float roll = Random.Range(0f, 100f);
+                if (roll <= curStatus.stat.Luck)
+                {
+                    Debug.Log("도망 성공");
+                }
+                else
+                {
+                    Debug.Log("도망 실패");
+                }
+                break;
+
+        }
+
+        OnTurnEnd();
+    }
+
+    private void OnCancelButton()
+    {
+        if (actionType == E_ActionType.Skill || actionType == E_ActionType.Item)
+        {
+            dButtonParent.SetActive(true);
+        }
+        else
+        {
+            aButtonParent.SetActive(true);  
+        }
+
+        allowBtn.gameObject.SetActive(false);
+        cancelBtn.gameObject.SetActive(false);
+    }
+
+    private void OnReturnButton()
+    {
+        foreach (B_DynamicButton button in buttons)
+        {
+            button.ResetButton();
+        }
+
+        dButtonParent.SetActive(false);
+        aButtonParent.SetActive(true);
+    }
 }

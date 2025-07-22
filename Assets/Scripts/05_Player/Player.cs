@@ -3,7 +3,7 @@
 public class Player : MonoBehaviour
 {
     [Header("플레이어 상태")]
-    [SerializeField] private PlayerStatus status;
+    [SerializeField] private PlayerStatus status = null;
 
     [Header("플레이어 데이터")]
     [SerializeField] private PlayerData playerData;
@@ -12,10 +12,19 @@ public class Player : MonoBehaviour
     public SpriteRenderer worldSprite;
 
     public PlayerStatus Status => status; // 읽기 전용
+    public PlayerData PlayerData => playerData; // 읽기 전용
 
     private void Start()
     {
-        status = new PlayerStatus(playerData, "Player"); // 플레이어 데이터와 이름 설정
+        if (BattleManager.player != null)
+        {
+            status = BattleManager.player; // 전투 매니저에서 플레이어 상태를 가져옴
+        }
+        else
+        {
+            status = new PlayerStatus(playerData, "Player"); // 플레이어 데이터와 이름 설정
+            Debug.Log("[Player] PlayerStatus가 초기화되었습니다.");
+        }
 
         ChangeSprite();
     }
@@ -23,18 +32,11 @@ public class Player : MonoBehaviour
     private void ChangeSprite()
     {
         if (status == null) return;
-        worldSprite.sprite = status.PlayerData.WSprite;
+        worldSprite.sprite = playerData.WSprite;
     }
 
-    public void SetCurrentHp(float hp)
-    {
-        status.stat.CurrentHp = Mathf.Clamp(hp, 0, status.stat.MaxHp);
-    }
 
-    public void SetCurrentMana(float mana)
-    {
-        status.stat.CurrentMana = Mathf.Clamp(mana, 0, status.stat.MaxMana);
-    }
+
 
     //public PlayerSaveData makeSaveData()
     //{

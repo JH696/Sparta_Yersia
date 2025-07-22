@@ -37,7 +37,7 @@ public class EliQuestProgress
 }
 
 [Serializable]
-public class PlayerQuest : MonoBehaviour
+public class PlayerQuest
 {
     //private ItemInventory Inventory;
 

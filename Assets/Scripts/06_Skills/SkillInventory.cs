@@ -6,13 +6,13 @@ using UnityEngine;
 public class SkillInventory
 {
     [Header("습득한 스킬들")]
-    [SerializeField] private List<SkillStatus> skills = new List<SkillStatus>();
+    [SerializeField] private List<SkillStatus> learnSkills = new List<SkillStatus>();
 
     [Header("습득 가능한 스킬들")]
     [SerializeField] private List<SkillData> learnableSkills = new List<SkillData>();
 
     // 읽기 전용
-    public List<SkillStatus> Skills => skills;
+    public List<SkillStatus> LearnSkills => learnSkills;
     public List<SkillData> LearnableSkills => learnableSkills;
 
     public SkillInventory(ISkillLearnableCharacter startSkills)
@@ -34,7 +34,7 @@ public class SkillInventory
         if (HasSkill(data)) return;
 
         SkillStatus status = new SkillStatus(data);
-        skills.Add(status);
+        LearnSkills.Add(status);
     }
 
     // 스킬 인벤토리 속 스킬 제거
@@ -42,7 +42,7 @@ public class SkillInventory
     {
         if (!HasSkill(data)) return;
 
-        skills.Remove(skills[GetSkillIndex(data)]);
+        LearnSkills.Remove(LearnSkills[GetSkillIndex(data)]);
 
     }
 
@@ -51,7 +51,7 @@ public class SkillInventory
     {
         if (HasSkill(data))
         {
-            skills[GetSkillIndex(data)].LevelUP();
+            LearnSkills[GetSkillIndex(data)].LevelUP();
         }
         else
         {
@@ -59,12 +59,20 @@ public class SkillInventory
         }
     }
 
+    public void ReduceCooldown(int amount)
+    {
+        foreach (SkillStatus skill in LearnSkills)
+        {
+            skill.ReduceCooldown(amount);
+        }
+    }
+
     // 스킬 인벤토리에서 스킬 찾기
     private int GetSkillIndex(SkillData data)
     {
-        for (int i = 0; i < skills.Count; i++)
+        for (int i = 0; i < LearnSkills.Count; i++)
         {
-            if (skills[i].Data.ID == data.ID)
+            if (LearnSkills[i].Data.ID == data.ID)
             {
                 return i;
             }

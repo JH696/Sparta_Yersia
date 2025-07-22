@@ -46,12 +46,22 @@ public class ItemSlot : MonoBehaviour
             icon.enabled = false;
             icon.sprite = null;
             stack.text = string.Empty;
+            Debug.LogWarning(icon);
+            return; 
+        }
+
+        if (icon == null)
+        {
             return;
         }
 
-        icon.enabled = true;
-        icon.sprite = status.Data.Icon;
-        stack.text = status.Stack > 1 ? status.Stack.ToString() : string.Empty;
+         icon.enabled = true;
+         icon.sprite = status.Data.Icon;
+         stack.text = status.Stack > 1 ? status.Stack.ToString() : string.Empty;
+    }
+    private void OnDestroy()
+    {
+        ClearSlot(); // <- 이벤트 안전 해제
     }
 
     // 슬롯 비우기

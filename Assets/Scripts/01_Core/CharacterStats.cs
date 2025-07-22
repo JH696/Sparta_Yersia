@@ -88,8 +88,8 @@ public class CharacterStats
         if (data == null) return;
 
         level = 1;
-        curExp = 0;
-        maxExp = 100; // 캐릭터 데이터로 이동 
+        exp = 0;
+        maxExp = 100;
 
         maxHp = data.maxHp;
         CurrentHp = MaxHp;

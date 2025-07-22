@@ -1,6 +1,6 @@
-﻿using Unity.VisualScripting;
+﻿using UnityEngine;
 
-[System.Serializable]
+[System.Serializable]   
 public class MonsterStatus : CharacterStatus
 {
     // 몬스터 데이터
@@ -13,6 +13,8 @@ public class MonsterStatus : CharacterStatus
 
     public MonsterStatus(MonsterData data)
     {
+        this.data = data;
+        this.stat = new CharacterStats(data);
         this.MonsterData = data;
         this.stat = new CharacterStats(data.GetComponent<StatData>());
         this.skills = new SkillInventory(data);
@@ -29,8 +31,10 @@ public class MonsterStatus : CharacterStatus
         return dropTable?.GetDrops();
     }
 
+    public override Sprite GetWSprite()
     public int GetExpReward()
     {
+        return data.WSprite; // 몬스터의 월드 스프라이트 반환
         return ExpReward;
     }
 }
