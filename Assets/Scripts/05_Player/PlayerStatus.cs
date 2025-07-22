@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-using UnityEngine;
-
 [System.Serializable]
 public class PlayerStatus : CharacterStatus
 {
@@ -32,14 +30,12 @@ public class PlayerStatus : CharacterStatus
         inventory = new ItemInventory();
         equipment = new ItemEquipment(this);
         skills = new SkillInventory(data);
+
         PlayerData = data;
     }
 
     public override Sprite GetWSprite()
     {
         return PlayerData.WSprite;
-        skills = new SkillInventory(PlayerData);
-        PlayerName = playerName;
-        Wallet = new PlayerWallet();
     }
 }

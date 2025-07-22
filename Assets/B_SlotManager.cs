@@ -86,7 +86,7 @@ public class B_SlotManager : MonoBehaviour
         allySlots[0].SetSlot(player);
         //allySlots[0].Character.OnCharacterDead += CheckDeadASlot;
 
-        PlayerParty party = player.Party;
+        PlayerParty party = player.party;
 
         for (int i = 0; i < party.partyPets.Count; i++)
         {

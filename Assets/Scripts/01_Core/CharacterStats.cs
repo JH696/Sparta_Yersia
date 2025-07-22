@@ -88,7 +88,7 @@ public class CharacterStats
         if (data == null) return;
 
         level = 1;
-        exp = 0;
+        curExp = 0;
         maxExp = 100;
 
         maxHp = data.maxHp;

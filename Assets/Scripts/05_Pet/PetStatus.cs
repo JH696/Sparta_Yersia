@@ -13,16 +13,13 @@ public class PetStatus : CharacterStatus
     [Header("실제 펫 인스턴스")]
     public Pet PetInstance;
 
-    // 스킬
-    public SkillInventory skills;
-
     /// <summary>
     /// 생성자 (초기 상태와 스탯 지정)
     /// </summary>
     public PetStatus(PetData data)
     {
-        this.PetData = data;
-        this.stat = new CharacterStats(data.GetComponent<StatData>());
+        PetData = data;
+        stat = new CharacterStats(data.GetComponent<StatData>());
 
         EvoLevel = 0;
         stat.LevelUP += EvoLevelUp;

@@ -73,6 +73,11 @@ public class ItemSlot : MonoBehaviour
             //status.OnEmpty -= ClearSlot;
         }
 
+        if (icon == null || stack == null)
+        {
+            return;
+        }
+
         status = null;
         icon.color = Color.white;
         icon.sprite = null;
