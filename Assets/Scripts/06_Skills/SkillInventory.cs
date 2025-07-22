@@ -64,7 +64,6 @@ public class SkillInventory
         foreach (SkillStatus skill in LearnSkills)
         {
             skill.ReduceCooldown(amount);
-            return;
         }
     }
 

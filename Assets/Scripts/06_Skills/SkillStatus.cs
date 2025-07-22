@@ -20,7 +20,7 @@ public class SkillStatus
     public float Power => data.Power + ((level - 1) * 0.1f); // 레벨마다 10%씩 피해량 증가
     public int Level => level;
     public int Cooldown => curCooldown;
-    public bool IsCool => curCooldown == 0;
+    public bool IsCool => curCooldown > 0;
 
     public SkillStatus(SkillData data)
     {
@@ -32,7 +32,7 @@ public class SkillStatus
     // 시전 가능 여부
     public bool CanCast(CharacterStatus caster)
     {
-        if (!IsCool || caster.stat.CurrentMana < data.Cost) return false;
+        if (IsCool || caster.stat.CurrentMana < data.Cost) return false;
         return true;
     }
 

@@ -49,7 +49,7 @@ public class B_RewardUI : MonoBehaviour
 
         for (int i = 0; i < Datas.Count; i++)
         {
-            Image slotImage = Instantiate(slotPrefab, slotParent).GetComponentInParent<Image>();
+            Image slotImage = Instantiate(slotPrefab, slotParent).transform.GetChild(0).GetComponent<Image>();
             slotImage.sprite = Datas[i].Icon;
         }
     }

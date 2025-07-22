@@ -21,12 +21,12 @@ public class B_DynamicButton : MonoBehaviour
         skill = status;
         item = null;
         icon.sprite = status.Data.Icon;
-        icon.color = status.IsCool ? Color.white : Color.gray;
+        icon.color = status.IsCool ? Color.gray : Color.white;
         text.text = cool > 0 ? cool.ToString() : string.Empty;
 
         GetComponent<Button>().onClick.AddListener(() =>
         {
-            if (status.IsCool)
+            if (!status.IsCool)
             {
                 OnSkillSelected?.Invoke(status);
             }
@@ -41,6 +41,11 @@ public class B_DynamicButton : MonoBehaviour
         icon.sprite = status.Data.Icon;
         icon.color = Color.white;
         text.text = status.Stack.ToString();
+
+        GetComponent<Button>().onClick.AddListener(() =>
+        {
+            OnItemSelected?.Invoke(status);
+        });
     }
 
     public void ResetButton()

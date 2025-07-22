@@ -16353,7 +16353,7 @@ MonoBehaviour:
   status:
     Data: {fileID: 0}
     Stack: 0
-  icon: {fileID: 0}
+  icon: {fileID: 1385217128837422495}
   stack: {fileID: 0}
 --- !u!1 &1580628809996854448
 GameObject:
@@ -17657,8 +17657,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1113985116}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 1527766091954953983}
+        m_TargetAssemblyTypeName: StatUIController, Assembly-CSharp
         m_MethodName: ShowStatUI
         m_Mode: 1
         m_Arguments:
@@ -21532,7 +21532,7 @@ MonoBehaviour:
   status:
     Data: {fileID: 0}
     Stack: 0
-  icon: {fileID: 0}
+  icon: {fileID: 7606000859084111}
   stack: {fileID: 0}
 --- !u!224 &4720968742384536865
 RectTransform:
@@ -22182,7 +22182,7 @@ MonoBehaviour:
   status:
     Data: {fileID: 0}
     Stack: 0
-  icon: {fileID: 0}
+  icon: {fileID: 3772944544249882210}
   stack: {fileID: 0}
 --- !u!114 &5334597793653556593
 MonoBehaviour:
@@ -22946,7 +22946,7 @@ MonoBehaviour:
   status:
     Data: {fileID: 0}
     Stack: 0
-  icon: {fileID: 0}
+  icon: {fileID: 3787158144592874784}
   stack: {fileID: 0}
 --- !u!222 &5782872932845076877
 CanvasRenderer:
@@ -23133,9 +23133,7 @@ MonoBehaviour:
       bonusLuck: 0
       bonusSpeed: 0
     inventory:
-      items:
-      - Data: {fileID: 0}
-        Stack: 0
+      items: []
       maxItemCount: 20
     equipment:
       Weapon: {fileID: 0}
@@ -23152,7 +23150,7 @@ MonoBehaviour:
       partyPets: []
     PlayerName: 
     PlayerData: {fileID: 0}
-  playerData: {fileID: 11400000, guid: c04251b80bf0c3948a51e3dd635596f5, type: 2}
+  playerData: {fileID: 11400000, guid: 98b804cb4ed44a6468c8bd14a77c4aab, type: 2}
   worldSprite: {fileID: 5868924951691442566}
 --- !u!212 &5868924951691442566
 SpriteRenderer:
@@ -25452,7 +25450,7 @@ MonoBehaviour:
   status:
     Data: {fileID: 0}
     Stack: 0
-  icon: {fileID: 0}
+  icon: {fileID: 7076518625063447967}
   stack: {fileID: 0}
 --- !u!224 &7235995836970085298
 RectTransform:
@@ -26549,7 +26547,6 @@ MonoBehaviour:
   itemInfo: {fileID: 3546369647335411167}
   slots: []
   selectedSlot: {fileID: 0}
-  test: []
 --- !u!1 &7786195922061610340
 GameObject:
   m_ObjectHideFlags: 0

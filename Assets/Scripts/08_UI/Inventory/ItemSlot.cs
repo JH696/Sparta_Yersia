@@ -50,12 +50,18 @@ public class ItemSlot : MonoBehaviour
             return; 
         }
 
-        Debug.Log(status.Data);
-        Debug.Log(icon);
+        if (icon == null)
+        {
+            return;
+        }
 
-        icon.enabled = true;
-        icon.sprite = status.Data.Icon;
-        stack.text = status.Stack > 1 ? status.Stack.ToString() : string.Empty;
+         icon.enabled = true;
+         icon.sprite = status.Data.Icon;
+         stack.text = status.Stack > 1 ? status.Stack.ToString() : string.Empty;
+    }
+    private void OnDestroy()
+    {
+        ClearSlot(); // <- 이벤트 안전 해제
     }
 
     // 슬롯 비우기
@@ -70,7 +76,7 @@ public class ItemSlot : MonoBehaviour
         status = null;
         icon.color = Color.white;
         icon.sprite = null;
-        //icon.enabled = false;
+        icon.enabled = false;
         stack.text = string.Empty;
         GetComponent<Button>().onClick.RemoveListener(OnClick); // 슬롯 클릭 이벤트 제거
     }   

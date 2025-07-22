@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum E_CategoryType
 {
@@ -53,7 +54,6 @@ public class InventoryUI : MonoBehaviour
 
     public event System.Action ChangeSelctedSlot;
 
-    public List<BaseItem> test;
 
     private void Start()
     {
@@ -71,12 +71,14 @@ public class InventoryUI : MonoBehaviour
 
         closeBtn.onClick.AddListener(CloseInventory);
 
-        foreach (BaseItem item in test)
-        {
-            player.Status.inventory.AddItem(item);
-        }
-
         RefreshInventory();
+    }
+
+    private void OnDisable()
+    {
+        if (player.Status == null) return;
+
+        player.Status.inventory.InventoryChanged -= RefreshInventory;
     }
 
     public void OpenInventory()
@@ -106,8 +108,6 @@ public class InventoryUI : MonoBehaviour
     // 카테고리에 따른 인벤토리 동기화
     private void RefreshInventory()
     {
-        Debug.Log($"[InventoryUI] 인벤토리 갱신: {category}");
-
         foreach (ItemSlot slot in slots)
         {
             slot.ClearSlot();

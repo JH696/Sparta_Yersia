@@ -151,7 +151,7 @@ public class B_BattleButtons : MonoBehaviour
         dButtonParent.SetActive(true);
         aButtonParent.SetActive(false);
 
-        for (int i = 0; i < skills.Count; i++)
+        for (int i = 0; i < 5; i++) // 장착 스킬 카운터로 변경
         {
             buttons[i].SetSkill(skills[i]);
             buttons[i].OnSkillSelected += UseSkill;
@@ -176,7 +176,7 @@ public class B_BattleButtons : MonoBehaviour
 
         if (filter.Count <= 0) return;
         
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < filter.Count; i++)
         {
             buttons[i].SetItem(filter[i]);
             buttons[i].OnItemSelected += UseItem;
@@ -193,7 +193,7 @@ public class B_BattleButtons : MonoBehaviour
         ShowAllowButton();
     }
 
-    public void UseItem(ItemStatus status)
+    public void UseItem(ItemStatus status) // 작업 필요
     {
         if (status.Stack <= 0) return;
 

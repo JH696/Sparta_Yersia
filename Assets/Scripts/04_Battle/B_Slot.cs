@@ -51,15 +51,11 @@ public class B_Slot : MonoBehaviour
         {
             actionPoint = 0f;
             statGauge.RefreshAPGauge(actionPoint);
+            Character.skills.ReduceCooldown(1);
 
             if (slotType == E_B_SlotType.Ally)
             {
-                Character.skills.ReduceCooldown(1);
                 statGauge.gameObject.SetActive(false);
-            }
-            else if (slotType == E_B_SlotType.Enemy)
-            {
-                Character.skills.ReduceCooldown(1);
             }
 
             return this;
