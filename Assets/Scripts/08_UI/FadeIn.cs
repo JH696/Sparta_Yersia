@@ -6,7 +6,7 @@ public class FadeIn : MonoBehaviour
 {
     [SerializeField] private CanvasGroup fade;  //로고+버튼들
     [SerializeField] private CanvasGroup fadeBlack;  //까만화면
-    [SerializeField] private float fadeDuration = 1f;
+    public float fadeDuration = 1f;
     private void Awake()
     {
 
