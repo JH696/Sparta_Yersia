@@ -34,14 +34,6 @@ public class PlayerController : MonoBehaviour
         HandleInput();
         HandleMovement();
         HandleInteractionInput();
-
-        // 펫 UI 열기
-        if (Input.GetKeyDown(KeyCode.U) && petUI != null)
-        {
-            if (!petUI.activeSelf)
-                petUI.SetActive(true);
-        }
-        }
     }
 
     private void HandleInput()

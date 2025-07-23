@@ -21,7 +21,7 @@ public class NameInputUI : MonoBehaviour
 
         if (!string.IsNullOrEmpty(enteredName))
         {
-            player?.SetPlayerName(enteredName);
+            //player?.SetPlayerName(enteredName);
             statsUI?.RefreshUI();
             playerUI?.RefreshUI();
         }
