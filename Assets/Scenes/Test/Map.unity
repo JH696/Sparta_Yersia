@@ -32363,6 +32363,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: School_2F_Nature
       objectReference: {fileID: 0}
+    - target: {fileID: 4974212767364959095, guid: 56371dd14d39cd64c9cdbf6bd7bbf36d, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974212767364959095, guid: 56371dd14d39cd64c9cdbf6bd7bbf36d, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974212767364959095, guid: 56371dd14d39cd64c9cdbf6bd7bbf36d, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974212767364959095, guid: 56371dd14d39cd64c9cdbf6bd7bbf36d, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974212767364959095, guid: 56371dd14d39cd64c9cdbf6bd7bbf36d, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8592620866932686579, guid: 56371dd14d39cd64c9cdbf6bd7bbf36d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -50
