@@ -17,7 +17,7 @@ public class B_BattleButtons : MonoBehaviour
     [Header("선택한 행동")]
     [SerializeField] private E_ActionType actionType = E_ActionType.None;
 
-    [Header("행동 중 여부")]
+    [Header("행동 중인 캐릭터")]
     [SerializeField] private CharacterStatus curStatus;
 
     [Header("액션 핸들러")]
@@ -72,6 +72,7 @@ public class B_BattleButtons : MonoBehaviour
         skillBtn.onClick.AddListener(OnSkillButton);
         itemBtn.onClick.AddListener(OnItemButton);
         restBtn.onClick.AddListener(OnRestButton);
+        runBtn.onClick.AddListener(OnRunBtn);
 
         returnBtn.onClick.AddListener(OnReturnButton);
 
@@ -88,7 +89,7 @@ public class B_BattleButtons : MonoBehaviour
         RectTransform myRect = GetComponent<RectTransform>();
 
         // 월드 좌표 → 화면 좌표
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(slot.gameObject.transform.position);
+        Vector2 screenPos = BattleManager.Instance.BattleCamera.WorldToScreenPoint(slot.gameObject.transform.position);
 
         // 화면 좌표 → 캔버스 로컬 좌표
         Vector2 localPoint;
@@ -167,7 +168,7 @@ public class B_BattleButtons : MonoBehaviour
             btn.OnItemSelected -= UseItem;
         }
 
-        List<ItemStatus> items = BattleManager.player.inventory.Items;
+        List<ItemStatus> items = GameManager.player.inventory.Items;
         List<ItemStatus> filter = items.FindAll(item => item.Data.GetCategory() == E_CategoryType.Consume);
 
         actionType = E_ActionType.Item;
@@ -218,21 +219,15 @@ public class B_BattleButtons : MonoBehaviour
         ShowAllowButton();
     }
 
-    //public void OnRunBtn()
-    //{
-    //    float roll = Random.Range(0f, 100f);
-    //    if (roll <= chars.SpotLight.Character.Luck)
-    //    {
-    //        SceneManager.LoadSceneAsync("Scene_BJH");
-    //    }
-
-    //    this.gameObject.SetActive(false);
-    //    chars.ResetSpotLight();
-    //}
+    public void OnRunBtn()
+    {
+        actionType = E_ActionType.Run;
+        ShowAllowButton();
+    }
 
     private void OnAllowButton()
     {
-        if (actionType != E_ActionType.Rest || actionType == E_ActionType.Run)
+        if (actionType == E_ActionType.Attack || actionType == E_ActionType.Skill || actionType == E_ActionType.Item)
         {
             if (actionHandler.Targets.Count <= 0)
             {
@@ -247,6 +242,8 @@ public class B_BattleButtons : MonoBehaviour
             case E_ActionType.Attack:
                 foreach (CharacterStatus target in actionHandler.Targets)
                 {
+                    if (actionHandler.Targets.Count <= 0) return;
+
                     target.TakeDamage(cal.DamageCalculate(curStatus.stat, target.stat, null));
                 }
                 break;
@@ -255,6 +252,8 @@ public class B_BattleButtons : MonoBehaviour
                 selectedSkill.Cast(curStatus);
                 foreach (CharacterStatus target in actionHandler.Targets)
                 {
+                    if (actionHandler.Targets.Count <= 0) return;
+
                     target.TakeDamage(cal.DamageCalculate(curStatus.stat, target.stat, selectedSkill));
                 }
                 break;
@@ -262,6 +261,8 @@ public class B_BattleButtons : MonoBehaviour
             case E_ActionType.Item:
                 foreach (CharacterStatus target in actionHandler.Targets)
                 {
+                    if (actionHandler.Targets.Count <= 0) return;
+
                     if (selectedItem.Data is ConsumeItemData itemData)
                     {
                         itemData.Consume(target);
@@ -278,7 +279,11 @@ public class B_BattleButtons : MonoBehaviour
                 float roll = Random.Range(0f, 100f);
                 if (roll <= curStatus.stat.Luck)
                 {
+                    BattleManager.Instance.Lose();
+                    allowBtn.gameObject.SetActive(false);
+                    cancelBtn.gameObject.SetActive(false);
                     Debug.Log("도망 성공");
+                    return;
                 }
                 else
                 {

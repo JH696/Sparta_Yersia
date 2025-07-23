@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,19 +18,11 @@ public class B_StatGauge : MonoBehaviour
     [Header("행동력 게이지")]
     [SerializeField] private Image apGauge;
 
-    public event System.Action<B_StatGauge> OnActionStart;
-
     public B_Slot Slot => slot;
 
     public void SetGauges(B_Slot slot)
     {
         this.slot = slot;
-
-        if (slot != null)
-        {
-            slot.Character.stat.StatusChanged -= RefreshGauge;
-        }
-
         slot.Character.stat.StatusChanged += RefreshGauge;
 
         RefreshGauge();
@@ -43,7 +34,7 @@ public class B_StatGauge : MonoBehaviour
         RectTransform thisRect = GetComponent<RectTransform>();
 
         // 월드 좌표 → 스크린 좌표
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(slot.transform.position);
+        Vector2 screenPos = BattleManager.Instance.BattleCamera.WorldToScreenPoint(slot.transform.position);
 
         // 스크린 좌표 → 캔버스 로컬 좌표
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main, out Vector2 localPoint))
@@ -52,19 +43,16 @@ public class B_StatGauge : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        slot.Character.stat.StatusChanged -= RefreshGauge;
-    }
-
     public void ResetGauge()
     {
-        this.gameObject.SetActive(false);
+        slot.Character.stat.StatusChanged -= RefreshGauge;
 
         hpGauge.fillAmount = 0;
         hpText.text = "";
         mpGauge.fillAmount = 0;
         mpText.text = "";
+
+        this.gameObject.SetActive(false);
     }
 
     public void RefreshGauge()
@@ -81,4 +69,9 @@ public class B_StatGauge : MonoBehaviour
     {
         apGauge.fillAmount = amount / 100;
     }
-} 
+
+    private void OnDestroy()
+    {
+        slot.Character.stat.StatusChanged -= RefreshGauge;
+    }
+}

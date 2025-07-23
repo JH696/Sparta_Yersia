@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,9 +23,25 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        HandleInteractionInput();
+
+        if (BattleManager.Instance.IsBattleActive)
+        {
+            isMoving = false;
+            return;
+        }
+
         HandleInput();
         HandleMovement();
         HandleInteractionInput();
+
+        // 펫 UI 열기
+        if (Input.GetKeyDown(KeyCode.U) && petUI != null)
+        {
+            if (!petUI.activeSelf)
+                petUI.SetActive(true);
+        }
+        }
     }
 
     private void HandleInput()
@@ -45,7 +62,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
 
     private void HandleMovement()
     {
@@ -74,7 +90,22 @@ public class PlayerController : MonoBehaviour
         IInteractable interactable = hit.GetComponent<IInteractable>();
         if (interactable != null)
         {
-            interactable.Interact();
+            interactable.Interact(this.gameObject);
         }
     }
+
+    //private bool IsScene(string name)
+    //{
+    //    for (int i = 0; i < SceneManager.sceneCount; i++)
+    //    {
+    //        Scene scene = SceneManager.GetSceneAt(i);
+    //        if (scene.name == name)
+    //        {
+    //            Debug.Log($"현재 씬: {scene.name}");
+    //            return true;
+    //        }
+    //    }
+
+    //    return false;
+    //}
 }

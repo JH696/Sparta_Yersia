@@ -6,11 +6,14 @@ public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance;
 
-    public static PlayerStatus player = null;
+    public Camera BattleCamera;
+    public Camera WorldCamera;
 
     public B_RewardUI rewardUI;
 
     public BattleEncounter CurrentEncounter;
+
+    public bool IsBattleActive = false;
 
     private void Awake()
     {
@@ -27,13 +30,11 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle(BattleEncounter encounter)
     {
-        if (player == null)
-        {
-            player = GameManager.Instance.player.Status;
-        }
-
+        IsBattleActive = true;
         CurrentEncounter = encounter;
-        SceneLoader.LoadScene("BattleScene"); // 전투 씬 로드
+        WorldCamera.enabled = false;
+        BattleCamera.enabled = true;
+        SceneLoader.MultipleLoadScene("BattleScene");
     }
 
     public void Win()
@@ -60,30 +61,33 @@ public class BattleManager : MonoBehaviour
                 if (Random.Range(0f, 1f) <= drop.dropRate)
                 {
                     dropItems.Add(drop.itemData);
-                    player.inventory.AddItem(drop.itemData);
+                    GameManager.player.inventory.AddItem(drop.itemData);
                 }
             }
 
             totalExp += monster.expDrop;
             totalYp += monster.ypDrop;
         }
-        player.stat.AddExp(totalExp);
+        GameManager.player.stat.AddExp(totalExp);
         //player.AddYp(totalYp);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         rewardUI.ShowWinUI(dropItems, totalExp, totalYp);
     }
 
     public IEnumerator LoseRoutine()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         rewardUI.ShowWinUI(null, 0, 0);
     }
 
     public void QuitBattle()
     {
-        SceneLoader.LoadScene("Scene_BJH"); // 전투 씬 로드
+        IsBattleActive = false;
+        BattleCamera.enabled = false;
+        WorldCamera.enabled = true;
+        SceneLoader.UnloadScene("BattleScene");
     }
 }

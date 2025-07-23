@@ -8,8 +8,8 @@ public enum E_B_SlotType
 
 public class B_Slot : MonoBehaviour
 {
-    // 등록된 캐릭터
-    private CharacterStatus character;
+    [Header("등록된 캐릭터")]
+    [SerializeField] private CharacterStatus character;
 
     [Header("진영 분류")]
     [SerializeField] private E_B_SlotType slotType = E_B_SlotType.Ally;
@@ -66,5 +66,20 @@ public class B_Slot : MonoBehaviour
     public E_B_SlotType GetSlotType()
     {
         return slotType;
+    }
+
+    public void ResetSlot()
+    {
+        if (character == null) return;
+
+        actionPoint = 0f;
+        character.OnCharacterDead -= statGauge.ResetGauge;
+    }
+
+    private void OnDestroy()
+    {
+        if (character == null) return;
+
+        ResetSlot();
     }
 }

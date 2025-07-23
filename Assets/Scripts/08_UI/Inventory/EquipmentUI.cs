@@ -17,6 +17,11 @@ public class EquipmentUI : MonoBehaviour
         RefreshIcon();
     }
 
+    private void OnDestroy()
+    {
+        player.Status.equipment.EquipmentChanged -= RefreshIcon;
+    }
+
     // 장비 아이콘 동기화 메서드
     private void RefreshIcon()
     {

@@ -52,8 +52,6 @@ public class InventoryUI : MonoBehaviour
     [Header("선택된 슬롯")]
     [SerializeField] private ItemSlot selectedSlot;
 
-    public event System.Action ChangeSelctedSlot;
-
 
     private void Start()
     {
@@ -131,16 +129,9 @@ public class InventoryUI : MonoBehaviour
                 break;
         }
 
-        for (int i = 0; i < slots.Count; i++)
+        for (int i = 0; i < items.Count; i++)
         {
-            if (i < items.Count)
-            {
-                slots[i].SetItem(items[i], player.Status);
-            }
-            else
-            {
-                slots[i].ClearSlot();
-            }
+             slots[i].SetItem(items[i], player.Status);
         }
     }
 

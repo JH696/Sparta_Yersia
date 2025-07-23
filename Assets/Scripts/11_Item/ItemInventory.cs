@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.CullingGroup;
 
 [System.Serializable]
 public class ItemInventory
@@ -27,7 +28,9 @@ public class ItemInventory
     {
         if (isFull) { Debug.Log("풀 인벤토리"); return; }
 
-        ItemStatus status = new ItemStatus(this, data);
+        ItemStatus status = new ItemStatus(data);
+
+        status.OnEmpty += RemoveItem;
 
         if (HasItem(data))
         {
@@ -48,6 +51,15 @@ public class ItemInventory
         InventoryChanged?.Invoke();
     }
 
+    public void RefeshItem(ItemStatus status)
+    {
+        if (status.Stack <= 0)
+        {
+            RemoveItem(status.Data);
+            return;
+        }
+    }
+
     // 아이템 인벤토리 속 아이템 제거
     public void RemoveItem(BaseItem data)
     {
@@ -63,7 +75,25 @@ public class ItemInventory
     {
         if (!HasItem(data)) return 0;
 
-        int count = items[GetItemIndex(data)].Stack;
+        int stack = items[GetItemIndex(data)].Stack;
+
+        return stack;
+    }
+
+    // 아이템 인벤토리 속 아이템 갯수 조회
+    public int GetItemCount(BaseItem data)
+    {
+        if (!HasItem(data)) return 0;
+
+        int count = 0;
+
+        foreach (ItemStatus item in items)
+        {
+            if (item.Data.ID == data.ID)
+            {
+                count += item.Stack;
+            }
+        }
 
         return count;
     }
@@ -86,5 +116,10 @@ public class ItemInventory
     private bool HasItem(BaseItem data)
     {
         return GetItemIndex(data) != -1;
+    }
+
+    public void OnDestroy()
+    {
+        InventoryChanged = null;
     }
 }

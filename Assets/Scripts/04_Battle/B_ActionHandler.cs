@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class B_ActionHandler : MonoBehaviour
 {
@@ -29,12 +30,19 @@ public class B_ActionHandler : MonoBehaviour
     {
         if (isTargeting)
         {
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+
             if (Input.GetMouseButtonDown(0))
             {
-                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 mousePos = BattleManager.Instance.BattleCamera.ScreenToWorldPoint(Input.mousePosition);
                 RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
-                CharacterStatus target = hit.collider?.GetComponent<B_Slot>().Character;
+                if (hit.collider == null)
+                {
+                    return;
+                }
+
+                CharacterStatus target = hit.collider?.GetComponent<B_Slot>()?.Character;
 
                 if (target != null && targets.Count < maxCount)
                 {

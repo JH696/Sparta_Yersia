@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class QuestUI : MonoBehaviour
 {
-    public GameObject Player;
+    public PlayerStatus Player;
 
     [Header("퀘스트 정보창")]
     [SerializeField] private GameObject questInfo;
@@ -24,7 +24,7 @@ public class QuestUI : MonoBehaviour
 
     private void Start()
     {
-       // Player = GameManager.Instance.Player;
+        Player = GameManager.player;
         QuestManager.Instance.SetQuestUI(this);
 
         RefreshQuestUI();
@@ -39,7 +39,7 @@ public class QuestUI : MonoBehaviour
     // 퀘스트 정보창 초기화 및 갱신
     public void RefreshQuestUI()
     {
-       // questList = GameManager.Instance.Player.GetComponent<PlayerQuest>().GetMyQStatus().Values.Select(qs => qs.QuestData).ToList();
+        questList = GameManager.player.quest.GetMyQStatus().Values.Select(qs => qs.QuestData).ToList();
         questPage.text = $"{curQuestPage + 1}/{questList.Count}";
 
         if (questList.Count <= curQuestPage)
@@ -52,7 +52,7 @@ public class QuestUI : MonoBehaviour
         {
             questName.text = $"{questList[curQuestPage].QuestName} :";
             questDesc.text = $"{questList[curQuestPage].Description}";
-           // questCond.text = $"{QuestCondition(questList[curQuestPage])}";
+            questCond.text = $"{QuestCondition(questList[curQuestPage])}";
         }
     }
 
@@ -74,42 +74,42 @@ public class QuestUI : MonoBehaviour
         RefreshQuestUI();
     }
 
-    //// 퀘스트 현황 메시지 생성
-    //private string QuestCondition(QuestData questData)
-    //{
-    //    string message;
-    //    ItemInventory inventory = Player.GetComponent<ItemInventory>();
+    // 퀘스트 현황 메시지 생성
+    private string QuestCondition(QuestData questData)
+    {
+        string message;
+        ItemInventory inventory = Player.inventory;
 
-    //    switch (questData.ConditionType)
-    //    {
-    //        default:
-    //            return null;
+        switch (questData.ConditionType)
+        {
+            default:
+                return null;
 
-    //        case EConditionType.Collection:
-    //            message = ""; // 초기화
-    //            for (int i = 0; i < questData.TargetItem.Count; i++)
-    //            {
-    //                string itemName = questData.TargetItem[i].ItemData.ItemName;
-    //                int current = inventory.GetCount(questData.TargetItem[i].ItemData.ID);
-    //                int required = questData.TargetItem[i].ItemCount;
+            case EConditionType.Collection:
+                message = ""; // 초기화
+                for (int i = 0; i < questData.TargetItem.Count; i++)
+                {
+                    string itemName = questData.TargetItem[i].Item.Name;
+                    int current = inventory.GetItemCount(questData.TargetItem[i].Item);
+                    int required = questData.TargetItem[i].ItemCount;
 
-    //                message += $"{itemName}: {current}/{required}\n";
-    //            }
-    //            return message;
+                    message += $"{itemName}: {current}/{required}\n";
+                }
+                return message;
 
-    //        case EConditionType.Elimination:
-    //            message = ""; // 초기화
-    //            for (int i = 0; i < questData.TargetEnemy.Count; i++)
-    //            {
-    //                string enemyID = questData.TargetEnemy[i].EnemyID;
-    //                string monsterName = Player.GetComponent<PlayerQuest>().FindMonsterByID(enemyID).MonsterName;
-    //                int current = 0;
-    //                Player.GetComponent<PlayerQuest>().GetEliQProgress()[questData.QuestID].EliCounts.TryGetValue(enemyID, out current);
-    //                int required = questData.TargetEnemy[i].EnemyCount;
+            case EConditionType.Elimination:
+                message = ""; // 초기화
+                for (int i = 0; i < questData.TargetEnemy.Count; i++)
+                {
+                    string enemyID = questData.TargetEnemy[i].EnemyID;
+                    string monsterName = Player.quest.FindMonsterByID(enemyID).MonsterName;
+                    int current = 0;
+                    Player.quest.GetEliQProgress()[questData.QuestID].EliCounts.TryGetValue(enemyID, out current);
+                    int required = questData.TargetEnemy[i].EnemyCount;
 
-    //                message += $"{monsterName}: {current}/{required}\n";
-    //            }
-    //            return message;
-    //    }
-    //}
+                    message += $"{monsterName}: {current}/{required}\n";
+                }
+                return message;
+        }
+    }
 }

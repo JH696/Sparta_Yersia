@@ -41,6 +41,8 @@ public class TriggerMonster : MonoBehaviour
 
     private void Update()
     {
+        if (BattleManager.Instance.IsBattleActive) return;
+
         moveTimer -= Time.deltaTime;
         if (moveTimer <= 0f)
         {
@@ -82,5 +84,7 @@ public class TriggerMonster : MonoBehaviour
 
         Debug.Log("충돌");
         BattleManager.Instance.StartBattle(battleEncounter);
+
+        Destroy(gameObject); // 충돌 후 트리거 제거
     }
 }

@@ -18,8 +18,8 @@ public class PlayerStatus : CharacterStatus
         PlayerName = string.IsNullOrEmpty(playerName) ? data.Name : playerName;
 
         party = new PlayerParty();
-        quest = new PlayerQuest();
         inventory = new ItemInventory();
+        quest = new PlayerQuest(inventory);
         equipment = new ItemEquipment(this);
         skills = new SkillInventory(PlayerData);
         Wallet = new PlayerWallet();

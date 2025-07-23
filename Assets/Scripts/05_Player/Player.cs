@@ -14,71 +14,28 @@ public class Player : MonoBehaviour
     public PlayerStatus Status => status; // 읽기 전용
     public PlayerParty Party => status?.party; // 펫 등 파티 관련 접근은 PlayerParty를 통해
 
-
-    private void Start()
+    private void Awake()
     {
-        // 플레이어 데이터와 이름 설정
-        status = new PlayerStatus(playerData, "Player");
-
-        // petParent를 플레이어 자신의 Transform으로 지정
-        status.party.Initialize(this.transform);
-
-        ChangeSprite();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (GameManager.player == null)
         {
-            status.stat.AddExp(50); // 50 경험치 획득
+            status = new PlayerStatus(playerData, "Player");
+            Debug.Log("[Player] PlayerStatus가 새로 초기화되었습니다.");
+
+            GameManager.player = status; // 게임 매니저에 플레이어 상태 설정
+        }
+        else
+        {
+            status = GameManager.player; // 기존 플레이어 상태를 가져옴
+            Debug.Log("[Player] 기존 PlayerStatus를 사용합니다.");
         }
 
-        // 테스트용 펫 지급 키 : T
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            GiveTestPet();
-        }
+            ChangeSprite();
     }
 
     private void ChangeSprite()
     {
         if (status == null) return;
-        worldSprite.sprite = status.PlayerData.WSprite;
-    }
-
-    public void SetCurrentHp(float hp)
-    {
-        status.stat.CurrentHp = Mathf.Clamp(hp, 0, status.stat.MaxHp);
-    }
-
-    public void SetCurrentMana(float mana)
-    {
-        status.stat.CurrentMana = Mathf.Clamp(mana, 0, status.stat.MaxMana);
-    }
-
-    public void SetPlayerName(string name)
-    {
-        if (!string.IsNullOrEmpty(name))
-        {
-            status.PlayerName = name;
-        }
-    }
-
-    private void GiveTestPet()
-    {
-        PetData petData = Resources.Load<PetData>("PetData/P_p01");
-
-        if (petData == null)
-        {
-            Debug.LogWarning("테스트 펫 데이터를 찾을 수 없습니다: PetData/P_p01");
-            return;
-        }
-
-        PetStatus pet = new PetStatus(petData);
-
-        Party.AddPet(pet);
-
-        Debug.Log($"테스트 펫 '{petData.PetName}' 지급 완료");
+        worldSprite.sprite = playerData.WSprite;
     }
 
     //public PlayerSaveData makeSaveData()
