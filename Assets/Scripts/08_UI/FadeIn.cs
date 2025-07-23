@@ -4,15 +4,7 @@ using UnityEngine.UI;
 
 public class FadeIn : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup fade;  //로고+버튼들
-    [SerializeField] private CanvasGroup fadeBlack;  //까만화면
     public float fadeDuration = 1f;
-    private void Awake()
-    {
-
-    }
-
-
     public IEnumerator Fade(CanvasGroup fade, float from, float to)
     {
         float elapsed = 0f;
@@ -30,12 +22,5 @@ public class FadeIn : MonoBehaviour
         fade.alpha = 1f;
         fade.interactable = true;
         fade.blocksRaycasts = true;
-    }
-
-    private void SetAlpha(float alpha)
-    {
-        if (fade == null) return;
-
-        fade.alpha = alpha;
     }
 }
