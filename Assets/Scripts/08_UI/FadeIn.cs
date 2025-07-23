@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FadeIn : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup fade;  //·Î°í+¹öÆ°µé
-    [SerializeField] private CanvasGroup fadeBlack;  //±î¸¸È­¸é
+    [SerializeField] private CanvasGroup fade;  //ë¡œê³ +ë²„íŠ¼ë“¤
+    [SerializeField] private CanvasGroup fadeBlack;  //ê¹Œë§Œí™”ë©´
     public float fadeDuration = 1f;
     private void Awake()
     {

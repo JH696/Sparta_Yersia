@@ -1,12 +1,12 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
     public RectTransform backGround;
-    public Vector2 startPosition;      // ½ÃÀÛ À§Ä¡
-    public Vector2 endPosition;        // µµÂø À§Ä¡
-    public float duration = 1.5f;        // ÀÌµ¿ ½Ã°£ (ÃÊ)
+    public Vector2 startPosition;      // ì‹œì‘ ìœ„ì¹˜
+    public Vector2 endPosition;        // ë„ì°© ìœ„ì¹˜
+    public float duration = 1.5f;        // ì´ë™ ì‹œê°„ (ì´ˆ)
 
     private float elapsedTime = 0f;
     private bool isMoving = true;
@@ -26,10 +26,10 @@ public class CameraFollow : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            float t = Mathf.Clamp01(elapsedTime / duration); // 0~1 º¸°£°ª
-            //ºÎµå·´°Ô ÀÌµ¿
+            float t = Mathf.Clamp01(elapsedTime / duration); // 0~1 ë³´ê°„ê°’
+            //ë¶€ë“œëŸ½ê²Œ ì´ë™
             t = Mathf.SmoothStep(0f, 1f, t);
-            // ¼±Çü º¸°£ (Lerp)À¸·Î À§Ä¡ ÀÌµ¿
+            // ì„ í˜• ë³´ê°„ (Lerp)ìœ¼ë¡œ ìœ„ì¹˜ ì´ë™
             backGround.anchoredPosition = Vector2.Lerp(startPosition, endPosition, t);
             elapsedTime += Time.deltaTime;
             yield return null;
