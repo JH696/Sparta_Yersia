@@ -26,6 +26,8 @@ public class TriggerMonster : MonoBehaviour
 
     private void Start()
     {
+        groundTilemap = GetComponentInParent<Tilemap>();
+
         rb = GetComponent<Rigidbody2D>();
         if (rb == null)
         {
@@ -35,8 +37,6 @@ public class TriggerMonster : MonoBehaviour
         }
 
         PickRandomDirection();
-
-        groundTilemap = GetComponentInParent<Tilemap>();    
     }
 
     private void Update()

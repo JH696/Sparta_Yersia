@@ -1,4 +1,6 @@
-﻿[System.Serializable]
+﻿using UnityEngine;
+
+[System.Serializable]
 public class PlayerStatus : CharacterStatus
 {
     public PlayerParty party;
@@ -28,5 +30,11 @@ public class PlayerStatus : CharacterStatus
     public void SetPlayerName(string name)
     {
         PlayerName = name;
+    }
+
+    public override Sprite GetWSprite()
+    {
+        // 플레이어의 월드 스프라이트 반환
+        return PlayerData.WSprite;
     }
 }
