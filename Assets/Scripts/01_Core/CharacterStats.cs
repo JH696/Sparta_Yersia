@@ -224,4 +224,9 @@ public class CharacterStats // 예외처리 추가 프로퍼티 추가
         float mana = CurrentMana + amount;
         CurrentMana = Mathf.Clamp(mana, 0, MaxMana);
     }
+
+    //public void OnDestroy()
+    //{
+    //    StatusChanged = null;
+    //}
 }

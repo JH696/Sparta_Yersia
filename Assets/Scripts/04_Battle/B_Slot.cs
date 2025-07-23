@@ -67,4 +67,23 @@ public class B_Slot : MonoBehaviour
     {
         return slotType;
     }
+
+    public void ResetSlot()
+    {
+        if (character == null) return;
+
+        actionPoint = 0f;
+        statGauge.RefreshAPGauge(actionPoint);
+        statGauge.ResetGauge();
+        character.OnCharacterDead -= statGauge.ResetGauge;
+    }
+
+    private void OnDestroy()
+    {
+        if (character == null) return;
+
+        actionPoint = 0f;
+        statGauge.RefreshAPGauge(actionPoint);
+        character.OnCharacterDead -= statGauge.ResetGauge;
+    }
 }

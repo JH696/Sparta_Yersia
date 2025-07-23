@@ -21,7 +21,7 @@ public class ItemSlot : MonoBehaviour
     {
         this.status = status;
         status.StatusChanged += UpdateSlot;
-        //status.OnEmpty += ClearSlot;
+
         UpdateSlot();
         GetComponent<Button>().onClick.AddListener(OnClick); // 슬롯 클릭 이벤트 등록
 
@@ -43,25 +43,12 @@ public class ItemSlot : MonoBehaviour
     {
         if (status == null)
         {
-            icon.enabled = false;
-            icon.sprite = null;
-            stack.text = string.Empty;
-            Debug.LogWarning(icon);
             return; 
-        }
-
-        if (icon == null)
-        {
-            return;
         }
 
          icon.enabled = true;
          icon.sprite = status.Data.Icon;
          stack.text = status.Stack > 1 ? status.Stack.ToString() : string.Empty;
-    }
-    private void OnDestroy()
-    {
-        ClearSlot(); // <- 이벤트 안전 해제
     }
 
     // 슬롯 비우기
@@ -70,7 +57,6 @@ public class ItemSlot : MonoBehaviour
         if (status != null)
         {
             status.StatusChanged -= UpdateSlot;
-            //status.OnEmpty -= ClearSlot;
         }
 
         status = null;
@@ -102,5 +88,13 @@ public class ItemSlot : MonoBehaviour
         if (status == null) return;
 
         OnClickSlot?.Invoke(this); // 슬롯 클릭 이벤트 호출
+    }
+
+    private void OnDestroy()
+    {
+        if (status != null)
+        {
+            status.StatusChanged -= UpdateSlot;
+        }
     }
 }

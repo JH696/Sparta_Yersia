@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,12 +25,6 @@ public class B_StatGauge : MonoBehaviour
     public void SetGauges(B_Slot slot)
     {
         this.slot = slot;
-
-        if (slot != null)
-        {
-            slot.Character.stat.StatusChanged -= RefreshGauge;
-        }
-
         slot.Character.stat.StatusChanged += RefreshGauge;
 
         RefreshGauge();
@@ -52,19 +45,16 @@ public class B_StatGauge : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        slot.Character.stat.StatusChanged -= RefreshGauge;
-    }
-
     public void ResetGauge()
     {
-        this.gameObject.SetActive(false);
+        slot.Character.stat.StatusChanged -= RefreshGauge;
 
         hpGauge.fillAmount = 0;
         hpText.text = "";
         mpGauge.fillAmount = 0;
         mpText.text = "";
+
+        this.gameObject.SetActive(false);
     }
 
     public void RefreshGauge()
@@ -81,4 +71,9 @@ public class B_StatGauge : MonoBehaviour
     {
         apGauge.fillAmount = amount / 100;
     }
-} 
+
+    private void OnDestroy()
+    {
+        ResetGauge();
+    }
+}

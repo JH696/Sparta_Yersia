@@ -84,7 +84,6 @@ public class B_SlotManager : MonoBehaviour
     private void SetAllySlots(PlayerStatus player)
     {
         allySlots[0].SetSlot(player);
-        //allySlots[0].Character.OnCharacterDead += CheckDeadASlot;
 
         PlayerParty party = player.Party;
 
@@ -93,7 +92,6 @@ public class B_SlotManager : MonoBehaviour
             B_Slot allySlot = allySlots[i + 1];
 
             allySlot.SetSlot(party.partyPets[i]);
-            //allySlot.Character.OnCharacterDead += CheckDeadASlot;
         }
     }
 
@@ -112,7 +110,6 @@ public class B_SlotManager : MonoBehaviour
             B_Slot enemySlot = enemySlots[i];
 
             enemySlot.SetSlot(monsters[i]);
-            //enemySlot.Character.OnCharacterDead += CheckDeadESlot;
         }
     }
 
@@ -124,6 +121,13 @@ public class B_SlotManager : MonoBehaviour
         if (allyDeadCount >= allyCount)
         {
             isBattleEnd = true;
+
+            foreach (var slot in allySlots)
+            {
+                //slot.Character.OnCharacterDead -= CheckDeadASlot; // 이벤트 핸들러 제거
+                slot.ResetSlot();
+            }
+
             BattleManager.Instance.Lose();
             return;
         }
@@ -137,6 +141,13 @@ public class B_SlotManager : MonoBehaviour
         if (enemyDeadCount >= enemyCount)
         {
             isBattleEnd = true;
+
+            foreach (var slot in enemySlots)
+            {
+
+                slot.ResetSlot();
+            }
+
             BattleManager.Instance.Win();
             return;
         }

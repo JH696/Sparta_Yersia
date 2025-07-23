@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.CullingGroup;
 
 [System.Serializable]
 public class ItemInventory
@@ -86,5 +87,10 @@ public class ItemInventory
     private bool HasItem(BaseItem data)
     {
         return GetItemIndex(data) != -1;
+    }
+
+    public void OnDestroy()
+    {
+        InventoryChanged = null;
     }
 }
