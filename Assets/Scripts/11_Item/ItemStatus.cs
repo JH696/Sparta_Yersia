@@ -57,6 +57,5 @@ public class ItemStatus
         }
         return null;
     }
-
 }
 

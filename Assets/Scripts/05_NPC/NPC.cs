@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class NPC : CharacterStatus, IInteractable
+public class NPC : MonoBehaviour, IInteractable
 {
     [Header("NPC 데이터")]
     [SerializeField] private NPCData npcData;
@@ -22,18 +22,15 @@ public class NPC : CharacterStatus, IInteractable
         if (npcData == null) return;
     }
 
-    public void OnEnable()
+    public void Start()
     {
-        //QuestManager.Instance.QuestUpdate += UpdateRequests;
+        QuestManager.Instance.QuestUpdate += UpdateRequests;
+
+        UpdateRequests();
     }
     void OnDisable()
     {
-        //QuestManager.Instance.QuestUpdate -= UpdateRequests;
-    }
-
-    public void Start()
-    {
-        //UpdateRequests();
+        QuestManager.Instance.QuestUpdate -= UpdateRequests;
     }
 
     // 상호작용
@@ -60,37 +57,38 @@ public class NPC : CharacterStatus, IInteractable
         return ReceiverQuests;
     }
 
-    // NPC 퀘스트 리스트 업데이트
-    //private void UpdateRequests()
-    //{
-    //    var availableQuests = QuestManager.Instance.GetAvailableQuests();
+    //NPC 퀘스트 리스트 업데이트
+    private void UpdateRequests()
+    {
+        var availableQuests = QuestManager.Instance.GetAvailableQuests();
 
-    //    var myQuests = GameManager.Instance.Player
-    //        .GetComponent<PlayerQuest>()
-    //        .GetMyQStatus()
-    //        .Values
-    //        .Select(status => status.QuestData)
-    //        .ToList();
+        PlayerStatus player = GameManager.player;
 
-    //    // 이 NPC가 주는 퀘스트
-    //    AssignerQuests = availableQuests
-    //        .Where(q => q.AssignerID == npcData.NpcID)
-    //        .ToList();
+        var myQuests = player.quest
+            .GetMyQStatus()
+            .Values
+            .Select(status => status.QuestData)
+            .ToList();
 
-    //    // 이 NPC가 받는 퀘스트
-    //    ReceiverQuests = myQuests
-    //        .Where(q => q.ReceiverID == npcData.NpcID)
-    //        .ToList();
+        // 이 NPC가 주는 퀘스트
+        AssignerQuests = availableQuests
+            .Where(q => q.AssignerID == npcData.NpcID)
+            .ToList();
 
-    //    if (AssignerQuests.Count > 0 || ReceiverQuests.Count > 0)
-    //    {
-    //        ShowIcon();
-    //    }
-    //    else
-    //    {
-    //        HideIcon();
-    //    }
-    //}
+        // 이 NPC가 받는 퀘스트
+        ReceiverQuests = myQuests
+            .Where(q => q.ReceiverID == npcData.NpcID)
+            .ToList();
+
+        if (AssignerQuests.Count > 0 || ReceiverQuests.Count > 0)
+        {
+            ShowIcon();
+        }
+        else
+        {
+            HideIcon();
+        }
+    }
 
     private void ShowIcon()
     {

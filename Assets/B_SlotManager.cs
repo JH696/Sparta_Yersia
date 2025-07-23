@@ -36,7 +36,7 @@ public class B_SlotManager : MonoBehaviour
 
     void Awake()
     {
-        SetAllySlots(BattleManager.player);
+        SetAllySlots(GameManager.player);
         SetEnemySlots(BattleManager.Instance.CurrentEncounter);
 
         foreach (B_Slot slot in allySlots)

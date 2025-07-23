@@ -3,7 +3,7 @@
 public class Player : MonoBehaviour
 {
     [Header("플레이어 상태")]
-    [SerializeField] private PlayerStatus status = null;
+    private PlayerStatus status;
 
     [Header("플레이어 데이터")]
     [SerializeField] private PlayerData playerData;
@@ -11,29 +11,25 @@ public class Player : MonoBehaviour
     [Header("월드에서 보여질 스프라이트")]
     public SpriteRenderer worldSprite;
 
-    // @@ 플레이어 파티에서 관리 예정 @@
-    //[Header("펫 관련")]
-    //[SerializeField] private List<Pet> ownedPets = new List<Pet>();    // 보유한 펫 목록
-    //[SerializeField] private List<Pet> equippedPets = new List<Pet>(); // 장착한 펫 목록 (최대 2마리)
-    //public List<Pet> OwnedPets => ownedPets;
-    //public List<Pet> EquippedPets => equippedPets;
-
     public PlayerStatus Status => status; // 읽기 전용
     public PlayerData PlayerData => playerData; // 읽기 전용
 
-    private void Start()
+    private void Awake()
     {
-        if (BattleManager.player != null)
+        if (GameManager.player == null)
         {
-            status = BattleManager.player; // 전투 매니저에서 플레이어 상태를 가져옴
+            status = new PlayerStatus(playerData, "Player");
+            Debug.Log("[Player] PlayerStatus가 새로 초기화되었습니다.");
+
+            GameManager.player = status; // 게임 매니저에 플레이어 상태 설정
         }
         else
         {
-            status = new PlayerStatus(playerData, "Player"); // 플레이어 데이터와 이름 설정
-            Debug.Log("[Player] PlayerStatus가 초기화되었습니다.");
+            status = GameManager.player; // 기존 플레이어 상태를 가져옴
+            Debug.Log("[Player] 기존 PlayerStatus를 사용합니다.");
         }
 
-        ChangeSprite();
+            ChangeSprite();
     }
 
     private void ChangeSprite()
@@ -41,9 +37,6 @@ public class Player : MonoBehaviour
         if (status == null) return;
         worldSprite.sprite = playerData.WSprite;
     }
-
-
-
 
     //public PlayerSaveData makeSaveData()
     //{

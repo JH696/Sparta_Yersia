@@ -20,8 +20,8 @@ public class PlayerStatus : CharacterStatus
         this.stat = new CharacterStats(data);
 
         party = new PlayerParty();
-        quest = new PlayerQuest();
         inventory = new ItemInventory();
+        quest = new PlayerQuest(inventory);
         equipment = new ItemEquipment(this);
         skills = new SkillInventory(data);
         PlayerData = data;

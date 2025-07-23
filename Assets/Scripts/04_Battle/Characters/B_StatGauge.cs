@@ -74,6 +74,6 @@ public class B_StatGauge : MonoBehaviour
 
     private void OnDestroy()
     {
-        ResetGauge();
+        slot.Character.stat.StatusChanged -= RefreshGauge;
     }
 }

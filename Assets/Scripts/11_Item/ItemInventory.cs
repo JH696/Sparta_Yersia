@@ -64,7 +64,25 @@ public class ItemInventory
     {
         if (!HasItem(data)) return 0;
 
-        int count = items[GetItemIndex(data)].Stack;
+        int stack = items[GetItemIndex(data)].Stack;
+
+        return stack;
+    }
+
+    // 아이템 인벤토리 속 아이템 갯수 조회
+    public int GetItemCount(BaseItem data)
+    {
+        if (!HasItem(data)) return 0;
+
+        int count = 0;
+
+        foreach (ItemStatus item in items)
+        {
+            if (item.Data.ID == data.ID)
+            {
+                count += item.Stack;
+            }
+        }
 
         return count;
     }

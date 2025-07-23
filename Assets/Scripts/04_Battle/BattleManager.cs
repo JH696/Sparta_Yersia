@@ -6,11 +6,14 @@ public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance;
 
-    public static PlayerStatus player = null;
+    public Camera mainCamera; 
+    public Camera battleCamera;
 
     public B_RewardUI rewardUI;
 
     public BattleEncounter CurrentEncounter;
+
+    public bool IsBattleActive = false;
 
     private void Awake()
     {
@@ -27,13 +30,10 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle(BattleEncounter encounter)
     {
-        if (player == null)
-        {
-            player = GameManager.Instance.player.Status;
-        }
-
+        IsBattleActive = true;
         CurrentEncounter = encounter;
-        SceneLoader.LoadScene("BattleScene"); // 전투 씬 로드
+        battleCamera.gameObject.SetActive(true);
+        SceneLoader.MultipleLoadScene("BattleScene");
     }
 
     public void Win()
@@ -60,30 +60,33 @@ public class BattleManager : MonoBehaviour
                 if (Random.Range(0f, 1f) <= drop.dropRate)
                 {
                     dropItems.Add(drop.itemData);
-                    player.inventory.AddItem(drop.itemData);
+                    GameManager.player.inventory.AddItem(drop.itemData);
                 }
             }
 
             totalExp += monster.expDrop;
             totalYp += monster.ypDrop;
         }
-        player.stat.AddExp(totalExp);
+        GameManager.player.stat.AddExp(totalExp);
         //player.AddYp(totalYp);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         rewardUI.ShowWinUI(dropItems, totalExp, totalYp);
     }
 
     public IEnumerator LoseRoutine()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         rewardUI.ShowWinUI(null, 0, 0);
     }
 
     public void QuitBattle()
     {
-        SceneLoader.LoadScene("Scene_BJH"); // 전투 씬 로드
+        IsBattleActive = false;
+        mainCamera.gameObject.SetActive(true); // 메인 카메라 활성화
+        battleCamera.gameObject.SetActive(false); // 배틀 카메라 비활성화
+        SceneLoader.UnloadScene("BattleScene");
     }
 }
