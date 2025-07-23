@@ -33,8 +33,7 @@ public class StartManager : MonoBehaviour
     }
     public void OnClickNewGame()
     {
-        //fadein.Fade(0f, 1f);
-        SceneLoader.LoadScene(EScene.IntroScene);
+        StartCoroutine(FadeOutAndLoadScene());
     }
     public void OnClickLoadGame()
     {
@@ -44,5 +43,12 @@ public class StartManager : MonoBehaviour
     public void OnClickQuitGame()
     {
         
+    }
+
+    IEnumerator FadeOutAndLoadScene()
+    {
+        StartCoroutine(fadein.Fade(fadeBlack, 0f, 1f));
+        yield return new WaitForSeconds(fadein.fadeDuration);
+        SceneLoader.LoadScene(EScene.IntroScene);
     }
 }
