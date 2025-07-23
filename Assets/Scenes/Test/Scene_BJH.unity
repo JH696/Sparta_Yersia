@@ -14577,6 +14577,7 @@ MonoBehaviour:
   SpeedTxt: {fileID: 3086918587468760614}
   ProfileImg: {fileID: 2082667370}
   defaultPetProfile: {fileID: 21300000, guid: 1ca616d4148cdb640b3eb7ab58eae146, type: 3}
+  PlayerNameTxt: {fileID: 7783466400108492331}
   YPTxt: {fileID: 7011113232592009123}
   GenderTxt: {fileID: 1731175111676058779}
   TierTxt: {fileID: 1836888018027305609}
@@ -25752,10 +25753,10 @@ MonoBehaviour:
   slots: []
   selectedSlot: {fileID: 0}
   test:
-  - {fileID: 11400000, guid: f7ac4602103f51746bee5c971907269b, type: 2}
-  - {fileID: 11400000, guid: 7932d3bef5258dd4bb32684d0acd19a2, type: 2}
-  - {fileID: 11400000, guid: c63b4c3249c887945ae9c56ece8d59b2, type: 2}
-  - {fileID: 11400000, guid: f7ac4602103f51746bee5c971907269b, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7786195922061610340
 GameObject:
   m_ObjectHideFlags: 0
@@ -26498,7 +26499,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c08ec36d9039c9a4f87d65984ccc39ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 5868924951691442565}
+  NameTxt: {fileID: 8240856480276204623}
+  LevelRankTxt: {fileID: 6610294673751163223}
   HpGauge: {fileID: 1650722827236288416}
   ManaGauge: {fileID: 2779395323264391882}
   ExpGauge: {fileID: 8250874549319602720}

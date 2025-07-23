@@ -17,6 +17,7 @@ public class StatsUI : MonoBehaviour
     [SerializeField] private Sprite defaultPetProfile; // 기본 펫 프로필 이미지
 
     [Header("플레이어 전용 UI")]
+    [SerializeField] private TMP_Text PlayerNameTxt;
     [SerializeField] private TMP_Text YPTxt;
     [SerializeField] private TMP_Text GenderTxt;
     [SerializeField] private TMP_Text TierTxt;
@@ -68,6 +69,9 @@ public class StatsUI : MonoBehaviour
 
         if (playerStatus != null)
         {
+            if (PlayerNameTxt.text != null)
+                PlayerNameTxt.text = playerStatus.PlayerName;
+
             // Player UI 업데이트
             if (YPTxt != null) YPTxt.text = $"YP : {playerStatus.Wallet.YP}";
             if (ProfileImg != null && playerStatus.PlayerData != null)
@@ -97,13 +101,16 @@ public class StatsUI : MonoBehaviour
         }
         else if (petStatus != null)
         {
+            if (PetNameTxt.text != null)
+                PetNameTxt.text = petStatus.PetData?.PetName ?? defaultPetName;
+
             // Pet UI 업데이트
             if (ProfileImg != null && petStatus.PetData != null)
                 ProfileImg.sprite = petStatus.GetCurrentProfileIcon();
             else if (ProfileImg != null)
                 ProfileImg.sprite = defaultPetProfile;
 
-            if (PetNameTxt != null)
+            if (PetNameTxt != null) // 레벨도 같이 표시되게 해야함
                 PetNameTxt.text = petStatus.PetData?.PetName ?? defaultPetName;
 
             if (EvoStageTxt != null)
@@ -139,12 +146,15 @@ public class StatsUI : MonoBehaviour
             ClearUI();
         }
 
-        ILevelable levelable = currentCharacter as ILevelable;
-
-        if (levelable != null)
+        if (playerStatus != null)
         {
             if (LevelTxt != null)
-                LevelTxt.text = $"Lv. {levelable.Level}";
+                LevelTxt.text = $"Lv {playerStatus.stat.Level}";
+        }
+        else if (petStatus != null)
+        {
+            if (LevelTxt != null)
+                LevelTxt.text = $"Lv {petStatus.stat.Level}";
         }
         else
         {

@@ -1,5 +1,4 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 public class PetStatus : CharacterStatus
@@ -22,7 +21,7 @@ public class PetStatus : CharacterStatus
     public PetStatus(PetData data)
     {
         this.PetData = data;
-        this.stat = new CharacterStats(data.GetComponent<StatData>());
+        this.stat = new CharacterStats(data);
 
         EvoLevel = 0;
         stat.LevelUP += EvoLevelUp;
