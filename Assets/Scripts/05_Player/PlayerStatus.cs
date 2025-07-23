@@ -4,10 +4,6 @@ public class PlayerStatus : CharacterStatus
     public PlayerParty party;
     public PlayerQuest quest;
     // 인벤토리, 장비
-    public ItemInventory inventory;
-    public ItemEquipment equipment;
-    // 스킬
-    public SkillInventory skills;
     // 플레이어 이름
     public string PlayerName;
     // 플레이어 데이터

@@ -12,9 +12,6 @@ public class PetStatus : CharacterStatus
     [Header("실제 펫 인스턴스")]
     public Pet PetInstance;
 
-    // 스킬
-    public SkillInventory skills;
-
     /// <summary>
     /// 생성자 (초기 상태와 스탯 지정)
     /// </summary>
