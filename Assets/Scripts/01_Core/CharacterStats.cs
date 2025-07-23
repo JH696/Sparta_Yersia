@@ -136,6 +136,8 @@ public class CharacterStats
         luck *= multiplier;
         speed *= multiplier;
 
+        MaxExp = Mathf.RoundToInt(MaxExp * multiplier);
+
         LevelUP?.Invoke();
         StatusChanged?.Invoke();
     }
@@ -238,23 +240,5 @@ public class CharacterStats
     {
         Level = Mathf.Max(1, level);
         StatusChanged?.Invoke();
-    }
-
-    public bool GetExp(int amount)
-    {
-        Exp += amount;
-        bool leveledUp = false;
-
-        while (Exp >= MaxExp)
-        {
-            Exp -= MaxExp;
-            Level++;
-            leveledUp = true;
-
-            // 최대 경험치 증가
-            MaxExp = Mathf.RoundToInt(MaxExp * 1.1f);
-        }
-
-        return leveledUp;
     }
 }

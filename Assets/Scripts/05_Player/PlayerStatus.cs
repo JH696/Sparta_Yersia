@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-[System.Serializable]
+﻿[System.Serializable]
 public class PlayerStatus : CharacterStatus
 {
     public PlayerParty party;
@@ -16,26 +14,23 @@ public class PlayerStatus : CharacterStatus
     public PlayerData PlayerData;
     public PlayerWallet Wallet;
 
-    // 레벨 및 경험치
-    public int Level { get; private set; } = 1;
-    public int Exp { get; private set; } = 0;
-
-    // 경험치 요구량 계산
-    //public int ExpToNextLevel => PlayerData.BaseExpToLevelUp * Level;
-
     public PlayerStatus(PlayerData data, string playerName)
     {
-        PlayerName = playerName;
-
         this.PlayerData = data;
         this.stat = new CharacterStats(data);
+
+        PlayerName = string.IsNullOrEmpty(playerName) ? data.Name : playerName;
 
         party = new PlayerParty();
         quest = new PlayerQuest();
         inventory = new ItemInventory();
         equipment = new ItemEquipment(this);
         skills = new SkillInventory(PlayerData);
-        PlayerName = playerName;
         Wallet = new PlayerWallet();
+    }
+
+    public void SetPlayerName(string name)
+    {
+        PlayerName = name;
     }
 }

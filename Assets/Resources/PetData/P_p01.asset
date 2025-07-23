@@ -21,11 +21,14 @@ MonoBehaviour:
   Multiplier: 1.1
   PetID: P_p01
   PetName: "\uB450\uB354\uC9C0"
+  PetPrefab: {fileID: 8887152009986214274, guid: 9b757ae608f13084f9715849980098b9, type: 3}
   sprites:
   - WorldSprite: {fileID: 21300000, guid: ef0d5caea4a18784dbebc98bfa07d7ca, type: 3}
-    Icon: {fileID: 21300000, guid: ef0d5caea4a18784dbebc98bfa07d7ca, type: 3}
+    ProfileIcon: {fileID: 21300000, guid: ef0d5caea4a18784dbebc98bfa07d7ca, type: 3}
   - WorldSprite: {fileID: 21300000, guid: 8507e5a2242837c4da4e38e7290a8182, type: 3}
-    Icon: {fileID: 21300000, guid: 8507e5a2242837c4da4e38e7290a8182, type: 3}
+    ProfileIcon: {fileID: 21300000, guid: 8507e5a2242837c4da4e38e7290a8182, type: 3}
   - WorldSprite: {fileID: 21300000, guid: e34a0e17daecdf4478a270e6fec6a76a, type: 3}
-    Icon: {fileID: 21300000, guid: e34a0e17daecdf4478a270e6fec6a76a, type: 3}
+    ProfileIcon: {fileID: 21300000, guid: e34a0e17daecdf4478a270e6fec6a76a, type: 3}
+  evoLevel: 01000000050000000a000000
   startSkills: []
+  learnableSkills: []
