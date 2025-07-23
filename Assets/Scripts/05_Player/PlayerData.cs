@@ -4,6 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Data/PlayerData")]
 public class PlayerData : StatData, ISkillLearnableCharacter
 {
+    [Header("플레이어 이름")]
+    public string Name = "플레이어";
+
     [Header("플레이어 성별")]
     public EGender gender = EGender.Male;
 

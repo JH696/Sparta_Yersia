@@ -3,7 +3,7 @@
 public class Player : MonoBehaviour
 {
     [Header("플레이어 상태")]
-    [SerializeField] private PlayerStatus status = null;
+    [SerializeField] private PlayerStatus status;
 
     [Header("플레이어 데이터")]
     [SerializeField] private PlayerData playerData;
@@ -12,31 +12,74 @@ public class Player : MonoBehaviour
     public SpriteRenderer worldSprite;
 
     public PlayerStatus Status => status; // 읽기 전용
-    public PlayerData PlayerData => playerData; // 읽기 전용
+    public PlayerParty Party => status?.party; // 펫 등 파티 관련 접근은 PlayerParty를 통해
+
 
     private void Start()
     {
-        if (BattleManager.player != null)
-        {
-            status = BattleManager.player; // 전투 매니저에서 플레이어 상태를 가져옴
-        }
-        else
-        {
-            status = new PlayerStatus(playerData, "Player"); // 플레이어 데이터와 이름 설정
-            Debug.Log("[Player] PlayerStatus가 초기화되었습니다.");
-        }
+        // 플레이어 데이터와 이름 설정
+        status = new PlayerStatus(playerData, "Player");
+
+        // petParent를 플레이어 자신의 Transform으로 지정
+        status.party.Initialize(this.transform);
 
         ChangeSprite();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            status.stat.AddExp(50); // 50 경험치 획득
+        }
+
+        // 테스트용 펫 지급 키 : T
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            GiveTestPet();
+        }
     }
 
     private void ChangeSprite()
     {
         if (status == null) return;
-        worldSprite.sprite = playerData.WSprite;
+        worldSprite.sprite = status.PlayerData.WSprite;
     }
 
+    public void SetCurrentHp(float hp)
+    {
+        status.stat.CurrentHp = Mathf.Clamp(hp, 0, status.stat.MaxHp);
+    }
 
+    public void SetCurrentMana(float mana)
+    {
+        status.stat.CurrentMana = Mathf.Clamp(mana, 0, status.stat.MaxMana);
+    }
 
+    public void SetPlayerName(string name)
+    {
+        if (!string.IsNullOrEmpty(name))
+        {
+            status.PlayerName = name;
+        }
+    }
+
+    private void GiveTestPet()
+    {
+        PetData petData = Resources.Load<PetData>("PetData/P_p01");
+
+        if (petData == null)
+        {
+            Debug.LogWarning("테스트 펫 데이터를 찾을 수 없습니다: PetData/P_p01");
+            return;
+        }
+
+        PetStatus pet = new PetStatus(petData);
+
+        Party.AddPet(pet);
+
+        Debug.Log($"테스트 펫 '{petData.PetName}' 지급 완료");
+    }
 
     //public PlayerSaveData makeSaveData()
     //{

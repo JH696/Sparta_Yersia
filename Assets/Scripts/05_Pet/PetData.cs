@@ -29,6 +29,9 @@ public class PetData : StatData, ISkillLearnableCharacter
     public string PetID;
     public string PetName;
 
+    [Header("프리팹")]
+    public GameObject PetPrefab;
+
     [Header("진화 관련")]
     [Tooltip("진화 단계별 스프라이트 (0 = 기본, 1 = 1차 진화, 2 = 2차 진화)")]
     public PetSprite[] sprites = new PetSprite[3];

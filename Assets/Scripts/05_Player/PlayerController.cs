@@ -12,11 +12,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
     [SerializeField, Tooltip("상호작용 대상이 될 NPC의 레이어 마스크")] private LayerMask npcLayerMask;
     [SerializeField, Tooltip("이동이 가능한 위치 레이어")] private LayerMask moveableLayerMask;
-    [Header("테스트용 펫 프리팹")]
-    [SerializeField] private Pet testPetPrefab;
-
-    [Header("UI")]
-    [SerializeField] private GameObject petUI; // 펫 UI 패널 오브젝트
 
     private Player player;
 
@@ -30,13 +25,6 @@ public class PlayerController : MonoBehaviour
         HandleInput();
         HandleMovement();
         HandleInteractionInput();
-
-        // 펫 UI 열기
-        if (Input.GetKeyDown(KeyCode.U) && petUI != null)
-        {
-            if (!petUI.activeSelf)
-                petUI.SetActive(true);
-        }
     }
 
     private void HandleInput()
