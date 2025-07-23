@@ -28,7 +28,9 @@ public class ItemInventory
     {
         if (isFull) { Debug.Log("풀 인벤토리"); return; }
 
-        ItemStatus status = new ItemStatus(this, data);
+        ItemStatus status = new ItemStatus(data);
+
+        status.OnEmpty += RemoveItem;
 
         if (HasItem(data))
         {
@@ -47,6 +49,15 @@ public class ItemInventory
         }
 
         InventoryChanged?.Invoke();
+    }
+
+    public void RefeshItem(ItemStatus status)
+    {
+        if (status.Stack <= 0)
+        {
+            RemoveItem(status.Data);
+            return;
+        }
     }
 
     // 아이템 인벤토리 속 아이템 제거

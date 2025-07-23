@@ -3,7 +3,7 @@
 public class Player : MonoBehaviour
 {
     [Header("플레이어 상태")]
-    private PlayerStatus status;
+    [SerializeField] private PlayerStatus status;
 
     [Header("플레이어 데이터")]
     [SerializeField] private PlayerData playerData;

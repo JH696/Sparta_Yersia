@@ -34,7 +34,7 @@ public class NPC : MonoBehaviour, IInteractable
     }
 
     // 상호작용
-    public void Interact()
+    public void Interact(GameObject player)
     {
         if (npcData == null) return;
 

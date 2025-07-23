@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         HandleInteractionInput();
-        HandleInput();
 
         if (BattleManager.Instance.IsBattleActive)
         {
@@ -37,6 +36,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        HandleInput();
         HandleMovement();
 
         // 펫 UI 열기
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         IInteractable interactable = hit.GetComponent<IInteractable>();
         if (interactable != null)
         {
-            interactable.Interact();
+            interactable.Interact(this.gameObject);
         }
     }
 

@@ -16,7 +16,6 @@ public static class SceneLoader
     {
         if (!CheckScene(scene)) return;
 
-        Camera.main.gameObject.SetActive(false); // 카메라 비활성화
         SceneManager.LoadScene(scene, LoadSceneMode.Additive);
     }
 

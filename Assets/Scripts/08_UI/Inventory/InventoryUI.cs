@@ -52,8 +52,6 @@ public class InventoryUI : MonoBehaviour
     [Header("선택된 슬롯")]
     [SerializeField] private ItemSlot selectedSlot;
 
-    public event System.Action ChangeSelctedSlot;
-
 
     private void Start()
     {

@@ -89,7 +89,7 @@ public class B_BattleButtons : MonoBehaviour
         RectTransform myRect = GetComponent<RectTransform>();
 
         // 월드 좌표 → 화면 좌표
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(slot.gameObject.transform.position);
+        Vector2 screenPos = BattleManager.Instance.BattleCamera.WorldToScreenPoint(slot.gameObject.transform.position);
 
         // 화면 좌표 → 캔버스 로컬 좌표
         Vector2 localPoint;

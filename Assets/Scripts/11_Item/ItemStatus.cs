@@ -4,8 +4,6 @@ using UnityEngine;
 [System.Serializable]
 public class ItemStatus
 {
-    private ItemInventory inventory; // 아이템이 위치한 인벤토리
-
     [Header("아이템 데이터")]
     public BaseItem Data;
 
@@ -15,10 +13,10 @@ public class ItemStatus
     public bool IsFull => Stack == Data.MaxStack;
 
     public event Action StatusChanged; // 아이템 상태 변경 이벤트
+    public event Action<BaseItem> OnEmpty; // 아이템 잃어버리기 이벤트
 
-    public ItemStatus(ItemInventory inventory, BaseItem data)
+    public ItemStatus(BaseItem data)
     {
-        this.inventory = inventory;
         Data = data;
         Debug.Log($"[ItemStatus] 아이템 생성: {Data.Name}, ID: {Data.ID}, 스택: {Stack}");
         Stack = 1;
@@ -31,7 +29,8 @@ public class ItemStatus
         
         if (Stack <= 0)
         {
-            inventory.RemoveItem(Data);
+            Stack = 0;
+            OnEmpty?.Invoke(this.Data);
         }
 
         StatusChanged?.Invoke();

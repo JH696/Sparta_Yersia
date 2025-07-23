@@ -6,8 +6,8 @@ public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance;
 
-    public Camera mainCamera; 
-    public Camera battleCamera;
+    public Camera BattleCamera;
+    public Camera WorldCamera;
 
     public B_RewardUI rewardUI;
 
@@ -32,7 +32,8 @@ public class BattleManager : MonoBehaviour
     {
         IsBattleActive = true;
         CurrentEncounter = encounter;
-        battleCamera.gameObject.SetActive(true);
+        WorldCamera.enabled = false;
+        BattleCamera.enabled = true;
         SceneLoader.MultipleLoadScene("BattleScene");
     }
 
@@ -85,8 +86,8 @@ public class BattleManager : MonoBehaviour
     public void QuitBattle()
     {
         IsBattleActive = false;
-        mainCamera.gameObject.SetActive(true); // 메인 카메라 활성화
-        battleCamera.gameObject.SetActive(false); // 배틀 카메라 비활성화
+        BattleCamera.enabled = false;
+        WorldCamera.enabled = true;
         SceneLoader.UnloadScene("BattleScene");
     }
 }

@@ -18,8 +18,6 @@ public class B_StatGauge : MonoBehaviour
     [Header("행동력 게이지")]
     [SerializeField] private Image apGauge;
 
-    public event System.Action<B_StatGauge> OnActionStart;
-
     public B_Slot Slot => slot;
 
     public void SetGauges(B_Slot slot)
@@ -36,7 +34,7 @@ public class B_StatGauge : MonoBehaviour
         RectTransform thisRect = GetComponent<RectTransform>();
 
         // 월드 좌표 → 스크린 좌표
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(slot.transform.position);
+        Vector2 screenPos = BattleManager.Instance.BattleCamera.WorldToScreenPoint(slot.transform.position);
 
         // 스크린 좌표 → 캔버스 로컬 좌표
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main, out Vector2 localPoint))

@@ -34,7 +34,7 @@ public class B_ActionHandler : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                Vector2 mousePos = BattleManager.Instance.battleCamera.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 mousePos = BattleManager.Instance.BattleCamera.ScreenToWorldPoint(Input.mousePosition);
                 RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
                 if (hit.collider == null)
