@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("상호작용 대상이 될 NPC의 레이어 마스크")] private LayerMask npcLayerMask;
     [SerializeField, Tooltip("이동이 가능한 위치 레이어")] private LayerMask moveableLayerMask;
 
-    private Player player;
-
     private void Start()
     {
        // player = GameManager.Instance.Player.GetComponent<Player>();
