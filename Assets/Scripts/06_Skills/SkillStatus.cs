@@ -1,76 +1,61 @@
-﻿using System;
+﻿using UnityEngine;
 
-// 런타임에서 스킬 해금, 사용, 쿨다운, 레벨 관리 담당
+[System.Serializable]
 public class SkillStatus
 {
-    public SkillBase Data { get; }
-    public ESkillState State { get; private set; }
-    public int Level { get; private set; }
-    public int Cooldown { get; private set; }
+    [Header("스킬 데이터")]
+    [SerializeField] private SkillData data;
 
-    public bool IsUnlocked => State != ESkillState.Locked;
-    public bool CanUse => IsUnlocked && Cooldown == 0;
+    [Header("스킬 레벨")]
+    [SerializeField] private int level;
 
-    public event Action<SkillStatus> OnStateChanged;
-    public event Action<SkillStatus> OnLevelChanged;
+    [Header("스킬 쿨타임")]
+    [SerializeField] private int curCooldown;
 
-    public SkillStatus(SkillBase data)
+    // 스킬 최대 레벨
+    private int maxLevel = 5;
+
+    // 읽기 전용
+    public SkillData Data => data;
+    public float Power => data.Power + ((level - 1) * 0.1f); // 레벨마다 10%씩 피해량 증가
+    public int Level => level;
+    public int Cooldown => curCooldown;
+    public bool IsCool => curCooldown > 0;
+
+    public SkillStatus(SkillData data)
     {
-        Data = data;
-        State = ESkillState.Locked;
-        Cooldown = 0;
-        Level = 0;
+        this.data = data;
+        level = 1;
+        curCooldown = 0;
     }
 
-    /// <summary>스킬 획득 시 호출 (레벨 1로 시작)</summary>
-    public void Unlock()
+    // 시전 가능 여부
+    public bool CanCast(CharacterStatus caster)
     {
-        if (State != ESkillState.Locked) return;
-        State = ESkillState.Available;
-        Level = 1;
-        OnStateChanged?.Invoke(this);
-    }
-
-    /// <summary>스킬 사용 시 호출 (쿨다운 턴 설정)</summary>
-    public void Use()
-    {
-        //if (!CanUse) return;
-        Cooldown = Data.Cooldown;
-        State = ESkillState.OnCooldown;
-        OnStateChanged?.Invoke(this);
-    }
-
-    /// <summary>전투 턴마다 호출: 쿨다운 턴 감소</summary>
-    public void ReduceCooldown()
-    {
-        if (Cooldown == 0) return;
-        Cooldown--;
-        if (Cooldown == 0)
-        {
-            State = ESkillState.ReadyCooldown;
-            OnStateChanged?.Invoke(this);
-        }
-    }
-
-    /// <summary>쿨다운 즉시 초기화</summary>
-    public void ResetCooldown()
-    {
-        if (Cooldown == 0) return;
-        Cooldown = 0;
-        State = ESkillState.ReadyCooldown;
-        OnStateChanged?.Invoke(this);
-    }
-
-    /// <summary>플레이어 전용: 스킬 레벨업</summary>
-    public bool LevelUp(ref int points)
-    {
-        int cost = NextLevelCost();
-        if (!IsUnlocked || points < cost) return false;
-        points -= cost;
-        Level++;
-        OnLevelChanged?.Invoke(this);
+        if (IsCool || caster.stat.CurrentMana < data.Cost) return false;
         return true;
     }
 
-    public int NextLevelCost() => Level * Level + 1;
+    // 시전
+    public void Cast(CharacterStatus caster)
+    {
+        if (!CanCast(caster)) return;
+
+        caster.stat.SetCurrentMana(-data.Cost);
+        curCooldown = data.Cooldown;
+    }
+
+    // 레벨업
+    public void LevelUP()
+    {
+        if (level >= maxLevel) return;
+
+        level++;
+    }
+
+    // 쿨다운 감소
+    public void ReduceCooldown(int amount)
+    {
+        curCooldown = Mathf.Max(0, curCooldown - amount);
+    }
 }

@@ -26,7 +26,10 @@ public class QuestManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
 
+    private void Start()
+    {
         NextStoryQuestUnlock();
     }
 
@@ -47,7 +50,7 @@ public class QuestManager : MonoBehaviour
         if (questData == null || !AvailableQuests.Contains(questData)) return;
 
         AvailableQuests.Remove(questData);
-        GameManager.Instance.Player.GetComponent<PlayerQuest>().AddMyQ(questData);
+        GameManager.player.quest.AddMyQ(questData);
         questUI.RefreshQuestUI();
         QuestUpdate?.Invoke();
     }
@@ -62,9 +65,9 @@ public class QuestManager : MonoBehaviour
             NextStoryQuestUnlock();
         }
 
-        GameManager.Instance.Player.GetComponent<PlayerQuest>().RemoveMyQ(questData);
+        GameManager.player.quest.RemoveMyQ(questData);
         SubmitQItems(questData);
-        GetQRawards(questData);
+        GetQRewards(questData);
         questUI.RefreshQuestUI();
         QuestUpdate?.Invoke();
 
@@ -74,29 +77,32 @@ public class QuestManager : MonoBehaviour
     // 퀘스트 아이템 제출 (퀘스트 완료시 호출)
     private void SubmitQItems(QuestData questData)
     {
+        PlayerStatus player = GameManager.player;
+
         foreach (var item in questData.TargetItem)
         {
-            GameManager.Instance.Player.GetComponent<PlayerInventory>().RemoveItem(item.ItemData, item.ItemCount);
+            int index = player.inventory.GetItemIndex(item.Item);
+            player.inventory.Items[index].LoseItem(item.ItemCount);
         }
     }
 
-    // 퀘스트 보상 획득
-    private void GetQRawards(QuestData questData)
+    //퀘스트 보상 획득
+    private void GetQRewards(QuestData questData)
     {
-        Player player = GameManager.Instance.Player.GetComponent<Player>();
+        PlayerStatus player = GameManager.player;
 
-        foreach (ItemData item in questData.RewardItems)
+        foreach (BaseItem item in questData.RewardItems)
         {
-            player.GetComponent<PlayerInventory>().AddItem(item, 1);
-        }
-        
-        foreach (Pet pet in questData.RewardPets)
-        {
-            player.AddPetFromPrefab(pet);
+            GameManager.player.inventory.AddItem(item);
         }
 
-        GameManager.Instance.Player.GetComponent<Player>().AddExp(questData.RewardExp);
-        GameManager.Instance.Player.GetComponent<Player>().AddYP(questData.RewardYP);
+        //foreach (Pet pet in questData.RewardPets)
+        //{
+        //    player.AddPetFromPrefab(pet);
+        //}
+
+        player.stat.AddExp(questData.RewardExp);
+        player.Wallet.AddYP(questData.RewardYP);
     }
 
     // 퀘스트 해금

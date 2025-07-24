@@ -94,8 +94,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8444629519146087452}
   - component: {fileID: 7716817959180475678}
-  - component: {fileID: -4696758870711769597}
-  - component: {fileID: -2183280228004775529}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -131,34 +129,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7c2b767d8745445b5f74da3f3897e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 0}
   moveSpeed: 5
   interactRange: 2
   npcLayerMask:
     serializedVersion: 2
     m_Bits: 0
---- !u!114 &-4696758870711769597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4656432427366347282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5133f6c965c5e0040b3855533b87776a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-2183280228004775529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4656432427366347282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8168c74b46c7fef4b8fe48f382c00c94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  QuestItems: []
+  moveableLayerMask:
+    serializedVersion: 2
+    m_Bits: 0

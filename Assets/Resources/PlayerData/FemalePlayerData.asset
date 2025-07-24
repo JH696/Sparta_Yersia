@@ -12,22 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 232c82f799049f44c80f5f20a65e0ee6, type: 3}
   m_Name: FemalePlayerData
   m_EditorClassIdentifier: 
-  WorldSprite: {fileID: 21300000, guid: 5c79458e6322d4944bea395b43540d78, type: 3}
-  Icon: {fileID: 21300000, guid: 5c79458e6322d4944bea395b43540d78, type: 3}
   maxHp: 100
-  maxMana: 80
+  maxMana: 120
   attack: 20
   defense: 10
   luck: 5
   speed: 30
+  Multiplier: 1.1
   gender: 1
-  tier: 1
-  startLevel: 1
-  startExp: 0
-  baseExpToLevelUp: 100
-  statMultiplierPerLevel: 1.1
-  startYP: 0
-  startSkills: []
-  startingSkills:
-  - {fileID: 11400000, guid: 6623b5c7106b6c74e9b81517ed28cf80, type: 2}
+  Rank: 0
+  startSkills:
+  - {fileID: 11400000, guid: 21a70e5e5c326f64783bc730f5d6de55, type: 2}
   - {fileID: 11400000, guid: 194e66deb58e3b74caf32467e888ca75, type: 2}
+  - {fileID: 11400000, guid: b470010c41f79f4468201a4934920346, type: 2}
+  learnableSkills: []
+  WSprite: {fileID: 21300000, guid: 2cb19dcd56dbc484399347becab1cd89, type: 3}
+  DSprite: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 5c79458e6322d4944bea395b43540d78, type: 3}

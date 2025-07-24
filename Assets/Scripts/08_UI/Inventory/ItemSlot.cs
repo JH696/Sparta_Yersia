@@ -1,139 +1,100 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler
+public class ItemSlot : MonoBehaviour
 {
+    [Header("등록된 아이템")]
+    [SerializeField] private ItemStatus status;
+
     [Header("아이템 아이콘")]
-    [SerializeField] private Image Icon;
+    [SerializeField] private Image icon;
+
     [Header("아이템 수량")]
-    [SerializeField] private TextMeshProUGUI CountText;
-    [Header("슬롯 배경")]
-    [SerializeField] private Image bgImg;
+    [SerializeField] private TextMeshProUGUI stack;
 
-    private ItemData data;
-    public ItemData Data => data;
+    public event System.Action<ItemSlot> OnClickSlot; // 슬롯 클릭 이벤트
+    public ItemStatus Status => status;
 
-    private Action<ItemData> onClickAction;
-    private Color defaultBgColor;
-
-    private void Awake()
+    // 슬롯 초기화
+    public void SetItem(ItemStatus status, PlayerStatus player)
     {
-        if (Icon == null)
+        if (status == null) return;
+
+        this.status = status;
+        status.StatusChanged += UpdateSlot;
+
+        UpdateSlot();
+        GetComponent<Button>().onClick.AddListener(OnClick); // 슬롯 클릭 이벤트 등록
+
+        if (status.Data is EquipItemData equipData)
         {
-            foreach (var img in GetComponentsInChildren<Image>(true))
+            if (player.equipment.FindEquippedItem(equipData))
             {
-                if (img.gameObject != gameObject)
-                {
-                    Icon = img;
-                    break;
-                }
+                ActiveEquipSlot(); // 장비 아이템이 장착된 경우
+            }
+            else
+            {
+                DeactiveEquipSlot(); // 장비 아이템이 장착되지 않은 경우
             }
         }
-        if (CountText == null)
-        {
-            CountText = GetComponentInChildren<TextMeshProUGUI>(true);
-        }
-
-        // 배경 이미지가 없으면 기본 색상 저장
-        if (bgImg == null)
-        {
-            bgImg = GetComponent<Image>();
-        }
-        else
-        {
-            defaultBgColor = bgImg.color;
-        }
     }
 
-    // 슬롯 아이템 세팅 확인
-    public bool HasData()
+    // 슬롯 업데이트 (자동 호출)
+    public void UpdateSlot()
     {
-        return data != null;
+        if (status == null) return; 
+
+        icon.enabled = true;
+        icon.sprite = status.Data.Icon;
+        stack.text = status.Stack > 1 ? status.Stack.ToString() : string.Empty;
     }
 
-    // 인벤토리/장착판넬 공통 슬롯 초기화
-    public void Setup(ItemData itemdata, int count, Action<ItemData> onClick)
+    // 슬롯 비우기
+    public void ClearSlot()
     {
-        if (itemdata == null)
+        if (status != null)
         {
-            Clear();
-            return;
+            status.StatusChanged -= UpdateSlot;
+            status = null;
         }
 
-        data = itemdata;
-        onClickAction = onClick;
+        icon.color = Color.white;
+        icon.sprite = null;
+        icon.enabled = false;
+        stack.text = string.Empty;
 
-        Icon.sprite = data.Icon;
-        Icon.enabled = true;
+        GetComponent<Button>().onClick.RemoveListener(OnClick); // 슬롯 클릭 이벤트 제거
+    }   
 
-        // 수량 텍스트가 있을 때만 처리해야함. 없으면 무시
-        if (CountText != null)
+    public void ActiveEquipSlot()
+    {
+        if (status == null) return;
+
+        icon.color = Color.red; // 아이콘 색상 활성화
+        stack.text = "E";
+    }
+
+    public void DeactiveEquipSlot()
+    {
+        if (status == null) return;
+
+        icon.color = Color.white;
+        stack.text = status.Stack > 1 ? status.Stack.ToString() : string.Empty;
+    }
+
+    public void OnClick()
+    {
+        if (status == null) return;
+
+        OnClickSlot?.Invoke(this); // 슬롯 클릭 이벤트 호출
+    }
+
+    private void OnDestroy()
+    {
+        if (status != null)
         {
-            CountText.text = count > 1 ? count.ToString() : string.Empty; // 아이템 개수 표시
-            CountText.gameObject.SetActive(count > 1);
-        }
-    }
-
-    // 장착판넬 전용 초기화: 수량 X
-    public void SetupEquip(ItemData data, Action<ItemData> onClick)
-    {
-        Setup(data, 1, onClick); // 장착 아이템은 개수가 1개로 고정
-        if (CountText != null)
-        {
-            CountText.gameObject.SetActive(false);
-        }
-    }
-
-    // IPointerClickHandler 인터페이스 구현(클릭 이벤트 처리)
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (data == null || onClickAction == null) return;
-
-        onClickAction(data);
-    }
-
-    // 빈슬롯 클릭 시
-    public void OnClickEmptySlot(Action<ItemData> onclick)
-    {
-        onClickAction = onclick;
-    }
-
-    // 아이템 슬롯 비우기
-    public void Clear()
-    {
-        data = null;
-        onClickAction = null;
-
-        Icon.sprite = null;
-        Icon.enabled = false;
-
-        if (CountText != null)
-        {
-            CountText.text = string.Empty;
-            CountText.gameObject.SetActive(false);
-        }
-
-        SelectSlot(false);
-    }
-
-    // 클릭 강조
-    public void SelectSlot(bool on)
-    {
-        if (bgImg != null)
-        {
-            bgImg.color = on ? InventoryUI.SelectedSlotColor : InventoryUI.NormalSlotColor;
-        }
-    }
-
-    // 클릭 강조 해제
-    public void UnSelectSlot()
-    {
-        if (bgImg != null)
-        {
-            bgImg.color = defaultBgColor; // 기본 배경색으로 초기화
+            status.StatusChanged -= UpdateSlot;
         }
     }
 }

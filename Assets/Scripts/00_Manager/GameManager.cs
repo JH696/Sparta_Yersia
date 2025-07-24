@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public GameObject Player;
+    public static PlayerStatus player;
 
     private void Awake()
     {
@@ -14,17 +14,16 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
 
-        if (Player != null)
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            DontDestroyOnLoad(Player);
-            Debug.Log(Player.name);
-        }
-        else
-        {
-            Debug.LogWarning("Player not found in scene.");
+            //GlobalSaveManager.Save(Player.GetComponent<Player>());
         }
     }
 }

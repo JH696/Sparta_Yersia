@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,53 +13,27 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
     [SerializeField, Tooltip("상호작용 대상이 될 NPC의 레이어 마스크")] private LayerMask npcLayerMask;
     [SerializeField, Tooltip("이동이 가능한 위치 레이어")] private LayerMask moveableLayerMask;
-    [Header("테스트용 펫 프리팹")]
-    [SerializeField] private Pet testPetPrefab;
-
-    [Header("UI")]
-    [SerializeField] private GameObject petUI; // 펫 UI 패널 오브젝트
 
     private Player player;
 
     private void Start()
     {
-        player = GameManager.Instance.Player.GetComponent<Player>();
+       // player = GameManager.Instance.Player.GetComponent<Player>();
     }
 
     private void Update()
     {
+        HandleInteractionInput();
+
+        if (BattleManager.Instance.IsBattleActive)
+        {
+            isMoving = false;
+            return;
+        }
+
         HandleInput();
         HandleMovement();
         HandleInteractionInput();
-
-        // 테스트용 키
-        if (Input.GetKeyDown(KeyCode.H)) player.HealHP(10f);
-        if (Input.GetKeyDown(KeyCode.J)) player.TakeDamage(20f);
-        if (Input.GetKeyDown(KeyCode.E)) player.AddExp(30);
-        if (Input.GetKeyDown(KeyCode.Z)) player.AddYP(100);
-        if (Input.GetKeyDown(KeyCode.X)) player.SpendYP(50);
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log($"플레이어 스탯 확인: HP {player.CurrentHp}/{player.MaxHp}, MP {player.CurrentMana}/{player.MaxMana}, Attack {player.Attack}, Defense {player.Defense}, Luck {player.Luck}, Speed {player.Speed}");
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (testPetPrefab != null)
-            {
-                Debug.Log(player);
-
-                // 프리팹을 Player의 AddPetFromPrefab 메서드에 넘겨서 처리
-                player.AddPetFromPrefab(testPetPrefab);
-            }
-        }
-
-        // 펫 UI 열기
-        if (Input.GetKeyDown(KeyCode.U) && petUI != null)
-        {
-            if (!petUI.activeSelf)
-                petUI.SetActive(true);
-        }
     }
 
     private void HandleInput()
@@ -79,7 +54,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
 
     private void HandleMovement()
     {
@@ -108,7 +82,22 @@ public class PlayerController : MonoBehaviour
         IInteractable interactable = hit.GetComponent<IInteractable>();
         if (interactable != null)
         {
-            interactable.Interact();
+            interactable.Interact(this.gameObject);
         }
     }
+
+    //private bool IsScene(string name)
+    //{
+    //    for (int i = 0; i < SceneManager.sceneCount; i++)
+    //    {
+    //        Scene scene = SceneManager.GetSceneAt(i);
+    //        if (scene.name == name)
+    //        {
+    //            Debug.Log($"현재 씬: {scene.name}");
+    //            return true;
+    //        }
+    //    }
+
+    //    return false;
+    //}
 }

@@ -44,28 +44,6 @@ public class UIManager : MonoBehaviour
         //skillTreeUI = FindObjectOfType<SkillTreeUI>(includeInactive: true);
     }
 
-    // 인벤토리 UI 표시
-    public void ShowInventory()
-    {
-        if (inventoryUI == null)
-        {
-            Debug.LogWarning("[UIManager] InventoryUI를 찾을 수 없습니다.");
-            return;
-        }
-        inventoryUI.Show();
-    }
-
-    // 인벤토리 UI 숨기기
-    public void HideInventory()
-    {
-        if (inventoryUI == null)
-        {
-            Debug.LogWarning("[UIManager] InventoryUI를 찾을 수 없습니다.");
-            return;
-        }
-        inventoryUI.Hide();
-    }
-
     // 대화 UI 표시
     public void ShowDialogue()
     {
@@ -126,7 +104,7 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("[UIManager] StatUIController를 찾을 수 없습니다.");
             return;
         }
-        statUIController.ShowPet1Stats();
+      // statUIController.ShowPet1Stats();
     }
 
     // 펫 2 스탯 UI 표시
@@ -137,7 +115,7 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("[UIManager] StatUIController를 찾을 수 없습니다.");
             return;
         }
-        statUIController.ShowPet2Stats();
+       // statUIController.ShowPet2Stats();
     }
 
     // 스탯 UI 숨기기
