@@ -13,14 +13,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
     [SerializeField, Tooltip("이동이 가능한 위치 레이어")] private LayerMask moveableLayerMask;
 
-    private Player player;
-
     private void Start()
     {
         // player = GameManager.Instance.Player.GetComponent<Player>();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         HandleInteractionInput();
 
