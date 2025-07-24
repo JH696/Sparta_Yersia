@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class FadePortalEffect : MonoBehaviour, IPortalEffect
 {
     [SerializeField] private Image fadeImage;
-    [SerializeField] private float fadeDuration = 1f;
+     private float fadeDuration = 0.5f;
 
     private void Awake()
     {

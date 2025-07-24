@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
        // player = GameManager.Instance.Player.GetComponent<Player>();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         HandleInteractionInput();
 

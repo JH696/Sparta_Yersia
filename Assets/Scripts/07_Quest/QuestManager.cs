@@ -66,7 +66,12 @@ public class QuestManager : MonoBehaviour
         }
 
         GameManager.player.quest.RemoveMyQ(questData);
-        SubmitQItems(questData);
+
+        if (questData.ConditionType == EConditionType.Collection)
+        {
+            SubmitQItems(questData);
+        }
+
         GetQRewards(questData);
         questUI.RefreshQuestUI();
         QuestUpdate?.Invoke();
