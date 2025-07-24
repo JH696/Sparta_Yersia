@@ -19,6 +19,9 @@ public class TriggerMonster : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    public event System.Action<TriggerMonster> OnDestroyed;
+
+
     public void SetTriggerMonster(BattleEncounter encounter)
     {
         battleEncounter = encounter;
@@ -27,39 +30,34 @@ public class TriggerMonster : MonoBehaviour
     private void Start()
     {
         groundTilemap = GetComponentInParent<Tilemap>();
-
         rb = GetComponent<Rigidbody2D>();
-        if (rb == null)
-        {
-            rb = gameObject.AddComponent<Rigidbody2D>();
-            rb.gravityScale = 0;
-            rb.freezeRotation = true;
-        }
 
         PickRandomDirection();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (BattleManager.Instance.IsBattleActive) return;
 
-        moveTimer -= Time.deltaTime;
+
+
+        moveTimer -= Time.fixedDeltaTime;
         if (moveTimer <= 0f)
         {
             PickRandomDirection();
         }
 
-        Vector2 nextPos = (Vector2)transform.position + moveDirection * moveSpeed * Time.deltaTime;
-
-        // 이동 예정 위치가 타일맵 안에 있는지 확인
+        Vector2 nextPos = (Vector2)transform.position + moveDirection * moveSpeed * Time.fixedDeltaTime;
         Vector3Int cell = groundTilemap.WorldToCell(nextPos);
+        cell.z = 0;
+
         if (groundTilemap.HasTile(cell))
         {
             rb.MovePosition(nextPos);
         }
         else
         {
-            PickRandomDirection(); // 벗어날 경우 방향 변경
+            PickRandomDirection();
         }
     }
 
@@ -80,11 +78,11 @@ public class TriggerMonster : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player") || BattleManager.Instance.IsBattleActive) return;
 
         Debug.Log("충돌");
         BattleManager.Instance.StartBattle(battleEncounter);
 
-        Destroy(gameObject); // 충돌 후 트리거 제거
+        OnDestroyed?.Invoke(this); // 트리거 제거 이벤트 호출
     }
 }

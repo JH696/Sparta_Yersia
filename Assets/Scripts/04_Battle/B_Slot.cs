@@ -23,6 +23,9 @@ public class B_Slot : MonoBehaviour
     [Header("스프라이트")]
     [SerializeField] private SpriteRenderer spr;
 
+    [Header("포인터")]
+    public GameObject Pointer;
+
     public bool IsDead => character == null || character.IsDead;
     public CharacterStatus Character => character;
 

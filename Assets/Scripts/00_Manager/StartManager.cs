@@ -49,7 +49,7 @@ public class StartManager : MonoBehaviour
     {
         StartCoroutine(fadein.Fade(fadeBlack, 0f, 1f));
         yield return new WaitForSeconds(fadein.fadeDuration);
-        SceneLoader.LoadScene(EScene.IntroScene);
+        SceneLoader.LoadScene("IntroScene");
     }
 
     IEnumerator FadeOutAndQuit()

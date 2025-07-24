@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class B_ActionHandler : MonoBehaviour
 {
     [Header("타겟 목록")]
-    [SerializeField] private List<CharacterStatus> targets = new List<CharacterStatus>();
+    [SerializeField] private List<B_Slot> targetSlots = new List<B_Slot>();
 
     [Header("최대 타겟 수")]
     [SerializeField] private int maxCount = 1;
@@ -17,11 +18,11 @@ public class B_ActionHandler : MonoBehaviour
     [SerializeField] private B_SlotManager slotManager;
 
 
-    public List<CharacterStatus> Targets => targets;
+    public List<B_Slot> Targets => targetSlots;
 
     public void StartTargeting(int maxCount)
     {
-        targets.Clear();
+        targetSlots.Clear();
         this.maxCount = maxCount;
         isTargeting = true;
     }
@@ -35,27 +36,36 @@ public class B_ActionHandler : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Vector2 mousePos = BattleManager.Instance.BattleCamera.ScreenToWorldPoint(Input.mousePosition);
-                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
-                if (hit.collider == null)
+                int layerMask = LayerMask.GetMask("Battle");
+
+                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, layerMask);
+
+                if (hit.collider == null) return;
+
+                if (hit.collider.TryGetComponent<B_Slot>(out B_Slot slot))
                 {
-                    return;
-                }
-
-                CharacterStatus target = hit.collider?.GetComponent<B_Slot>()?.Character;
-
-                if (target != null && targets.Count < maxCount)
-                {
-                    if (target.IsDead)
-                    {
-                        Debug.Log("이미 죽은 캐릭터입니다.");
-                        return;
-                    }
-
-                    targets.Add(target);
-                    Debug.Log($"타겟 추가: {target}");
+                    AddTarget(slot);
                 }
             }
+        }
+    }
+
+    private void AddTarget(B_Slot slot)
+    {
+        if (slot.Character == null) return;
+
+        if (targetSlots.Contains(slot))
+        {
+            slot.Pointer.SetActive(false);
+            targetSlots.Remove(slot);
+        }
+        else
+        {
+            if (targetSlots.Count >= maxCount) return;
+
+            slot.Pointer.SetActive(true);
+            targetSlots.Add(slot);
         }
     }
 
@@ -65,8 +75,21 @@ public class B_ActionHandler : MonoBehaviour
     {
         Debug.Log($"타겟팅 종료, isDead: {isDead}");
 
-        targets.Clear();
-        isTargeting = false;
+        ClearAllTargetsPointer();
         slotManager.ClearCurrentSlot();
+    }
+
+    public void ClearAllTargetsPointer()
+    {
+        isTargeting = false;
+
+        foreach (B_Slot slot in targetSlots)
+        {
+            if (slot != null)
+            {
+                slot.Pointer.SetActive(false);
+            }
+        }
+        targetSlots.Clear();
     }
 }

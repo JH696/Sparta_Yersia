@@ -13,7 +13,6 @@ public class PetSlotUI : MonoBehaviour
     [SerializeField] private Button equipBtn;
     [SerializeField] private TMP_Text equipBtnTxt;
 
-    private Pet pet;
     private bool isEquipped = false;
 
     public System.Action<PetStatus> OnEquipClicked;
@@ -47,7 +46,6 @@ public class PetSlotUI : MonoBehaviour
     /// </summary>
     public void ClearData()
     {
-        pet = null;
         isEquipped = false;
 
         petImage.sprite = null;

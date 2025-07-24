@@ -99,8 +99,10 @@ public class ItemInventory
     }
 
     // 아이템 인벤토리에서 아이템 찾기
-    private int GetItemIndex(BaseItem data)
+    public int GetItemIndex(BaseItem data)
     {
+        if (data == null) return -1;
+
         for (int i = 0; i < Items.Count; i++)
         {
             if (Items[i].Data.ID == data.ID)

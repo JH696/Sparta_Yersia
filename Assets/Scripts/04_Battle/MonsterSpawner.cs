@@ -30,16 +30,14 @@ public struct BattleEncounter
 
 public class MonsterSpawner : MonoBehaviour
 {
-    [Header("몬스터 스폰 위치")]
+    [Header("현재 던전 층")]
     [SerializeField] private E_StageType stageType;
 
     [Header("트리거 몬스터 프리팹")]
     [SerializeField] private GameObject triggerMonster;
 
     [Header("몬스터 최대 스폰 수")]
-    [SerializeField] private int spawnCount = 3;
-
-    private bool CanSpawn => triggers.Count < spawnCount;
+    [SerializeField] private int maxSpawnCount = 3;
 
     private Tilemap tilemap;
     private List<Vector3> spawnPositions = new List<Vector3>();
@@ -56,25 +54,27 @@ public class MonsterSpawner : MonoBehaviour
 
         CollectTilePositions();
 
-        for (int i = 0; i < spawnCount; i++)
+        for (int i = 0; i < maxSpawnCount; i++)
         {
             SpawnMonsters();
         }
     }
+
     private void CollectTilePositions()
     {
+        spawnPositions.Clear();
+
         BoundsInt bounds = tilemap.cellBounds;
 
         foreach (Vector3Int cellPos in bounds.allPositionsWithin)
         {
             if (tilemap.HasTile(cellPos))
             {
-                Vector3 worldPos = tilemap.CellToWorld(cellPos) + tilemap.tileAnchor;
+                Vector3 worldPos = tilemap.GetCellCenterWorld(cellPos); // 정확한 중심 좌표
                 spawnPositions.Add(worldPos);
             }
         }
     }
-
 
     // 몬스터 스폰 메서드
     private void SpawnMonsters()
@@ -110,8 +110,16 @@ public class MonsterSpawner : MonoBehaviour
         Vector3 spawnPos = spawnPositions[Random.Range(0, spawnPositions.Count)];
         TriggerMonster trigger = Instantiate(triggerMonster, spawnPos, Quaternion.identity, transform)
             .GetComponent<TriggerMonster>();
+        trigger.OnDestroyed += Trigger_OnDestroyed;
 
         trigger.SetTriggerMonster(encounter);
         triggers.Add(trigger);
+    }
+
+    private void Trigger_OnDestroyed(TriggerMonster triggerMonster)
+    {
+        triggers.Remove(triggerMonster);
+        Destroy(triggerMonster.gameObject);
+        SpawnMonsters();
     }
 }

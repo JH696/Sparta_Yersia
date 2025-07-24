@@ -35,7 +35,11 @@ public class Portal : MonoBehaviour, IInteractable
 
         yield return portalEffect.PlayBeforeTeleport();
 
-        target.position = destination.position;
+        Vector2 vec = destination.position;
+
+        vec.y -= 0.5f;
+
+        target.position = vec;
 
         yield return portalEffect.PlayAfterTeleport();
     }

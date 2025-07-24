@@ -19,13 +19,15 @@ public class MonsterStatus : CharacterStatus
         //this.ExpReward = data.ExpReward;
     }
 
+    public override void CharacterDie()
+    {
+        base.CharacterDie();
+        GameManager.player.quest.KillMonster(data); // 몬스터 처치 시 퀘스트 업데이트
+    }
+
     public override Sprite GetWSprite()
     {
         return data.WSprite; // 몬스터의 월드 스프라이트 반환
     }
 
-    //public int GetExpReward()
-    //{
-    //    return ExpReward;
-    //}
 }

@@ -25,6 +25,8 @@ public class EliQuestProgress
 
     public EliQuestProgress(QuestData data)
     {
+        Debug.Log($"처치 퀘스트 진행 상태 생성: {data.QuestName} ({data.QuestID})");
+
         QuestID = data.QuestID;
         EliCounts = new Dictionary<string, int>();
 

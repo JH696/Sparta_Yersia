@@ -240,9 +240,11 @@ public class B_BattleButtons : MonoBehaviour
         switch (actionType)
         {
             case E_ActionType.Attack:
-                foreach (CharacterStatus target in actionHandler.Targets)
+                foreach (B_Slot slot in actionHandler.Targets)
                 {
                     if (actionHandler.Targets.Count <= 0) return;
+
+                    CharacterStatus target = slot.Character;    
 
                     target.TakeDamage(cal.DamageCalculate(curStatus.stat, target.stat, null));
                 }
@@ -250,22 +252,24 @@ public class B_BattleButtons : MonoBehaviour
  
             case E_ActionType.Skill:
                 selectedSkill.Cast(curStatus);
-                foreach (CharacterStatus target in actionHandler.Targets)
+                foreach (B_Slot slot in actionHandler.Targets)
                 {
                     if (actionHandler.Targets.Count <= 0) return;
+
+                    CharacterStatus target = slot.Character;
 
                     target.TakeDamage(cal.DamageCalculate(curStatus.stat, target.stat, selectedSkill));
                 }
                 break;
 
             case E_ActionType.Item:
-                foreach (CharacterStatus target in actionHandler.Targets)
+                foreach (B_Slot target in actionHandler.Targets)
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
                     if (selectedItem.Data is ConsumeItemData itemData)
                     {
-                        itemData.Consume(target);
+                        itemData.Consume(target.Character);
                     }
                     selectedItem.LoseItem(actionHandler.Targets.Count);
                 }
@@ -307,6 +311,7 @@ public class B_BattleButtons : MonoBehaviour
             aButtonParent.SetActive(true);  
         }
 
+        actionHandler.ClearAllTargetsPointer();
         allowBtn.gameObject.SetActive(false);
         cancelBtn.gameObject.SetActive(false);
     }

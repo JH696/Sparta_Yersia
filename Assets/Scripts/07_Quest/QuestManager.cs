@@ -67,7 +67,7 @@ public class QuestManager : MonoBehaviour
 
         GameManager.player.quest.RemoveMyQ(questData);
         SubmitQItems(questData);
-        GetQRawards(questData);
+        GetQRewards(questData);
         questUI.RefreshQuestUI();
         QuestUpdate?.Invoke();
 
@@ -77,15 +77,20 @@ public class QuestManager : MonoBehaviour
     // 퀘스트 아이템 제출 (퀘스트 완료시 호출)
     private void SubmitQItems(QuestData questData)
     {
+        PlayerStatus player = GameManager.player;
+
         foreach (var item in questData.TargetItem)
         {
-            GameManager.player.inventory.RemoveItem(item.Item);
+            int index = player.inventory.GetItemIndex(item.Item);
+            player.inventory.Items[index].LoseItem(item.ItemCount);
         }
     }
 
     //퀘스트 보상 획득
-    private void GetQRawards(QuestData questData)
+    private void GetQRewards(QuestData questData)
     {
+        PlayerStatus player = GameManager.player;
+
         foreach (BaseItem item in questData.RewardItems)
         {
             GameManager.player.inventory.AddItem(item);
@@ -96,8 +101,8 @@ public class QuestManager : MonoBehaviour
         //    player.AddPetFromPrefab(pet);
         //}
 
-        GameManager.player.stat.AddExp(questData.RewardExp);
-        //player.Status.stat.AddYP(questData.RewardYP);
+        player.stat.AddExp(questData.RewardExp);
+        player.Wallet.AddYP(questData.RewardYP);
     }
 
     // 퀘스트 해금
