@@ -749,6 +749,7 @@ MonoBehaviour:
   curDialogueData:
     DialogueID: 
     Lines: []
+  curNpc: {fileID: 0}
   typingSpeed: 0.05
 --- !u!114 &68853170
 MonoBehaviour:
@@ -9247,11 +9248,6 @@ MonoBehaviour:
   itemInfo: {fileID: 79559731}
   slots: []
   selectedSlot: {fileID: 0}
-  test:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &842404746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11420,7 +11416,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d93768eb16aa6847b0d825fd5cbdad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1060459392}
+  Player:
+    stat:
+      level: 0
+      curExp: 0
+      maxExp: 0
+      maxHp: 0
+      currentHp: 0
+      maxMana: 0
+      currentMana: 0
+      attack: 0
+      defense: 0
+      luck: 0
+      speed: 0
+      bonusHealth: 0
+      bonusMana: 0
+      bonusAttack: 0
+      bonusDefense: 0
+      bonusLuck: 0
+      bonusSpeed: 0
+    inventory:
+      items: []
+      maxItemCount: 20
+    equipment:
+      Weapon: {fileID: 0}
+      Hat: {fileID: 0}
+      Accessory: {fileID: 0}
+      Clothes: {fileID: 0}
+      Shoes: {fileID: 0}
+    skills:
+      learnSkills: []
+      learnableSkills: []
+    party:
+      maxPartyPets: 2
+      curPets: []
+      partyPets: []
+    PlayerName: 
+    PlayerData: {fileID: 0}
+    Wallet:
+      yp: 0
   questInfo: {fileID: 1363273739}
   questName: {fileID: 2015500144}
   questDesc: {fileID: 495713411}
@@ -12909,7 +12943,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status:
-    IsDead: 0
     stat:
       level: 0
       curExp: 0
@@ -12928,12 +12961,6 @@ MonoBehaviour:
       bonusDefense: 0
       bonusLuck: 0
       bonusSpeed: 0
-    party:
-      maxPartyPets: 2
-      petParent: {fileID: 0}
-      curPets: []
-      partyPets: []
-    quest: {fileID: 0}
     inventory:
       items:
       - Data: {fileID: 0}
@@ -12946,14 +12973,19 @@ MonoBehaviour:
       Clothes: {fileID: 0}
       Shoes: {fileID: 0}
     skills:
-      skills: []
+      learnSkills: []
       learnableSkills: []
+    party:
+      maxPartyPets: 2
+      curPets: []
+      partyPets: []
     PlayerName: 
     PlayerData: {fileID: 0}
     Wallet:
       yp: 0
   playerData: {fileID: 11400000, guid: c04251b80bf0c3948a51e3dd635596f5, type: 2}
   worldSprite: {fileID: 1060459394}
+  testPetData: {fileID: 11400000, guid: 05e42ee64f85d9443b7e0fd71b72f48f, type: 2}
 --- !u!212 &1060459394
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12994,7 +13026,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 50
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -13120,9 +13152,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   interactRange: 2
-  npcLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
   moveableLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -13138,49 +13167,14 @@ GameObject:
   - component: {fileID: 1064146732}
   - component: {fileID: 1064146731}
   - component: {fileID: 1064146730}
-  - component: {fileID: 1064146729}
-  m_Layer: 8
+  - component: {fileID: 1064146734}
+  m_Layer: 0
   m_Name: Class Portal
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!58 &1064146729
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1064146728}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &1064146730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13207,7 +13201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 1060459398}
   destination: {fileID: 1409948336}
   portalEffectType: 1
 --- !u!212 &1064146732
@@ -13277,6 +13270,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
+--- !u!58 &1064146734
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064146728}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &1075401712
 GameObject:
   m_ObjectHideFlags: 0
@@ -18958,9 +18986,9 @@ GameObject:
   - component: {fileID: 1409948339}
   - component: {fileID: 1409948338}
   - component: {fileID: 1409948337}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Dungeon Portal
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19041,7 +19069,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 1060459398}
   destination: {fileID: 1064146733}
   portalEffectType: 1
 --- !u!212 &1409948340

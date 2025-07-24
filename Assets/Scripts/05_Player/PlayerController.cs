@@ -11,25 +11,24 @@ public class PlayerController : MonoBehaviour
 
     [Header("상호작용")]
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
-    [SerializeField, Tooltip("상호작용 대상이 될 NPC의 레이어 마스크")] private LayerMask npcLayerMask;
     [SerializeField, Tooltip("이동이 가능한 위치 레이어")] private LayerMask moveableLayerMask;
 
     private Player player;
 
     private void Start()
     {
-       // player = GameManager.Instance.Player.GetComponent<Player>();
+        // player = GameManager.Instance.Player.GetComponent<Player>();
     }
 
     private void Update()
     {
         HandleInteractionInput();
 
-        if (BattleManager.Instance.IsBattleActive)
-        {
-            isMoving = false;
-            return;
-        }
+        //if (BattleManager.Instance.IsBattleActive)
+        //{
+        //    isMoving = false;
+        //    return;
+        //}
 
         HandleInput();
         HandleMovement();
@@ -45,7 +44,6 @@ public class PlayerController : MonoBehaviour
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseWorldPos.z = 0f;
 
-            // 지정된 레이어에 대해서만 Raycast
             RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, 0f, moveableLayerMask);
             if (hit.collider != null)
             {
@@ -76,15 +74,41 @@ public class PlayerController : MonoBehaviour
     {
         if (!Input.GetKeyDown(KeyCode.F)) return;
 
-        Collider2D hit = Physics2D.OverlapCircle(transform.position, interactRange, npcLayerMask);
-        if (hit == null) return;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, interactRange);
 
-        IInteractable interactable = hit.GetComponent<IInteractable>();
+        Collider2D closestNpc = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (var hit in hits)
+        {
+            if (!hit.CompareTag("NPC")) continue;
+
+            float distance = Vector2.Distance(transform.position, hit.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestNpc = hit;
+            }
+        }
+
+        if (closestNpc == null)
+        {
+            Debug.Log("상호작용 가능한 NPC가 없습니다.");
+            return;
+        }
+
+        IInteractable interactable = closestNpc.GetComponent<IInteractable>();
         if (interactable != null)
         {
+            Debug.Log($"NPC 상호작용 시도: {closestNpc.name}");
             interactable.Interact(this.gameObject);
         }
+        else
+        {
+            Debug.Log($"NPC 태그는 있지만 IInteractable이 없음: {closestNpc.name}");
+        }
     }
+
 
     //private bool IsScene(string name)
     //{

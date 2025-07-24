@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 플레이어의 펫 보유 및 파티 관리
+/// </summary>
 [Serializable]
 public class PlayerParty
 {
     [Header("파티 제한")]
-    [SerializeField] private int maxPartyPets = 2;
+    [SerializeField] private int maxPartyPets = 2; // 최대 파티 펫 수
 
-    [Header("펫 생성 관련")]
-    [SerializeField] private Transform petParent;
-
+    // 보유한 펫 목록
     public List<PetStatus> curPets;
+
+    // 실제 파티에 장착된 펫 목록
     public List<PetStatus> partyPets;
+
+    private Transform playerTransform; // 플레이어 위치 참조
 
     public PlayerParty()
     {
@@ -20,13 +25,16 @@ public class PlayerParty
         partyPets = new List<PetStatus>();
     }
 
-    public void Initialize(Transform petParent)
+    /// <summary>
+    /// 초기화 (플레이어 위치 정보 할당)
+    /// </summary>
+    public void Initialize(Transform playerTransform)
     {
-        this.petParent = petParent;
+        this.playerTransform = playerTransform;
     }
 
     /// <summary>
-    /// 보유 중인 펫 추가 (중복 추가 방지)
+    /// 펫을 보유 목록에 추가
     /// </summary>
     public void AddPet(PetStatus status)
     {
@@ -48,7 +56,7 @@ public class PlayerParty
     }
 
     /// <summary>
-    /// 보유 펫 중에서 장착 (파티에 추가 및 인스턴스 생성)
+    /// 펫을 파티에 장착
     /// </summary>
     public void EquipPet(PetStatus status)
     {
@@ -83,22 +91,24 @@ public class PlayerParty
                 Debug.LogError($"펫 프리팹이 설정되지 않았습니다: {status.PetData?.PetName ?? "Unknown"}");
                 return;
             }
-            if (petParent == null)
+            if (playerTransform == null)
             {
-                Debug.LogError("petParent가 할당되어 있지 않습니다.");
+                Debug.LogError("playerTransform이 할당되어 있지 않습니다.");
                 return;
             }
 
-            GameObject petObj = UnityEngine.Object.Instantiate(status.PetData.PetPrefab, petParent);
+            // 펫 프리팹 인스턴스화
+            GameObject petObj = UnityEngine.Object.Instantiate(status.PetData.PetPrefab);
 
-            // 플레이어로부터 followDistance 만큼 떨어진 위치에서 생성
+            // 플레이어 주변에 생성
             float followDistance = 5f;
             float angle = UnityEngine.Random.Range(0f, 360f);
             Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * followDistance;
-            petObj.transform.position = petParent.position + offset;
+            petObj.transform.position = playerTransform.position + offset;
 
             petObj.name = $"Pet_{status.PetData.PetName}";
 
+            // Pet 컴포넌트 설정
             Pet pet = petObj.GetComponent<Pet>();
             if (pet != null)
             {
@@ -119,7 +129,7 @@ public class PlayerParty
     }
 
     /// <summary>
-    /// 장착 해제 (파티에서 제거, 보유 리스트에는 남음, 인스턴스 파괴)
+    /// 펫을 파티에서 해제
     /// </summary>
     public void UnequipPet(PetStatus status)
     {
@@ -148,7 +158,7 @@ public class PlayerParty
     }
 
     /// <summary>
-    /// 파티 펫을 순서대로 반환 (필요시 추후 Follow 시스템에 사용)
+    /// 현재 파티 펫 목록 반환
     /// </summary>
     public List<PetStatus> GetOrderedParty()
     {
@@ -156,7 +166,7 @@ public class PlayerParty
     }
 
     /// <summary>
-    /// 파티 상태 변경 후 호출: 팔로우 체인 갱신, UI 갱신 등 후처리 수행
+    /// 팔로우 체인 및 UI 갱신
     /// </summary>
     public void RefreshPartyState()
     {
@@ -165,21 +175,21 @@ public class PlayerParty
     }
 
     /// <summary>
-    /// 각 펫의 Follower.target을 설정하여 체인 구조 구성
+    /// 펫 간의 팔로우 연결 갱신
     /// </summary>
     private void RefreshFollowChain()
     {
         if (partyPets.Count == 0) return;
 
-        // 첫 번째 펫은 플레이어(petParent)를 따라감
-        if (partyPets[0].PetInstance != null && petParent != null)
+        // 첫 번째 펫은 플레이어를 따라감
+        if (partyPets[0].PetInstance != null && playerTransform != null)
         {
             var follower = partyPets[0].PetInstance.GetComponent<Follower>();
             if (follower != null)
-                follower.target = petParent;
+                follower.target = playerTransform;
         }
 
-        // 두 번째 펫부터는 바로 앞 펫을 따라감
+        // 나머지는 앞 펫을 따라감
         for (int i = 1; i < partyPets.Count; i++)
         {
             var current = partyPets[i];
@@ -196,12 +206,11 @@ public class PlayerParty
     }
 
     /// <summary>
-    /// 펫 UI 갱신 트리거
+    /// 펫 UI 갱신
     /// </summary>
     private void RefreshUI()
     {
         // TODO: UI 갱신 처리
-        // 예: UIManager.Instance.RefreshPartyUI(partyPets);
         Debug.Log("파티 UI 갱신 처리");
     }
 }

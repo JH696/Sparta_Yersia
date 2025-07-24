@@ -11,8 +11,10 @@ public class Player : MonoBehaviour
     [Header("월드에서 보여질 스프라이트")]
     public SpriteRenderer worldSprite;
 
-    public PlayerStatus Status => status; // 읽기 전용
-    public PlayerParty Party => status?.party; // 펫 등 파티 관련 접근은 PlayerParty를 통해
+    [SerializeField] private PetData testPetData;
+
+    public PlayerStatus Status => status;
+    public PlayerParty Party => status?.party;
 
     private void Awake()
     {
@@ -21,21 +23,50 @@ public class Player : MonoBehaviour
             status = new PlayerStatus(playerData, "Player");
             Debug.Log("[Player] PlayerStatus가 새로 초기화되었습니다.");
 
-            GameManager.player = status; // 게임 매니저에 플레이어 상태 설정
+            GameManager.player = status;
         }
         else
         {
-            status = GameManager.player; // 기존 플레이어 상태를 가져옴
+            status = GameManager.player;
             Debug.Log("[Player] 기존 PlayerStatus를 사용합니다.");
         }
 
-            ChangeSprite();
+        status.party.Initialize(transform); // playerTransform 전달
+        ChangeSprite();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (testPetData == null)
+            {
+                Debug.LogWarning("testPetData가 비어 있습니다. 인스펙터에 PetData를 할당해주세요.");
+                return;
+            }
+
+            // 테스트용 펫 생성 및 추가
+            PetStatus newPet = new PetStatus(testPetData);
+            if (status != null)
+            {
+                status.party.AddPet(newPet);
+                Debug.Log($"[Player] 테스트용 펫 추가됨: {testPetData.PetName}");
+            }
+        }
     }
 
     private void ChangeSprite()
     {
         if (status == null) return;
         worldSprite.sprite = playerData.WSprite;
+    }
+
+    /// <summary>
+    /// 플레이어 이름 설정
+    /// </summary>
+    public void SetPlayerName(string name)
+    {
+        Status?.SetPlayerName(name);
     }
 
     //public PlayerSaveData makeSaveData()
