@@ -4,5 +4,6 @@
     BattleScene,
 
     Scene_LSY,
-    Scene_LSY_Battle
+    Scene_LSY_Battle,
+    IntroScene,
 }
