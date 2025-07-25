@@ -15,6 +15,8 @@ public class SkillInventory
     public List<SkillStatus> LearnSkills => learnSkills;
     public List<SkillData> LearnableSkills => learnableSkills;
 
+    public event System.Action OnChanged;
+
     public SkillInventory(ISkillLearnableCharacter startSkills)
     {
         foreach (SkillData skill in startSkills.StartSkills)
@@ -33,8 +35,12 @@ public class SkillInventory
     {
         if (HasSkill(data)) return;
 
+        Debug.Log($"{data.Name} 스킬을 습득했습니다!");
+
         SkillStatus status = new SkillStatus(data);
         LearnSkills.Add(status);
+
+        OnChanged?.Invoke(); // 스킬 인벤토리 변경 알림
     }
 
     // 스킬 인벤토리 속 스킬 제거
@@ -44,6 +50,10 @@ public class SkillInventory
 
         LearnSkills.Remove(LearnSkills[GetSkillIndex(data)]);
 
+        Debug.Log($"{data.Name} 스킬을 제거했습니다!");
+
+        OnChanged?.Invoke(); // 스킬 인벤토리 변경 알림
+
     }
 
     // 스킬 인벤토리 속 스킬 레벨업
@@ -52,11 +62,15 @@ public class SkillInventory
         if (HasSkill(data))
         {
             LearnSkills[GetSkillIndex(data)].LevelUP();
+
+            Debug.Log($"{data.Name} 스킬 레벨업! 현재 레벨: {LearnSkills[GetSkillIndex(data)].Level}");
         }
         else
         {
             Debug.Log("존재하지 않는 스킬 입니다.");
         }
+
+        OnChanged?.Invoke(); // 스킬 인벤토리 변경 알림
     }
 
     public void ReduceCooldown(int amount)
@@ -82,7 +96,7 @@ public class SkillInventory
     }
 
     // 스킬 인벤토리에 스킬 존재 여부 (예외 처리용)
-    private bool HasSkill(SkillData data)
+    public bool HasSkill(SkillData data)
     {
         return GetSkillIndex(data) != -1;
     }
