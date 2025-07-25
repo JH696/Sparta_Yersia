@@ -9,20 +9,19 @@ public class CameraFollow : MonoBehaviour
     public float duration = 1.5f;        // 이동 시간 (초)
 
     private float elapsedTime = 0f;
-    private bool isMoving = true;
-
-    FadeIn fadein;
+    private bool isMoving = false;
 
     void Start()
     {
-        //fadein = GetComponent<FadeIn>();
         backGround.anchoredPosition = startPosition;
-        //StartCoroutine(Scroll());
     }
 
     public IEnumerator Scroll()
     {
-        if (!isMoving) yield break;
+        if (isMoving) yield break;
+
+        isMoving = true;
+        elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
@@ -37,7 +36,6 @@ public class CameraFollow : MonoBehaviour
         if (elapsedTime >= duration)
         {
             isMoving = false;
-            //yield return StartCoroutine(fadein.Fade(0f, 1f));
         }
     }
 }
