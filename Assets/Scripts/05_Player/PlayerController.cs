@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,29 +14,44 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
     [SerializeField, Tooltip("이동이 가능한 위치 레이어")] private LayerMask moveableLayerMask;
 
+    [Header("상호작용 UI")]
+    [SerializeField] private GameObject interactTextPrefab;
+    private GameObject interactTextInstance;
+    private Transform currentTarget;
+
     private void Start()
     {
-        // player = GameManager.Instance.Player.GetComponent<Player>();
+        if (interactTextPrefab != null)
+        {
+            // UI용 Canvas가 씬에 반드시 존재해야 함 (Screen Space - Overlay 타입)
+            Canvas canvas = FindObjectOfType<Canvas>();
+            if (canvas != null)
+            {
+                interactTextInstance = Instantiate(interactTextPrefab, canvas.transform);
+                interactTextInstance.SetActive(false);
+            }
+            else
+            {
+                Debug.LogWarning("Canvas를 찾을 수 없습니다. UI가 정상적으로 표시되지 않을 수 있습니다.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("InteractTextPrefab이 할당되지 않았습니다.");
+        }
     }
 
     private void LateUpdate()
     {
-        HandleInteractionInput();
-
-        //if (BattleManager.Instance.IsBattleActive)
-        //{
-        //    isMoving = false;
-        //    return;
-        //}
-
         HandleInput();
         HandleMovement();
         HandleInteractionInput();
+        UpdateInteractText();
     }
 
     private void HandleInput()
     {
-        if (DialogueManager.Instance.IsDialogueActive) return;
+        if (DialogueManager.Instance != null && DialogueManager.Instance.IsDialogueActive) return;
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -107,6 +123,41 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void UpdateInteractText()
+    {
+        if (interactTextInstance == null) return;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, interactRange);
+
+        Transform closestTarget = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (var hit in hits)
+        {
+            if (!hit.CompareTag("NPC")) continue;
+
+            float dist = Vector2.Distance(transform.position, hit.transform.position);
+            if (dist < closestDistance)
+            {
+                closestDistance = dist;
+                closestTarget = hit.transform;
+            }
+        }
+
+        currentTarget = closestTarget;
+
+        if (currentTarget != null)
+        {
+            Vector3 worldPos = currentTarget.position + Vector3.up * 1.5f;
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+            interactTextInstance.transform.position = screenPos;
+            interactTextInstance.SetActive(true);
+        }
+        else
+        {
+            interactTextInstance.SetActive(false);
+        }
+    }
 
     //private bool IsScene(string name)
     //{
@@ -119,7 +170,6 @@ public class PlayerController : MonoBehaviour
     //            return true;
     //        }
     //    }
-
     //    return false;
     //}
 }

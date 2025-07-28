@@ -13155,6 +13155,7 @@ MonoBehaviour:
   moveableLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  interactTextPrefab: {fileID: 1537270845590076919, guid: ad5dda0a7cf97e042b70123bb159f5b0, type: 3}
 --- !u!1 &1064146728
 GameObject:
   m_ObjectHideFlags: 0
@@ -13188,7 +13189,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 1781558947}
-  fadeDuration: 1
 --- !u!114 &1064146731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19056,7 +19056,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 1781558947}
-  fadeDuration: 1
 --- !u!114 &1409948339
 MonoBehaviour:
   m_ObjectHideFlags: 0
