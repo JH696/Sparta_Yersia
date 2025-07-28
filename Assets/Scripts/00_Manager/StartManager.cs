@@ -48,8 +48,8 @@ public class StartManager : MonoBehaviour
     IEnumerator FadeOutAndLoadScene()
     {
         StartCoroutine(fadein.Fade(fadeBlack, 0f, 1f));
-        yield return new WaitForSeconds(fadein.fadeDuration + fadeDelay);
-        SceneLoader.LoadScene(EScene.IntroScene);
+        yield return new WaitForSeconds(fadein.fadeDuration);
+        SceneLoader.LoadScene("IntroScene");
     }
 
     IEnumerator FadeOutAndQuit()

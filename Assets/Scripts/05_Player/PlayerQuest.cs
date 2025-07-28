@@ -25,6 +25,8 @@ public class EliQuestProgress
 
     public EliQuestProgress(QuestData data)
     {
+        Debug.Log($"처치 퀘스트 진행 상태 생성: {data.QuestName} ({data.QuestID})");
+
         QuestID = data.QuestID;
         EliCounts = new Dictionary<string, int>();
 
@@ -35,17 +37,20 @@ public class EliQuestProgress
     }
 }
 
-public class PlayerQuest : MonoBehaviour
+[System.Serializable]
+public class PlayerQuest
 {
-    private PlayerInventory Inventory;
+    private ItemInventory Inventory = null; // 플레이어 인벤토리
 
-    private Dictionary<string, QuestStatus> MyQStatus = new Dictionary<string, QuestStatus>();
-    private Dictionary<string, EliQuestProgress> EliQProgress = new Dictionary<string, EliQuestProgress>();
+    private Dictionary<string, QuestStatus> MyQStatus = null; // 진행 중인 퀘스트 상태 저장
+    private Dictionary<string, EliQuestProgress> EliQProgress = null; // 진행 중인 처치 퀘스트 상태 저장
 
-
-    private void Start()
+    public PlayerQuest(ItemInventory inventory)
     {
-        Inventory = this.gameObject.GetComponent<PlayerInventory>();
+        Inventory = inventory;
+
+        MyQStatus = new Dictionary<string, QuestStatus>();
+        EliQProgress = new Dictionary<string, EliQuestProgress>();
     }
 
     // 진행 중인 퀘스트 가져오기
@@ -70,6 +75,18 @@ public class PlayerQuest : MonoBehaviour
     public void AddMyQ(QuestData questData)
     {
         Debug.Log($"퀘스트 추가: {questData.QuestName}");
+
+        if (questData == null)
+        {
+            Debug.LogError("[PlayerQuest] AddMyQ: questData가 null입니다.");
+            return;
+        }
+
+        if (MyQStatus == null)
+        {
+            Debug.LogError("[PlayerQuest] MyQStatus가 초기화되지 않았습니다.");
+            return;
+        }
 
         MyQStatus.Add(questData.QuestID, new QuestStatus(questData, false));
 
@@ -129,7 +146,8 @@ public class PlayerQuest : MonoBehaviour
 
                 // 수집 퀘스트
                 case EConditionType.Collection:
-                    bool CQComplete = data.TargetItem.All(item => Inventory.GetCount(item.ItemData) >= item.ItemCount);
+                    bool CQComplete = data.TargetItem.All(item => Inventory.GetItemCount(item.Item) >= item.ItemCount);
+
                     if (CQComplete)
                     {
                         MyQStatus[questID] = new QuestStatus(data, true);

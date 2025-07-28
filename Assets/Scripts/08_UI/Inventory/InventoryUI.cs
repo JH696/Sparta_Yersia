@@ -1,409 +1,292 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public enum E_CategoryType
+{
+    All,
+    Equip,
+    Consume,
+    Quest,
+}
 
 public class InventoryUI : MonoBehaviour
 {
-    public static Color SelectedSlotColor;
-    public static Color NormalSlotColor;
+    [Header("인벤토리 주인")]
+    [SerializeField] private Player player;
 
-    [Header("슬롯 강조 컬러")]
-    [SerializeField] private Color slotSelectedColor = new Color(0.2f, 0.2f, 0.2f);
-    [SerializeField] private Color slotNormalColor = Color.white;
+    [Header("인벤토리 패널")]
+    [SerializeField] private GameObject inventoryPanel;
 
-    [Header("버튼들")]
-    [SerializeField] private Button openBtn;
-    [SerializeField] private Button closeBtn;
-    [SerializeField] private Button categoryAll;
-    [SerializeField] private Button categoryEquip;
-    [SerializeField] private Button categoryConsum;
-    [SerializeField] private Button categoryQuest;
-    [SerializeField] private Button actionBtn; // 장착/사용 버튼
-    [SerializeField] private Button cancelBtn; // 해제/버리기 버튼
+    [Header("장비 UI")]
+    [SerializeField] private EquipmentUI equipment;
 
-    [Header("카테고리 클릭시 컬러")] //추후 에셋에 따라 변동가능성있음
-    [SerializeField] private Color CategorySelectedColor = Color.green;
-    [SerializeField] private Color CategoryNormalColor = Color.white;
-
-    [Header("상세 패널")]
-    [SerializeField] private GameObject detailPanel;
-    [SerializeField] private TextMeshProUGUI itemNameText;
-    [SerializeField] private TextMeshProUGUI itemEffectText;
-
-    [Header("인벤토리 Slot")]
-    [SerializeField] private Transform slotContent;
+    [Header("인벤토리 슬롯")]
+    [SerializeField] private Transform slotParent;
     [SerializeField] private GameObject slotPrefab;
-    [SerializeField] private int slotCount = 20;
 
-    [Header("장착아이템 Slot")]
-    [SerializeField] private Transform equipPanel;
+    [Header("현재 카테고리")]
+    [SerializeField] private E_CategoryType category = E_CategoryType.All;
 
-    [Header("슬롯 초과시 팝업")]
-    [SerializeField] private GameObject capacityPopup;
-    [SerializeField] private CanvasGroup capacityCanvasGroup;
-    [SerializeField] private TextMeshProUGUI capacityPopupText;
+    [Header("카테고리 버튼")]
+    [SerializeField] private List<Button> categoryBtns; // All, Equip, Consume, Quest
 
-    private PlayerInventory inventory;
-    private ItemData[] itemDB;
-    private ItemData selectedData;
-    private bool selectedIsEquipSlot;
+    [Header("오픈 / 클로즈 버튼")]
+    [SerializeField] private Button openBtn; // UI 매니저
+    [SerializeField] private Button closeBtn;
 
-    private List<ItemSlot> slots = new List<ItemSlot>();
-    private Dictionary<EEquipType, ItemSlot> equipSlots = new Dictionary<EEquipType, ItemSlot>();
-    private EItemCategory currentCategory = EItemCategory.All;
+    [Header("인벤토리 버튼")]
+    [SerializeField] private Button interactBtn;
+    [SerializeField] private Button discardBtn;
 
-    private ItemSlot currentSlot;
-    private Player player;
+    [Header("아이템 정보 패널")]
+    [SerializeField] private GameObject infoPanel;
+    [SerializeField] private TextMeshProUGUI itemName;
+    [SerializeField] private TextMeshProUGUI itemInfo;
 
-    private void Awake()
+    [Header("슬롯 리스트")]
+    [SerializeField] private List<ItemSlot> slots = new List<ItemSlot>();
+
+    [Header("선택된 슬롯")]
+    [SerializeField] private ItemSlot selectedSlot;
+
+
+    private void Start()
     {
-        // PlayerInventory 컴포넌트
-        inventory = FindObjectOfType<PlayerInventory>();
-        if (inventory == null)
+        DisplaySlots();
+
+        player.Status.inventory.InventoryChanged += RefreshInventory;
+
+        categoryBtns[0].onClick.AddListener(() => ChangeCategory(E_CategoryType.All));
+        categoryBtns[1].onClick.AddListener(() => ChangeCategory(E_CategoryType.Equip));
+        categoryBtns[2].onClick.AddListener(() => ChangeCategory(E_CategoryType.Consume));
+        categoryBtns[3].onClick.AddListener(() => ChangeCategory(E_CategoryType.Quest));
+
+        interactBtn.onClick.AddListener(OnInteractButton); // 장비, 사용, 사용 불가 버튼 
+        discardBtn.onClick.AddListener(OnDiscardButton); // 아이템 버리기
+
+        closeBtn.onClick.AddListener(CloseInventory);
+
+        RefreshInventory();
+    }
+
+    private void OnDisable()
+    {
+        if (player.Status == null) return;
+
+        player.Status.inventory.InventoryChanged -= RefreshInventory;
+    }
+
+    public void OpenInventory()
+    {
+        RefreshInventory();
+        inventoryPanel.SetActive(true);    
+    }
+
+    public void CloseInventory()
+    {
+        inventoryPanel.SetActive(false);
+        ClearSeletedSlot();
+    }
+
+    // 슬롯 생성 및 초기화
+    private void DisplaySlots()
+    {
+        for (int i = 0; i < player.Status.inventory.MaxItemCount; i++)
         {
-            Debug.LogError("[InventoryUI] PlayerInventory를 찾을 수 없습니다.");
-            enabled = false;
-            return;
-        }
-
-        // ItemData SO
-        itemDB = Resources.LoadAll<ItemData>("ItemDatas");
-        if (itemDB.Length == 0)
-        {
-            Debug.LogWarning("[InventoryUI] Resources/ItemDatas 폴더에 SO파일이 없습니다.");
-        }
-
-        // UI 컴포넌트 확인
-        var missing = GetType()
-            .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-            .Where(fields => fields.GetCustomAttributes(typeof(SerializeField), true).Any())
-            .Where(fields => fields.GetValue(this) == null)
-            .Select(fields => fields.Name)
-            .ToArray();
-
-        if (missing.Length > 0)
-        {
-            Debug.LogError($"[InventoryUI] Inspector에 할당 필요: {string.Join(", ", missing)}");
-            enabled = false;
-            return;
-        }
-
-        // 슬롯 초기화
-        SelectedSlotColor = slotSelectedColor;
-        NormalSlotColor = slotNormalColor;
-
-        // 버튼 이벤트
-        categoryAll.onClick.AddListener(() => ChangeCategory(EItemCategory.All));
-        openBtn.onClick.AddListener(Show);
-        closeBtn.onClick.AddListener(Hide);
-        categoryEquip.onClick.AddListener(() => ChangeCategory(EItemCategory.Equipment));
-        categoryConsum.onClick.AddListener(() => ChangeCategory(EItemCategory.Consumable));
-        categoryQuest.onClick.AddListener(() => ChangeCategory(EItemCategory.Quest));
-        actionBtn.onClick.AddListener(OnActionClicked);
-        cancelBtn.onClick.AddListener(OnCancelClicked);
-
-        // 빈 슬롯 20개 생성
-        for (int i = 0; i < slotCount; i++)
-        {
-            var slot = Instantiate(slotPrefab, slotContent).GetComponent<ItemSlot>();
-            slot.Clear();
+            GameObject slotObj = Instantiate(slotPrefab, slotParent);
+            ItemSlot slot = slotObj.GetComponent<ItemSlot>();
+            slot.OnClickSlot += SetSelectedSlot;
             slots.Add(slot);
         }
+    }
 
-        // 장착 아이템 슬롯 초기화 (Weapon=0, Hat=1, Accessory=2, Clothes=3, Shoes=4)
-        var children = equipPanel.GetComponentsInChildren<ItemSlot>(true);
-        if (children.Length < Enum.GetValues(typeof(EEquipType)).Length)
+    // 카테고리에 따른 인벤토리 동기화
+    private void RefreshInventory()
+    {
+        foreach (ItemSlot slot in slots)
         {
-            Debug.LogError("[InventoryUI] EquipPanel 자식이 5개여야합니다.");
+            slot.ClearSlot();
         }
 
-        for (int i = 0; i < children.Length; i++)
+        List<ItemStatus> items;
+
+        switch (category)
         {
-            var type = (EEquipType)i;
-            var slot = children[i];
-
-            equipSlots[type] = slot;
-            slot.Clear();
-            slot.OnClickEmptySlot(data => ShowItemDetails(data, true, slot));
-
-        }
-
-        // 팝업, 상세 패널 초기화
-        capacityCanvasGroup.alpha = 0;
-        capacityPopup.SetActive(false);
-        detailPanel.SetActive(false);
-
-        // 플레이어 찾기
-        player = GameManager.Instance.Player.GetComponent<Player>();
-        if (player == null)
-        {
-            Debug.LogWarning("[InventoryUI] Player를 찾을 수 없습니다. Equip/Use 호출이 동작하지 않습니다.");
-        }
-
-        // 이벤트 구독 및 UI 갱신
-        inventory.OnInventoryChanged += RefreshUI;
-        inventory.OnAddFail += ShowCapacityPopup;
-    }
-
-    // 인벤토리 변경 이벤트 구독 해제
-    private void OnDestroy()
-    {
-        if (inventory != null)
-        {
-            inventory.OnInventoryChanged -= RefreshUI;
-            inventory.OnInventoryChanged -= Show;
-        }
-    }
-
-    // 인벤토리 UI 열기
-    public void Show()
-    {
-        gameObject.SetActive(true);
-        equipPanel.gameObject.SetActive(true);
-    }
-
-    // 인벤토리 UI 닫기
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-        equipPanel.gameObject.SetActive(false);
-        detailPanel.SetActive(false);
-    }
-
-    // 클릭해제 완전 초기화
-    private void ClearSelect()
-    {
-        currentSlot?.UnSelectSlot();
-        currentSlot = null;
-
-        detailPanel.SetActive(false);
-        actionBtn.interactable = false;
-        cancelBtn.interactable = false;
-    }
-
-    // 카테고리 변경
-    private void ChangeCategory(EItemCategory category)
-    {
-        if (currentCategory == category) return;
-        ClearSelect();
-        currentCategory = category;
-        RefreshUI();
-        UpdateCategoryBtnColors();
-    }
-
-    private void UpdateCategoryBtnColors()
-    {
-        categoryAll.GetComponent<Image>().color = (currentCategory == EItemCategory.All) ? CategorySelectedColor : CategoryNormalColor;
-        categoryEquip.GetComponent<Image>().color = (currentCategory == EItemCategory.Equipment) ? CategorySelectedColor : CategoryNormalColor;
-        categoryConsum.GetComponent<Image>().color = (currentCategory == EItemCategory.Consumable) ? CategorySelectedColor : CategoryNormalColor;
-        categoryQuest.GetComponent<Image>().color = (currentCategory == EItemCategory.Quest) ? CategorySelectedColor : CategoryNormalColor;
-    }
-
-    // 슬롯 UI 갱신
-    public void RefreshUI()
-    {
-        var itemsDict = inventory.GetAllItems();
-        int index = 0;
-
-        foreach (var pair in itemsDict)
-        {
-            // DB에서 ItemData 찾기
-            var data = Array.Find(itemDB, so => so.ID == pair.Key);
-            if (data == null || data.Category != currentCategory && currentCategory != EItemCategory.All) continue;
-
-            // 팝업 표시
-            if (index >= slots.Count)
-            {
-                ShowCapacityPopup("슬롯이 가득 찼습니다.");
+            default:
+                items = player.Status.inventory.Items;
                 break;
-            }
-
-            var thisSlot = slots[index];
-            thisSlot.Clear();
-            thisSlot.Setup(data, pair.Value, _ => ShowItemDetails(data, false, thisSlot));
-
-            index++;
+            case E_CategoryType.Equip:
+                items = player.Status.inventory.Items.FindAll(item => item.Data.GetCategory() == E_CategoryType.Equip);
+                break;
+            case E_CategoryType.Consume:
+                items = player.Status.inventory.Items.FindAll(item => item.Data.GetCategory() == E_CategoryType.Consume);
+                break;
+            case E_CategoryType.Quest:
+                items = player.Status.inventory.Items.FindAll(item => item.Data.GetCategory() == E_CategoryType.Quest);
+                break;
         }
 
-        // 나머지 슬롯 비활성 및 클릭 시 상세패널 닫기
-        for (int i = index; i < slots.Count; i++)
+        for (int i = 0; i < items.Count; i++)
         {
-            var emptyslot = slots[i];
-            emptyslot.Clear();
-            emptyslot.OnClickEmptySlot(_ =>
-            {
-                ClearSelect();
-            });
-        }
-
-        UpdateCategoryBtnColors();
-    }
-
-    // 아이템 상세 정보 표시
-    private void ShowItemDetails(ItemData data, bool isEquipSlot, ItemSlot clickedSlot)
-    {
-        currentSlot?.UnSelectSlot();
-        currentSlot = clickedSlot;
-        clickedSlot.SelectSlot(true);
-
-        selectedData = data;
-        selectedIsEquipSlot = isEquipSlot;
-        detailPanel.SetActive(true);
-
-        itemNameText.text = data.ItemName;
-        var stringBuilder = new StringBuilder();
-        foreach (var stat in data.ItemStats)
-        {
-            if (stat.value != 0)
-            {
-                stringBuilder.AppendLine($"{stat.eStat}: {stat.value}");
-            }
-        }
-        itemEffectText.text = stringBuilder.ToString();
-
-        // 버튼 상태
-        if (data.Category == EItemCategory.Quest)
-        {
-            // 퀘스트 아이템
-            actionBtn.gameObject.SetActive(true);
-            actionBtn.GetComponentInChildren<TextMeshProUGUI>().text = "건네주기";
-            actionBtn.interactable = true;
-
-            // 해제/버리기 버튼
-            cancelBtn.gameObject.SetActive(true);
-            cancelBtn.GetComponentInChildren<TextMeshProUGUI>().text = "버리기";
-            cancelBtn.interactable = false;
-
-            cancelBtn.GetComponent<Image>().color = new Color(1, 1, 1, 0.7f);
-        }
-        else if (isEquipSlot)
-        {
-            // 장착판넬
-            actionBtn.gameObject.SetActive(false);
-
-            cancelBtn.gameObject.SetActive(true);
-            cancelBtn.GetComponentInChildren<TextMeshProUGUI>().text = "해제하기";
-            cancelBtn.interactable = true;
-            cancelBtn.GetComponent<Image>().color = Color.white;
-        }
-        else
-        {
-            // 인벤토리판넬
-            actionBtn.gameObject.SetActive(true);
-            actionBtn.GetComponentInChildren<TextMeshProUGUI>().text =
-                (data.Category == EItemCategory.Equipment) ? "장착하기" : "사용하기";
-            actionBtn.interactable = true;
-
-            cancelBtn.gameObject.SetActive(true);
-            cancelBtn.GetComponentInChildren<TextMeshProUGUI>().text = "버리기";
-            cancelBtn.interactable = true;
-            cancelBtn.GetComponent<Image>().color = Color.white;
+             slots[i].SetItem(items[i], player.Status);
         }
     }
 
-    // 장착/사용 버튼 클릭 시
-    private void OnActionClicked()
+    // 슬롯 선택 시
+    private void SetSelectedSlot(ItemSlot slot)
     {
-        if (selectedData == null) return;
+        selectedSlot = slot;
+        ShowItemDetails(selectedSlot.Status.Data);
+        UpdateButton();
+    }
 
-        switch (selectedData.Category)
+    // 버튼 클릭 이벤트 메서드
+    private void OnInteractButton()
+    {
+        if (selectedSlot == null) return;
+
+        switch (selectedSlot.Status.Data)
         {
-            case EItemCategory.Equipment when inventory.GetCount(selectedData) > 0:
-                // 기존 장착 템 인벤토리로
-                var eqSlot = equipSlots[selectedData.EquipType];
-                if (eqSlot.HasData())
+            case EquipItemData equipData:
+                if (player.Status.equipment.FindEquippedItem(equipData) != null)
                 {
-                    var nowEquip = eqSlot.Data;
-                    eqSlot.Clear();
-                    inventory.AddItem(nowEquip, 1);
-                    player?.Unequip(nowEquip);
+                    player.Status.equipment.Unequip(equipData.Type);
+                    selectedSlot.DeactiveEquipSlot();
                 }
-
-                // 새아이템 장착
-                eqSlot.SetupEquip(selectedData, data => ShowItemDetails(data, true, eqSlot));
-                inventory.RemoveItem(selectedData, 1);
-                player?.Equip(selectedData);
-                ClearSelect();
-                break;
-
-            case EItemCategory.Consumable:
-                // 사용
-                selectedData.OnUse();
-                inventory.RemoveItem(selectedData, 1);
-                player?.Use(selectedData);
-
-                if (inventory.GetCount(selectedData) == 0)
+                else
                 {
-                    ClearSelect();
+                    player.Status.equipment.Equip(equipData);
+                    selectedSlot.ActiveEquipSlot();
                 }
                 break;
 
-            case EItemCategory.Quest:
-                // 건네주기
-                player?.GiveQuestItem(selectedData);
-                inventory.RemoveItem(selectedData, 1);
-                ClearSelect();
+            case ConsumeItemData consumeData:
+                consumeData.Consume(player.Status);
+                selectedSlot.Status.LoseItem(1);
+                break;
+
+            default:
+                Debug.LogWarning("[InventoryUI] 알 수 없는 아이템 타입입니다.");
+                return;
+        }
+
+        ClearSeletedSlot();
+        UpdateButton();
+    }
+
+    private void OnDiscardButton()
+    {
+        if (selectedSlot == null) return;
+
+        switch (selectedSlot.Status.Data)
+        {
+            default:
+                selectedSlot.Status.LoseItem(1);
+                break;
+
+            case EquipItemData equipItem:
+                player.Status.equipment.Unequip(equipItem.Type);
+                selectedSlot.Status.LoseItem(1);
+                break;
+
+            case QuestItemData questItem:
+                return;
+        }
+
+        ClearSeletedSlot();
+        UpdateButton();
+    }
+
+    // 버튼 오브젝트 업데이트 메서드
+    private void UpdateButton()
+    {
+        if (selectedSlot == null)
+        {
+            interactBtn.gameObject.SetActive(false);
+            discardBtn.gameObject.SetActive(false);
+            return;
+        }
+
+        var buttonText = interactBtn.GetComponentInChildren<TextMeshProUGUI>();
+
+        switch (selectedSlot.Status.Data)
+        {
+            case EquipItemData equipData:
+                bool isEquipped = player.Status.equipment.FindEquippedItem(equipData) != null;
+                interactBtn.gameObject.SetActive(true);
+                discardBtn.gameObject.SetActive(true);
+
+                if (isEquipped)
+                {
+                    buttonText.text = "장비 해제";
+                }
+                else
+                {
+                    buttonText.text = "장비";
+                }
+                break;
+
+            case ConsumeItemData consumeData:
+                interactBtn.gameObject.SetActive(true);
+                discardBtn.gameObject.SetActive(true);
+                buttonText.text = "사용";
+                break;
+
+            default:
+                buttonText.text = string.Empty;
+                interactBtn.gameObject.SetActive(false);
+                discardBtn.gameObject.SetActive(false);
                 break;
         }
-
-        RefreshUI();
     }
 
-    // 해제하기/버리기 버튼 클릭 시
-    private void OnCancelClicked()
+    // 선택된 슬롯 제거
+    private void ClearSeletedSlot()
     {
-        if (selectedData == null) return;
+        selectedSlot = null;
+        ResetInfoPanel();
+    }
 
-        if (selectedIsEquipSlot)
+    // 아이템 정보 표시
+    public void ShowItemDetails(BaseItem basItem)
+    {
+        ResetInfoPanel();
+
+        switch (basItem)
         {
-            // 해제
-            var slot = equipSlots[selectedData.EquipType];
-            slot.Clear();
-            inventory.AddItem(selectedData, 1);
-            player?.Unequip(selectedData);
+            case EquipItemData eData:
+                itemName.text = eData.Name;
+                eData.Values.ForEach
+                (value => { itemInfo.text += $"{value.Stat}: {value.Value}\n"; });
+                break;
+            case ConsumeItemData cData:
+                itemName.text = cData.Name;
+                cData.Values.ForEach
+                (value => { itemInfo.text += $"{value.Stat}: {value.Value}\n"; });
+                break;
+            case QuestItemData qData:
+                itemName.text = qData.Name;
+                itemInfo.text = qData.Description;
+                break;
         }
-        else if (selectedData.Category != EItemCategory.Quest)
-        {
-            // 버리기
-            inventory.RemoveItem(selectedData, 1);
-        }
-
-        RefreshUI();
-        ClearSelect();
     }
 
-    // 슬롯 개수 초과시 팝업 표시
-    private void ShowCapacityPopup(string message)
+    // 아이템 정보창 초기화
+    public void ResetInfoPanel()
     {
-        capacityPopupText.text = message;
-        StopAllCoroutines(); // 연출 효과를 위함
-        StartCoroutine(PopupCoroutine());
+        itemName.text = string.Empty;
+        itemInfo.text = string.Empty;
     }
 
-    private IEnumerator PopupCoroutine()
-    {
-        capacityPopup.SetActive(true);
-        yield return Fade(0, 1, 0.5f);
-        yield return new WaitForSeconds(1.5f);
-        yield return Fade(1, 0, 0.5f);
-        capacityPopup.SetActive(false);
-    }
 
-    private IEnumerator Fade(float from, float to, float duration)
+
+    private void ChangeCategory(E_CategoryType category)
     {
-        float time = 0f;
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            capacityCanvasGroup.alpha = Mathf.Lerp(from, to, time / duration);
-            yield return null;
-        }
-        capacityCanvasGroup.alpha = to;
+        this.category = category;
+        RefreshInventory();
     }
 }
+

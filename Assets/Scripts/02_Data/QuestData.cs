@@ -19,7 +19,7 @@ public enum EQuestType
 [Serializable]
 public class Collection
 {
-    public ItemData ItemData;  // 아이템 ID
+    public BaseItem Item; // 아이템 ID
     public int ItemCount; // 필요한 아이템 숫자
 }
 
@@ -58,7 +58,7 @@ public class QuestData : ScriptableObject
     [Header("퀘스트 보상")]
     public int RewardExp;
     public int RewardYP;
-    public List<ItemData> RewardItems;
+    public List<BaseItem> RewardItems;
     public List<Pet> RewardPets;
 }
 

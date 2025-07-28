@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class NPC : BaseCharacter, IInteractable
+public class NPC : MonoBehaviour, IInteractable
 {
     [Header("NPC 데이터")]
     [SerializeField] private NPCData npcData;
@@ -16,35 +16,25 @@ public class NPC : BaseCharacter, IInteractable
     [Header("진행 중인 퀘스트")]
     [SerializeField] private List<QuestData> ReceiverQuests;
 
-    [SerializeField] private CharacterSkill skill;
-
-    public override Sprite Icon => npcData.Icon;
-    public CharacterSkill Skill => skill;
 
     private void Awake()
     {
         if (npcData == null) return;
-
-        InitStat(npcData); // 스탯 초기화
-        skill.Init(npcData.startingSkills);
     }
 
-    public void OnEnable()
+    public void Start()
     {
         QuestManager.Instance.QuestUpdate += UpdateRequests;
+
+        UpdateRequests();
     }
     void OnDisable()
     {
         QuestManager.Instance.QuestUpdate -= UpdateRequests;
     }
 
-    public void Start()
-    {
-        UpdateRequests();
-    }
-
     // 상호작용
-    public void Interact()
+    public void Interact(GameObject player)
     {
         if (npcData == null) return;
 
@@ -67,13 +57,14 @@ public class NPC : BaseCharacter, IInteractable
         return ReceiverQuests;
     }
 
-    // NPC 퀘스트 리스트 업데이트
+    //NPC 퀘스트 리스트 업데이트
     private void UpdateRequests()
     {
         var availableQuests = QuestManager.Instance.GetAvailableQuests();
 
-        var myQuests = GameManager.Instance.Player
-            .GetComponent<PlayerQuest>()
+        PlayerStatus player = GameManager.player;
+
+        var myQuests = player.quest
             .GetMyQStatus()
             .Values
             .Select(status => status.QuestData)

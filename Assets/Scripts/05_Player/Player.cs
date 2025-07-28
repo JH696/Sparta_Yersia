@@ -1,248 +1,193 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Player : BaseCharacter, ILevelable
+public class Player : MonoBehaviour
 {
+    [Header("플레이어 상태")]
+    [SerializeField] private PlayerStatus status;
+
     [Header("플레이어 데이터")]
     [SerializeField] private PlayerData playerData;
 
-    [Header("플레이어 정보")]
-    [SerializeField] private PlayerParty party;
-    [SerializeField] private PlayerQuest quest;
-    [SerializeField] private PlayerInventory inventory;
-    [SerializeField] private CharacterSkill skill;
+    [Header("월드에서 보여질 스프라이트")]
+    public SpriteRenderer worldSprite;
 
-    public override Sprite Icon => playerData.Icon; // 읽기 전용
+    [SerializeField] private PetData testPetData;
 
-    public PlayerParty Party => party;
-    public CharacterData PlayerData => playerData; // 읽기 전용
-    public PlayerQuest Quest => quest; // 읽기 전용
-    public PlayerInventory Inventory => inventory; // 읽기 전용
-    public CharacterSkill Skill => skill; // 읽기 전용
-
-    // 레벨, YP 관련 데이터 인터페이스로 접근
-    private ILevelData LevelData => playerData as ILevelData;
-    private IYPHolder YPData => playerData as IYPHolder;
-
-    // 성별 (플레이어 전용)
-    public EGender Gender { get; private set; } = EGender.Male;
-
-    // 레벨, 경험치
-    public int Level { get; private set; } = 1;
-    public int CurrentExp { get; private set; } = 0;
-    public int ExpToNextLevel => LevelData?.BaseExpToLevelUp * Level ?? 100 * Level;
-
-    [Header("YP(화폐)")]
-    private int yp = 0;
-    public int YP => yp;
-
-    [Header("펫 관련")]
-    [SerializeField] private List<Pet> ownedPets = new List<Pet>();    // 보유한 펫 목록
-    [SerializeField] private List<Pet> equippedPets = new List<Pet>(); // 장착한 펫 목록 (최대 2마리)
-    public List<Pet> OwnedPets => ownedPets;
-    public List<Pet> EquippedPets => equippedPets;
-
-    [Header("파티 관리")]
-    [SerializeField] private PlayerParty playerParty;
+    public PlayerStatus Status => status;
+    public PlayerParty Party => status?.party;
 
     private void Awake()
     {
-        Init();
-    }
-
-    public void Init()
-    {
-        if (playerData == null || LevelData == null) return;
-
-        InitStat(playerData);
-        skill.Init(playerData.startingSkills);
-        Level = LevelData.StartLevel;
-        CurrentExp = LevelData.StartExp;
-        yp = YPData.StartYP;
-
-        Gender = (playerData as PlayerData)?.gender ?? EGender.Male;
-    }
-
-    // 경험치 추가 메서드
-    public void AddExp(int amount)
-    {
-        CurrentExp += amount;
-        while (CurrentExp >= ExpToNextLevel)
+        if (GameManager.player == null)
         {
-            CurrentExp -= ExpToNextLevel;
-            LevelUp();
+            status = new PlayerStatus(playerData, "Player");
+            Debug.Log("[Player] PlayerStatus가 새로 초기화되었습니다.");
+
+            GameManager.player = status;
+        }
+        else
+        {
+            status = GameManager.player;
+            Debug.Log("[Player] 기존 PlayerStatus를 사용합니다.");
+        }
+
+        status.party.Initialize(transform); // playerTransform 전달
+        ChangeSprite();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (testPetData == null)
+            {
+                Debug.LogWarning("testPetData가 비어 있습니다. 인스펙터에 PetData를 할당해주세요.");
+                return;
+            }
+
+            // 테스트용 펫 생성 및 추가
+            PetStatus newPet = new PetStatus(testPetData);
+            if (status != null)
+            {
+                status.party.AddPet(newPet);
+                Debug.Log($"[Player] 테스트용 펫 추가됨: {testPetData.PetName}");
+            }
         }
     }
 
-    public void LevelUp()
+    private void ChangeSprite()
     {
-        Level++;
-        Debug.Log($"플레이어 레벨업 현재 레벨: {Level}");
-
-        float multiplier = LevelData?.StatMultiplierPerLevel ?? 1.1f;
-        Stat.MultiplyStats(multiplier);
-    }
-
-    // YP(돈) 획득 메서드
-    public void AddYP(int amount)
-    {
-        yp += Mathf.Max(0, amount);
-    }
-
-    // YP(돈) 소비 메서드
-    public bool SpendYP(int amount)
-    {
-        if (yp >= amount)
-        {
-            yp -= amount;
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>장착했을 때 호출</summary>
-    public void Equip(ItemData item)
-    {
-        Debug.Log($"[Player] Equip: {item.ItemName}");
-        if (item == null || item.Category != EItemCategory.Equipment) return;
-
-        foreach (var stat in item.ItemStats)
-        {
-            ApplyStat(stat.eStat, stat.value);
-        }
-    }
-
-    /// <summary>해제했을 때 호출</summary>
-    public void Unequip(ItemData item)
-    {
-        Debug.Log($"[Player] Unequip: {item.ItemName}");
-        if (item == null || item.Category != EItemCategory.Equipment) return;
-
-        foreach (var stat in item.ItemStats)
-        {
-            ApplyStat(stat.eStat, -stat.value);
-        }
-    }
-
-    /// <summary>소모품 사용했을 때 호출</summary>
-    public void Use(ItemData item)
-    {
-        Debug.Log($"[Player] Use: {item.ItemName}");
-        if (item == null || item.Category != EItemCategory.Consumable) return;
-
-        foreach (var stat in item.ItemStats)
-        {
-            if (stat.eStat == EStatType.MaxHp)
-                HealHP(stat.value);
-            else if (stat.eStat == EStatType.MaxMana)
-                HealMana(stat.value);
-        }
-    }
-
-    /// <summary>퀘스트용 건네주기 호출</summary>
-    public void GiveQuestItem(ItemData item)
-    {
-        Debug.Log($"[Player] GiveQuestItem: {item.ItemName}");
-        // TODO: 퀘스트 시스템에 통지
-    }
-
-    private void ApplyStat(EStatType type, float value)
-    {
-        switch (type)
-        {
-            case EStatType.MaxHp:
-                Stat.MaxHp += value;
-                Stat.CurrentHp = Mathf.Clamp(Stat.CurrentHp, 0, Stat.MaxHp);
-                break;
-            case EStatType.MaxMana:
-                Stat.MaxMana += value;
-                Stat.CurrentMana = Mathf.Clamp(Stat.CurrentMana, 0, Stat.MaxMana);
-                break;
-            case EStatType.Attack:
-                Stat.Attack += value;
-                break;
-            case EStatType.Defense:
-                Stat.Defense += value;
-                break;
-            case EStatType.Luck:
-                Stat.Luck += value;
-                break;
-            case EStatType.Speed:
-                Stat.Speed += value;
-                break;
-        }
-    }
-
-    public void AddPetFromPrefab(Pet petPrefab)
-    {
-        if (petPrefab == null) return;
-
-        // 이미 보유 중인지 PetData 기준으로 검사
-        //if (ownedPets.Exists(p => p.PetData == petPrefab.PetData)) return;
-
-        Pet newPet = Instantiate(petPrefab);
-        newPet.gameObject.SetActive(false); // 보유한 펫은 기본 비활성화
-        ownedPets.Add(newPet);
-        Debug.Log($"[Player] 펫 지급됨: {newPet.PetData.PetName}");
-    }
-
-    // 보유 펫 추가
-    public void AddPet(Pet pet)
-    {
-        if (pet == null) return;
-
-        if (ownedPets.Exists(p => p.PetData == pet.PetData)) return;
-
-        pet.gameObject.SetActive(false);
-        ownedPets.Add(pet);
-        Debug.Log($"[Player] 펫 지급됨: {pet.PetData.PetName}");
+        if (status == null) return;
+        worldSprite.sprite = playerData.WSprite;
     }
 
     /// <summary>
-    /// 펫 장착 (씬 오브젝트 활성화)
+    /// 플레이어 이름 설정
     /// </summary>
-    public void EquipPet(Pet pet)
+    public void SetPlayerName(string name)
     {
-        if (pet == null || !ownedPets.Contains(pet)) return;
-
-        if (equippedPets.Contains(pet))
-        {
-            Debug.Log($"[Player] 이미 장착 중: {pet.PetData.PetName}");
-            return;
-        }
-
-        if (equippedPets.Count >= 2)
-        {
-            Debug.LogWarning("펫은 최대 2마리까지만 장착할 수 있습니다.");
-            return;
-        }
-
-        pet.gameObject.SetActive(true);
-        equippedPets.Add(pet);
-        Debug.Log($"[Player] 펫 장착됨: {pet.PetData.PetName}");
-
-        if (playerParty != null)
-            playerParty.AddPet(pet.gameObject);
+        Status?.SetPlayerName(name);
     }
 
-    /// <summary>
-    /// 펫 장착 해제 (씬 오브젝트 비활성화)
-    /// </summary>
-    public void UnequipPet(Pet pet)
-    {
-        if (pet == null || !equippedPets.Contains(pet)) return;
+    //public PlayerSaveData makeSaveData()
+    //{
+    //    PlayerSaveData data = new PlayerSaveData();
 
-        equippedPets.Remove(pet);
-        pet.gameObject.SetActive(false);
-        Debug.Log($"[Player] 펫 해제됨: {pet.PetData.PetName}");
+    //    data.CurrnetHP = status.stat.CurrentHp;
+    //    data.CurrentMP = status.stat.CurrentMana;
+    //    data.Level = status.Level;
+    //    data.CurrentExp = status.Exp;
+    //    data.YP = status.wallet.YP;
+    //    data.Inventory = inventory.GetAllItems();
 
-        if (playerParty != null)
-            playerParty.RemoveMember(pet.gameObject);
-    }
+    //    foreach (var quest in quest.GetMyQStatus())
+    //    {
+    //        data.questStatusDatas.Add(new QuestStatusData
+    //        {
+    //            QuestID = quest.Key,
+    //            IsCompleted = quest.Value.IsCleared
+    //        });
+    //        Debug.Log($"퀘스트 저장: {quest.Key}, 완료 여부: {quest.Value.IsCleared}");
+    //    }
 
-    // 펫 보유 여부 확인
-    public bool HasPet(Pet pet)
-    {
-        return ownedPets.Contains(pet);
-    }
+    //    foreach (var q in quest.GetEliQProgress())
+    //    {
+    //        EliQuestProgressData eliData = new EliQuestProgressData
+    //        {
+    //            QuestID = q.Key
+    //        };
+
+    //        foreach (var kvp in q.Value.EliCounts)
+    //        {
+    //            eliData.eliCountDatas.Add(new EliCountData
+    //            {
+    //                EnemyID = kvp.Key,
+    //                KillCount = kvp.Value
+    //            });
+    //        }
+
+    //        data.eliQuestProgressDatas.Add(eliData);
+    //        Debug.Log($"엘리 퀘스트 저장: {q.Key}");
+    //    }
+
+    //    foreach (var pet in status.party.curPets)
+    //    {
+    //        data.ownedPetIDs.Add(pet.PetData.PetID);
+    //    }
+
+    //    foreach (var pet in status.party.partyPets)
+    //    {
+    //        data.equipPetIDs.Add(pet.PetData.PetID);
+    //    }
+
+    //    Debug.Log($"보유 펫 저장: {data.ownedPetIDs.Count}마리, 장착 펫 저장: {data.equipPetIDs.Count}마리");
+
+    //    return data;
+    //}
+
+    //public void LoadData(PlayerSaveData data)
+    //{
+    //    SetCurrentHp(data.CurrnetHP);
+    //    SetCurrentMana(data.CurrentMP);
+    //    status.SetLevel(data.Level);
+    //    status.SetExp(data.CurrentExp);
+    //    status.wallet.SetYP(data.YP);
+
+    //    foreach (var item in data.Inventory)
+    //    {
+    //        BaseItem itemData = Resources.Load<BaseItem>($"ItemDatas/{item.Key}");
+    //        inventory.AddItem(itemData, item.Value);
+    //    }
+
+    //    foreach (var q in data.questStatusDatas)
+    //    {
+    //        QuestData questData = Resources.Load<QuestData>($"QuestDatas/{q.QuestID}");
+    //        quest.AddMyQ(questData);
+
+    //        if (q.IsCompleted)
+    //        {
+    //            quest.GetMyQStatus()[q.QuestID].IsCleared = true;
+    //        }
+    //    }
+
+    //    foreach (var eliData in data.eliQuestProgressDatas)
+    //    {
+    //        QuestData progress = Resources.Load<QuestData>($"QuestDatas/{eliData.QuestID}");
+    //        quest.AddEliQ(progress);
+
+    //        foreach (var countData in eliData.eliCountDatas)
+    //        {
+    //            quest.GetEliQProgress()[eliData.QuestID].EliCounts[countData.EnemyID] = countData.KillCount;
+    //        }
+    //    }
+
+    //    // 펫 보유 리스트 복원: PetData 로드 후 PetStatus 생성하여 PlayerParty에 추가
+    //    foreach (var petID in data.ownedPetIDs)
+    //    {
+    //        PetData petData = Resources.Load<PetData>($"PetData/{petID}");
+    //        if (petData != null)
+    //        {
+    //            var petStatus = new PetStatus(petData);
+    //            status.party.AddPet(petStatus);
+    //        }
+    //        else
+    //        {
+    //            Debug.LogWarning($"펫 데이터를 찾을 수 없습니다: {petID}");
+    //        }
+    //    }
+
+    //    // 펫 장착 리스트 복원: 보유한 PetStatus 중 해당 펫을 찾아 PlayerParty에 장착
+    //    foreach (var petID in data.equipPetIDs)
+    //    {
+    //        var petStatus = status.party.curPets.Find(p => p.PetData.PetID == petID);
+    //        if (petStatus != null)
+    //        {
+    //            status.party.EquipPet(petStatus);
+    //        }
+    //        else
+    //        {
+    //            Debug.LogWarning($"장착할 보유 펫을 찾을 수 없습니다: {petID}");
+    //        }
+    //    }
+    //}
 }

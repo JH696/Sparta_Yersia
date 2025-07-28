@@ -1,55 +1,88 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
-public class BattleTrigger : MonoBehaviour
+public class TriggerMonster : MonoBehaviour
 {
-    [Header("배틀에 등장할 몬스터 데이터 리스트")]
-    [SerializeField] private List<GameObject> monsterList = new List<GameObject>();
+    [Header("포함된 몬스터")]
+    [SerializeField] private BattleEncounter battleEncounter;
 
-    [Header("충돌 무시 여부")]
-    [SerializeField] private bool isIgnoring;
+    [Header("트리거 스프라이트")]
+    [SerializeField] private SpriteRenderer triggerSprite;
 
-    [Header("충돌 무시 시간")]
-    [SerializeField] private float ignoreTime = 2f;
+    [Header("이동 관련")]
+    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float changeDirectionInterval = 2f;
+    [SerializeField] private Tilemap groundTilemap;
 
-    private void OnEnable()
+    private Vector2 moveDirection;
+    private float moveTimer;
+
+    private Rigidbody2D rb;
+
+    public event System.Action<TriggerMonster> OnDestroyed;
+
+
+    public void SetTriggerMonster(BattleEncounter encounter)
     {
-        StartCoroutine(IgnoreCollision());
+        battleEncounter = encounter;
     }
 
-    public IEnumerator IgnoreCollision()
+    private void Start()
     {
-        isIgnoring = true;
+        groundTilemap = GetComponentInParent<Tilemap>();
+        rb = GetComponent<Rigidbody2D>();
 
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        Color color = sr.color;
+        PickRandomDirection();
+    }
 
-        color.a = 0.1f;
-        sr.color = color;
+    private void FixedUpdate()
+    {
+        if (BattleManager.Instance.IsBattleActive) return;
 
-        yield return new WaitForSeconds(ignoreTime);
 
-        color.a = 1f;
-        sr.color = color;
 
-        isIgnoring = false;
+        moveTimer -= Time.fixedDeltaTime;
+        if (moveTimer <= 0f)
+        {
+            PickRandomDirection();
+        }
+
+        Vector2 nextPos = (Vector2)transform.position + moveDirection * moveSpeed * Time.fixedDeltaTime;
+        Vector3Int cell = groundTilemap.WorldToCell(nextPos);
+        cell.z = 0;
+
+        if (groundTilemap.HasTile(cell))
+        {
+            rb.MovePosition(nextPos);
+        }
+        else
+        {
+            PickRandomDirection();
+        }
+    }
+
+    private void PickRandomDirection()
+    {
+        moveTimer = changeDirectionInterval;
+
+        Vector2[] directions = new Vector2[]
+        {
+            Vector2.up,
+            Vector2.down,
+            Vector2.left,
+            Vector2.right
+        };
+
+        moveDirection = directions[Random.Range(0, directions.Length)];
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player") || isIgnoring) return;
+        if (!other.CompareTag("Player") || BattleManager.Instance.IsBattleActive) return;
 
         Debug.Log("충돌");
+        BattleManager.Instance.StartBattle(battleEncounter);
 
-        if (monsterList.Count == 0)
-        {
-            Debug.LogWarning("PlayerParty 컴포넌트를 찾을 수 없거나, 몬스터 리스트가 비었습니다.");
-            return;
-        }
-
-        B_Manager.Instance.SetTrigger(this.gameObject);
-        B_Manager.Instance.SavaModelPosition(other.transform);
-        B_Manager.Instance.EnterBattle(monsterList);
+        OnDestroyed?.Invoke(this); // 트리거 제거 이벤트 호출
     }
 }

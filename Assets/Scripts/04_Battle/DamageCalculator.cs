@@ -2,7 +2,11 @@
 
 public class DamageCalculator
 {
-    public float DamageCalculate(BaseCharacter attacker, BaseCharacter target, SkillBase skill)
+    /// <summary>
+    /// 공격자, 피격자, 스킬 사용이라면 스킬 상태까지. 아니라면 null을 전달.
+    /// 예시: DamageCalculator cal = new DamageCalculator(attacker, target, null);
+    /// </summary>
+    public float DamageCalculate(CharacterStats attacker, CharacterStats target, SkillStatus skill)
     {
         // 공격자 능력치
         float atk = attacker.Attack;
@@ -10,17 +14,11 @@ public class DamageCalculator
 
         // 피격자 능력치
         float def = target.Defense;
-        float spd = target.Speed;
-
-        Debug.Log($"공격자 공격력: {atk}, 행운: {luck}");
-        Debug.Log($"피격자 방어력: {def}, 속도: {spd}");
 
         // 데미지 계산
-        float power = skill == null? atk : atk * skill.Damage;
+        float power = skill == null? atk : atk * skill.Power;
         float damage = IsCritical(luck) ? power * 1.5f : power;
-        float finalDamage = IsDodge(spd) ? damage * 0 : damage - (target.Defense * 0.5f);
-
-        Debug.Log($"최종 데미지: {finalDamage}");
+        float finalDamage = damage - (target.Defense * 0.5f);
 
         return finalDamage;
     }
@@ -37,19 +35,4 @@ public class DamageCalculator
 
         return false;
     }
-
-    // 회피 발생 여부
-    public bool IsDodge(float speed)
-    {
-        float roll = Random.Range(0, 100);
-
-        if (speed >= roll)
-        {
-            // 트루로 나중에 수정
-            return false;
-        }
-
-        return false;
-    }
-
 }

@@ -5,9 +5,9 @@ public class StatUIController : MonoBehaviour
     [Header("UI 표시 대상")]
     [SerializeField] private GameObject statsUIObject; // UI GameObject 전체
     [SerializeField] private StatsUI statsUI;
-    [SerializeField] private BaseCharacter player;
-    [SerializeField] private BaseCharacter pet1;
-    [SerializeField] private BaseCharacter pet2;
+    [SerializeField] private Player player;
+    [SerializeField] private CharacterStatus pet1;
+    [SerializeField] private CharacterStatus pet2;
 
     [Header("추가 UI 오브젝트")]
     [SerializeField] private GameObject PlayerInfo;    // 플레이어 전용 정보 UI
@@ -17,9 +17,6 @@ public class StatUIController : MonoBehaviour
 
     private void Start()
     {
-        player = GameManager.Instance.Player.GetComponent<Player>();
-
-
         if (statsUIObject != null) statsUIObject.SetActive(false);
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
         if (PetInfo != null) PetInfo.SetActive(false);
@@ -48,7 +45,7 @@ public class StatUIController : MonoBehaviour
             statsUIObject.SetActive(true);
         }
 
-        statsUI.SetTarget(player);
+        statsUI.SetTarget(player.Status);
 
         if (PlayerInfo != null) PlayerInfo.SetActive(true);
         if (PetInfo != null) PetInfo.SetActive(false);
@@ -61,8 +58,12 @@ public class StatUIController : MonoBehaviour
         Player playerComponent = player as Player;
         if (playerComponent == null) return;
 
-        pet1 = playerComponent.EquippedPets.Count > 0 ? playerComponent.EquippedPets[0] : null;
-        pet2 = playerComponent.EquippedPets.Count > 1 ? playerComponent.EquippedPets[1] : null;
+        var party = playerComponent.Status.party;
+
+        if (party == null) return;
+
+        pet1 = party.partyPets.Count > 0 ? party.partyPets[0] : null;
+        pet2 = party.partyPets.Count > 1 ? party.partyPets[1] : null;
     }
 
     // Pet1의 스탯을 표시

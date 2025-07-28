@@ -1,96 +1,48 @@
 ﻿using UnityEngine;
 
-public class Pet : BaseCharacter, ILevelable
+public class Pet : MonoBehaviour
 {
-    [Header("펫 데이터")]
-    [SerializeField, Tooltip("펫의 이름과 ID가 포함된 데이터")]
-    private PetData petData;
-    [SerializeField] private CharacterSkill skill;
+    [Header("펫의 상태 정보")]
+    public PetStatus status;
 
-    public override Sprite Icon => petData.Icon;
+    [Header("월드에서 보여질 스프라이트")]
+    public SpriteRenderer worldSprite;
 
-    public PetData PetData => petData; // 읽기 전용
-    public CharacterSkill Skill => skill; // 읽기 전용
-
-    // 레벨, 경험치
-    public int Level { get; private set; } = 1;
-    public int CurrentExp { get; private set; } = 0;
-    public int ExpToNextLevel => 50 * Level;
+    public PetData PetData => status?.PetData;
+    public int Level => status?.stat.Level ?? 0;
+    public int EvoLevel => status?.EvoLevel ?? 0;
 
     private void Awake()
     {
-        if (petData == null) return;
-
-        DontDestroyOnLoad(this.gameObject);
-
-        InitStat(petData); // 스탯 초기화
-        skill.Init(petData.startingSkills);
-        Level = 1;
-        CurrentExp = 0;
-
-        ApplyEvoSprite(petData.CurrentEvoStage);
-    }
-
-    private void Update()
-    {
-        // 테스트용 키
-        if (Input.GetKeyDown(KeyCode.H)) HealHP(10f);
-        if (Input.GetKeyDown(KeyCode.J)) TakeDamage(20f);
-        if (Input.GetKeyDown(KeyCode.E)) AddExp(30);
-    }
-
-    // 경험치 추가 메서드
-    public void AddExp(int amount)
-    {
-        CurrentExp += amount;
-        while (CurrentExp >= ExpToNextLevel)
+        if (worldSprite == null)
         {
-            CurrentExp -= ExpToNextLevel;
-            LevelUp();
+            worldSprite = GetComponentInChildren<SpriteRenderer>();
+            if (worldSprite == null)
+            {
+                Debug.LogError($"[{name}] worldSprite가 할당되어 있지 않고, 자식 오브젝트에서도 찾을 수 없습니다.");
+            }
         }
     }
 
-    public void LevelUp()
+    /// <summary>
+    /// PetStatus를 설정하고 스프라이트를 적용
+    /// </summary>
+    public void SetStatus(PetStatus newStatus)
     {
-        Level++;
-        Debug.Log($"펫 레벨업 현재 레벨: {Level}");
-        float multiplier = PetData == null ? 1.1f : PetData.StatMultiplierPerLevel;
-        Stat.MultiplyStats(multiplier);
-        TryEvolve();
+        status = newStatus;
+        ChangeSprite();
     }
 
-    private void TryEvolve()
+    /// <summary>
+    /// 현재 상태에 따른 스프라이트로 변경 적용
+    /// </summary>
+    public void ChangeSprite()
     {
-        if (petData == null || petData.evoLevels == null) return;
+        if (status == null) return;
 
-        int currentStage = petData.CurrentEvoStage;
-        if (currentStage >= petData.evoLevels.Length) return;
+        PetSprite sprite = status.GetPetSprite();
+        if (sprite == null || sprite.WorldSprite == null) return;
 
-        if (Level >= petData.evoLevels[currentStage].Level)
-        {
-            // 진화 단계 증가
-            petData.CurrentEvoStage++;
-            ApplyEvolutionData(petData.CurrentEvoStage);
-            Debug.Log($"펫 진화됨 현재 단계: {petData.CurrentEvoStage}");
-        }
-    }
-
-    private void ApplyEvolutionData(int stage)
-    {
-        ApplyEvoSprite(stage);
-        // 진화 시 스탯 증가
-        Stat.MultiplyStats(petData.StatMultiplier);
-    }
-
-    private void ApplyEvoSprite(int stage)
-    {
-        if (petData == null) return;
-
-        var spriteData = petData.sprites.Length > stage ? petData.sprites[stage] : null;
-        if (spriteData == null || spriteData.WorldSprite == null) return;
-
-        var spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
-            spriteRenderer.sprite = spriteData.WorldSprite;
+        worldSprite.sprite = sprite.WorldSprite;
     }
 }

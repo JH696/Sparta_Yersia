@@ -1,143 +1,216 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 플레이어 게임오브젝트와 함께
-/// 펫과 NPC 파티원을 관리하는 스크립트
-/// 배틀씬 진입 시 파티 데이터를 넘길 때
-/// 플레이어도 포함하도록 설계됨
+/// 플레이어의 펫 보유 및 파티 관리
 /// </summary>
-public class PlayerParty : MonoBehaviour
+[Serializable]
+public class PlayerParty
 {
-    [Header("파티 인원 제한")]
-    [SerializeField] private int maxPets = 2;
-    [SerializeField] private int maxNpcs = 1;
+    [Header("파티 제한")]
+    [SerializeField] private int maxPartyPets = 2; // 최대 파티 펫 수
 
-    [Header("플레이어 게임오브젝트")]
-    [SerializeField] private GameObject player;
+    // 보유한 펫 목록
+    public List<PetStatus> curPets;
 
-    [Header("파티 멤버 리스트 (펫, NPC 혼합)")]
-    [SerializeField] private List<GameObject> partyMembers = new List<GameObject>();
+    // 실제 파티에 장착된 펫 목록
+    public List<PetStatus> partyPets;
 
-    private void Start()
-    { 
-        if (player == null)
+    private Transform playerTransform; // 플레이어 위치 참조
+
+    public PlayerParty()
+    {
+        curPets = new List<PetStatus>();
+        partyPets = new List<PetStatus>();
+    }
+
+    /// <summary>
+    /// 초기화 (플레이어 위치 정보 할당)
+    /// </summary>
+    public void Initialize(Transform playerTransform)
+    {
+        this.playerTransform = playerTransform;
+    }
+
+    /// <summary>
+    /// 펫을 보유 목록에 추가
+    /// </summary>
+    public void AddPet(PetStatus status)
+    {
+        if (status == null)
         {
-            player = GameManager.Instance.Player;
+            Debug.LogWarning("추가할 펫이 null입니다.");
+            return;
         }
 
-        // 실행 시 초기 상태에 맞게 팔로우 체인 갱신
-        UpdateFollowChain();
-    }
-
-    // 펫 추가 (최대 2마리)
-    public void AddPet(GameObject pet)
-    {
-        if (CountPets() >= maxPets || partyMembers.Contains(pet)) return;
-
-        partyMembers.Add(pet);
-        Debug.Log($"펫 {pet.name} 파티에 추가됨");
-
-        UpdateFollowChain();
-    }
-
-    // NPC 추가 (최대 1명)
-    public void AddNpc(GameObject npc)
-    {
-        if (CountNpcs() >= maxNpcs || partyMembers.Contains(npc)) return;
-
-        partyMembers.Add(npc);
-        Debug.Log($"NPC {npc.name} 파티에 추가됨");
-
-        UpdateFollowChain();
-    }
-
-    // 파티 멤버 제거
-    public void RemoveMember(GameObject member)
-    {
-        if (partyMembers.Remove(member))
-            Debug.Log($"{member.name} 파티에서 제거됨");
-
-        UpdateFollowChain();
-    }
-
-    // 현재 파티 내 펫 수 계산
-    private int CountPets()
-    {
-        int count = 0;
-        foreach (var member in partyMembers)
+        if (!curPets.Contains(status))
         {
-            if (member.GetComponent<Pet>() != null)
-                count++;
+            curPets.Add(status);
+            Debug.Log($"펫 {status.PetData.PetName} 보유 리스트에 추가됨");
         }
-        return count;
-    }
-
-    // 현재 파티 내 NPC 수 계산
-    private int CountNpcs()
-    {
-        int count = 0;
-        foreach (var member in partyMembers)
+        else
         {
-            if (member.GetComponent<NPC>() != null)
-                count++;
+            Debug.Log($"이미 보유 중인 펫입니다: {status.PetData.PetName}");
         }
-        return count;
     }
 
-    // 전체 파티 멤버 반환 (플레이어 포함)
-    public List<GameObject> GetFullPartyMembers()
+    /// <summary>
+    /// 펫을 파티에 장착
+    /// </summary>
+    public void EquipPet(PetStatus status)
     {
-        var fullParty = new List<GameObject>();
-        fullParty.AddRange(partyMembers);
-        return fullParty;
-    }
-
-    // 정렬된 파티 멤버 반환 (우선순위: Player → NPC → Pet)
-    public List<GameObject> GetSortedPartyMembers()
-    {
-        var sortedList = new List<GameObject>();
-
-        if (player != null)
-            sortedList.Add(player); // 무조건 맨 앞
-
-        // NPC 1명만 추가
-        foreach (var member in partyMembers)
+        if (status == null)
         {
-            if (member.GetComponent<NPC>() != null)
+            Debug.LogWarning("장착할 펫이 null입니다.");
+            return;
+        }
+
+        if (!curPets.Contains(status))
+        {
+            Debug.LogWarning($"보유하지 않은 펫은 장착할 수 없습니다: {status.PetData.PetName}");
+            return;
+        }
+
+        if (partyPets.Contains(status))
+        {
+            Debug.Log($"이미 장착된 펫입니다: {status.PetData.PetName}");
+            return;
+        }
+
+        if (partyPets.Count >= maxPartyPets)
+        {
+            Debug.LogWarning($"파티에는 최대 {maxPartyPets}마리의 펫만 장착할 수 있습니다.");
+            return;
+        }
+
+        if (status.PetInstance == null)
+        {
+            if (status.PetData == null || status.PetData.PetPrefab == null)
             {
-                sortedList.Add(member);
-                break;
+                Debug.LogError($"펫 프리팹이 설정되지 않았습니다: {status.PetData?.PetName ?? "Unknown"}");
+                return;
             }
-        }
-
-        // 펫은 순서대로 최대 2마리 추가
-        int petCount = 0;
-        foreach (var member in partyMembers)
-        {
-            if (member.GetComponent<Pet>() != null)
+            if (playerTransform == null)
             {
-                if (petCount >= maxPets) break;
-                sortedList.Add(member);
-                petCount++;
+                Debug.LogError("playerTransform이 할당되어 있지 않습니다.");
+                return;
             }
+
+            // 펫 프리팹 인스턴스화
+            GameObject petObj = UnityEngine.Object.Instantiate(status.PetData.PetPrefab);
+
+            // 플레이어 주변에 생성
+            float followDistance = 5f;
+            float angle = UnityEngine.Random.Range(0f, 360f);
+            Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * followDistance;
+            petObj.transform.position = playerTransform.position + offset;
+
+            petObj.name = $"Pet_{status.PetData.PetName}";
+
+            // Pet 컴포넌트 설정
+            Pet pet = petObj.GetComponent<Pet>();
+            if (pet != null)
+            {
+                pet.SetStatus(status);
+            }
+            else
+            {
+                Debug.LogWarning("펫 프리팹에 Pet 컴포넌트가 없습니다.");
+            }
+
+            status.PetInstance = pet;
         }
 
-        return sortedList;
+        partyPets.Add(status);
+        Debug.Log($"펫 {status.PetData.PetName} 장착됨 (파티에 추가됨)");
+
+        RefreshPartyState();
     }
 
-    // 정렬된 순서에 따라 따라가기 체인 설정
-    private void UpdateFollowChain()
+    /// <summary>
+    /// 펫을 파티에서 해제
+    /// </summary>
+    public void UnequipPet(PetStatus status)
     {
-        var sorted = GetSortedPartyMembers();
-
-        for (int i = 1; i < sorted.Count; i++)
+        if (status == null)
         {
-            var follower = sorted[i].GetComponent<FollowerController>();
+            Debug.LogWarning("해제할 펫이 null입니다.");
+            return;
+        }
+
+        if (!partyPets.Contains(status))
+        {
+            Debug.LogWarning($"장착되어 있지 않은 펫입니다: {status.PetData.PetName}");
+            return;
+        }
+
+        partyPets.Remove(status);
+        Debug.Log($"펫 {status.PetData.PetName} 장착 해제됨 (파티에서 제거됨)");
+
+        if (status.PetInstance != null)
+        {
+            UnityEngine.Object.Destroy(status.PetInstance.gameObject);
+            status.PetInstance = null;
+        }
+
+        RefreshPartyState();
+    }
+
+    /// <summary>
+    /// 현재 파티 펫 목록 반환
+    /// </summary>
+    public List<PetStatus> GetOrderedParty()
+    {
+        return new List<PetStatus>(partyPets);
+    }
+
+    /// <summary>
+    /// 팔로우 체인 및 UI 갱신
+    /// </summary>
+    public void RefreshPartyState()
+    {
+        RefreshFollowChain();
+        RefreshUI();
+    }
+
+    /// <summary>
+    /// 펫 간의 팔로우 연결 갱신
+    /// </summary>
+    private void RefreshFollowChain()
+    {
+        if (partyPets.Count == 0) return;
+
+        // 첫 번째 펫은 플레이어를 따라감
+        if (partyPets[0].PetInstance != null && playerTransform != null)
+        {
+            var follower = partyPets[0].PetInstance.GetComponent<Follower>();
+            if (follower != null)
+                follower.target = playerTransform;
+        }
+
+        // 나머지는 앞 펫을 따라감
+        for (int i = 1; i < partyPets.Count; i++)
+        {
+            var current = partyPets[i];
+            var previous = partyPets[i - 1];
+
+            if (current.PetInstance == null || previous.PetInstance == null) continue;
+
+            var follower = current.PetInstance.GetComponent<Follower>();
             if (follower != null)
             {
-                follower.SetFollowTarget(sorted[i - 1].transform);
+                follower.target = previous.PetInstance.transform;
             }
         }
+    }
+
+    /// <summary>
+    /// 펫 UI 갱신
+    /// </summary>
+    private void RefreshUI()
+    {
+        // TODO: UI 갱신 처리
+        Debug.Log("파티 UI 갱신 처리");
     }
 }

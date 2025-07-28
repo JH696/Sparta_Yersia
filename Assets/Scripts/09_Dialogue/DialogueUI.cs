@@ -217,16 +217,16 @@ public class DialogueUI : MonoBehaviour
         DisplayChoices();
     }
 
-    // 선택지 버튼 생성
+    //선택지 버튼 생성
     private void DisplayChoices()
     {
-        GameManager.Instance.Player.GetComponent<PlayerQuest>().QuestUpdate();
+        GameManager.player.quest.QuestUpdate();
         choiceBtns.RemoveChoiceButton();
         choiceBtns.gameObject.SetActive(true);
 
         foreach (var quest in curNpc.GetReceiverQuests())
         {
-            GameManager.Instance.Player.GetComponent<PlayerQuest>().GetMyQStatus().TryGetValue(quest.QuestID, out QuestStatus status);
+            GameManager.player.quest.GetMyQStatus().TryGetValue(quest.QuestID, out QuestStatus status);
 
             if (status.IsCleared == true || quest.ConditionType == EConditionType.Investigation)
             {
