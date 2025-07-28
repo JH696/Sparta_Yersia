@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class FadeIn : MonoBehaviour
 {
@@ -8,7 +7,7 @@ public class FadeIn : MonoBehaviour
     public IEnumerator Fade(CanvasGroup fade, float from, float to)
     {
         float elapsed = 0f;
-        fade.alpha = 0f;
+        fade.alpha = from;
         fade.interactable = false;
         fade.blocksRaycasts = false;
 
@@ -19,7 +18,7 @@ public class FadeIn : MonoBehaviour
             yield return null;
         }
 
-        fade.alpha = 1f;
+        fade.alpha = to;
         fade.interactable = true;
         fade.blocksRaycasts = true;
     }
