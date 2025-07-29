@@ -52,24 +52,36 @@ public class SkillInventory
     }
 
     // 스킬 인벤토리 속 스킬 장착
-    public void EquipSkill(SkillData data)
+    public void EquipSkill(SkillStatus status)
     {
-        if (HasSkill(data))
+        if (AllSkills.Contains(status) && equipSkills.Count < 5)
         {
-            int index = GetSkillIndex(data);
-
-            SkillStatus skill = allSkills[index];
-
-            if (!equipSkills.Contains(skill))
+            if (!equipSkills.Contains(status))
             {
-                equipSkills.Add(skill);
-                Debug.Log($"{data.Name} 스킬을 장착했습니다!");
+                equipSkills.Add(status);
+                Debug.Log($"{status.Data.Name} 스킬을 장착했습니다!");
                 OnChanged?.Invoke(); // 스킬 인벤토리 변경 알림
             }
             else
             {
-                Debug.Log($"{data.Name} 스킬은 이미 장착되어 있습니다.");
+                Debug.Log($"{status.Data.Name} 스킬은 이미 장착되어 있습니다.");
             }
+        }
+        else
+        {
+            Debug.Log("보유하지 않았거나, 장착 가능한 최대 스킬 수를 넘겼습니다.");
+        }
+    }
+
+    // 스킬 인벤토리 속 스킬 장착
+    public void UnequipSkill(SkillStatus status)
+    {
+        if (equipSkills.Contains(status))
+        {
+            equipSkills.Remove(status);
+            OnChanged?.Invoke(); // 스킬 인벤토리 변경 알림
+            Debug.Log($"{status.Data.Name} 스킬을 해제 했습니다.");
+
         }
         else
         {

@@ -22,6 +22,8 @@ public class SkillStatus
     public int Cooldown => curCooldown;
     public bool IsCool => curCooldown > 0;
 
+    public event System.Action StatusChanged;
+
     public SkillStatus(SkillData data)
     {
         this.data = data;
@@ -51,6 +53,7 @@ public class SkillStatus
         if (level >= maxLevel) return false; 
 
         level++;
+        StatusChanged?.Invoke();    
         return true;
     }
 
@@ -59,6 +62,7 @@ public class SkillStatus
         if (level <= 1) return false;
 
         level--;
+        StatusChanged?.Invoke();
         return true;
     }
 

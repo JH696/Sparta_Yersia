@@ -17,15 +17,11 @@ public class SkillMastery : MonoBehaviour
             var btn = button;
             btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() => OnClickButton(btn.gameObject));
-            Debug.Log($"{button.name}");
         }
     }
 
     private void OnClickButton(GameObject gameObject)
     {
-        Debug.Log("버튼 클릭됨");
         skillMasteryUI.SetInfoUI(gameObject.GetComponent<SkillSlot>());
     }
 }
-
-

@@ -145,14 +145,14 @@ public class B_BattleButtons : MonoBehaviour
 
         List<SkillStatus> skills = curStatus.skills.EquipSkills;
 
-        if (skills.Count <= 0) return;
-
         actionType = E_ActionType.Skill;
 
         dButtonParent.SetActive(true);
         aButtonParent.SetActive(false);
 
-        for (int i = 0; i < 5; i++) // 장착 스킬 카운터로 변경
+        if (skills.Count <= 0) return;
+
+        for (int i = 0; i < skills.Count; i++) // 장착 스킬 카운터로 변경
         {
             buttons[i].SetSkill(skills[i]);
             buttons[i].OnSkillSelected += UseSkill;
