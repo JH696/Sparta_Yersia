@@ -143,7 +143,7 @@ public class B_BattleButtons : MonoBehaviour
             btn.OnSkillSelected -= UseSkill;
         }
 
-        List<SkillStatus> skills = curStatus.skills.LearnSkills;
+        List<SkillStatus> skills = curStatus.skills.EquipSkills;
 
         if (skills.Count <= 0) return;
 

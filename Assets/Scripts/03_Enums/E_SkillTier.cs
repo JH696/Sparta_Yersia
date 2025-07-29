@@ -3,8 +3,8 @@
 /// </summary>
 public enum E_Rank
 {
-    None,
-    Basic,
-    Advanced,
-    Expert
+    None = 0,
+    Basic = 1,
+    Advanced = 2,
+    Expert = 3,
 }

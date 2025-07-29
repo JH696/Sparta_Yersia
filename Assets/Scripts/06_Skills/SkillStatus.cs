@@ -17,7 +17,7 @@ public class SkillStatus
 
     // 읽기 전용
     public SkillData Data => data;
-    public float Power => data.Power + ((level - 1) * 0.1f); // 레벨마다 10%씩 피해량 증가
+    public float Power => data.Power * 1 + (level - 1 * 0.1f); // 레벨마다 10%씩 피해량 증가
     public int Level => level;
     public int Cooldown => curCooldown;
     public bool IsCool => curCooldown > 0;
@@ -46,11 +46,20 @@ public class SkillStatus
     }
 
     // 레벨업
-    public void LevelUP()
+    public bool LevelUP()
     {
-        if (level >= maxLevel) return;
+        if (level >= maxLevel) return false; 
 
         level++;
+        return true;
+    }
+
+    public bool LevelDown()
+    {
+        if (level <= 1) return false;
+
+        level--;
+        return true;
     }
 
     // 쿨다운 감소

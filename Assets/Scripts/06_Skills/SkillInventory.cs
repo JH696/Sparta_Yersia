@@ -5,15 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public class SkillInventory
 {
-    [Header("습득한 스킬들")]
-    [SerializeField] private List<SkillStatus> learnSkills = new List<SkillStatus>();
+    [Header("장착한 스킬")]
+    [SerializeField] private List<SkillStatus> equipSkills = new List<SkillStatus>();
 
-    [Header("습득 가능한 스킬들")]
-    [SerializeField] private List<SkillData> learnableSkills = new List<SkillData>();
+    [Header("습득한 스킬")]
+    [SerializeField] private List<SkillStatus> allSkills = new List<SkillStatus>();
 
     // 읽기 전용
-    public List<SkillStatus> LearnSkills => learnSkills;
-    public List<SkillData> LearnableSkills => learnableSkills;
+    public List<SkillStatus> EquipSkills => equipSkills;
+    public List<SkillStatus> AllSkills => allSkills;
 
     public event System.Action OnChanged;
 
@@ -22,25 +22,21 @@ public class SkillInventory
         foreach (SkillData skill in startSkills.StartSkills)
         {
             AddSkill(skill);
-        }   
-
-        foreach (SkillData skill in startSkills.LearnableSkills)
-        {
-            learnableSkills.Add(skill);
-        }
+        }  
     }
 
     // 스킬 인벤토리 스킬 추가
-    public void AddSkill(SkillData data)
+    public bool AddSkill(SkillData data)
     {
-        if (HasSkill(data)) return;
+        if (HasSkill(data)) return false;
 
         Debug.Log($"{data.Name} 스킬을 습득했습니다!");
 
         SkillStatus status = new SkillStatus(data);
-        LearnSkills.Add(status);
+        allSkills.Add(status);
 
         OnChanged?.Invoke(); // 스킬 인벤토리 변경 알림
+        return true;
     }
 
     // 스킬 인벤토리 속 스킬 제거
@@ -48,12 +44,37 @@ public class SkillInventory
     {
         if (!HasSkill(data)) return;
 
-        LearnSkills.Remove(LearnSkills[GetSkillIndex(data)]);
+        allSkills.Remove(allSkills[GetSkillIndex(data)]);
 
         Debug.Log($"{data.Name} 스킬을 제거했습니다!");
 
         OnChanged?.Invoke(); // 스킬 인벤토리 변경 알림
+    }
 
+    // 스킬 인벤토리 속 스킬 장착
+    public void EquipSkill(SkillData data)
+    {
+        if (HasSkill(data))
+        {
+            int index = GetSkillIndex(data);
+
+            SkillStatus skill = allSkills[index];
+
+            if (!equipSkills.Contains(skill))
+            {
+                equipSkills.Add(skill);
+                Debug.Log($"{data.Name} 스킬을 장착했습니다!");
+                OnChanged?.Invoke(); // 스킬 인벤토리 변경 알림
+            }
+            else
+            {
+                Debug.Log($"{data.Name} 스킬은 이미 장착되어 있습니다.");
+            }
+        }
+        else
+        {
+            Debug.Log("존재하지 않는 스킬 입니다.");
+        }
     }
 
     // 스킬 인벤토리 속 스킬 레벨업
@@ -61,9 +82,9 @@ public class SkillInventory
     {
         if (HasSkill(data))
         {
-            LearnSkills[GetSkillIndex(data)].LevelUP();
+            allSkills[GetSkillIndex(data)].LevelUP();
 
-            Debug.Log($"{data.Name} 스킬 레벨업! 현재 레벨: {LearnSkills[GetSkillIndex(data)].Level}");
+            Debug.Log($"{data.Name} 스킬 레벨업! 현재 레벨: {allSkills[GetSkillIndex(data)].Level}");
         }
         else
         {
@@ -75,7 +96,7 @@ public class SkillInventory
 
     public void ReduceCooldown(int amount)
     {
-        foreach (SkillStatus skill in LearnSkills)
+        foreach (SkillStatus skill in allSkills)
         {
             skill.ReduceCooldown(amount);
         }
@@ -84,9 +105,9 @@ public class SkillInventory
     // 스킬 인벤토리에서 스킬 찾기
     private int GetSkillIndex(SkillData data)
     {
-        for (int i = 0; i < LearnSkills.Count; i++)
+        for (int i = 0; i < allSkills.Count; i++)
         {
-            if (LearnSkills[i].Data.ID == data.ID)
+            if (allSkills[i].Data.ID == data.ID)
             {
                 return i;
             }
@@ -99,5 +120,18 @@ public class SkillInventory
     public bool HasSkill(SkillData data)
     {
         return GetSkillIndex(data) != -1;
+    }
+
+    public SkillStatus GetSkillStatus(SkillData data)
+    {
+        for (int i = 0; i < allSkills.Count; i++)
+        {
+            if (allSkills[i].Data.ID == data.ID)
+            {
+                return allSkills[i];
+            }
+        }
+
+        return null;
     }
 }
