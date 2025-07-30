@@ -25,12 +25,10 @@ public class B_Slot : MonoBehaviour
 
     [Header("포인터 / 아우라")]
     [SerializeField] private GameObject pointer;
-    [SerializeField] private Animator aura;
 
     public bool IsDead => character == null || character.IsDead;
     public CharacterStatus Character => character;
     public GameObject Pointer => pointer;
-    public Animator Aura => aura;
 
     public void SetSlot(CharacterStatus status)
     {

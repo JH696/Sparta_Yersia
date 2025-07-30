@@ -83,8 +83,6 @@ public class B_BattleButtons : MonoBehaviour
     public void OnTurnStart(B_Slot slot)
     {
         curSlot = slot;
-        slot.Aura.SetBool("IsCasting", true);
-
         Canvas canvas = GetComponentInParent<Canvas>();
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();
         RectTransform myRect = GetComponent<RectTransform>();
@@ -104,7 +102,6 @@ public class B_BattleButtons : MonoBehaviour
 
     private void OnTurnEnd()
     {
-        curSlot.Aura.SetBool("IsCasting", false);
         actionType = E_ActionType.None;
         selectedSkill = null;
         selectedItem = null;
@@ -152,8 +149,6 @@ public class B_BattleButtons : MonoBehaviour
 
         dButtonParent.SetActive(true);
         aButtonParent.SetActive(false);
-
-
 
         if (skills.Count <= 0) return;
 
@@ -247,36 +242,36 @@ public class B_BattleButtons : MonoBehaviour
         switch (actionType)
         {
             case E_ActionType.Attack:
-                foreach (B_Slot slot in actionHandler.Targets)
+                foreach (BattleEffecter effecter in actionHandler.Targets)
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
-                    CharacterStatus target = slot.Character;    
+                    CharacterStatus target = effecter.Slot.Character;
 
-                    target.TakeDamage(cal.DamageCalculate(stats, target.stat, null));
+                    effecter.SetEffecter("base", cal.DamageCalculate(stats, target.stat, null));
                 }
                 break;
  
             case E_ActionType.Skill:
                 selectedSkill.Cast(curSlot.Character);
-                foreach (B_Slot slot in actionHandler.Targets)
+                foreach (BattleEffecter effecter in actionHandler.Targets)
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
-                    CharacterStatus target = slot.Character;
+                    CharacterStatus target = effecter.Slot.Character;
 
-                    target.TakeDamage(cal.DamageCalculate(stats, target.stat, selectedSkill));
+                    effecter.SetEffecter($"{selectedSkill.Data.ID}", cal.DamageCalculate(stats, target.stat, selectedSkill));
                 }
                 break;
 
             case E_ActionType.Item:
-                foreach (B_Slot target in actionHandler.Targets)
+                foreach (BattleEffecter effecter in actionHandler.Targets)
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
                     if (selectedItem.Data is ConsumeItemData itemData)
                     {
-                        itemData.Consume(target.Character);
+                        itemData.Consume(effecter.Slot.Character);
                     }
                     selectedItem.LoseItem(actionHandler.Targets.Count);
                 }
@@ -304,7 +299,7 @@ public class B_BattleButtons : MonoBehaviour
 
         }
 
-        OnTurnEnd();
+        //OnTurnEnd();
     }
 
     private void OnCancelButton()
