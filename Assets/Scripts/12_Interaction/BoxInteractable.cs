@@ -16,8 +16,8 @@ public class BoxInteractable : MonoBehaviour, IInteractable
     [Header("F키 안내 텍스트 (선택)")]
     [SerializeField] private GameObject interactText;
 
-    private bool _canInteract;
-    private GameObject _player;
+    private bool canInteract;
+    private GameObject player;
 
     void Start()
     {
@@ -27,29 +27,27 @@ public class BoxInteractable : MonoBehaviour, IInteractable
         // 초기 상태
         closedBox?.SetActive(true);
         openedBox?.SetActive(false);
-        interactText?.SetActive(false);
     }
 
     void Update()
     {
-        if (_canInteract && Input.GetKeyDown(KeyCode.F))
-            Interact(_player);
+        if (canInteract && Input.GetKeyDown(KeyCode.F))
+            Interact(player);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        _player = other.gameObject;
-        _canInteract = true;
-        interactText?.SetActive(true);
+        player = other.gameObject;
+        canInteract = true;
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        _canInteract = false;
+        canInteract = false;
         interactText?.SetActive(false);
-        _player = null;
+        player = null;
     }
 
     public void Interact(GameObject interactor)
