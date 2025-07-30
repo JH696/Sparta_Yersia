@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MonsterData", menuName = "Data/MonsterData")]
-public class MonsterData : StatData, ISkillUsable, IBattable
+public class MonsterData : StatData, ISkillUsable
 {
     [Header("몬스터 ID / 이름")]
     public string MonsterID;

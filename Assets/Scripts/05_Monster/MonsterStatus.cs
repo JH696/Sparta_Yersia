@@ -27,7 +27,7 @@ public class MonsterStatus : CharacterStatus
 
     public override Sprite GetWSprite()
     {
-        return data.WSprite; // 몬스터의 월드 스프라이트 반환
+        return data.BattleVisuals.Stand; // 몬스터의 월드 스프라이트 반환
     }
 
 }
