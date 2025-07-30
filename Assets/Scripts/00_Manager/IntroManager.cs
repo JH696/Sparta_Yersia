@@ -6,9 +6,12 @@ public class IntroManager : MonoBehaviour
 
     FadeIn fadein;
     CameraFollow cameraFollow;
+    TextEffect textEffect;
     [SerializeField] private CanvasGroup fade;  //로고+버튼들
     [SerializeField] private CanvasGroup fadeBlack;  //까만화면
     [SerializeField] private float fadeDelay;
+    [SerializeField] private string[] narrationTexts;
+
 
 
     // Start is called before the first frame update
@@ -16,6 +19,7 @@ public class IntroManager : MonoBehaviour
     {
         cameraFollow = GetComponent<CameraFollow>();
         fadein = GetComponent<FadeIn>();
+        textEffect = GetComponent<TextEffect>();
     }
     // Start is called before the first frame update
     void Start()
@@ -28,12 +32,6 @@ public class IntroManager : MonoBehaviour
         StartCoroutine(FadeInAndScrollAndFadeOut());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public IEnumerator FadeInAndScrollAndFadeOut()
     {
         foreach (var data in cameraFollow.images)
@@ -43,12 +41,13 @@ public class IntroManager : MonoBehaviour
             StartCoroutine(fadein.Fade(fadeBlack, 1f, 0f));
             yield return new WaitForSeconds(fadein.fadeDuration + fadeDelay);
             StartCoroutine(cameraFollow.Scroll());
-            //텍스트 출력
-            yield return new WaitForSeconds(cameraFollow.image.duration + fadeDelay);
+            StartCoroutine(textEffect.PrintText(data.narrationText, 0.1f));
+            yield return new WaitForSeconds(data.duration + fadeDelay);
             StartCoroutine(fadein.Fade(fadeBlack, 0f, 1f));
             yield return new WaitForSeconds(fadein.fadeDuration + fadeDelay);
             data.backGround.gameObject.SetActive(false);
 
         }
+        SceneLoader.LoadScene("Scene_LSY");
     }
 }
