@@ -133,8 +133,6 @@ public class CharacterStats
 
         attack *= multiplier;
         defense *= multiplier;
-        luck *= multiplier;
-        speed *= multiplier;
 
         MaxExp = Mathf.RoundToInt(MaxExp * multiplier);
 

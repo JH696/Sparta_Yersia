@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Data/PlayerData")]
-public class PlayerData : StatData, ISkillLearnableCharacter
+public class PlayerData : StatData, ISkillUsable
 {
     [Header("플레이어 이름")]
     public string Name = "플레이어";
@@ -17,14 +17,13 @@ public class PlayerData : StatData, ISkillLearnableCharacter
     [Header("초기 스킬 리스트")]
     [SerializeField] private List<SkillData> startSkills = new List<SkillData>();
 
-    [Header("학습 가능 스킬 리스트")]
-    [SerializeField] private List<SkillData> learnableSkills = new List<SkillData>();
-
     [Header("플레이어 스프라이트")]
     public Sprite WSprite; // 월드
     public Sprite DSprite; // 대화
     public Sprite Icon; // 아이콘
 
+    [Header("배틀씬")]
+    public BattleVisuals BattleVisuals;
+
     public List<SkillData> StartSkills => startSkills;
-    public List<SkillData> LearnableSkills => learnableSkills;
 }

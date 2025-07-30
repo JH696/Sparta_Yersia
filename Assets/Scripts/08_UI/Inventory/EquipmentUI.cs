@@ -25,8 +25,6 @@ public class EquipmentUI : MonoBehaviour
     // 장비 아이콘 동기화 메서드
     private void RefreshIcon()
     {
-        Debug.Log("아이콘 업데이트");
-
         for (int i = 0; i < icon.Count; i++)
         {
             Sprite icon = player.Status.equipment.GetItemIcon((E_EquipType)i);
