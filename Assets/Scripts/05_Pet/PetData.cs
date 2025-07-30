@@ -23,7 +23,7 @@ public class PetSaveData
 }
 
 [CreateAssetMenu(fileName = "PetData", menuName = "Data/PetData")]
-public class PetData : StatData, ISkillLearnableCharacter
+public class PetData : StatData, ISkillUsable
 {
     [Header("펫 ID 및 이름")]
     public string PetID;
@@ -51,11 +51,10 @@ public class PetData : StatData, ISkillLearnableCharacter
     [Header("초기 스킬 리스트")]
     [SerializeField] private List<SkillData> startSkills = new List<SkillData>();
 
-    [Header("학습 가능 스킬 리스트")]
-    [SerializeField] private List<SkillData> learnableSkills = new List<SkillData>();
+    [Header("배틀씬")]
+    public BattleVisuals BattleVisuals;
 
     public List<SkillData> StartSkills => startSkills;
-    public List<SkillData> LearnableSkills => learnableSkills;
 }
 
 [Serializable]

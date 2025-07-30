@@ -17,7 +17,7 @@ public class SkillInventory
 
     public event System.Action OnChanged;
 
-    public SkillInventory(ISkillLearnableCharacter startSkills)
+    public SkillInventory(ISkillUsable startSkills)
     {
         foreach (SkillData skill in startSkills.StartSkills)
         {
