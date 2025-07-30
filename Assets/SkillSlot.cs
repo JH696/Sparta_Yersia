@@ -3,49 +3,81 @@ using UnityEngine.UI;
 
 public class SkillSlot : MonoBehaviour
 {
-    [SerializeField] private SkillInventory sInventory; 
+    [SerializeField] private SkillSlot previousSlot;
 
     [SerializeField] private SkillData data;
 
-    [SerializeField] private Button learnButton;
-
     [SerializeField] private Image icon;
+
+    [SerializeField] private Image lockIcon;
+
+    public SkillData Data => data;
 
     public void Start()
     {
-        SetSlot(GameManager.player.skills);
-    }
+        if (data == null)
+        {
+            icon.enabled = false; // 아이콘 비활성화
+            return;
+        }
 
-    public void SetSlot(SkillInventory sInventory)
-    {
-        icon.sprite = data.Icon;
-        this.sInventory = sInventory;
-        sInventory.OnChanged += RefreshSlot;
+        GameManager.player.skills.OnChanged += RefreshSlot;
+
         RefreshSlot();
     }
 
-
     public void RefreshSlot()
     {
-        learnButton.onClick.RemoveAllListeners();
+        SkillInventory sInventory = GameManager.player.skills;
+        icon.sprite = data.Icon;
 
-        if (GameManager.player.skills.HasSkill(data))
+        if (previousSlot == null)
         {
-            icon.color = Color.white; // 스킬이 있는 경우 아이콘을 보이게 함
-            learnButton.onClick.AddListener(() => sInventory.LevelUpSkill(data)); // 스킬 레벨업 버튼 설정
+            lockIcon.enabled = false;
+
+            if (sInventory.HasSkill(data))
+            {
+                icon.color = Color.white; // 스킬이 있는 경우 아이콘을 보이게 함
+            }
+            else
+            {
+                icon.color = new Color(0.25f, 0.25f, 0.25f);
+            }
+
+            return;
+        }
+
+        if (!IsLocked())
+        {
+            lockIcon.enabled = false;
+
+            if (sInventory.HasSkill(data))
+            {
+                icon.color = Color.white; // 스킬이 있는 경우 아이콘을 보이게 함
+            }
+            else
+            {
+                icon.color = new Color(0.25f, 0.25f, 0.25f);
+            }
         }
         else
         {
-            icon.color = Color.gray; // 스킬이 없는 경우 아이콘을 회색으로 표시
-            learnButton.onClick.AddListener(LearnSKill); // 스킬 학습 버튼 설정
+            lockIcon.enabled = true;
+            icon.color = new Color(0.25f, 0.25f, 0.25f);
         }
     }
 
-    public void LearnSKill()
+    public bool IsLocked()
     {
-        //GameManager.player.skillPoint--;
+        if (previousSlot == null) return false;
 
-        sInventory.AddSkill(data);
+        PlayerStatus player = GameManager.player;
+
+        if (!player.skills.HasSkill(previousSlot.Data) || player.Rank < data.Rank)
+        {
+            return true;
+        }
+
+        return false;
     }
-
 }

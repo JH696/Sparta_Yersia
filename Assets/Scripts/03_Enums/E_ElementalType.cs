@@ -1,7 +1,8 @@
 ﻿public enum E_ElementalType
 {
-    Fire,
-    Ice,
-    Nature,
-    Physical,
+    None = 0,
+    Fire = 1,
+    Ice = 2,
+    Nature = 3,
+    Physical = 4,
 }

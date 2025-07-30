@@ -38,9 +38,6 @@ public class TriggerMonster : MonoBehaviour
     private void FixedUpdate()
     {
         if (BattleManager.Instance.IsBattleActive) return;
-
-
-
         moveTimer -= Time.fixedDeltaTime;
         if (moveTimer <= 0f)
         {

@@ -3,41 +3,49 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public RectTransform backGround;
-    public Vector2 startPosition;      // 시작 위치
-    public Vector2 endPosition;        // 도착 위치
-    public float duration = 1.5f;        // 이동 시간 (초)
+    [System.Serializable]
+    public class MovingImage
+    {
+        public RectTransform backGround;
+        public Vector2 startPosition;      // 시작 위치
+        public Vector2 endPosition;        // 도착 위치
+        public float duration = 1.5f;        // 이동 시간 (초)
+        public string narrationText;
+    }
+    public MovingImage image;
+    public MovingImage[] images;
 
     private float elapsedTime = 0f;
-    private bool isMoving = true;
-
-    FadeIn fadein;
+    private bool isMoving = false;
 
     void Start()
     {
-        //fadein = GetComponent<FadeIn>();
-        backGround.anchoredPosition = startPosition;
-        //StartCoroutine(Scroll());
+        image.backGround.gameObject.SetActive(false);
     }
 
     public IEnumerator Scroll()
     {
-        if (!isMoving) yield break;
+        if (isMoving) yield break;
 
-        while (elapsedTime < duration)
+        isMoving = true;
+        elapsedTime = 0f;
+
+        image.backGround.gameObject.SetActive(true);
+        image.backGround.anchoredPosition = image.startPosition;
+
+        while (elapsedTime < image.duration)
         {
-            float t = Mathf.Clamp01(elapsedTime / duration); // 0~1 보간값
-            //부드럽게 이동
+            float t = Mathf.Clamp01(elapsedTime / image.duration); // 0~1 보간값
+                                                                   //부드럽게 이동
             t = Mathf.SmoothStep(0f, 1f, t);
             // 선형 보간 (Lerp)으로 위치 이동
-            backGround.anchoredPosition = Vector2.Lerp(startPosition, endPosition, t);
+            image.backGround.anchoredPosition = Vector2.Lerp(image.startPosition, image.endPosition, t);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        if (elapsedTime >= duration)
+        if (elapsedTime >= image.duration)
         {
             isMoving = false;
-            //yield return StartCoroutine(fadein.Fade(0f, 1f));
         }
     }
 }

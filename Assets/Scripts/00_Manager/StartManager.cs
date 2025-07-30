@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StartManager : MonoBehaviour
@@ -8,6 +7,7 @@ public class StartManager : MonoBehaviour
     CameraFollow cameraFollow;
     [SerializeField] private CanvasGroup fade;  //로고+버튼들
     [SerializeField] private CanvasGroup fadeBlack;  //까만화면
+    [SerializeField] private float fadeDelay = 0.5f;  //
     // Start is called before the first frame update
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class StartManager : MonoBehaviour
     IEnumerator ScrollAndFadeInUI()
     {
         StartCoroutine(cameraFollow.Scroll());
-        yield return new WaitForSeconds(cameraFollow.duration);
+        yield return new WaitForSeconds(cameraFollow.image.duration + fadeDelay);
         StartCoroutine(fadein.Fade(fade, 0f, 1f));
     }
     public void OnClickNewGame()
@@ -55,7 +55,7 @@ public class StartManager : MonoBehaviour
     IEnumerator FadeOutAndQuit()
     {
         StartCoroutine(fadein.Fade(fadeBlack, 0f, 1f));
-        yield return new WaitForSeconds(fadein.fadeDuration);
+        yield return new WaitForSeconds(fadein.fadeDuration + fadeDelay);
 //유니티 에디터일 경우 플레이모드 종료
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
