@@ -3,7 +3,10 @@ using System.Collections;
 
 public class Portal : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Transform destination;
+    [SerializeField] private Transform Destination;
+
+    [Header("펫 스폰 포인트")]
+    [SerializeField] private Transform[] petSpawnPoints;
 
     [Header("전환 연출 설정")]
     [SerializeField] private EPortalEffectType portalEffectType;
@@ -39,7 +42,7 @@ public class Portal : MonoBehaviour, IInteractable
         yield return portalEffect.PlayBeforeTeleport();
 
         // 플레이어 위치 이동
-        Vector2 vec = destination.position;
+        Vector2 vec = Destination.position;
         vec.y -= 0.5f;
         target.position = vec;
 
@@ -47,16 +50,23 @@ public class Portal : MonoBehaviour, IInteractable
         Player player = target.GetComponent<Player>();
         if (player != null && player.Party != null)
         {
-            Vector3 basePos = target.position;
-
             var partyList = player.Party.GetOrderedParty();
             for (int i = 0; i < partyList.Count; i++)
             {
                 PetStatus status = partyList[i];
                 if (status == null || status.PetInstance == null) continue;
 
-                Vector3 offset = new Vector3(1f + i * 0.5f, 0f, 0f); // 플레이어 오른쪽에 배치
-                status.PetInstance.transform.position = basePos + offset;
+                // 수동 지정된 스폰 포인트가 있으면 그 위치로 이동
+                if (i < petSpawnPoints.Length && petSpawnPoints[i] != null)
+                {
+                    status.PetInstance.transform.position = petSpawnPoints[i].position;
+                }
+                else
+                {
+                    // 부족할 경우 fallback 위치 적용
+                    Vector3 fallbackOffset = new Vector3(1f + i * 0.5f, 0f, 0f);
+                    status.PetInstance.transform.position = target.position + fallbackOffset;
+                }
             }
         }
 
