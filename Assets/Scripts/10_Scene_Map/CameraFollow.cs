@@ -10,6 +10,7 @@ public class CameraFollow : MonoBehaviour
         public Vector2 startPosition;      // 시작 위치
         public Vector2 endPosition;        // 도착 위치
         public float duration = 1.5f;        // 이동 시간 (초)
+        public string narrationText;
     }
     public MovingImage image;
     public MovingImage[] images;
