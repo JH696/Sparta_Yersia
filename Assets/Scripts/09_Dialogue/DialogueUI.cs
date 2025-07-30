@@ -16,7 +16,11 @@ public class DialogueUI : MonoBehaviour
 
     [Header("버튼")]
     [SerializeField] private GameObject passBtn;
+    [SerializeField] private GameObject skipBtn;
     [SerializeField] private ChoiceButtons choiceBtns;
+
+    [Header("스킬 학습 UI")]
+    [SerializeField] private SkillMasteryUI masteryUI;
 
     [Header("자동 참조 (시각화)")]
     [SerializeField] private DialogueData[] allDialogues;
@@ -25,6 +29,9 @@ public class DialogueUI : MonoBehaviour
 
     [Header("타이핑 속도")]
     [SerializeField] private float typingSpeed = 0.05f;
+
+    [Header("대화 스킵, 패스 가능 상태 여부")]
+    [SerializeField] private bool cantPass;
 
     private int curLineIndex;
     private Coroutine typingCoroutine;
@@ -127,6 +134,8 @@ public class DialogueUI : MonoBehaviour
     // 대화 종료 (Leave Button) 
     public void ExitDialogue()
     {
+        cantPass = false;
+        skipBtn.SetActive(true);
         passBtn.SetActive(false);
         choiceBtns.gameObject.SetActive(false);
         choiceBtns.RemoveChoiceButton();
@@ -202,7 +211,11 @@ public class DialogueUI : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
 
-        passBtn.SetActive(true);
+        if (!cantPass)
+        {
+            passBtn.SetActive(true);
+        }
+
         typingCoroutine = null;
     }
 
@@ -245,5 +258,41 @@ public class DialogueUI : MonoBehaviour
                 choiceBtns.SpawnAssignBtn(quest);
             }
         }
+
+        if (curNpc.IsTeacher)
+        {
+            Button studyBtn = choiceBtns.SpawnUtilityBtn("마법 배우기");
+            studyBtn.onClick.AddListener(OnStudyButton);
+        }
+    }
+
+    private void OnStudyButton()
+    {
+        cantPass = true;
+        skipBtn.SetActive(false);
+        playerImg.enabled = false;
+
+        E_ElementalType type = new E_ElementalType();
+
+        switch (curNpc.GetNpcData().NpcID)
+        {
+            case "N_n002":
+                type = E_ElementalType.Physical;
+                break;
+            case "N_n003":
+                type = E_ElementalType.Fire;
+                break;
+            case "N_n004":
+                type = E_ElementalType.Ice;
+                break;
+            case "N_n005":
+                type = E_ElementalType.Nature;
+                break;
+            default:
+                Debug.Log("이 NPC는 선생님이 아닙니다.");
+                break;
+        }
+
+        masteryUI.ShowSkillMasteryUI(type);
     }
 }

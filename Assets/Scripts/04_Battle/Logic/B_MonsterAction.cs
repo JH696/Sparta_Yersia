@@ -19,7 +19,7 @@ public class B_MonsterAction : MonoBehaviour
             return;
         }
 
-        List<SkillStatus> skills = curStatus.skills.LearnSkills;
+        List<SkillStatus> skills = curStatus.skills.EquipSkills;
         List<SkillStatus> castableSkills = skills
             .Where(skill => skill.CanCast(curStatus))
             .ToList();

@@ -69,7 +69,7 @@ public class BattleManager : MonoBehaviour
             totalYp += monster.ypDrop;
         }
         GameManager.player.stat.AddExp(totalExp);
-        //player.AddYp(totalYp);
+        GameManager.player.Wallet.AddYP(totalYp);
 
         yield return new WaitForSeconds(1f);
 

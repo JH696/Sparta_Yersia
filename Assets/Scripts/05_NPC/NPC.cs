@@ -16,6 +16,9 @@ public class NPC : MonoBehaviour, IInteractable
     [Header("진행 중인 퀘스트")]
     [SerializeField] private List<QuestData> ReceiverQuests;
 
+    [SerializeField] private bool isTeacher = false;
+
+    public bool IsTeacher => isTeacher;
 
     private void Awake()
     {
@@ -28,6 +31,7 @@ public class NPC : MonoBehaviour, IInteractable
 
         UpdateRequests();
     }
+
     void OnDisable()
     {
         QuestManager.Instance.QuestUpdate -= UpdateRequests;

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChoiceButtons : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class ChoiceButtons : MonoBehaviour
     [SerializeField] private GameObject assginBtn;
     [SerializeField] private GameObject receiveBtn;
     [SerializeField] private GameObject clearBtn;
+
+    [Header("유틸리티 버튼 프리팹")]
+    [SerializeField] private GameObject utilityBtn;
 
     [Header("생성된 버튼 리스트 (시각화)")]
     [SerializeField] private List<GameObject> ButtonList;
@@ -40,6 +44,15 @@ public class ChoiceButtons : MonoBehaviour
         choiceBtn.GetComponent<ClearButton>().SetButton(questData);
 
         ButtonList.Add(choiceBtn);
+    }
+
+    public Button SpawnUtilityBtn(string text)
+    {
+        GameObject choiceBtn = Instantiate(utilityBtn, this.transform);
+        choiceBtn.GetComponent<UtillityButton>().SetUtillityButton(text);
+        ButtonList.Add(choiceBtn);
+
+        return choiceBtn.GetComponent<Button>();
     }
 
     // [외부] : 생성된 모든 선택지 버튼 제거 

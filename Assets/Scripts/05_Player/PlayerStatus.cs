@@ -2,15 +2,20 @@
 
 [System.Serializable]
 public class PlayerStatus : CharacterStatus
-{
+{   
+    // 이름, 랭크, 스킬 포인트
+    public string PlayerName;
+    public E_Rank Rank;
+    public int SkillPoints;
+
+    // 파티, 퀘스트
     public PlayerParty party;
     public PlayerQuest quest;
-    // 인벤토리, 장비
-    // 플레이어 이름
-    public string PlayerName;
-    // 플레이어 데이터
+
+    // 데이터, 지갑
     public PlayerData PlayerData;
     public PlayerWallet Wallet;
+
 
     public PlayerStatus(PlayerData data, string playerName)
     {
@@ -18,6 +23,8 @@ public class PlayerStatus : CharacterStatus
         this.stat = new CharacterStats(data);
 
         PlayerName = string.IsNullOrEmpty(playerName) ? data.Name : playerName;
+        Rank = data.Rank;
+        SkillPoints = 1;
 
         party = new PlayerParty();
         inventory = new ItemInventory();
@@ -25,6 +32,8 @@ public class PlayerStatus : CharacterStatus
         equipment = new ItemEquipment(this);
         skills = new SkillInventory(PlayerData);
         Wallet = new PlayerWallet();
+
+        stat.LevelUP += LevelUp; // 레벨업 시 랭크 상승 처리
     }
 
     public void SetPlayerName(string name)
@@ -36,5 +45,18 @@ public class PlayerStatus : CharacterStatus
     {
         // 플레이어의 월드 스프라이트 반환
         return PlayerData.WSprite;
+    }
+
+    private void LevelUp()
+    {
+        SkillPoints++;
+
+        if (stat.Level % 10 == 0)
+        {
+            if ((int)Rank < (int)E_Rank.Expert)
+            {
+                Rank = (E_Rank)((int)Rank + 1);
+            }
+        }
     }
 }
