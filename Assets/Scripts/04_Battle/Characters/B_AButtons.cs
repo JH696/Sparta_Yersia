@@ -17,8 +17,8 @@ public class B_BattleButtons : MonoBehaviour
     [Header("선택한 행동")]
     [SerializeField] private E_ActionType actionType = E_ActionType.None;
 
-    [Header("행동 중인 캐릭터")]
-    [SerializeField] private CharacterStatus curStatus;
+    [Header("행동 중인 슬롯")]
+    [SerializeField] private B_Slot curSlot;
 
     [Header("액션 핸들러")]
     [SerializeField] private B_ActionHandler actionHandler;
@@ -82,7 +82,8 @@ public class B_BattleButtons : MonoBehaviour
 
     public void OnTurnStart(B_Slot slot)
     {
-        curStatus = slot.Character;
+        curSlot = slot;
+        slot.Aura.SetBool("IsCasting", true);
 
         Canvas canvas = GetComponentInParent<Canvas>();
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();
@@ -103,6 +104,7 @@ public class B_BattleButtons : MonoBehaviour
 
     private void OnTurnEnd()
     {
+        curSlot.Aura.SetBool("IsCasting", false);
         actionType = E_ActionType.None;
         selectedSkill = null;
         selectedItem = null;
@@ -117,13 +119,14 @@ public class B_BattleButtons : MonoBehaviour
         allowBtn.gameObject.SetActive(false);
         cancelBtn.gameObject.SetActive(false);
 
-        if (curStatus.IsDead)
+        if (curSlot.Character.IsDead)
         {
             actionHandler.EndTargeting(true);
             return;
         }
 
         actionHandler.EndTargeting(false);
+        curSlot = null;
     }
 
    public void OnAttackButton()
@@ -143,12 +146,14 @@ public class B_BattleButtons : MonoBehaviour
             btn.OnSkillSelected -= UseSkill;
         }
 
-        List<SkillStatus> skills = curStatus.skills.EquipSkills;
+        List<SkillStatus> skills = curSlot.Character.skills.EquipSkills;
 
         actionType = E_ActionType.Skill;
 
         dButtonParent.SetActive(true);
         aButtonParent.SetActive(false);
+
+
 
         if (skills.Count <= 0) return;
 
@@ -186,7 +191,7 @@ public class B_BattleButtons : MonoBehaviour
 
     private void UseSkill(SkillStatus status)
     {
-        if (curStatus.stat.CurrentMana < status.Data.Cost) return;
+        if (curSlot.Character.stat.CurrentMana < status.Data.Cost) return;
 
         selectedSkill = status;
         actionType = E_ActionType.Skill;
@@ -237,6 +242,8 @@ public class B_BattleButtons : MonoBehaviour
 
         DamageCalculator cal = new DamageCalculator();
 
+        CharacterStats stats = curSlot.Character.stat;
+
         switch (actionType)
         {
             case E_ActionType.Attack:
@@ -246,19 +253,19 @@ public class B_BattleButtons : MonoBehaviour
 
                     CharacterStatus target = slot.Character;    
 
-                    target.TakeDamage(cal.DamageCalculate(curStatus.stat, target.stat, null));
+                    target.TakeDamage(cal.DamageCalculate(stats, target.stat, null));
                 }
                 break;
  
             case E_ActionType.Skill:
-                selectedSkill.Cast(curStatus);
+                selectedSkill.Cast(curSlot.Character);
                 foreach (B_Slot slot in actionHandler.Targets)
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
                     CharacterStatus target = slot.Character;
 
-                    target.TakeDamage(cal.DamageCalculate(curStatus.stat, target.stat, selectedSkill));
+                    target.TakeDamage(cal.DamageCalculate(stats, target.stat, selectedSkill));
                 }
                 break;
 
@@ -276,12 +283,12 @@ public class B_BattleButtons : MonoBehaviour
                 break;
 
             case E_ActionType.Rest:
-                curStatus.RecoverMana(curStatus.stat.MaxMana * 0.1f);
+                curSlot.Character.RecoverMana(stats.MaxMana * 0.1f);
                 break;
 
             case E_ActionType.Run:
                 float roll = Random.Range(0f, 100f);
-                if (roll <= curStatus.stat.Luck)
+                if (roll <= stats.Luck)
                 {
                     BattleManager.Instance.Lose();
                     allowBtn.gameObject.SetActive(false);

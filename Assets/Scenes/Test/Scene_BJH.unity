@@ -1972,7 +1972,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 756733990}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &136163478
 SpriteRenderer:
@@ -2482,7 +2483,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 1220391457}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &156716914
 SpriteRenderer:
@@ -4332,7 +4334,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 1125143611}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &305094159
 SpriteRenderer:
@@ -4481,7 +4484,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 1766271455}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &306917058
 SpriteRenderer:
@@ -5175,7 +5179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 1541075406}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &369377396
 SpriteRenderer:
@@ -6894,7 +6899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 1264615462}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &450367636
 SpriteRenderer:
@@ -14730,7 +14736,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 136163474}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &756733994
 SpriteRenderer:
@@ -17809,7 +17816,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 1389092160}
+  Destination: {fileID: 1389092160}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &962448838
 SpriteRenderer:
@@ -20140,7 +20148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 1563067717}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &1078805577
 SpriteRenderer:
@@ -21150,7 +21159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 305094155}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &1125143610
 SpriteRenderer:
@@ -23313,7 +23323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 156716915}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &1220391456
 SpriteRenderer:
@@ -23911,7 +23922,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 450367632}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &1264615466
 SpriteRenderer:
@@ -25317,7 +25329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 962448834}
+  Destination: {fileID: 962448834}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &1389092159
 SpriteRenderer:
@@ -28535,7 +28548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 369377397}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &1541075405
 SpriteRenderer:
@@ -29087,7 +29101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 1078805573}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &1563067721
 SpriteRenderer:
@@ -32565,7 +32580,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 306917054}
+  Destination: {fileID: 0}
+  petSpawnPoints: []
   portalEffectType: 1
 --- !u!212 &1766271459
 SpriteRenderer:
@@ -100631,6 +100647,7 @@ MonoBehaviour:
   moveableLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  interactTextPrefab: {fileID: 0}
 --- !u!483693784 &5870381890888246224
 TilemapRenderer:
   m_ObjectHideFlags: 0
