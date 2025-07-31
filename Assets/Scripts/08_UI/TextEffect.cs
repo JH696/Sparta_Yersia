@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class TextEffect : MonoBehaviour
 {
     public TextMeshProUGUI narrationText;
-    public string narration;
 
     public IEnumerator PrintText(string text, float delay)
     {
@@ -20,6 +19,5 @@ public class TextEffect : MonoBehaviour
 
             yield return new WaitForSeconds(delay);
         }
-        yield return new WaitForSeconds(2f);
     }
 }
