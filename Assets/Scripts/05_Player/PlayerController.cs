@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInput()
     {
-        if (DialogueManager.Instance.IsDialogueActive || BattleManager.Instance.IsBattleActive) return;
+        //if (DialogueManager.Instance.IsDialogueActive || BattleManager.Instance.IsBattleActive) return;
 
         if (Input.GetMouseButtonDown(1))
         {
