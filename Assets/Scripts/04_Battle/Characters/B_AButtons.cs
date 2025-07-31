@@ -100,7 +100,7 @@ public class B_BattleButtons : MonoBehaviour
         aButtonParent.SetActive(true);
     }
 
-    private void OnTurnEnd()
+    public void OnTurnEnd()
     {
         actionType = E_ActionType.None;
         selectedSkill = null;
@@ -112,9 +112,6 @@ public class B_BattleButtons : MonoBehaviour
             btn.OnItemSelected -= UseItem;
             btn.ResetButton();
         }
-
-        allowBtn.gameObject.SetActive(false);
-        cancelBtn.gameObject.SetActive(false);
 
         if (curSlot.Character.IsDead)
         {
@@ -235,8 +232,6 @@ public class B_BattleButtons : MonoBehaviour
             }
         }
 
-        DamageCalculator cal = new DamageCalculator();
-
         CharacterStats stats = curSlot.Character.stat;
 
         switch (actionType)
@@ -246,9 +241,7 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
-                    CharacterStatus target = effecter.Slot.Character;
-
-                    effecter.SetEffecter("base", cal.DamageCalculate(stats, target.stat, null));
+                    effecter.SetBaseEffect(curSlot.Character.stat, this);
                 }
                 break;
  
@@ -258,9 +251,7 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
-                    CharacterStatus target = effecter.Slot.Character;
-
-                    effecter.SetEffecter($"{selectedSkill.Data.ID}", cal.DamageCalculate(stats, target.stat, selectedSkill));
+                    effecter.SetSkillEffecter(curSlot.Character.stat, selectedSkill, this);
                 }
                 break;
 
@@ -275,10 +266,13 @@ public class B_BattleButtons : MonoBehaviour
                     }
                     selectedItem.LoseItem(actionHandler.Targets.Count);
                 }
+
+                OnTurnEnd();
                 break;
 
             case E_ActionType.Rest:
                 curSlot.Character.RecoverMana(stats.MaxMana * 0.1f);
+                OnTurnEnd();
                 break;
 
             case E_ActionType.Run:
@@ -295,11 +289,13 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     Debug.Log("도망 실패");
                 }
+                OnTurnEnd();
                 break;
 
         }
 
-        //OnTurnEnd();
+        allowBtn.gameObject.SetActive(false);
+        cancelBtn.gameObject.SetActive(false);
     }
 
     private void OnCancelButton()
