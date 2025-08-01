@@ -59,4 +59,9 @@ public class PlayerStatus : CharacterStatus
             }
         }
     }
+
+    public override BattleVisuals GetBattleVisuals()
+    {
+        return PlayerData.BattleVisuals;
+    }
 }

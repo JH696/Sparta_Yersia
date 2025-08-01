@@ -17,8 +17,7 @@ public class DamageCalculator
 
         // 데미지 계산
         float power = skill == null? atk : atk * skill.Power;
-        float damage = IsCritical(luck) ? power * 1.5f : power;
-        float finalDamage = damage - (target.Defense * 0.5f);
+        float finalDamage = power - (target.Defense * 0.5f);
 
         return finalDamage;
     }

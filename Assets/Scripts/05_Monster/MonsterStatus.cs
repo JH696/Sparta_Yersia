@@ -30,4 +30,8 @@ public class MonsterStatus : CharacterStatus
         return data.BattleVisuals.Stand; // 몬스터의 월드 스프라이트 반환
     }
 
+    public override BattleVisuals GetBattleVisuals()
+    {
+        return data.BattleVisuals;
+    }
 }

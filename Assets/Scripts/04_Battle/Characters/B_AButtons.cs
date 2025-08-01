@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,9 @@ public class B_BattleButtons : MonoBehaviour
 
     [Header("액션 핸들러")]
     [SerializeField] private B_ActionHandler actionHandler;
+
+    [Header("슬롯 매니저")]
+    [SerializeField] private B_SlotManager slotManager;
 
     [Header("행동 버튼 부모")]
     [SerializeField] private GameObject aButtonParent;
@@ -90,9 +94,11 @@ public class B_BattleButtons : MonoBehaviour
         // 월드 좌표 → 화면 좌표
         Vector2 screenPos = BattleManager.Instance.BattleCamera.WorldToScreenPoint(slot.gameObject.transform.position);
 
+        // 사용할 카메라: Render Mode가 Overlay면 null, 아니면 canvas의 worldCamera 사용
+        Camera renderCam = (canvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : canvas.worldCamera;
+
         // 화면 좌표 → 캔버스 로컬 좌표
-        Vector2 localPoint;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main, out localPoint))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, renderCam, out Vector2 localPoint))
         {
             myRect.localPosition = localPoint;
         }
@@ -100,7 +106,7 @@ public class B_BattleButtons : MonoBehaviour
         aButtonParent.SetActive(true);
     }
 
-    private void OnTurnEnd()
+    public void OnTurnEnd()
     {
         actionType = E_ActionType.None;
         selectedSkill = null;
@@ -113,9 +119,6 @@ public class B_BattleButtons : MonoBehaviour
             btn.ResetButton();
         }
 
-        allowBtn.gameObject.SetActive(false);
-        cancelBtn.gameObject.SetActive(false);
-
         if (curSlot.Character.IsDead)
         {
             actionHandler.EndTargeting(true);
@@ -124,6 +127,64 @@ public class B_BattleButtons : MonoBehaviour
 
         actionHandler.EndTargeting(false);
         curSlot = null;
+    }
+
+    public void OnMonsterturn(B_Slot slot)
+    {
+        curSlot = slot;
+
+        CharacterStatus curStatus = slot.Character;
+
+        List<BattleEffecter> effecters = slotManager.GetNonEmptySlots()
+            .Where(slot => slot.GetSlotType() == E_B_SlotType.Ally)
+            .Select(slot => slot.GetComponentInChildren<BattleEffecter>())
+            .Where(effecter => effecter != null) // ← 이거 추가
+            .ToList();
+
+        if (effecters.Count == 0)
+        {
+            slotManager.ClearCurrentSlot();
+            return;
+        }
+
+        List<SkillStatus> skills = curStatus.skills.AllSkills;
+        List<SkillStatus> castableSkills = skills
+            .Where(skill => skill.CanCast(curStatus))
+            .ToList();
+
+        List<BattleEffecter> randomTargets = new List<BattleEffecter>();
+
+        if (castableSkills.Count <= 0 || Random.value <= 0.75f)
+        {
+            BattleEffecter target = effecters[Random.Range(0, effecters.Count)];
+
+            target.SetBaseEffect(curStatus.stat, this);
+            Debug.Log($"몬스터 {curStatus}이(가) {target}에게 일반 공격을 실행 했습니다.");
+        }
+        else
+        {
+            SkillStatus randomSkill = castableSkills[Random.Range(0, castableSkills.Count)];
+
+            int range = Mathf.Min(randomSkill.Data.Range, effecters.Count);
+
+            List<int> indices = Enumerable.Range(0, effecters.Count).ToList();
+            for (int i = 0; i < range; i++)
+            {
+                int rand = Random.Range(i, indices.Count);
+                (indices[i], indices[rand]) = (indices[rand], indices[i]);
+                randomTargets.Add(effecters[indices[i]]);
+            }
+
+            randomSkill.Cast(curStatus);
+
+            foreach (BattleEffecter e in randomTargets)
+            {
+                e.SetSkillEffecter(curStatus.stat, randomSkill, this);
+                Debug.Log($"몬스터 {curStatus}이(가) {e}에게 {randomSkill.Data.name}을 사용했습니다.");
+            }
+        }
+
+        slot.PlayAttackAnim();
     }
 
    public void OnAttackButton()
@@ -235,8 +296,6 @@ public class B_BattleButtons : MonoBehaviour
             }
         }
 
-        DamageCalculator cal = new DamageCalculator();
-
         CharacterStats stats = curSlot.Character.stat;
 
         switch (actionType)
@@ -246,9 +305,7 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
-                    CharacterStatus target = effecter.Slot.Character;
-
-                    effecter.SetEffecter("base", cal.DamageCalculate(stats, target.stat, null));
+                    effecter.SetBaseEffect(curSlot.Character.stat, this);
                 }
                 break;
  
@@ -258,9 +315,7 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
-                    CharacterStatus target = effecter.Slot.Character;
-
-                    effecter.SetEffecter($"{selectedSkill.Data.ID}", cal.DamageCalculate(stats, target.stat, selectedSkill));
+                    effecter.SetSkillEffecter(curSlot.Character.stat, selectedSkill, this);
                 }
                 break;
 
@@ -275,10 +330,13 @@ public class B_BattleButtons : MonoBehaviour
                     }
                     selectedItem.LoseItem(actionHandler.Targets.Count);
                 }
+
+                OnTurnEnd();
                 break;
 
             case E_ActionType.Rest:
                 curSlot.Character.RecoverMana(stats.MaxMana * 0.1f);
+                OnTurnEnd();
                 break;
 
             case E_ActionType.Run:
@@ -295,11 +353,13 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     Debug.Log("도망 실패");
                 }
+                OnTurnEnd();
                 break;
 
         }
 
-        //OnTurnEnd();
+        allowBtn.gameObject.SetActive(false);
+        cancelBtn.gameObject.SetActive(false);
     }
 
     private void OnCancelButton()
