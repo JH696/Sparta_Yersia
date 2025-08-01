@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("이동 관련")]
     [SerializeField] private float moveSpeed = 5f;
 
+    // 우클릭 이동
     private Vector3 targetPos;
-    private bool isMoving = false;
+    private bool clickMoving = false;
+
+    // WASD 키 이동
+    private Vector2 inputDir = Vector2.zero;
+    private Animator anim;
 
     [Header("상호작용")]
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
@@ -18,6 +21,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject interactTextPrefab;
     private GameObject interactTextInstance;
     private Transform currentTarget;
+
+    void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     private void Start()
     {
@@ -39,12 +47,16 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning("InteractTextPrefab이 할당되지 않았습니다.");
         }
+
+        // 초기 타겟은 현재 위치
+        targetPos = transform.position;
     }
 
     private void LateUpdate()
     {
         HandleInput();
         HandleMovement();
+        UpdateAnimation();
         HandleInteractionInput();
         UpdateInteractText();
     }
@@ -53,6 +65,22 @@ public class PlayerController : MonoBehaviour
     {
         if (DialogueManager.Instance.IsDialogueActive || BattleManager.Instance.IsBattleActive) return;
 
+        // wasd
+        inputDir.x = 0;
+        inputDir.y = 0;
+        if (Input.GetKey(KeyCode.W)) inputDir.y += 1;
+        if (Input.GetKey(KeyCode.S)) inputDir.y -= 1;
+        if (Input.GetKey(KeyCode.A)) inputDir.x -= 1;
+        if (Input.GetKey(KeyCode.D)) inputDir.x += 1;
+        inputDir.Normalize();
+
+        // 키보드로 움직이면 클릭 이동 취소
+        if (inputDir.sqrMagnitude > 0.01f)
+        {
+            clickMoving = false;
+        }
+
+        // 우클릭 이동
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -62,25 +90,64 @@ public class PlayerController : MonoBehaviour
             if (hit.collider != null)
             {
                 targetPos = mouseWorldPos;
-                isMoving = true;
+                clickMoving = true;
             }
         }
     }
 
     private void HandleMovement()
     {
-        if (!isMoving) return;
-
-        Vector3 direction = (targetPos - transform.position).normalized;
-        float distance = Vector3.Distance(transform.position, targetPos);
-
-        if (distance > 0.1f)
+        // wasd
+        if (inputDir.sqrMagnitude > 0.01f)
         {
-            transform.position += direction * moveSpeed * Time.deltaTime;
+            Vector3 delta = new Vector3(inputDir.x, inputDir.y, 0)
+                          * (moveSpeed * Time.deltaTime);
+            transform.position += delta;
+            return;
         }
-        else
+
+        // 우클릭 이동
+        if (clickMoving)
         {
-            isMoving = false;
+            Vector3 diff = targetPos - transform.position;
+            float   distance = diff.magnitude;
+            Vector3 direction = diff.normalized;
+
+            if (distance > 0.1f)
+            {
+                transform.position += direction * moveSpeed * Time.deltaTime;
+            }
+            else
+            {
+                clickMoving = false;
+            }
+        }
+    }
+
+    private void UpdateAnimation()
+    {
+        // 이동 방향
+        Vector2 moveVec = Vector2.zero;
+        if (inputDir.sqrMagnitude > 0.01f)
+        {
+            moveVec = inputDir;
+        }
+        else if (clickMoving)
+        {
+            Vector2 direction = (Vector2)targetPos - (Vector2)transform.position;
+            if (direction.magnitude > 0.01f)
+            {
+                moveVec = direction.normalized;
+            }
+        }
+
+        bool moving = moveVec.sqrMagnitude > 0.01f;
+        anim.SetBool("Moving", moving);
+
+        if (moving)
+        {
+            anim.SetFloat("DirX", moveVec.x);
+            anim.SetFloat("DirY", moveVec.y);
         }
     }
 
