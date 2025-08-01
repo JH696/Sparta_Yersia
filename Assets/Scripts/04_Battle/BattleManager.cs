@@ -15,6 +15,8 @@ public class BattleManager : MonoBehaviour
 
     public bool IsBattleActive = false;
 
+    public List<MonsterData> datas = new List<MonsterData>();
+
     private void Awake()
     {
         if (Instance == null)
@@ -28,13 +30,19 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        BattleEncounter encounter = new BattleEncounter(datas);
+        StartBattle(encounter);
+    }
+
     public void StartBattle(BattleEncounter encounter)
     {
         IsBattleActive = true;
         CurrentEncounter = encounter;
         WorldCamera.enabled = false;
         BattleCamera.enabled = true;
-        SceneLoader.MultipleLoadScene("BattleScene");
+        //SceneLoader.MultipleLoadScene("BattleScene");
     }
 
     public void Win()

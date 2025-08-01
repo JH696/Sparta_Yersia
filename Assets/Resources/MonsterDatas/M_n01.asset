@@ -17,7 +17,7 @@ MonoBehaviour:
   attack: 20
   defense: 10
   luck: 5
-  speed: 10
+  speed: 50
   Multiplier: 1.1
   MonsterID: M_n01
   MonsterName: "\uC2DD\uC778 \uAC70\uBBF8"
@@ -26,7 +26,6 @@ MonoBehaviour:
   startSkills:
   - {fileID: 11400000, guid: 6623b5c7106b6c74e9b81517ed28cf80, type: 2}
   - {fileID: 11400000, guid: 326620fd966e8ff49bfe162af3420433, type: 2}
-  learnableSkills: []
   ypDrop: 30
   expDrop: 50
   dropItems:
@@ -34,4 +33,8 @@ MonoBehaviour:
     dropRate: 0.2
   - itemData: {fileID: 11400000, guid: c63b4c3249c887945ae9c56ece8d59b2, type: 2}
     dropRate: 0.5
-  WSprite: {fileID: -469879937, guid: 260fdfe12a48eab489529b749d10e062, type: 3}
+  BattleVisuals:
+    Stand: {fileID: -469879937, guid: 260fdfe12a48eab489529b749d10e062, type: 3}
+    Idle: {fileID: 7400000, guid: dc0735d104286244db6e29e8b27226e5, type: 2}
+    Attack: {fileID: 7400000, guid: f73c727201a2aef48b31d44fe1d52ef7, type: 2}
+    Hit: {fileID: 7400000, guid: 2cfaef4b8735cb14db6b8eeb4aef5ccf, type: 2}

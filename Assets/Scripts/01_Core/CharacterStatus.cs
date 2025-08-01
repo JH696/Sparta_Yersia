@@ -14,11 +14,14 @@ public abstract class CharacterStatus
     // 스킬
     public SkillInventory skills;
 
+    public event System.Action TakeDamaged;
     public event System.Action OnCharacterDead;
 
     public virtual void TakeDamage(float amount)
     {
         stat.SetCurrentHp(-amount);
+
+        TakeDamaged?.Invoke();
 
         if (IsDead)
         {
@@ -52,4 +55,6 @@ public abstract class CharacterStatus
     {
         return null; // 월드 스프라이트 반환, 자식 클래스에서 구현
     }
+
+    public abstract BattleVisuals GetBattleVisuals();
 }

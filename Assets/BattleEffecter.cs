@@ -69,20 +69,19 @@ public class BattleEffecter : MonoBehaviour
         animator.SetTrigger("Normal_Attack");
     }
 
-    public void GainDamage()
+    public IEnumerator GainDamage()
     {
         slot.Character.TakeDamage(invokedDamage);
-
         ShowDamageText();
-
-        bButtons.OnTurnEnd();
 
         if (!string.IsNullOrEmpty(lastParam))
         {
             animator.SetInteger(lastParam, 9999);
         }
 
-        invokedDamage = 0;
+        yield return new WaitForSeconds(0.5f);
+
+        bButtons.OnTurnEnd();
         bButtons = null;
     }
 
@@ -138,15 +137,18 @@ public class BattleEffecter : MonoBehaviour
 
         // 기존 코루틴 중지 후 재시작
         if (hideRoutine != null) StopCoroutine(hideRoutine);
+
         hideRoutine = StartCoroutine(HideDamageTextAfterDelay());
     }
 
     private IEnumerator HideDamageTextAfterDelay()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.6f);
 
         damageText.text = string.Empty;
         SetVerticalGradient(Color.white, Color.white);
         damageText.gameObject.SetActive(false);
+
+        invokedDamage = 0;
     }
 }

@@ -75,8 +75,6 @@ public class B_ActionHandler : MonoBehaviour
 
     public void EndTargeting(bool isDead)
     {
-        Debug.Log($"타겟팅 종료, isDead: {isDead}");
-
         ClearAllTargetsPointer();
         slotManager.ClearCurrentSlot();
     }

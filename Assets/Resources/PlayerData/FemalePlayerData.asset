@@ -17,14 +17,18 @@ MonoBehaviour:
   attack: 20
   defense: 10
   luck: 5
-  speed: 30
+  speed: 0
   Multiplier: 1.1
   Name: "\uD50C\uB808\uC774\uC5B4"
   gender: 1
   Rank: 1
   startSkills:
   - {fileID: 11400000, guid: 21a70e5e5c326f64783bc730f5d6de55, type: 2}
-  learnableSkills: []
   WSprite: {fileID: 21300000, guid: 2cb19dcd56dbc484399347becab1cd89, type: 3}
   DSprite: {fileID: 0}
   Icon: {fileID: 21300000, guid: 5c79458e6322d4944bea395b43540d78, type: 3}
+  BattleVisuals:
+    Stand: {fileID: 0}
+    Idle: {fileID: 0}
+    Attack: {fileID: 0}
+    Hit: {fileID: 0}

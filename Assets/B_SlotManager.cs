@@ -18,7 +18,7 @@ public class B_SlotManager : MonoBehaviour
 
     [Header("행동 버튼 / 몬스터 행동")]
     [SerializeField] private B_BattleButtons battleButtons;
-    [SerializeField] private B_MonsterAction monsterAction;
+    //[SerializeField] private B_MonsterAction monsterAction;
 
     [Header("전투 종료 여부")]
     [SerializeField] private bool isBattleEnd = false;
@@ -34,7 +34,7 @@ public class B_SlotManager : MonoBehaviour
         }
     }
 
-    void Awake()
+    void Start()
     {
         SetAllySlots(GameManager.player);
         SetEnemySlots(BattleManager.Instance.CurrentEncounter);
@@ -72,7 +72,7 @@ public class B_SlotManager : MonoBehaviour
                         battleButtons.OnTurnStart(slot);
                         break;
                     case E_B_SlotType.Enemy:
-                        monsterAction.MonsterAttack(slot);
+                        battleButtons.OnMonsterturn(slot);
                         break;
                 }
 
@@ -160,8 +160,6 @@ public class B_SlotManager : MonoBehaviour
 
     public void ClearCurrentSlot()
     {
-        Debug.Log("현재 슬롯 초기화");
-
         if (currentSlot != null)
         {
             currentSlot = null;
