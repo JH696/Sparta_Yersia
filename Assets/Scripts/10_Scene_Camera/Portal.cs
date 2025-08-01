@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Portal : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Transform Destination;
+    public Transform Destination;
 
     [Header("펫 스폰 포인트")]
     [SerializeField] private Transform[] petSpawnPoints;
