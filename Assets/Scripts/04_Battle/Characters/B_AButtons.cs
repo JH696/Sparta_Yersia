@@ -94,9 +94,11 @@ public class B_BattleButtons : MonoBehaviour
         // 월드 좌표 → 화면 좌표
         Vector2 screenPos = BattleManager.Instance.BattleCamera.WorldToScreenPoint(slot.gameObject.transform.position);
 
+        // 사용할 카메라: Render Mode가 Overlay면 null, 아니면 canvas의 worldCamera 사용
+        Camera renderCam = (canvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : canvas.worldCamera;
+
         // 화면 좌표 → 캔버스 로컬 좌표
-        Vector2 localPoint;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main, out localPoint))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, renderCam, out Vector2 localPoint))
         {
             myRect.localPosition = localPoint;
         }
@@ -145,7 +147,7 @@ public class B_BattleButtons : MonoBehaviour
             return;
         }
 
-        List<SkillStatus> skills = curStatus.skills.EquipSkills;
+        List<SkillStatus> skills = curStatus.skills.AllSkills;
         List<SkillStatus> castableSkills = skills
             .Where(skill => skill.CanCast(curStatus))
             .ToList();

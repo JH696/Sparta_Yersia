@@ -18,7 +18,6 @@ public class B_SlotManager : MonoBehaviour
 
     [Header("행동 버튼 / 몬스터 행동")]
     [SerializeField] private B_BattleButtons battleButtons;
-    //[SerializeField] private B_MonsterAction monsterAction;
 
     [Header("전투 종료 여부")]
     [SerializeField] private bool isBattleEnd = false;

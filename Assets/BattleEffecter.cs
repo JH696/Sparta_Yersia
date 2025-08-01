@@ -31,13 +31,16 @@ public class BattleEffecter : MonoBehaviour
     public void SetSkillEffecter(CharacterStats attacker, SkillStatus skill, B_BattleButtons bButtons)
     {
         DamageCalculator cal = new DamageCalculator();
-
         CharacterStatus target = slot.Character;
+
+        this.bButtons = bButtons;
 
         string input = skill.Data.ID;
 
         // 문자 부분 추출 (앞쪽 문자)
         string prefix = Regex.Match(input, @"^[^\d]+").Value;  // "S_f"
+
+        lastParam = prefix;
 
         // 숫자 부분 추출 (뒤쪽 숫자)
         string numberStr = Regex.Match(input, @"\d+$").Value;  // "01"
@@ -45,12 +48,20 @@ public class BattleEffecter : MonoBehaviour
         // 숫자로 변환하고 싶다면
         int number = int.Parse(numberStr);
 
-        invokedDamage = cal.DamageCalculate(attacker, target.stat, skill);
-        lastParam = prefix;
+        float damage = cal.DamageCalculate(attacker, target.stat, skill);
 
-        this.bButtons = bButtons;
+        if (cal.IsCritical(attacker.Luck))
+        {
+            damage += damage * 0.5f;
+            invokedDamage = damage;
+            SetDamageText(skill.Data.Type, true);
+        }
+        else
+        {
+            invokedDamage = damage;
+            SetDamageText(skill.Data.Type, false);
+        }
 
-        SetDamageText(skill.Data.Type);
         animator.SetInteger(prefix, number);
     }
 
@@ -61,10 +72,19 @@ public class BattleEffecter : MonoBehaviour
         CharacterStatus target = slot.Character;
 
         this.bButtons = bButtons;
+        float damage = cal.DamageCalculate(attacker, target.stat, null);
 
-        invokedDamage = cal.DamageCalculate(attacker, target.stat, null);
-
-        SetDamageText(E_ElementalType.Physical);
+        if (cal.IsCritical(attacker.Luck))
+        {
+            damage += damage * 0.5f;
+            invokedDamage = damage;
+            SetDamageText(E_ElementalType.Physical, true);
+        }
+        else
+        {
+            invokedDamage = damage;
+            SetDamageText(E_ElementalType.Physical, false);
+        }
 
         animator.SetTrigger("Normal_Attack");
     }
@@ -79,13 +99,13 @@ public class BattleEffecter : MonoBehaviour
             animator.SetInteger(lastParam, 9999);
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.75f);
 
         bButtons.OnTurnEnd();
         bButtons = null;
     }
 
-    private void SetDamageText(E_ElementalType type)
+    private void SetDamageText(E_ElementalType type, bool isCritical)
     {
         damageText.renderer.sortingOrder = 210;
 
@@ -113,6 +133,25 @@ public class BattleEffecter : MonoBehaviour
         }
 
         SetVerticalGradient(top, bottom);
+
+        // 치명타 시 강조 효과
+        if (isCritical)
+        {
+            damageText.fontSize = 60;
+            damageText.fontStyle = FontStyles.Bold;
+            damageText.color = Color.yellow; // 또는 빨강/금색
+            damageText.outlineWidth = 0.2f;
+            damageText.outlineColor = Color.red;
+            damageText.text = $"<b><i>CRITICAL!</i></b>\n{invokedDamage}";
+        }
+        else
+        {
+            damageText.fontSize = 48;
+            damageText.fontStyle = FontStyles.Normal;
+            damageText.color = Color.white;
+            damageText.outlineWidth = 0f;
+            damageText.text = $"{invokedDamage}";
+        }
 
         damageText.text = $"{invokedDamage}";
     }
@@ -143,7 +182,7 @@ public class BattleEffecter : MonoBehaviour
 
     private IEnumerator HideDamageTextAfterDelay()
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.4f);
 
         damageText.text = string.Empty;
         SetVerticalGradient(Color.white, Color.white);
