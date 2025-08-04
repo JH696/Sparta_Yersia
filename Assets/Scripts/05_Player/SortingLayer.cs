@@ -9,7 +9,7 @@ public class SortingLayer : MonoBehaviour
 
     [Header("플레이어 바운드 내 샘플 개수")]
     [Range(2, 20)]
-    public int verticalSamples = 8;
+    public int verticalSamples = 20;
 
     private SpriteRenderer playerSpriteRenderer;
     private SpriteRenderer[] otherSprites;
