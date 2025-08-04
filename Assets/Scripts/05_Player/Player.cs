@@ -9,7 +9,10 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerData playerData;
 
     [Header("월드에서 보여질 스프라이트")]
-    public SpriteRenderer worldSprite;
+    [SerializeField] private SpriteRenderer worldSprite;
+
+    [Header("애니메이터")]
+    [SerializeField] private Animator animator;
 
     [SerializeField] private PetData testPetData;
 
@@ -55,10 +58,26 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void ChangeSprite()
+    public void ChangeSprite()
     {
-        if (status == null) return;
-        worldSprite.sprite = playerData.WSprite;
+        bool isExpert = status.Rank == E_Rank.Expert;
+
+        // 월드 스프라이트
+        worldSprite.sprite = isExpert
+            ? playerData.darkWorldSprite
+            : playerData.brownWorldSprite;
+
+        // 애니메이터 컨트롤러
+        animator.runtimeAnimatorController = isExpert
+            ? playerData.darkController
+            : playerData.brownController;
+
+        // 프로필 아이콘
+        UIManager.Instance.SetProfileIcon(
+            isExpert
+                ? playerData.darkProfileIcon
+                : playerData.brownProfileIcon
+        );
     }
 
     /// <summary>

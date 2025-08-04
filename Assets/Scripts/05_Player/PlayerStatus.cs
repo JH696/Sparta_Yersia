@@ -41,11 +41,6 @@ public class PlayerStatus : CharacterStatus
         PlayerName = name;
     }
 
-    public override Sprite GetWSprite()
-    {
-        // 플레이어의 월드 스프라이트 반환
-        return PlayerData.WSprite;
-    }
 
     private void LevelUp()
     {
@@ -60,8 +55,28 @@ public class PlayerStatus : CharacterStatus
         }
     }
 
+    public override Sprite GetWSprite()
+    {
+        // 플레이어의 월드 스프라이트 반환
+        bool isExpert = Rank == E_Rank.Expert;
+        return isExpert
+            ? PlayerData.darkWorldSprite
+            : PlayerData.brownWorldSprite;
+    }
+
+    public Sprite GetProfileIcon()
+    {
+        bool isExpert = Rank == E_Rank.Expert;
+        return isExpert
+            ? PlayerData.darkProfileIcon
+            : PlayerData.brownProfileIcon;
+    }
+
     public override BattleVisuals GetBattleVisuals()
     {
-        return PlayerData.BattleVisuals;
+        bool isExpert = Rank == E_Rank.Expert;
+        return isExpert
+            ? PlayerData.darkBattleVisuals
+            : PlayerData.brownBattleVisuals;
     }
 }

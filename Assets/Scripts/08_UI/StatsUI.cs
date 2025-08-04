@@ -74,10 +74,10 @@ public class StatsUI : MonoBehaviour
 
             // Player UI 업데이트
             //if (YPTxt != null) YPTxt.text = $"YP : {playerStatus.Wallet.YP}";
-            if (ProfileImg != null && playerStatus.PlayerData != null)
-                ProfileImg.sprite = playerStatus.PlayerData.Icon;
+            if (ProfileImg != null)
+                ProfileImg.sprite = playerStatus.GetProfileIcon();
 
-            if (TierTxt != null && playerStatus.PlayerData != null)
+            if (TierTxt != null)
             {
                 switch (playerStatus.PlayerData.Rank)
                 {

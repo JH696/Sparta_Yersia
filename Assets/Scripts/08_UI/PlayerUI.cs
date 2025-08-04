@@ -25,9 +25,7 @@ public class PlayerUI : MonoBehaviour
 
         // 프로필 초기화 (플레이어가 할당되어 있을 경우)
         if (ProfileImg != null)
-        {
-            ProfileImg.sprite = player.Status.PlayerData.Icon;
-        }
+            ProfileImg.sprite = player.Status.GetProfileIcon();
 
         // 이름, 레벨 / 랭크 텍스트
         if (NameTxt != null)
@@ -93,4 +91,15 @@ public class PlayerUI : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
+
+    public void SetProfileIcon(Sprite icon)
+    {
+        if (ProfileImg != null)
+            ProfileImg.sprite = icon;
+    }
+}
+
+static class ImageExtensions
+{
+    public static void SetFillAmount(this Image img, float f) { if (img != null) img.fillAmount = f; }
 }
