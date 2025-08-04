@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,11 +18,14 @@ public class B_BattleButtons : MonoBehaviour
     [Header("선택한 행동")]
     [SerializeField] private E_ActionType actionType = E_ActionType.None;
 
-    [Header("행동 중인 캐릭터")]
-    [SerializeField] private CharacterStatus curStatus;
+    [Header("행동 중인 슬롯")]
+    [SerializeField] private B_Slot curSlot;
 
     [Header("액션 핸들러")]
     [SerializeField] private B_ActionHandler actionHandler;
+
+    [Header("슬롯 매니저")]
+    [SerializeField] private B_SlotManager slotManager;
 
     [Header("행동 버튼 부모")]
     [SerializeField] private GameObject aButtonParent;
@@ -82,8 +86,7 @@ public class B_BattleButtons : MonoBehaviour
 
     public void OnTurnStart(B_Slot slot)
     {
-        curStatus = slot.Character;
-
+        curSlot = slot;
         Canvas canvas = GetComponentInParent<Canvas>();
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();
         RectTransform myRect = GetComponent<RectTransform>();
@@ -91,9 +94,11 @@ public class B_BattleButtons : MonoBehaviour
         // 월드 좌표 → 화면 좌표
         Vector2 screenPos = BattleManager.Instance.BattleCamera.WorldToScreenPoint(slot.gameObject.transform.position);
 
+        // 사용할 카메라: Render Mode가 Overlay면 null, 아니면 canvas의 worldCamera 사용
+        Camera renderCam = (canvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : canvas.worldCamera;
+
         // 화면 좌표 → 캔버스 로컬 좌표
-        Vector2 localPoint;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main, out localPoint))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, renderCam, out Vector2 localPoint))
         {
             myRect.localPosition = localPoint;
         }
@@ -101,7 +106,7 @@ public class B_BattleButtons : MonoBehaviour
         aButtonParent.SetActive(true);
     }
 
-    private void OnTurnEnd()
+    public void OnTurnEnd()
     {
         actionType = E_ActionType.None;
         selectedSkill = null;
@@ -114,16 +119,72 @@ public class B_BattleButtons : MonoBehaviour
             btn.ResetButton();
         }
 
-        allowBtn.gameObject.SetActive(false);
-        cancelBtn.gameObject.SetActive(false);
-
-        if (curStatus.IsDead)
+        if (curSlot.Character.IsDead)
         {
             actionHandler.EndTargeting(true);
             return;
         }
 
         actionHandler.EndTargeting(false);
+        curSlot = null;
+    }
+
+    public void OnMonsterturn(B_Slot slot)
+    {
+        curSlot = slot;
+
+        CharacterStatus curStatus = slot.Character;
+
+        List<BattleEffecter> effecters = slotManager.GetNonEmptySlots()
+            .Where(slot => slot.GetSlotType() == E_B_SlotType.Ally)
+            .Select(slot => slot.GetComponentInChildren<BattleEffecter>())
+            .Where(effecter => effecter != null) // ← 이거 추가
+            .ToList();
+
+        if (effecters.Count == 0)
+        {
+            slotManager.ClearCurrentSlot();
+            return;
+        }
+
+        List<SkillStatus> skills = curStatus.skills.AllSkills;
+        List<SkillStatus> castableSkills = skills
+            .Where(skill => skill.CanCast(curStatus))
+            .ToList();
+
+        List<BattleEffecter> randomTargets = new List<BattleEffecter>();
+
+        if (castableSkills.Count <= 0 || Random.value <= 0.75f)
+        {
+            BattleEffecter target = effecters[Random.Range(0, effecters.Count)];
+
+            target.SetBaseEffect(curStatus.stat, this);
+            Debug.Log($"몬스터 {curStatus}이(가) {target}에게 일반 공격을 실행 했습니다.");
+        }
+        else
+        {
+            SkillStatus randomSkill = castableSkills[Random.Range(0, castableSkills.Count)];
+
+            int range = Mathf.Min(randomSkill.Data.Range, effecters.Count);
+
+            List<int> indices = Enumerable.Range(0, effecters.Count).ToList();
+            for (int i = 0; i < range; i++)
+            {
+                int rand = Random.Range(i, indices.Count);
+                (indices[i], indices[rand]) = (indices[rand], indices[i]);
+                randomTargets.Add(effecters[indices[i]]);
+            }
+
+            randomSkill.Cast(curStatus);
+
+            foreach (BattleEffecter e in randomTargets)
+            {
+                e.SetSkillEffecter(curStatus.stat, randomSkill, this);
+                Debug.Log($"몬스터 {curStatus}이(가) {e}에게 {randomSkill.Data.name}을 사용했습니다.");
+            }
+        }
+
+        slot.PlayAttackAnim();
     }
 
    public void OnAttackButton()
@@ -143,7 +204,7 @@ public class B_BattleButtons : MonoBehaviour
             btn.OnSkillSelected -= UseSkill;
         }
 
-        List<SkillStatus> skills = curStatus.skills.EquipSkills;
+        List<SkillStatus> skills = curSlot.Character.skills.EquipSkills;
 
         actionType = E_ActionType.Skill;
 
@@ -186,7 +247,7 @@ public class B_BattleButtons : MonoBehaviour
 
     private void UseSkill(SkillStatus status)
     {
-        if (curStatus.stat.CurrentMana < status.Data.Cost) return;
+        if (curSlot.Character.stat.CurrentMana < status.Data.Cost) return;
 
         selectedSkill = status;
         actionType = E_ActionType.Skill;
@@ -235,53 +296,52 @@ public class B_BattleButtons : MonoBehaviour
             }
         }
 
-        DamageCalculator cal = new DamageCalculator();
+        CharacterStats stats = curSlot.Character.stat;
 
         switch (actionType)
         {
             case E_ActionType.Attack:
-                foreach (B_Slot slot in actionHandler.Targets)
+                foreach (BattleEffecter effecter in actionHandler.Targets)
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
-                    CharacterStatus target = slot.Character;    
-
-                    target.TakeDamage(cal.DamageCalculate(curStatus.stat, target.stat, null));
+                    effecter.SetBaseEffect(curSlot.Character.stat, this);
                 }
                 break;
  
             case E_ActionType.Skill:
-                selectedSkill.Cast(curStatus);
-                foreach (B_Slot slot in actionHandler.Targets)
+                selectedSkill.Cast(curSlot.Character);
+                foreach (BattleEffecter effecter in actionHandler.Targets)
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
-                    CharacterStatus target = slot.Character;
-
-                    target.TakeDamage(cal.DamageCalculate(curStatus.stat, target.stat, selectedSkill));
+                    effecter.SetSkillEffecter(curSlot.Character.stat, selectedSkill, this);
                 }
                 break;
 
             case E_ActionType.Item:
-                foreach (B_Slot target in actionHandler.Targets)
+                foreach (BattleEffecter effecter in actionHandler.Targets)
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
                     if (selectedItem.Data is ConsumeItemData itemData)
                     {
-                        itemData.Consume(target.Character);
+                        itemData.Consume(effecter.Slot.Character);
                     }
                     selectedItem.LoseItem(actionHandler.Targets.Count);
                 }
+
+                OnTurnEnd();
                 break;
 
             case E_ActionType.Rest:
-                curStatus.RecoverMana(curStatus.stat.MaxMana * 0.1f);
+                curSlot.Character.RecoverMana(stats.MaxMana * 0.1f);
+                OnTurnEnd();
                 break;
 
             case E_ActionType.Run:
                 float roll = Random.Range(0f, 100f);
-                if (roll <= curStatus.stat.Luck)
+                if (roll <= stats.Luck)
                 {
                     BattleManager.Instance.Lose();
                     allowBtn.gameObject.SetActive(false);
@@ -293,11 +353,13 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     Debug.Log("도망 실패");
                 }
+                OnTurnEnd();
                 break;
 
         }
 
-        OnTurnEnd();
+        allowBtn.gameObject.SetActive(false);
+        cancelBtn.gameObject.SetActive(false);
     }
 
     private void OnCancelButton()

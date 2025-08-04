@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class B_ActionHandler : MonoBehaviour
 {
     [Header("타겟 목록")]
-    [SerializeField] private List<B_Slot> targetSlots = new List<B_Slot>();
+    [SerializeField] private List<BattleEffecter> targets = new List<BattleEffecter>();
 
     [Header("최대 타겟 수")]
     [SerializeField] private int maxCount = 1;
@@ -18,11 +18,11 @@ public class B_ActionHandler : MonoBehaviour
     [SerializeField] private B_SlotManager slotManager;
 
 
-    public List<B_Slot> Targets => targetSlots;
+    public List<BattleEffecter> Targets => targets;
 
     public void StartTargeting(int maxCount)
     {
-        targetSlots.Clear();
+        targets.Clear();
         this.maxCount = maxCount;
         isTargeting = true;
     }
@@ -43,29 +43,31 @@ public class B_ActionHandler : MonoBehaviour
 
                 if (hit.collider == null) return;
 
-                if (hit.collider.TryGetComponent<B_Slot>(out B_Slot slot))
+                BattleEffecter effecter = hit.collider.GetComponentInChildren<BattleEffecter>();
+
+                if (effecter != null)
                 {
-                    AddTarget(slot);
+                    AddTarget(effecter);
                 }
             }
         }
     }
 
-    private void AddTarget(B_Slot slot)
+    private void AddTarget(BattleEffecter effecter)
     {
-        if (slot.Character == null) return;
+        if (effecter == null) return;
 
-        if (targetSlots.Contains(slot))
+        if (targets.Contains(effecter))
         {
-            slot.Pointer.SetActive(false);
-            targetSlots.Remove(slot);
+            //slot.Pointer.SetActive(false);
+            targets.Remove(effecter);
         }
         else
         {
-            if (targetSlots.Count >= maxCount) return;
+            if (targets.Count >= maxCount) return;
 
-            slot.Pointer.SetActive(true);
-            targetSlots.Add(slot);
+            //slot.Pointer.SetActive(true);
+            targets.Add(effecter);
         }
     }
 
@@ -73,8 +75,6 @@ public class B_ActionHandler : MonoBehaviour
 
     public void EndTargeting(bool isDead)
     {
-        Debug.Log($"타겟팅 종료, isDead: {isDead}");
-
         ClearAllTargetsPointer();
         slotManager.ClearCurrentSlot();
     }
@@ -83,13 +83,13 @@ public class B_ActionHandler : MonoBehaviour
     {
         isTargeting = false;
 
-        foreach (B_Slot slot in targetSlots)
+        foreach (BattleEffecter slot in targets)
         {
             if (slot != null)
             {
-                slot.Pointer.SetActive(false);
+                //slot.Pointer.SetActive(false);
             }
         }
-        targetSlots.Clear();
+        targets.Clear();
     }
 }

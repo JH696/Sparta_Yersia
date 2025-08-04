@@ -23,8 +23,10 @@ public class B_Slot : MonoBehaviour
     [Header("스프라이트")]
     [SerializeField] private SpriteRenderer spr;
 
-    [Header("포인터")]
-    public GameObject Pointer;
+    [Header("애니메이터")]
+    [SerializeField] private Animator animator;
+
+    private BattleVisuals visuals;
 
     public bool IsDead => character == null || character.IsDead;
     public CharacterStatus Character => character;
@@ -37,6 +39,13 @@ public class B_Slot : MonoBehaviour
         character = status;
         statGauge.SetGauges(this);
         spr.sprite = status.GetWSprite();
+
+        visuals = Character.GetBattleVisuals();
+        Character.TakeDamaged += (() => animator.SetTrigger("Hit"));
+
+        ReplaceClip("Base_Idle", visuals.Idle);
+        ReplaceClip("Base_Attack", visuals.Attack);
+        ReplaceClip("Base_Hit", visuals.Hit);
 
         character.OnCharacterDead += statGauge.ResetGauge;
     }
@@ -84,5 +93,23 @@ public class B_Slot : MonoBehaviour
         if (character == null) return;
 
         ResetSlot();
+    }
+    private void ReplaceClip(string stateName, AnimationClip newClip)
+    {
+        if (newClip == null) return;
+    
+        var controller = animator.runtimeAnimatorController as AnimatorOverrideController;
+        if (controller == null)
+        {
+            controller = new AnimatorOverrideController(animator.runtimeAnimatorController);
+            animator.runtimeAnimatorController = controller;
+        }
+    
+        controller[stateName] = newClip;
+    }
+
+    public void PlayAttackAnim()
+    {
+        animator.SetTrigger("Attack");
     }
 }

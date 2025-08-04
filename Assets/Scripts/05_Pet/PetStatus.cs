@@ -81,4 +81,9 @@ public class PetStatus : CharacterStatus
     {
         return new PetSaveData(this);
     }
+
+    public override BattleVisuals GetBattleVisuals()
+    {
+        return PetData.BattleVisuals;
+    }
 }
