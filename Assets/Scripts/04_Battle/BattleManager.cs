@@ -15,6 +15,11 @@ public class BattleManager : MonoBehaviour
 
     public bool IsBattleActive = false;
 
+    [SerializeField] private AudioClip battleBGM;
+
+    [SerializeField] private AudioClip winBGM;
+    [SerializeField] private AudioClip loseBGM;
+
     private void Awake()
     {
         if (Instance == null)
@@ -34,6 +39,11 @@ public class BattleManager : MonoBehaviour
         CurrentEncounter = encounter;
         WorldCamera.enabled = false;
         BattleCamera.enabled = true;
+
+        // BGM 재생
+        if (battleBGM != null)
+            SoundManager.Instance.PlayBGM(battleBGM, loop: true, fadeDuration: 1f);
+
         SceneLoader.MultipleLoadScene("BattleScene");
     }
 
@@ -48,6 +58,10 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator WinRoutine()
     {
+        // 승리 브금 재생
+        if (winBGM != null)
+            SoundManager.Instance.PlayBGM(winBGM, loop: false, fadeDuration: 0.5f);
+
         List<MonsterData> monsters = CurrentEncounter.monsters;
         List<BaseItem> dropItems = new List<BaseItem>();
 
@@ -78,6 +92,10 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator LoseRoutine()
     {
+        // 패배 브금 재생
+        if (loseBGM != null)
+            SoundManager.Instance.PlayBGM(loseBGM, loop: false, fadeDuration: 0.5f);
+
         yield return new WaitForSeconds(1f);
 
         rewardUI.ShowWinUI(null, 0, 0);
@@ -88,6 +106,9 @@ public class BattleManager : MonoBehaviour
         IsBattleActive = false;
         BattleCamera.enabled = false;
         WorldCamera.enabled = true;
+
+        SoundManager.Instance.StopBGM();
+
         SceneLoader.UnloadScene("BattleScene");
     }
 }
