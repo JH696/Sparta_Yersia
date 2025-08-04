@@ -401,7 +401,6 @@ GameObject:
   m_Component:
   - component: {fileID: 540956823}
   - component: {fileID: 540956825}
-  - component: {fileID: 540956824}
   m_Layer: 5
   m_Name: Dialogue UI
   m_TagString: Untagged
@@ -430,33 +429,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &540956824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540956822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1781e952897fdb04b8fa8cd28a96417f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueTxt: {fileID: 212942228}
-  NameTxt: {fileID: 356367438}
-  dialogueImg: {fileID: 0}
-  playerImg: {fileID: 0}
-  passBtn: {fileID: 548920936}
-  skipBtn: {fileID: 0}
-  choiceBtns: {fileID: 0}
-  masteryUI: {fileID: 0}
-  allDialogues: []
-  curDialogueData:
-    DialogueID: 
-    Lines: []
-  curNpc: {fileID: 0}
-  typingSpeed: 0.05
-  cantPass: 0
 --- !u!222 &540956825
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -527,19 +499,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 548920938}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 540956824}
-        m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
-        m_MethodName: PassTyping
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &548920938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1962,6 +1922,17 @@ MonoBehaviour:
   fadeDelay: 0.5
   narrationTexts: []
   textDelay: 0.1
+  lastBGImage: {fileID: 0}
+  narrationBox: {fileID: 2129052216}
+  dialogue: {fileID: 540956823}
+  grayImage: {fileID: 1107123535}
+  dialogueText: {fileID: 212942228}
+  dialogueName: {fileID: 356367438}
+  dialogueTexts:
+  - 
+  - 
+  - 
+  - 
 --- !u!114 &2139579244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1987,7 +1958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b73889e9d9a63594c841661efbea86b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  narrationText: {fileID: 628446763}
+  curText: {fileID: 628446763}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
