@@ -16,7 +16,6 @@ public class PlayerStatus : CharacterStatus
     public PlayerData PlayerData;
     public PlayerWallet Wallet;
 
-
     public PlayerStatus(PlayerData data, string playerName)
     {
         this.PlayerData = data;
@@ -41,6 +40,10 @@ public class PlayerStatus : CharacterStatus
         PlayerName = name;
     }
 
+    public void SetPlayerData(PlayerData newData)
+    {
+        PlayerData = newData;
+    }
 
     private void LevelUp()
     {

@@ -48,6 +48,6 @@ public class IntroManager : MonoBehaviour
             data.backGround.gameObject.SetActive(false);
 
         }
-        SceneLoader.LoadScene("Scene_LSY");
+        SceneLoader.LoadScene("WorldScene");
     }
 }

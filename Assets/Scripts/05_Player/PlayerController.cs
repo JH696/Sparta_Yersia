@@ -132,6 +132,8 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimation()
     {
+        if (anim.runtimeAnimatorController == null) return;
+
         // 이동 방향
         Vector2 moveVec = Vector2.zero;
         if (inputDir.sqrMagnitude > 0.01f)

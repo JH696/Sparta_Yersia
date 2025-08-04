@@ -18,9 +18,21 @@ public class Player : MonoBehaviour
 
     public PlayerStatus Status => status;
     public PlayerParty Party => status?.party;
+    public PlayerData PlayerData
+    {
+        get => playerData;
+        private set => playerData = value;
+    }
 
     private void Awake()
     {
+        if (worldSprite == null)
+            worldSprite = GetComponentInChildren<SpriteRenderer>();
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
+        if (playerData == null)
+            Debug.LogError("PlayerData가 할당되지 않았습니다!");
+
         if (GameManager.player == null)
         {
             status = new PlayerStatus(playerData, "Player");
@@ -40,6 +52,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (animator == null)
+            animator = GetComponent<Animator>();
+        if (worldSprite == null)
+            worldSprite = GetComponent<SpriteRenderer>();
+
         if (Input.GetKeyDown(KeyCode.T))
         {
             if (testPetData == null)
@@ -68,9 +85,13 @@ public class Player : MonoBehaviour
             : playerData.brownWorldSprite;
 
         // 애니메이터 컨트롤러
-        animator.runtimeAnimatorController = isExpert
+        var ctrl = isExpert
             ? playerData.darkController
             : playerData.brownController;
+        if (ctrl != null)
+            animator.runtimeAnimatorController = ctrl;
+        else
+            Debug.LogWarning($"{(isExpert ? "dark" : "brown")}Controller가 비어 있습니다.");
 
         // 프로필 아이콘
         UIManager.Instance.SetProfileIcon(
@@ -86,6 +107,13 @@ public class Player : MonoBehaviour
     public void SetPlayerName(string name)
     {
         Status?.SetPlayerName(name);
+    }
+
+    public void SetPlayerData(PlayerData newData)
+    {
+        PlayerData = newData;
+        status.SetPlayerData(newData);
+        ChangeSprite();
     }
 
     //public PlayerSaveData makeSaveData()
