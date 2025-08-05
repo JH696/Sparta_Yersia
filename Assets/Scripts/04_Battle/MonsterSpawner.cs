@@ -16,15 +16,13 @@ public enum E_StageType
 [System.Serializable]
 public struct BattleEncounter
 {
-    public List<MonsterData> monsters;        // 전투에 참여하는 몬스터 리스트
-    // public bool isBossFight;               // 보스전 여부
-    // public AudioClip battleMusic;          // 전투 BGM
+    public List<MonsterData> monsters;
+    //public StageType 층수
 
     public BattleEncounter(List<MonsterData> monsterList)
     {
         monsters = monsterList;
-        // isBossFight = false; // 기본값 설정
-        // battleMusic = null;   // 기본값 설정
+        //public StageType 층수
     }
 }
 
@@ -36,12 +34,21 @@ public class MonsterSpawner : MonoBehaviour
     [Header("트리거 몬스터 프리팹")]
     [SerializeField] private GameObject triggerMonster;
 
-    [Header("몬스터 최대 스폰 수")]
-    [SerializeField] private int maxSpawnCount = 3;
+    [Header("몬스터 스폰")]
+    [SerializeField, Tooltip("최대 스폰 가능한 몬스터 수")] private int maxSpawnCount = 3;
+    [SerializeField, Tooltip("현재 스폰된 몬스터 수")] private int nowSpawnCount = 0;
+
+    [SerializeField, Tooltip("몬스터 스폰 주기")] private float spawnInterval = 5f;
 
     private Tilemap tilemap;
     private List<Vector3> spawnPositions = new List<Vector3>();
     private List<TriggerMonster> triggers = new List<TriggerMonster>();
+
+    // 내부용 타이머
+    private float timer = 0;
+
+    // 몬스터 스폰 가능 여부
+    private bool IsMaxSpawn => maxSpawnCount <= nowSpawnCount;
 
     private void Start()
     {
@@ -57,6 +64,17 @@ public class MonsterSpawner : MonoBehaviour
         for (int i = 0; i < maxSpawnCount; i++)
         {
             SpawnMonsters();
+        }
+    }
+
+    private void Update()
+    {
+        timer += Time.deltaTime;
+
+        if (timer >= spawnInterval)
+        {
+            SpawnMonsters();
+            timer = 0f;
         }
     }
 
@@ -79,7 +97,12 @@ public class MonsterSpawner : MonoBehaviour
     // 몬스터 스폰 메서드
     private void SpawnMonsters()
     {
-        if (spawnPositions.Count == 0 || triggerMonster == null) return;
+        if (spawnPositions.Count == 0 || triggerMonster == null)
+        {
+            Debug.Log("[MonsterSpawner] 컴포넌트를 확인해주세요.");
+        }
+
+        if (IsMaxSpawn) return;
 
         // MonsterData 로드 및 필터링
         MonsterData[] allDatas = Resources.LoadAll<MonsterData>("MonsterDatas");
@@ -108,18 +131,12 @@ public class MonsterSpawner : MonoBehaviour
 
         // 위치 선택 및 트리거 생성
         Vector3 spawnPos = spawnPositions[Random.Range(0, spawnPositions.Count)];
-        TriggerMonster trigger = Instantiate(triggerMonster, spawnPos, Quaternion.identity, transform)
-            .GetComponent<TriggerMonster>();
-        trigger.OnDestroyed += Trigger_OnDestroyed;
+        TriggerMonster trigger =
+            Instantiate(triggerMonster, spawnPos, Quaternion.identity, transform).GetComponent<TriggerMonster>();
+
+        nowSpawnCount++;
 
         trigger.SetTriggerMonster(encounter);
         triggers.Add(trigger);
-    }
-
-    private void Trigger_OnDestroyed(TriggerMonster triggerMonster)
-    {
-        triggers.Remove(triggerMonster);
-        Destroy(triggerMonster.gameObject);
-        SpawnMonsters();
     }
 }

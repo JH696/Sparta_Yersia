@@ -42,4 +42,5 @@ public struct BattleVisuals
     public AnimationClip Idle;
     public AnimationClip Attack;
     public AnimationClip Hit;
+    public AnimationClip Die;
 }

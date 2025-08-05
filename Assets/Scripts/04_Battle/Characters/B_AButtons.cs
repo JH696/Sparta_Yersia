@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 using UnityEngine.UI;
 
 public enum E_ActionType
@@ -47,6 +49,9 @@ public class B_BattleButtons : MonoBehaviour
     [Header("승인 / 취소 버튼")]
     [SerializeField] private Button allowBtn;
     [SerializeField] private Button cancelBtn;
+
+    [Header("가이드 텍스트")]
+    [SerializeField] private TextMeshProUGUI guideText;
 
     [Header("선택한 스킬, 아이템")]
     [SerializeField] private SkillStatus selectedSkill;
@@ -104,6 +109,9 @@ public class B_BattleButtons : MonoBehaviour
         }
 
         aButtonParent.SetActive(true);
+        aButtonParent.GetComponent<Animator>().SetTrigger("Scatter");
+
+        UpdateText();
     }
 
     public void OnTurnEnd()
@@ -127,6 +135,8 @@ public class B_BattleButtons : MonoBehaviour
 
         actionHandler.EndTargeting(false);
         curSlot = null;
+
+        UpdateText();
     }
 
     public void OnMonsterturn(B_Slot slot)
@@ -193,7 +203,8 @@ public class B_BattleButtons : MonoBehaviour
         actionType = E_ActionType.Attack;
         actionHandler.StartTargeting(1);
         ShowAllowButton();
-   }
+        UpdateText();
+    }
 
    public void OnSkillButton()
    {
@@ -210,6 +221,7 @@ public class B_BattleButtons : MonoBehaviour
 
         dButtonParent.SetActive(true);
         aButtonParent.SetActive(false);
+        UpdateText();
 
         if (skills.Count <= 0) return;
 
@@ -218,7 +230,7 @@ public class B_BattleButtons : MonoBehaviour
             buttons[i].SetSkill(skills[i]);
             buttons[i].OnSkillSelected += UseSkill;
         }
-   }
+    }
 
     public void OnItemButton()
     {
@@ -235,6 +247,7 @@ public class B_BattleButtons : MonoBehaviour
         actionType = E_ActionType.Item;
         dButtonParent.SetActive(true);
         aButtonParent.SetActive(false);
+        UpdateText();
 
         if (filter.Count <= 0) return;
         
@@ -270,20 +283,22 @@ public class B_BattleButtons : MonoBehaviour
         aButtonParent.SetActive(false);
         dButtonParent.SetActive(false);
 
-        allowBtn.gameObject.SetActive(true);
-        cancelBtn.gameObject.SetActive(true);
+        allowBtn.interactable = true;
+        cancelBtn.interactable = true;
     }
 
     public void OnRestButton()
     {
         actionType = E_ActionType.Rest;
         ShowAllowButton();
+        UpdateText();
     }
 
     public void OnRunBtn()
     {
         actionType = E_ActionType.Run;
         ShowAllowButton();
+        UpdateText();
     }
 
     private void OnAllowButton()
@@ -344,8 +359,8 @@ public class B_BattleButtons : MonoBehaviour
                 if (roll <= stats.Luck)
                 {
                     BattleManager.Instance.Lose();
-                    allowBtn.gameObject.SetActive(false);
-                    cancelBtn.gameObject.SetActive(false);
+                    allowBtn.interactable = true;
+                    cancelBtn.interactable = true;  
                     Debug.Log("도망 성공");
                     return;
                 }
@@ -358,8 +373,12 @@ public class B_BattleButtons : MonoBehaviour
 
         }
 
-        allowBtn.gameObject.SetActive(false);
-        cancelBtn.gameObject.SetActive(false);
+        actionHandler.ClearAllTargetsPointer();
+        actionType = E_ActionType.None;
+        UpdateText();
+
+        allowBtn.interactable = false;
+        cancelBtn.interactable = false;
     }
 
     private void OnCancelButton()
@@ -374,8 +393,11 @@ public class B_BattleButtons : MonoBehaviour
         }
 
         actionHandler.ClearAllTargetsPointer();
-        allowBtn.gameObject.SetActive(false);
-        cancelBtn.gameObject.SetActive(false);
+        actionType = E_ActionType.None;
+        UpdateText();
+
+        allowBtn.interactable = false;
+        cancelBtn.interactable = false;
     }
 
     private void OnReturnButton()
@@ -387,5 +409,33 @@ public class B_BattleButtons : MonoBehaviour
 
         dButtonParent.SetActive(false);
         aButtonParent.SetActive(true);
+
+        actionType = E_ActionType.None;
+        UpdateText();
+    }
+
+    private void UpdateText()
+    {
+        switch (actionType)
+        {
+            case E_ActionType.Attack:
+                guideText.text = "- 일반 공격 -" + "\n선택한 대상 하나에게 물리 피해를 입힙니다.";
+                break;
+            case E_ActionType.Skill:
+                guideText.text = "- 마법 사용 -" + "\n행동자가 사용 가능한 마법을 나열합니다.";
+                break;
+            case E_ActionType.Item:
+                guideText.text = "- 아이템 사용 -" + "\n행동자가 사용 가능한 소비 아이템을 나열합니다.";
+                break;
+            case E_ActionType.Rest:
+                guideText.text = "- 휴식하기 -" + "\n행동자의 마나를 일정 비율 회복합니다.";
+                break;
+            case E_ActionType.Run:
+                guideText.text = "- 도망가기 -" + "\n행동자의 행운과 비례하는 확률로 도주를 시도합니다.";
+                break;
+            default:
+                guideText.text = string.Empty;
+                break;
+        }
     }
 }
