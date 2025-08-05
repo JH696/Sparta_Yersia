@@ -211,9 +211,6 @@ public class DialogueUI : MonoBehaviour
             playerImg.sprite = isExpert
                 ? pd.darkDialogSprite
                 : pd.brownDialogSprite;
-
-            // 좌우 반전
-            playerImg.rectTransform.localScale = new Vector3(-1, 1, 1);
         }
         else if (speaker == "NPC")
         {
