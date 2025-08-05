@@ -17,13 +17,32 @@ public class PlayerData : StatData, ISkillUsable
     [Header("초기 스킬 리스트")]
     [SerializeField] private List<SkillData> startSkills = new List<SkillData>();
 
-    [Header("플레이어 스프라이트")]
-    public Sprite WSprite; // 월드
-    public Sprite DSprite; // 대화
-    public Sprite Icon; // 아이콘
+    [Header("프로필 아이콘 (갈색)")]
+    public Sprite brownProfileIcon;
+    [Header("프로필 아이콘 (다크)")]
+    public Sprite darkProfileIcon;
 
-    [Header("배틀씬")]
-    public BattleVisuals BattleVisuals;
+    [Header("월드 씬용 스프라이트 (갈색)")]
+    public Sprite brownWorldSprite;
+    [Header("월드 씬용 스프라이트 (다크)")]
+    public Sprite darkWorldSprite;
+
+    [Header("대화용 스프라이트 (갈색)")]
+    public Sprite brownDialogSprite;
+    [Header("대화용 스프라이트 (다크)")]
+    public Sprite darkDialogSprite;
+
+    [Header("애니메이터 컨트롤러 (갈색)")]
+    public RuntimeAnimatorController brownController;
+
+    [Header("애니메이터 컨트롤러 (다크)")]
+    public RuntimeAnimatorController darkController;
+
+    //////[Header("배틀 비주얼 (갈색)")]
+    public BattleVisuals brownBattleVisuals;
+
+    [Header("배틀 비주얼 (다크)")]
+    public BattleVisuals darkBattleVisuals;
 
     public List<SkillData> StartSkills => startSkills;
 }

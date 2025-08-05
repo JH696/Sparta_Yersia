@@ -102,7 +102,6 @@ public class IntroManager : MonoBehaviour
             StartCoroutine(textEffect.PrintText(dialogueTexts[i], textDelay));
             yield return new WaitForSeconds (dialogueTexts[i].Length * textDelay + 1f);
         }
-        //텍스트 출력
-        SceneLoader.LoadScene("Scene_LSY");
+        SceneLoader.LoadScene("WorldScene");
     }
 }

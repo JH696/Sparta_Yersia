@@ -159,4 +159,10 @@ public class UIManager : MonoBehaviour
     {
         petUIController.gameObject.SetActive(false);
     }
+
+    public void SetProfileIcon(Sprite icon)
+    {
+        if (playerUI != null)
+            playerUI.SetProfileIcon(icon);
+    }
 }

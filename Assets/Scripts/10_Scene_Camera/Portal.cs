@@ -1,15 +1,19 @@
-﻿using UnityEngine;
+﻿using Cinemachine;
 using System.Collections;
+using UnityEngine;
 
 public class Portal : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Transform Destination;
+    public Transform Destination;
 
     [Header("펫 스폰 포인트")]
     [SerializeField] private Transform[] petSpawnPoints;
 
     [Header("전환 연출 설정")]
     [SerializeField] private EPortalEffectType portalEffectType;
+
+    [Header("해당 포탈로 통하는 방의 카메라 Bounds")]
+    [SerializeField] private PolygonCollider2D roomBounds;
 
     private IPortalEffect portalEffect;
 
@@ -38,6 +42,28 @@ public class Portal : MonoBehaviour, IInteractable
     private IEnumerator Teleport(Transform target)
     {
         if (portalEffect == null) yield break;
+        if (Destination == null)
+        {
+            Debug.LogError($"[{name}] Destination이 할당되지 않았습니다");
+            yield break;
+        }
+        var vcam = FindObjectOfType<CinemachineVirtualCamera>();
+        if (vcam == null)
+        {
+            Debug.LogError("씬에 CinemachineVirtualCamera가 없습니다. VCam_Follow 를 배치하세요.");
+            yield break;
+        }
+        var confiner = vcam.GetComponent<CinemachineConfiner2D>();
+        if (confiner == null)
+        {
+            Debug.LogError("VCam_Follow에 CinemachineConfiner2D 컴포넌트가 붙어 있어야 합니다.");
+            yield break;
+        }
+        if (roomBounds == null)
+        {
+            Debug.LogError($"[{name}] roomBounds(PolygonCollider2D)가 할당되지 않았습니다");
+            yield break;
+        }
 
         yield return portalEffect.PlayBeforeTeleport();
 
@@ -45,6 +71,15 @@ public class Portal : MonoBehaviour, IInteractable
         Vector2 vec = Destination.position;
         vec.y -= 0.5f;
         target.position = vec;
+
+        // Cinemachine Confiner 경계 교체
+        Vector3 oldPos = target.position;
+        confiner.m_BoundingShape2D = roomBounds;
+        confiner.InvalidateCache();
+
+        // 카메라 워프 보정
+        Vector3 displacement = target.position - oldPos;
+        vcam.OnTargetObjectWarped(target, displacement);
 
         // 펫들도 함께 이동
         Player player = target.GetComponent<Player>();

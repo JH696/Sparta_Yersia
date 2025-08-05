@@ -64,82 +64,16 @@ public class StatsUI : MonoBehaviour
         SpeedTxt.text = $"{Mathf.RoundToInt(currentCharacter.stat.Speed)}";
 
         // Player인지 확인
-        PlayerStatus playerStatus = currentCharacter as PlayerStatus;
-        PetStatus petStatus = currentCharacter as PetStatus;
+        var playerStatus = currentCharacter as PlayerStatus;
+        var petStatus = currentCharacter as PetStatus;
 
         if (playerStatus != null)
         {
-            if (PlayerNameTxt.text != null)
-                PlayerNameTxt.text = playerStatus.PlayerName;
-
-            // Player UI 업데이트
-            //if (YPTxt != null) YPTxt.text = $"YP : {playerStatus.Wallet.YP}";
-            if (ProfileImg != null && playerStatus.PlayerData != null)
-                ProfileImg.sprite = playerStatus.PlayerData.Icon;
-
-            if (TierTxt != null && playerStatus.PlayerData != null)
-            {
-                switch (playerStatus.PlayerData.Rank)
-                {
-                    case E_Rank.Basic:
-                        TierTxt.text = "등급 : 초급 마법사";
-                        break;
-                    case E_Rank.Advanced:
-                        TierTxt.text = "등급 : 중급 마법사";
-                        break;
-                    case E_Rank.Expert:
-                        TierTxt.text = "등급 : 상급 마법사";
-                        break;
-                    default:
-                        TierTxt.text = "등급 : 알 수 없음";
-                        break;
-                }
-            }
-
-            if (PlayerInfo != null) PlayerInfo.SetActive(true);
-            if (PetInfo != null) PetInfo.SetActive(false);
+            DrawPlayerUI(playerStatus);
         }
         else if (petStatus != null)
         {
-            if (PetNameTxt.text != null)
-                PetNameTxt.text = petStatus.PetData?.PetName ?? defaultPetName;
-
-            // Pet UI 업데이트
-            if (ProfileImg != null && petStatus.PetData != null)
-                ProfileImg.sprite = petStatus.GetCurrentProfileIcon();
-            else if (ProfileImg != null)
-                ProfileImg.sprite = defaultPetProfile;
-
-            if (PetNameTxt != null) // 레벨도 같이 표시되게 해야함
-                PetNameTxt.text = petStatus.PetData?.PetName ?? defaultPetName;
-
-            if (EvoStageTxt != null)
-                EvoStageTxt.text = petStatus.PetData != null
-                    ? $"성장 단계 : {petStatus.EvoLevel + 1}"
-                    : defaultEvoStage;
-
-            if (EvoIcons != null)
-            {
-                for (int i = 0; i < EvoIcons.Length; i++)
-                {
-                    if (EvoIcons[i] == null) continue;
-
-                    if (petStatus.PetData?.sprites != null && i < petStatus.PetData.sprites.Length)
-                    {
-                        bool isReached = petStatus.EvoLevel >= i;
-                        EvoIcons[i].sprite = isReached ? petStatus.PetData.sprites[i].ProfileIcon : unknownIcon;
-                        EvoIcons[i].color = Color.white;
-                    }
-                    else
-                    {
-                        EvoIcons[i].sprite = unknownIcon;
-                        EvoIcons[i].color = Color.white;
-                    }
-                }
-            }
-
-            if (PlayerInfo != null) PlayerInfo.SetActive(false);
-            if (PetInfo != null) PetInfo.SetActive(true);
+            DrawPetUI(petStatus);
         }
         else
         {
@@ -161,6 +95,82 @@ public class StatsUI : MonoBehaviour
             if (LevelTxt != null)
                 LevelTxt.text = "Lv";
         }
+    }
+
+    private void DrawPlayerUI(PlayerStatus playerStatus)
+    {
+        // 닉네임
+        PlayerNameTxt.text = playerStatus.PlayerName;
+
+        // 선택사항: 성별 표시
+        if (GenderTxt != null)
+            GenderTxt.text = $"성별: {playerStatus.PlayerData.gender}";
+
+        // 프로필 아이콘 (갈색 vs 다크)
+        bool isExpert = playerStatus.Rank == E_Rank.Expert;
+        ProfileImg.sprite = isExpert
+            ? playerStatus.PlayerData.darkProfileIcon
+            : playerStatus.PlayerData.brownProfileIcon;
+
+        // 등급 텍스트
+        switch (playerStatus.Rank)
+        {
+            case E_Rank.Basic:
+                TierTxt.text = "등급 : 초급 마법사"; break;
+            case E_Rank.Advanced:
+                TierTxt.text = "등급 : 중급 마법사"; break;
+            case E_Rank.Expert:
+                TierTxt.text = "등급 : 상급 마법사"; break;
+            default:
+                TierTxt.text = "등급 : 알 수 없음"; break;
+        }
+
+        // 플레이어 정보 패널 활성화 / 펫 정보 비활성
+        PlayerInfo.SetActive(true);
+        PetInfo.SetActive(false);
+    }
+
+    private void DrawPetUI(PetStatus petStatus)
+    {
+        if (PetNameTxt.text != null)
+            PetNameTxt.text = petStatus.PetData?.PetName ?? defaultPetName;
+
+        // Pet UI 업데이트
+        if (ProfileImg != null && petStatus.PetData != null)
+            ProfileImg.sprite = petStatus.GetCurrentProfileIcon();
+        else if (ProfileImg != null)
+            ProfileImg.sprite = defaultPetProfile;
+
+        if (PetNameTxt != null) // 레벨도 같이 표시되게 해야함
+            PetNameTxt.text = petStatus.PetData?.PetName ?? defaultPetName;
+
+        if (EvoStageTxt != null)
+            EvoStageTxt.text = petStatus.PetData != null
+                ? $"성장 단계 : {petStatus.EvoLevel + 1}"
+                : defaultEvoStage;
+
+        if (EvoIcons != null)
+        {
+            for (int i = 0; i < EvoIcons.Length; i++)
+            {
+                if (EvoIcons[i] == null) continue;
+
+                if (petStatus.PetData?.sprites != null && i < petStatus.PetData.sprites.Length)
+                {
+                    bool isReached = petStatus.EvoLevel >= i;
+                    EvoIcons[i].sprite = isReached ? petStatus.PetData.sprites[i].ProfileIcon : unknownIcon;
+                    EvoIcons[i].color = Color.white;
+                }
+                else
+                {
+                    EvoIcons[i].sprite = unknownIcon;
+                    EvoIcons[i].color = Color.white;
+                }
+            }
+        }
+
+        if (PlayerInfo != null) PlayerInfo.SetActive(false);
+        if (PetInfo != null) PetInfo.SetActive(true);
     }
 
     private void ClearUI()
