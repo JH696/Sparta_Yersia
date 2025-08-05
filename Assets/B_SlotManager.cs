@@ -20,7 +20,7 @@ public class B_SlotManager : MonoBehaviour
     [SerializeField] private B_BattleButtons battleButtons;
 
     [Header("전투 종료 여부")]
-    [SerializeField] private bool isBattleEnd = false;
+    [SerializeField] private bool isBattlePage = false;
 
     [SerializeField] private int allyDeadCount = 0;
     [SerializeField] private int enemyDeadCount = 0;
@@ -33,31 +33,9 @@ public class B_SlotManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        SetAllySlots(GameManager.player);
-        SetEnemySlots(BattleManager.Instance.CurrentEncounter);
-
-        foreach (B_Slot slot in allySlots)
-        {
-            if (slot.Character != null)
-            {
-                slot.Character.OnCharacterDead += CheckDeadASlot;
-            }
-        }
-
-        foreach (B_Slot slot in enemySlots)
-        {
-            if (slot.Character != null)
-            {
-                slot.Character.OnCharacterDead += CheckDeadESlot;
-            }
-        }
-    }
-
     private void Update() // 전투 종료 상태면 리턴
     {
-        if (currentSlot != null || isBattleEnd) return;
+        if (currentSlot != null || !isBattlePage) return;
 
         foreach (var slot in AllSlots)
         {
@@ -76,6 +54,30 @@ public class B_SlotManager : MonoBehaviour
                 }
 
                 break;
+            }
+        }
+    }
+
+    public void StartBattlePage(PlayerStatus player, BattleEncounter encounter)
+    {
+        isBattlePage = true;
+
+        SetAllySlots(player);
+        SetEnemySlots(encounter);
+
+        foreach (B_Slot slot in allySlots)
+        {
+            if (slot.Character != null)
+            {
+                slot.Character.OnCharacterDead += CheckDeadASlot;
+            }
+        }
+
+        foreach (B_Slot slot in enemySlots)
+        {
+            if (slot.Character != null)
+            {
+                slot.Character.OnCharacterDead += CheckDeadESlot;
             }
         }
     }
@@ -119,7 +121,7 @@ public class B_SlotManager : MonoBehaviour
 
         if (allyDeadCount >= allyCount)
         {
-            isBattleEnd = true;
+            isBattlePage = false;
 
             foreach (var slot in allySlots)
             {
@@ -139,7 +141,7 @@ public class B_SlotManager : MonoBehaviour
 
         if (enemyDeadCount >= enemyCount)
         {
-            isBattleEnd = true;
+            isBattlePage = false;
 
             foreach (var slot in enemySlots)
             {

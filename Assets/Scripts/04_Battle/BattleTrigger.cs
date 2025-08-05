@@ -16,11 +16,9 @@ public class TriggerMonster : MonoBehaviour
 
     private Vector2 moveDirection;
     private float moveTimer;
-
     private Rigidbody2D rb;
 
-    public event System.Action<TriggerMonster> OnDestroyed;
-
+    public event System.Action<TriggerMonster> OnTriggered;
 
     public void SetTriggerMonster(BattleEncounter encounter)
     {
@@ -77,9 +75,8 @@ public class TriggerMonster : MonoBehaviour
     {
         if (!other.CompareTag("Player") || BattleManager.Instance.IsBattleActive) return;
 
-        Debug.Log("충돌");
-        BattleManager.Instance.StartBattle(battleEncounter);
+        StartCoroutine(BattleManager.Instance.StartBattle(battleEncounter));
 
-        OnDestroyed?.Invoke(this); // 트리거 제거 이벤트 호출
+        OnTriggered?.Invoke(this); // 트리거 제거 이벤트 호출
     }
 }
