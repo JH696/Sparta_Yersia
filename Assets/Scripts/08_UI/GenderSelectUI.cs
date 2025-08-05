@@ -20,9 +20,13 @@ public class GenderSelectUI : MonoBehaviour
     [Header("월드 씬 스프라이트 미리보기")]
     [SerializeField] private Image worldPreviewImage;
 
+    [Header("일러스트 스프라이트 미리보기")]
+    [SerializeField] private Image dialogSprite;
+
     [Header("배틀 씬 스프라이트 미리보기")]
     [SerializeField] private Image battlePreviewImage;
 
+    private NameInputUI nameInputComp;
     private PlayerData selectedData;
 
     private void Awake()
@@ -32,6 +36,10 @@ public class GenderSelectUI : MonoBehaviour
         panel.blocksRaycasts = true;
 
         nameInputUI.SetActive(false);
+        nameInputComp = nameInputUI.GetComponent<NameInputUI>();
+
+        selectedData = malePlayerData;
+        PreviewGender(malePlayerData);
     }
 
     // Preview 버튼 핸들러
@@ -41,7 +49,6 @@ public class GenderSelectUI : MonoBehaviour
     private void PreviewGender(PlayerData data)
     {
         selectedData = data;
-
         bool isExpert = data.Rank == E_Rank.Expert;
 
         // 월드용
@@ -49,30 +56,44 @@ public class GenderSelectUI : MonoBehaviour
             isExpert
                 ? data.darkWorldSprite
                 : data.brownWorldSprite;
- 
+
+        // 대화용
+        dialogSprite.sprite =
+            isExpert
+                ? data.darkDialogSprite
+                : data.brownDialogSprite;
+
         // 배틀용
         var visuals = isExpert
-                          ? data.darkBattleVisuals
-                          : data.brownBattleVisuals;
+                ? data.darkBattleVisuals
+                : data.brownBattleVisuals;
         battlePreviewImage.sprite = visuals.Stand;
     }
 
     // Confirm 버튼 핸들러
     public void OnConfirm()
     {
-        if (selectedData == null)
-        {
-            Debug.LogWarning("성별을 먼저 선택하세요!");
-            return;
-        }
+        if (selectedData == null) return;
 
         // 실제 PlayerData 교체
         player.SetPlayerData(selectedData);
+        player.ChangeSprite();
 
         // 패널 닫고 이름 입력 UI 열기
         panel.alpha = 0;
         panel.interactable = false;
         panel.blocksRaycasts = false;
         nameInputUI.SetActive(true);
+
+        // NameInputUI에 미리보기 스프라이트 전달
+        nameInputComp.SetPreviewSprite(
+            selectedData.Rank == E_Rank.Expert
+                ? selectedData.darkWorldSprite
+                : selectedData.brownWorldSprite
+        );
+
+        var statsUI = FindObjectOfType<StatsUI>();
+        var playerUI = FindObjectOfType<PlayerUI>();
+        nameInputComp.Init(player, statsUI, playerUI);
     }
 }
