@@ -359,8 +359,8 @@ public class B_BattleButtons : MonoBehaviour
                 if (roll <= stats.Luck)
                 {
                     BattleManager.Instance.Lose();
-                    allowBtn.interactable = true;
-                    cancelBtn.interactable = true;  
+                    allowBtn.interactable = false;
+                    cancelBtn.interactable = false;  
                     Debug.Log("도망 성공");
                     return;
                 }

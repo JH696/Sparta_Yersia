@@ -53,7 +53,7 @@ public class BattleManager : MonoBehaviour
         if (!IsTesting) return;
 
         BattleEncounter encounter = new BattleEncounter(datas);
-        slotManager.StartBattlePage(GameManager.player, encounter);
+        slotManager.StartBattlePage(encounter);
     }
 
     public IEnumerator StartBattle(BattleEncounter encounter)
@@ -68,22 +68,22 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator BattleDelay()
     {
-        WorldCamera.orthographic = true;
-        WorldCamera.orthographicSize = startSize;
+        //WorldCamera.orthographic = true;
+        //WorldCamera.orthographicSize = startSize;
 
-        float elapsed = 0f;
+        //float elapsed = 0f;
 
-        while (elapsed < zoomDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / zoomDuration;
-            WorldCamera.orthographicSize = Mathf.Lerp(startSize, endSize, t);
-            yield return null;
-        }
+        //while (elapsed < zoomDuration)
+        //{
+        //    elapsed += Time.deltaTime;
+        //    float t = elapsed / zoomDuration;
+        //    WorldCamera.orthographicSize = Mathf.Lerp(startSize, endSize, t);
+        //    yield return null;
+        //}
 
-        WorldCamera.orthographicSize = endSize;
+        //WorldCamera.orthographicSize = endSize;
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0f);
 
         // 카메라 전환
         WorldCamera.enabled = false;
@@ -143,8 +143,7 @@ public class BattleManager : MonoBehaviour
         isBattleActive = false;
         BattleCamera.enabled = false;
         WorldCamera.enabled = true;
-
-        WorldCanvas.SetActive(false);
+        WorldCanvas.SetActive(true);
 
         SceneLoader.UnloadScene("BattleScene");
     }

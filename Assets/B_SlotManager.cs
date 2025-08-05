@@ -58,11 +58,16 @@ public class B_SlotManager : MonoBehaviour
         }
     }
 
-    public void StartBattlePage(PlayerStatus player, BattleEncounter encounter)
+    public void Awake()
+    {
+        StartBattlePage(BattleManager.Instance.CurrentEncounter);
+    }
+
+    public void StartBattlePage(BattleEncounter encounter)
     {
         isBattlePage = true;
 
-        SetAllySlots(player);
+        SetAllySlots(GameManager.player);
         SetEnemySlots(encounter);
 
         foreach (B_Slot slot in allySlots)
