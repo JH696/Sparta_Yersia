@@ -320,6 +320,7 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
+                    curSlot.PlayAttackAnim();
                     effecter.SetBaseEffect(curSlot.Character.stat, this);
                 }
                 break;
@@ -330,6 +331,7 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
+                    curSlot.PlayAttackAnim();
                     effecter.SetSkillEffecter(curSlot.Character.stat, selectedSkill, this);
                 }
                 break;

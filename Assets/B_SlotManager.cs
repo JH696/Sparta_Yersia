@@ -21,7 +21,6 @@ public class B_SlotManager : MonoBehaviour
 
     [Header("전투 종료 여부")]
     [SerializeField] private bool isBattlePage = false;
-
     [SerializeField] private int allyDeadCount = 0;
     [SerializeField] private int enemyDeadCount = 0;
 
@@ -105,7 +104,7 @@ public class B_SlotManager : MonoBehaviour
     {
         List<MonsterStatus> monsters = new List<MonsterStatus>();
 
-        foreach (var data in encounter.monsters)
+        foreach (var data in encounter.Monsters)
         {
             MonsterStatus status = new MonsterStatus(data);
             monsters.Add(status);

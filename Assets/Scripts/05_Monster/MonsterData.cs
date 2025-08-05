@@ -39,8 +39,10 @@ public struct DropItem
 public struct BattleVisuals
 {
     public Sprite Stand;
+    public AnimationClip Move;
     public AnimationClip Idle;
     public AnimationClip Attack;
+    public AnimationClip Cast;
     public AnimationClip Hit;
     public AnimationClip Die;
 }

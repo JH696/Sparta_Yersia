@@ -28,13 +28,10 @@ public class BattleManager : MonoBehaviour
     public bool IsBattleActive => isBattleActive;
     public Camera BattleCamera => battleCamera;
 
-    [Header("임시 위치")]
-    public float startSize = 4f;
-    public float endSize = 1f;
-    public float zoomDuration = 0.5f;
-
-    public B_SlotManager slotManager;
-
+    //[Header("임시 위치")]
+    //public float startSize = 4f;
+    //public float endSize = 1f;
+    //public float zoomDuration = 0.5f;
 
     private void Awake()
     {
@@ -46,14 +43,11 @@ public class BattleManager : MonoBehaviour
         {
             Destroy(gameObject); // 이미 존재하는 경우 중복 방지
         }
-    }
 
-    private void Start()
-    {
+        // 테스트용 코드 삭제 예정
         if (!IsTesting) return;
 
-        BattleEncounter encounter = new BattleEncounter(datas);
-        slotManager.StartBattlePage(encounter);
+        currentEncounter = new BattleEncounter(datas, E_StageType.Upper);
     }
 
     public IEnumerator StartBattle(BattleEncounter encounter)
@@ -103,7 +97,7 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator WinRoutine()
     {
-        List<MonsterData> monsters = CurrentEncounter.monsters;
+        List<MonsterData> monsters = CurrentEncounter.Monsters;
         List<BaseItem> dropItems = new List<BaseItem>();
 
         int totalYp = 0;
