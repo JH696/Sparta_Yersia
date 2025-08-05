@@ -102,15 +102,17 @@ public class StatsUI : MonoBehaviour
         // 닉네임
         PlayerNameTxt.text = playerStatus.PlayerName;
 
-        // 선택사항: 성별 표시
+        // 성별 표시
         if (GenderTxt != null)
             GenderTxt.text = $"성별: {playerStatus.PlayerData.gender}";
 
-        // 프로필 아이콘 (갈색 vs 다크)
+        // 프로필 아이콘 : 대화용 스프라이트를 좌우 반전
         bool isExpert = playerStatus.Rank == E_Rank.Expert;
-        ProfileImg.sprite = isExpert
-            ? playerStatus.PlayerData.darkProfileIcon
-            : playerStatus.PlayerData.brownProfileIcon;
+        Sprite talkSprite = isExpert
+            ? playerStatus.PlayerData.darkDialogSprite
+            : playerStatus.PlayerData.brownDialogSprite;
+
+        ProfileImg.sprite = talkSprite;
 
         // 등급 텍스트
         switch (playerStatus.Rank)

@@ -61,6 +61,25 @@ public class DialogueUI : MonoBehaviour
         curLineIndex = 0;
         this.curDialogueData = curData;
         passBtn.SetActive(true);
+
+        // 플레이어 이미지
+        var pd = GameManager.player.PlayerData;
+        bool isExpert = pd.Rank == E_Rank.Expert;
+        playerImg.sprite = isExpert
+            ? pd.darkDialogSprite
+            : pd.brownDialogSprite;
+
+        // NPC 이미지
+        dialogueImg.sprite = curNpc?.GetNpcData()?.DialogueSprite;
+
+        // 애니메이터 초기화
+        playerImg.GetComponent<Animator>().SetBool("IsSpeak", false);
+        dialogueImg.GetComponent<Animator>().SetBool("IsSpeak", false);
+
+        if (curDialogueData.Lines.Count > 0)
+        {
+            SetSpeaker(curDialogueData.Lines[0].Speaker);
+        }
     }
 
     // 대화 상대 NPC 설정 (NPC 사용시 필수)
@@ -84,6 +103,9 @@ public class DialogueUI : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         passBtn.SetActive(true);
+
+        if (curDialogueData != null && curDialogueData.Lines.Count > 0)
+            SetCurDialogue(curDialogueData);
     }
 
     // 다이얼로그 UI 비활성화
@@ -160,13 +182,14 @@ public class DialogueUI : MonoBehaviour
     // 대화 상대 이름, 스프라이트 투명도 설정 (Player, NPC 등)
     private void SetSpeaker(string speaker)
     {
-        NameTxt.text = speaker switch
-        {
-            "Player" => "나", // PlayerName
-            "NPC" => curNpc?.GetNpcData()?.NpcName ?? "???",
-            _ => speaker
-        };
+        // 이름 표시
+        NameTxt.text = speaker == "Player"
+            ? "나"
+            : (speaker == "NPC"
+                ? curNpc?.GetNpcData()?.NpcName ?? "???"
+                : speaker);
 
+        // 애니메이터
         if (speaker == "Player")
         {
             playerImg.GetComponent<Animator>().SetBool("IsSpeak", true);
@@ -176,6 +199,30 @@ public class DialogueUI : MonoBehaviour
         {
             playerImg.GetComponent<Animator>().SetBool("IsSpeak", false);
             dialogueImg.GetComponent<Animator>().SetBool("IsSpeak", true);
+        }
+
+        // 스프라이트
+        if (speaker == "Player")
+        {
+            var pd = GameManager.player.PlayerData;
+            bool isExpert = pd.Rank == E_Rank.Expert;
+
+            // 대화용 스프라이트
+            playerImg.sprite = isExpert
+                ? pd.darkDialogSprite
+                : pd.brownDialogSprite;
+
+            // 좌우 반전
+            playerImg.rectTransform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (speaker == "NPC")
+        {
+            // NPCData에 저장된 DialogueSprite 사용
+            var npcSpr = curNpc?.GetNpcData()?.DialogueSprite;
+            dialogueImg.sprite = npcSpr;
+
+            // 원래 방향
+            dialogueImg.rectTransform.localScale = Vector3.one;
         }
     }
 
