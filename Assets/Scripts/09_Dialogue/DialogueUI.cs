@@ -61,6 +61,25 @@ public class DialogueUI : MonoBehaviour
         curLineIndex = 0;
         this.curDialogueData = curData;
         passBtn.SetActive(true);
+
+        // 플레이어 이미지
+        var pd = GameManager.player.PlayerData;
+        bool isExpert = pd.Rank == E_Rank.Expert;
+        playerImg.sprite = isExpert
+            ? pd.darkDialogSprite
+            : pd.brownDialogSprite;
+
+        // NPC 이미지
+        dialogueImg.sprite = curNpc?.GetNpcData()?.DialogueSprite;
+
+        // 애니메이터 초기화
+        playerImg.GetComponent<Animator>().SetBool("IsSpeak", false);
+        dialogueImg.GetComponent<Animator>().SetBool("IsSpeak", false);
+
+        if (curDialogueData.Lines.Count > 0)
+        {
+            SetSpeaker(curDialogueData.Lines[0].Speaker);
+        }
     }
 
     // 대화 상대 NPC 설정 (NPC 사용시 필수)
@@ -84,6 +103,9 @@ public class DialogueUI : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         passBtn.SetActive(true);
+
+        if (curDialogueData != null && curDialogueData.Lines.Count > 0)
+            SetCurDialogue(curDialogueData);
     }
 
     // 다이얼로그 UI 비활성화
