@@ -13,18 +13,22 @@ public class PlayerController : MonoBehaviour
     private Vector2 inputDir = Vector2.zero;
     private Animator anim;
 
+    private Player player;
+
     [Header("상호작용")]
     [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
     [SerializeField, Tooltip("이동이 가능한 위치 레이어")] private LayerMask moveableLayerMask;
 
     [Header("상호작용 UI")]
     [SerializeField] private GameObject interactTextPrefab;
+
     private GameObject interactTextInstance;
     private Transform currentTarget;
 
     void Awake()
     {
         anim = GetComponent<Animator>();
+        player = GetComponent<Player>();
     }
 
     private void Start()
@@ -50,6 +54,8 @@ public class PlayerController : MonoBehaviour
 
         // 초기 타겟은 현재 위치
         targetPos = transform.position;
+
+        player.ChangeSprite();
     }
 
     private void LateUpdate()
@@ -126,6 +132,8 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimation()
     {
+        if (anim.runtimeAnimatorController == null) return;
+
         // 이동 방향
         Vector2 moveVec = Vector2.zero;
         if (inputDir.sqrMagnitude > 0.01f)

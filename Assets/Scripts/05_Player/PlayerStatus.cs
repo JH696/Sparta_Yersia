@@ -16,7 +16,6 @@ public class PlayerStatus : CharacterStatus
     public PlayerData PlayerData;
     public PlayerWallet Wallet;
 
-
     public PlayerStatus(PlayerData data, string playerName)
     {
         this.PlayerData = data;
@@ -41,10 +40,9 @@ public class PlayerStatus : CharacterStatus
         PlayerName = name;
     }
 
-    public override Sprite GetWSprite()
+    public void SetPlayerData(PlayerData newData)
     {
-        // 플레이어의 월드 스프라이트 반환
-        return PlayerData.WSprite;
+        PlayerData = newData;
     }
 
     private void LevelUp()
@@ -60,8 +58,28 @@ public class PlayerStatus : CharacterStatus
         }
     }
 
+    public override Sprite GetWSprite()
+    {
+        // 플레이어의 월드 스프라이트 반환
+        bool isExpert = Rank == E_Rank.Expert;
+        return isExpert
+            ? PlayerData.darkWorldSprite
+            : PlayerData.brownWorldSprite;
+    }
+
+    public Sprite GetProfileIcon()
+    {
+        bool isExpert = Rank == E_Rank.Expert;
+        return isExpert
+            ? PlayerData.darkProfileIcon
+            : PlayerData.brownProfileIcon;
+    }
+
     public override BattleVisuals GetBattleVisuals()
     {
-        return PlayerData.BattleVisuals;
+        bool isExpert = Rank == E_Rank.Expert;
+        return isExpert
+            ? PlayerData.darkBattleVisuals
+            : PlayerData.brownBattleVisuals;
     }
 }
