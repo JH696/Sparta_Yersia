@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +20,7 @@ public class B_RewardUI : MonoBehaviour
     {
         if (BattleManager.Instance != null)
         {
-            BattleManager.Instance.rewardUI = this;
+            BattleManager.Instance.RewardUI = this;
         }
         else
         {

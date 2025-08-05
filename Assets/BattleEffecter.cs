@@ -137,23 +137,13 @@ public class BattleEffecter : MonoBehaviour
         // 치명타 시 강조 효과
         if (isCritical)
         {
-            damageText.fontSize = 60;
-            damageText.fontStyle = FontStyles.Bold;
-            damageText.color = Color.yellow; // 또는 빨강/금색
-            damageText.outlineWidth = 0.2f;
-            damageText.outlineColor = Color.red;
-            damageText.text = $"<b><i>CRITICAL!</i></b>\n{invokedDamage}";
+            damageText.text = $"Critical!" + $"\n{invokedDamage}";
         }
         else
         {
-            damageText.fontSize = 48;
-            damageText.fontStyle = FontStyles.Normal;
             damageText.color = Color.white;
-            damageText.outlineWidth = 0f;
             damageText.text = $"{invokedDamage}";
         }
-
-        damageText.text = $"{invokedDamage}";
     }
 
     // 상단/하단 색상 설정

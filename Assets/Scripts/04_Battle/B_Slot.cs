@@ -41,11 +41,12 @@ public class B_Slot : MonoBehaviour
         spr.sprite = status.GetWSprite();
 
         visuals = Character.GetBattleVisuals();
-        Character.TakeDamaged += (() => animator.SetTrigger("Hit"));
+        character.TakeDamaged += PlayHitAnim;
 
         ReplaceClip("Base_Idle", visuals.Idle);
         ReplaceClip("Base_Attack", visuals.Attack);
         ReplaceClip("Base_Hit", visuals.Hit);
+        ReplaceClip("Base_Die", visuals.Die);
 
         character.OnCharacterDead += statGauge.ResetGauge;
     }
@@ -111,5 +112,12 @@ public class B_Slot : MonoBehaviour
     public void PlayAttackAnim()
     {
         animator.SetTrigger("Attack");
+    }
+
+    private void PlayHitAnim()
+    {
+        animator.SetBool("IsDead", true);
+
+        animator.SetTrigger("Hit");
     }
 }

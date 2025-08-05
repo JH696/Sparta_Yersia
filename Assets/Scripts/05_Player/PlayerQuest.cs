@@ -188,6 +188,6 @@ public class PlayerQuest
     {
         EliCountUp(monsterData.MonsterID);
         QuestUpdate();
-        QuestManager.Instance.questUI.RefreshQuestUI();
+        //QuestManager.Instance.questUI.RefreshQuestUI();
     }
 }

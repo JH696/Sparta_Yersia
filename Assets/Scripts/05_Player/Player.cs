@@ -47,6 +47,10 @@ public class Player : MonoBehaviour
         }
 
         status.party.Initialize(transform); // playerTransform 전달
+    }
+
+    private void Start()
+    {
         ChangeSprite();
     }
 
@@ -77,6 +81,8 @@ public class Player : MonoBehaviour
 
     public void ChangeSprite()
     {
+        if (animator == null) return;
+
         bool isExpert = status.Rank == E_Rank.Expert;
 
         // 월드 스프라이트
