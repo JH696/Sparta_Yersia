@@ -47,6 +47,13 @@ public class PlayerStatus : CharacterStatus
         return PlayerData.WSprite;
     }
 
+    public void AddExp(int amount)
+    {
+        if (amount <= 0) return;
+
+        stat.AddExp(amount);
+    }
+
     private void LevelUp()
     {
         SkillPoints++;
