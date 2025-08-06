@@ -21,12 +21,12 @@ public class SkillInventory
     {
         foreach (SkillData skill in startSkills.StartSkills)
         {
-            AddSkill(skill);
-        }  
+            AddSkill(skill, startSkills is Pet);
+        }
     }
 
     // 스킬 인벤토리 스킬 추가
-    public bool AddSkill(SkillData data)
+    public bool AddSkill(SkillData data, bool isPet = false)
     {
         if (HasSkill(data)) return false;
 
@@ -34,6 +34,13 @@ public class SkillInventory
 
         SkillStatus status = new SkillStatus(data);
         allSkills.Add(status);
+
+        // 펫일 경우 자동 장착
+        if (isPet && equipSkills.Count < 5 && !equipSkills.Contains(status))
+        {
+            equipSkills.Add(status);
+            Debug.Log($"{data.Name} 스킬을 자동 장착했습니다!");
+        }
 
         OnChanged?.Invoke(); // 스킬 인벤토리 변경 알림
         return true;
@@ -73,7 +80,7 @@ public class SkillInventory
         }
     }
 
-    // 스킬 인벤토리 속 스킬 장착
+    // 스킬 인벤토리 속 스킬 해제
     public void UnequipSkill(SkillStatus status)
     {
         if (equipSkills.Contains(status))
@@ -81,7 +88,6 @@ public class SkillInventory
             equipSkills.Remove(status);
             OnChanged?.Invoke(); // 스킬 인벤토리 변경 알림
             Debug.Log($"{status.Data.Name} 스킬을 해제 했습니다.");
-
         }
         else
         {
