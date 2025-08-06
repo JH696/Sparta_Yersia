@@ -36,15 +36,17 @@ MonoBehaviour:
   darkController: {fileID: 9100000, guid: 31187a3ce136afa4bbcb9eb473256b4e, type: 2}
   brownBattleVisuals:
     Stand: {fileID: -925629800, guid: 5d3207f7e1e2003489cfb8dba56f9adb, type: 3}
-    Move: {fileID: 0}
+    Move: {fileID: 7400000, guid: a5a891c074f586a48b3b63c5ce0d1be9, type: 2}
     Idle: {fileID: 7400000, guid: 5d08e225b06ff4541b0f0a94e05195aa, type: 2}
     Attack: {fileID: 7400000, guid: 2b96b094761bedd45ae8b96f390a88ad, type: 2}
+    Cast: {fileID: 0}
     Hit: {fileID: 7400000, guid: ff643ba3c3f98554693423345f3a9d48, type: 2}
     Die: {fileID: 0}
   darkBattleVisuals:
     Stand: {fileID: -925629800, guid: 5d3207f7e1e2003489cfb8dba56f9adb, type: 3}
-    Move: {fileID: 0}
+    Move: {fileID: 7400000, guid: 02e80b95c458c7f4fbab474958b7018b, type: 2}
     Idle: {fileID: 7400000, guid: 5d08e225b06ff4541b0f0a94e05195aa, type: 2}
     Attack: {fileID: 7400000, guid: 2b96b094761bedd45ae8b96f390a88ad, type: 2}
+    Cast: {fileID: 0}
     Hit: {fileID: 7400000, guid: ff643ba3c3f98554693423345f3a9d48, type: 2}
     Die: {fileID: 0}
