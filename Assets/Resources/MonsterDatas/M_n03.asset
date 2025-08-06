@@ -25,7 +25,6 @@ MonoBehaviour:
   MonsterType: 0
   startSkills:
   - {fileID: 11400000, guid: ddb46affd790daf47abaaf5259d6f159, type: 2}
-  learnableSkills: []
   ypDrop: 50
   expDrop: 50
   dropItems:
@@ -33,4 +32,11 @@ MonoBehaviour:
     dropRate: 0.2
   - itemData: {fileID: 11400000, guid: 4d98672e3c675254a89017ac9a338c34, type: 2}
     dropRate: 0.01
-  WSprite: {fileID: 1282329035, guid: 129ac64855ee45e4b9b0664f0be1bd1e, type: 3}
+  BattleVisuals:
+    Stand: {fileID: 1282329035, guid: 129ac64855ee45e4b9b0664f0be1bd1e, type: 3}
+    Move: {fileID: 7400000, guid: b9ec5c5536a08894a85fd94b3f85e6c9, type: 2}
+    Idle: {fileID: 7400000, guid: 6c0b7dd0e6e81dd4599c9dd0b74c019c, type: 2}
+    Attack: {fileID: 7400000, guid: b3ee0242682f1f8438ddafb1e264c736, type: 2}
+    Cast: {fileID: 7400000, guid: 4aea2c9c295f9b2498b8e9654ab1cc2b, type: 2}
+    Hit: {fileID: 7400000, guid: f5fe61089cb322a46a172460fe122f5e, type: 2}
+    Die: {fileID: 7400000, guid: 61cb059d313994f46936f8276778a09d, type: 2}

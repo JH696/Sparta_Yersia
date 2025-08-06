@@ -18,11 +18,9 @@ public class B_SlotManager : MonoBehaviour
 
     [Header("행동 버튼 / 몬스터 행동")]
     [SerializeField] private B_BattleButtons battleButtons;
-    [SerializeField] private B_MonsterAction monsterAction;
 
     [Header("전투 종료 여부")]
-    [SerializeField] private bool isBattleEnd = false;
-
+    [SerializeField] private bool isBattlePage = false;
     [SerializeField] private int allyDeadCount = 0;
     [SerializeField] private int enemyDeadCount = 0;
 
@@ -34,10 +32,42 @@ public class B_SlotManager : MonoBehaviour
         }
     }
 
-    void Awake()
+    private void Update() // 전투 종료 상태면 리턴
     {
+        if (currentSlot != null || !isBattlePage) return;
+
+        foreach (var slot in AllSlots)
+        {
+            if (slot.IncreacedAP())
+            {
+                currentSlot = slot;
+
+                switch (slot.GetSlotType())
+                {
+                    case E_B_SlotType.Ally:
+                        battleButtons.OnTurnStart(slot);
+                        break;
+                    case E_B_SlotType.Enemy:
+                        battleButtons.OnMonsterturn(slot);
+                        break;
+                }
+
+                break;
+            }
+        }
+    }
+
+    public void Awake()
+    {
+        StartBattlePage(BattleManager.Instance.CurrentEncounter);
+    }
+
+    public void StartBattlePage(BattleEncounter encounter)
+    {
+        isBattlePage = true;
+
         SetAllySlots(GameManager.player);
-        SetEnemySlots(BattleManager.Instance.CurrentEncounter);
+        SetEnemySlots(encounter);
 
         foreach (B_Slot slot in allySlots)
         {
@@ -52,31 +82,6 @@ public class B_SlotManager : MonoBehaviour
             if (slot.Character != null)
             {
                 slot.Character.OnCharacterDead += CheckDeadESlot;
-            }
-        }
-    }
-
-    private void Update() // 전투 종료 상태면 리턴
-    {
-        if (currentSlot != null || isBattleEnd) return;
-
-        foreach (var slot in AllSlots)
-        {
-            if (slot.IncreacedAP())
-            {
-                currentSlot = slot;
-
-                switch (slot.GetSlotType())
-                {
-                    case E_B_SlotType.Ally:
-                        battleButtons.OnTurnStart(slot);
-                        break;
-                    case E_B_SlotType.Enemy:
-                        monsterAction.MonsterAttack(slot);
-                        break;
-                }
-
-                break;
             }
         }
     }
@@ -99,7 +104,7 @@ public class B_SlotManager : MonoBehaviour
     {
         List<MonsterStatus> monsters = new List<MonsterStatus>();
 
-        foreach (var data in encounter.monsters)
+        foreach (var data in encounter.Monsters)
         {
             MonsterStatus status = new MonsterStatus(data);
             monsters.Add(status);
@@ -120,7 +125,7 @@ public class B_SlotManager : MonoBehaviour
 
         if (allyDeadCount >= allyCount)
         {
-            isBattleEnd = true;
+            isBattlePage = false;
 
             foreach (var slot in allySlots)
             {
@@ -140,7 +145,7 @@ public class B_SlotManager : MonoBehaviour
 
         if (enemyDeadCount >= enemyCount)
         {
-            isBattleEnd = true;
+            isBattlePage = false;
 
             foreach (var slot in enemySlots)
             {
@@ -160,8 +165,6 @@ public class B_SlotManager : MonoBehaviour
 
     public void ClearCurrentSlot()
     {
-        Debug.Log("현재 슬롯 초기화");
-
         if (currentSlot != null)
         {
             currentSlot = null;

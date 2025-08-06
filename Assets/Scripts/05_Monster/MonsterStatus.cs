@@ -25,9 +25,8 @@ public class MonsterStatus : CharacterStatus
         GameManager.player.quest.KillMonster(data); // 몬스터 처치 시 퀘스트 업데이트
     }
 
-    public override Sprite GetWSprite()
+    public override BattleVisuals GetBattleVisuals()
     {
-        return data.BattleVisuals.Stand; // 몬스터의 월드 스프라이트 반환
+        return data.BattleVisuals;
     }
-
 }

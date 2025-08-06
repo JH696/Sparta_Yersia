@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
 
         // 씬 로드시 UI 초기화 및 이벤트 구독
@@ -158,5 +159,11 @@ public class UIManager : MonoBehaviour
     public void HidePetUI()
     {
         petUIController.gameObject.SetActive(false);
+    }
+
+    public void SetProfileIcon(Sprite icon)
+    {
+        if (playerUI != null)
+            playerUI.SetProfileIcon(icon);
     }
 }

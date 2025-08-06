@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 using UnityEngine.UI;
 
 public enum E_ActionType
@@ -23,6 +26,9 @@ public class B_BattleButtons : MonoBehaviour
     [Header("액션 핸들러")]
     [SerializeField] private B_ActionHandler actionHandler;
 
+    [Header("슬롯 매니저")]
+    [SerializeField] private B_SlotManager slotManager;
+
     [Header("행동 버튼 부모")]
     [SerializeField] private GameObject aButtonParent;
 
@@ -43,6 +49,9 @@ public class B_BattleButtons : MonoBehaviour
     [Header("승인 / 취소 버튼")]
     [SerializeField] private Button allowBtn;
     [SerializeField] private Button cancelBtn;
+
+    [Header("가이드 텍스트")]
+    [SerializeField] private TextMeshProUGUI guideText;
 
     [Header("선택한 스킬, 아이템")]
     [SerializeField] private SkillStatus selectedSkill;
@@ -90,17 +99,22 @@ public class B_BattleButtons : MonoBehaviour
         // 월드 좌표 → 화면 좌표
         Vector2 screenPos = BattleManager.Instance.BattleCamera.WorldToScreenPoint(slot.gameObject.transform.position);
 
+        // 사용할 카메라: Render Mode가 Overlay면 null, 아니면 canvas의 worldCamera 사용
+        Camera renderCam = (canvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : canvas.worldCamera;
+
         // 화면 좌표 → 캔버스 로컬 좌표
-        Vector2 localPoint;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main, out localPoint))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, renderCam, out Vector2 localPoint))
         {
             myRect.localPosition = localPoint;
         }
 
         aButtonParent.SetActive(true);
+        aButtonParent.GetComponent<Animator>().SetTrigger("Scatter");
+
+        UpdateText();
     }
 
-    private void OnTurnEnd()
+    public void OnTurnEnd()
     {
         actionType = E_ActionType.None;
         selectedSkill = null;
@@ -113,9 +127,6 @@ public class B_BattleButtons : MonoBehaviour
             btn.ResetButton();
         }
 
-        allowBtn.gameObject.SetActive(false);
-        cancelBtn.gameObject.SetActive(false);
-
         if (curSlot.Character.IsDead)
         {
             actionHandler.EndTargeting(true);
@@ -124,6 +135,66 @@ public class B_BattleButtons : MonoBehaviour
 
         actionHandler.EndTargeting(false);
         curSlot = null;
+
+        UpdateText();
+    }
+
+    public void OnMonsterturn(B_Slot slot)
+    {
+        curSlot = slot;
+
+        CharacterStatus curStatus = slot.Character;
+
+        List<BattleEffecter> effecters = slotManager.GetNonEmptySlots()
+            .Where(slot => slot.GetSlotType() == E_B_SlotType.Ally)
+            .Select(slot => slot.GetComponentInChildren<BattleEffecter>())
+            .Where(effecter => effecter != null) // ← 이거 추가
+            .ToList();
+
+        if (effecters.Count == 0)
+        {
+            slotManager.ClearCurrentSlot();
+            return;
+        }
+
+        List<SkillStatus> skills = curStatus.skills.AllSkills;
+        List<SkillStatus> castableSkills = skills
+            .Where(skill => skill.CanCast(curStatus))
+            .ToList();
+
+        List<BattleEffecter> randomTargets = new List<BattleEffecter>();
+
+        if (castableSkills.Count <= 0 || Random.value <= 0.75f)
+        {
+            BattleEffecter target = effecters[Random.Range(0, effecters.Count)];
+
+            target.SetBaseEffect(curStatus.stat, this);
+            Debug.Log($"몬스터 {curStatus}이(가) {target}에게 일반 공격을 실행 했습니다.");
+        }
+        else
+        {
+            SkillStatus randomSkill = castableSkills[Random.Range(0, castableSkills.Count)];
+
+            int range = Mathf.Min(randomSkill.Data.Range, effecters.Count);
+
+            List<int> indices = Enumerable.Range(0, effecters.Count).ToList();
+            for (int i = 0; i < range; i++)
+            {
+                int rand = Random.Range(i, indices.Count);
+                (indices[i], indices[rand]) = (indices[rand], indices[i]);
+                randomTargets.Add(effecters[indices[i]]);
+            }
+
+            randomSkill.Cast(curStatus);
+
+            foreach (BattleEffecter e in randomTargets)
+            {
+                e.SetSkillEffecter(curStatus.stat, randomSkill, this);
+                Debug.Log($"몬스터 {curStatus}이(가) {e}에게 {randomSkill.Data.name}을 사용했습니다.");
+            }
+        }
+
+        slot.PlayAttackAnim();
     }
 
    public void OnAttackButton()
@@ -132,7 +203,8 @@ public class B_BattleButtons : MonoBehaviour
         actionType = E_ActionType.Attack;
         actionHandler.StartTargeting(1);
         ShowAllowButton();
-   }
+        UpdateText();
+    }
 
    public void OnSkillButton()
    {
@@ -149,6 +221,7 @@ public class B_BattleButtons : MonoBehaviour
 
         dButtonParent.SetActive(true);
         aButtonParent.SetActive(false);
+        UpdateText();
 
         if (skills.Count <= 0) return;
 
@@ -157,7 +230,7 @@ public class B_BattleButtons : MonoBehaviour
             buttons[i].SetSkill(skills[i]);
             buttons[i].OnSkillSelected += UseSkill;
         }
-   }
+    }
 
     public void OnItemButton()
     {
@@ -174,6 +247,7 @@ public class B_BattleButtons : MonoBehaviour
         actionType = E_ActionType.Item;
         dButtonParent.SetActive(true);
         aButtonParent.SetActive(false);
+        UpdateText();
 
         if (filter.Count <= 0) return;
         
@@ -209,20 +283,22 @@ public class B_BattleButtons : MonoBehaviour
         aButtonParent.SetActive(false);
         dButtonParent.SetActive(false);
 
-        allowBtn.gameObject.SetActive(true);
-        cancelBtn.gameObject.SetActive(true);
+        allowBtn.interactable = true;
+        cancelBtn.interactable = true;
     }
 
     public void OnRestButton()
     {
         actionType = E_ActionType.Rest;
         ShowAllowButton();
+        UpdateText();
     }
 
     public void OnRunBtn()
     {
         actionType = E_ActionType.Run;
         ShowAllowButton();
+        UpdateText();
     }
 
     private void OnAllowButton()
@@ -235,8 +311,6 @@ public class B_BattleButtons : MonoBehaviour
             }
         }
 
-        DamageCalculator cal = new DamageCalculator();
-
         CharacterStats stats = curSlot.Character.stat;
 
         switch (actionType)
@@ -246,9 +320,8 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
-                    CharacterStatus target = effecter.Slot.Character;
-
-                    effecter.SetEffecter("base", cal.DamageCalculate(stats, target.stat, null));
+                    curSlot.PlayAttackAnim();
+                    effecter.SetBaseEffect(curSlot.Character.stat, this);
                 }
                 break;
  
@@ -258,9 +331,8 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
-                    CharacterStatus target = effecter.Slot.Character;
-
-                    effecter.SetEffecter($"{selectedSkill.Data.ID}", cal.DamageCalculate(stats, target.stat, selectedSkill));
+                    curSlot.PlayAttackAnim();
+                    effecter.SetSkillEffecter(curSlot.Character.stat, selectedSkill, this);
                 }
                 break;
 
@@ -275,10 +347,13 @@ public class B_BattleButtons : MonoBehaviour
                     }
                     selectedItem.LoseItem(actionHandler.Targets.Count);
                 }
+
+                OnTurnEnd();
                 break;
 
             case E_ActionType.Rest:
                 curSlot.Character.RecoverMana(stats.MaxMana * 0.1f);
+                OnTurnEnd();
                 break;
 
             case E_ActionType.Run:
@@ -286,8 +361,8 @@ public class B_BattleButtons : MonoBehaviour
                 if (roll <= stats.Luck)
                 {
                     BattleManager.Instance.Lose();
-                    allowBtn.gameObject.SetActive(false);
-                    cancelBtn.gameObject.SetActive(false);
+                    allowBtn.interactable = false;
+                    cancelBtn.interactable = false;  
                     Debug.Log("도망 성공");
                     return;
                 }
@@ -295,11 +370,17 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     Debug.Log("도망 실패");
                 }
+                OnTurnEnd();
                 break;
 
         }
 
-        //OnTurnEnd();
+        actionHandler.ClearAllTargetsPointer();
+        actionType = E_ActionType.None;
+        UpdateText();
+
+        allowBtn.interactable = false;
+        cancelBtn.interactable = false;
     }
 
     private void OnCancelButton()
@@ -314,8 +395,11 @@ public class B_BattleButtons : MonoBehaviour
         }
 
         actionHandler.ClearAllTargetsPointer();
-        allowBtn.gameObject.SetActive(false);
-        cancelBtn.gameObject.SetActive(false);
+        actionType = E_ActionType.None;
+        UpdateText();
+
+        allowBtn.interactable = false;
+        cancelBtn.interactable = false;
     }
 
     private void OnReturnButton()
@@ -327,5 +411,33 @@ public class B_BattleButtons : MonoBehaviour
 
         dButtonParent.SetActive(false);
         aButtonParent.SetActive(true);
+
+        actionType = E_ActionType.None;
+        UpdateText();
+    }
+
+    private void UpdateText()
+    {
+        switch (actionType)
+        {
+            case E_ActionType.Attack:
+                guideText.text = "- 일반 공격 -" + "\n선택한 대상 하나에게 물리 피해를 입힙니다.";
+                break;
+            case E_ActionType.Skill:
+                guideText.text = "- 마법 사용 -" + "\n행동자가 사용 가능한 마법을 나열합니다.";
+                break;
+            case E_ActionType.Item:
+                guideText.text = "- 아이템 사용 -" + "\n행동자가 사용 가능한 소비 아이템을 나열합니다.";
+                break;
+            case E_ActionType.Rest:
+                guideText.text = "- 휴식하기 -" + "\n행동자의 마나를 일정 비율 회복합니다.";
+                break;
+            case E_ActionType.Run:
+                guideText.text = "- 도망가기 -" + "\n행동자의 행운과 비례하는 확률로 도주를 시도합니다.";
+                break;
+            default:
+                guideText.text = string.Empty;
+                break;
+        }
     }
 }

@@ -36,8 +36,11 @@ public class B_StatGauge : MonoBehaviour
         // 월드 좌표 → 스크린 좌표
         Vector2 screenPos = BattleManager.Instance.BattleCamera.WorldToScreenPoint(slot.transform.position);
 
+        // 사용할 카메라 가져오기 (Canvas에 설정된 Render Camera)
+        Camera renderCam = (canvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : canvas.worldCamera;
+
         // 스크린 좌표 → 캔버스 로컬 좌표
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main, out Vector2 localPoint))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, renderCam, out Vector2 localPoint))
         {
             thisRect.localPosition = localPoint;
         }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -75,8 +74,6 @@ public class B_ActionHandler : MonoBehaviour
 
     public void EndTargeting(bool isDead)
     {
-        Debug.Log($"타겟팅 종료, isDead: {isDead}");
-
         ClearAllTargetsPointer();
         slotManager.ClearCurrentSlot();
     }

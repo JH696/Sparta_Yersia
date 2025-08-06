@@ -30,8 +30,6 @@ public class SkillInventory
     {
         if (HasSkill(data)) return false;
 
-        Debug.Log($"{data.Name} 스킬을 습득했습니다!");
-
         SkillStatus status = new SkillStatus(data);
         allSkills.Add(status);
 
