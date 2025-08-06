@@ -17,13 +17,38 @@ public class PetStatus : CharacterStatus
     /// </summary>
     public PetStatus(PetData data)
     {
-        this.PetData = data;
-        this.stat = new CharacterStats(data);
-
+        PetData = data;
+        stat = new CharacterStats(data);
         EvoLevel = 0;
+
         stat.LevelUP += EvoLevelUp;
-        
         skills = new SkillInventory(data);
+
+        LearnInitialSkills();
+    }
+
+    private void LearnInitialSkills()
+    {
+        if (PetData.StartSkills == null) return;
+
+        foreach (var skillData in PetData.StartSkills)
+        {
+            if (skills.AddSkill(skillData))
+            {
+                Debug.Log($"{PetData.PetName}이(가) 초기 스킬 {skillData.Name}을(를) 배웠습니다.");
+            }
+        }
+    }
+
+    public void AddExp(int amount)
+    {
+        if (stat == null)
+        {
+            Debug.LogWarning("PetStatus의 stat이 null입니다.");
+            return;
+        }
+
+        stat.AddExp(amount);
     }
 
     /// <summary>
@@ -42,6 +67,15 @@ public class PetStatus : CharacterStatus
         {
             EvoLevel = nextEvoLevel;
             Debug.Log($"펫이 진화했습니다! 현재 진화 단계: {EvoLevel}");
+
+            var evoSkills = PetData.GetSkillsForEvoLevel(EvoLevel);
+            foreach (var skillData in evoSkills)
+            {
+                if (skills.AddSkill(skillData, true))
+                {
+                    Debug.Log($"{PetData.PetName}이(가) 진화 {EvoLevel}단계에서 {skillData.Name} 스킬을 배웠습니다.");
+                }
+            }
         }
     }
 
@@ -74,7 +108,6 @@ public class PetStatus : CharacterStatus
 
         stat.SetLevel(saveData.Level);
         EvoLevel = saveData.EvoLevel;
-        // 추가 상태 복원
     }
 
     public PetSaveData MakeSaveData()
