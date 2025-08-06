@@ -16,7 +16,6 @@ public class BattleIntroUI : MonoBehaviour
         else if (IntroCanvas.gameObject.activeSelf)
         {
             IntroCanvas.gameObject.SetActive(false);
-            Debug.Log("캔버스 비활성화");
         }
     }
 }

@@ -25961,12 +25961,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4650b03b9990f2548a40cc2e86159fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BattleCamera: {fileID: 1907756697}
+  battleCamera: {fileID: 1907756697}
   WorldCamera: {fileID: 1522494432}
-  rewardUI: {fileID: 0}
-  CurrentEncounter:
-    monsters: []
-  IsBattleActive: 0
+  WorldCanvas: {fileID: 173932220}
+  RewardUI: {fileID: 0}
+  currentEncounter:
+    Monsters: []
+    Stage: 0
+  isBattleActive: 0
   IsTesting: 0
   datas: []
 --- !u!4 &505763411
@@ -51952,7 +51954,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &767112193
 RectTransform:
   m_ObjectHideFlags: 0
@@ -78757,7 +78759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1050839274
 RectTransform:
   m_ObjectHideFlags: 0
@@ -93676,7 +93678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1299460856
 RectTransform:
   m_ObjectHideFlags: 0
@@ -121177,7 +121179,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580456021}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -153541,7 +153543,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2095014196
 MonoBehaviour:
   m_ObjectHideFlags: 0
