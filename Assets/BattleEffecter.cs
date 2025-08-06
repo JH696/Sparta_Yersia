@@ -153,8 +153,8 @@ public class BattleEffecter : MonoBehaviour
 
         damageText.colorGradient = new VertexGradient
         (
-            topColor,  // topLeft
-            topColor,  // topRight
+            topColor,     // topLeft
+            topColor,     // topRight
             bottomColor,  // bottomLeft
             bottomColor   // bottomRight
         );

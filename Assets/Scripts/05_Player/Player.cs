@@ -14,7 +14,9 @@ public class Player : MonoBehaviour
     [Header("애니메이터")]
     [SerializeField] private Animator animator;
 
+    [Header("테스트")]
     [SerializeField] private PetData testPetData;
+    [SerializeField] private SkillData testSkillData;
 
     public PlayerStatus Status => status;
     public PlayerParty Party => status?.party;
@@ -52,6 +54,9 @@ public class Player : MonoBehaviour
     private void Start()
     {
         ChangeSprite();
+
+        status.skills.AddSkill(testSkillData);
+        status.skills.EquipSkill(status.skills.GetSkillStatus(testSkillData));
     }
 
     private void Update()

@@ -4,12 +4,14 @@ using UnityEngine.UI;
 
 public class B_StatGauge : MonoBehaviour
 {
-    [Header("반영 중인 슬롯")]
-    [SerializeField] private B_Slot slot;
+    private B_Slot slot;
 
     [Header("체력 / 마나 텍스트")]
     [SerializeField] private TextMeshProUGUI hpText;
     [SerializeField] private TextMeshProUGUI mpText;
+
+    [Header("포인터")]
+    [SerializeField] private GameObject pointer;
 
     [Header("체력 / 마나 게이지")]
     [SerializeField] private Image hpGauge;
@@ -71,6 +73,16 @@ public class B_StatGauge : MonoBehaviour
     public void RefreshAPGauge(float amount)
     {
         apGauge.fillAmount = amount / 100;
+    }
+
+    public void ShowPointer()
+    {
+        pointer.gameObject.SetActive(true);
+    }
+
+    public void HidePointer()
+    {
+        pointer.gameObject.SetActive(false);
     }
 
     private void OnDestroy()

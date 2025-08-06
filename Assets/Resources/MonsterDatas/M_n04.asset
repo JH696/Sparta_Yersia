@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f31c11c4d16c149a6db51bb4968c56, type: 3}
   m_Name: M_n04
   m_EditorClassIdentifier: 
-  maxHp: 200
-  maxMana: 80
+  maxHp: 125
+  maxMana: 100
   attack: 25
   defense: 15
   luck: 5
-  speed: 6
+  speed: 10
   Multiplier: 1.1
   MonsterID: M_n04
   MonsterName: "\uD749\uD3EC\uD55C \uACE8\uB818"
@@ -25,14 +25,15 @@ MonoBehaviour:
   MonsterType: 1
   startSkills:
   - {fileID: 11400000, guid: 6623b5c7106b6c74e9b81517ed28cf80, type: 2}
+  - {fileID: 11400000, guid: 6623b5c7106b6c74e9b81517ed28cf80, type: 2}
   ypDrop: 30
-  expDrop: 50
+  expDrop: 80
   dropItems:
   - itemData: {fileID: 11400000, guid: 4d98672e3c675254a89017ac9a338c34, type: 2}
     dropRate: 0.05
   BattleVisuals:
     Stand: {fileID: 1244755020, guid: 7fe61bdbc92ac0d4b88d2db512efd52e, type: 3}
-    Move: {fileID: 7400000, guid: ffef54151068aa7408b1d312721552c2, type: 2}
+    Move: {fileID: 7400000, guid: 1b250a52ca98ef04fa85dd016e9af70d, type: 2}
     Idle: {fileID: 7400000, guid: beb2313a792be5b4b861852e83ece7e8, type: 2}
     Attack: {fileID: 7400000, guid: 69e20e3237ff5ea4c85fdd8ae5ce9686, type: 2}
     Cast: {fileID: 7400000, guid: ffef54151068aa7408b1d312721552c2, type: 2}
