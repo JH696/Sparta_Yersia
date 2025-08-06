@@ -100,7 +100,7 @@ public class IntroManager : MonoBehaviour
                 grayImage.gameObject.SetActive(true);
             }
             StartCoroutine(textEffect.PrintText(dialogueTexts[i], textDelay));
-            yield return new WaitForSeconds (dialogueTexts[i].Length * textDelay + 1f);
+            yield return new WaitForSeconds ((dialogueTexts[i].Length * textDelay) + 1f);
         }
         SceneLoader.LoadScene("WorldScene");
     }
