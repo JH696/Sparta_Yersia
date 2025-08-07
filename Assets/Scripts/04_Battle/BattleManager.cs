@@ -92,6 +92,7 @@ public class BattleManager : MonoBehaviour
         if (battleBGM != null)
             SoundManager.Instance.PlayBGM(battleBGM, loop: true, fadeDuration: 1f);
 
+        WorldCanvas.SetActive(false);
         SceneLoader.MultipleLoadScene("BattleScene");
     }
 
@@ -110,7 +111,7 @@ public class BattleManager : MonoBehaviour
         if (winBGM != null)
             SoundManager.Instance.PlayBGM(winBGM, loop: false, fadeDuration: 0.5f);
 
-        List<MonsterData> monsters = CurrentEncounter.monsters;
+        List<MonsterData> monsters = CurrentEncounter.Monsters;
         List<BaseItem> dropItems = new List<BaseItem>();
 
         int totalYp = 0;
@@ -154,6 +155,8 @@ public class BattleManager : MonoBehaviour
         isBattleActive = false;
         BattleCamera.enabled = false;
         WorldCamera.enabled = true;
+
+        WorldCanvas.SetActive(true);
 
         SoundManager.Instance.StopBGM();
 
