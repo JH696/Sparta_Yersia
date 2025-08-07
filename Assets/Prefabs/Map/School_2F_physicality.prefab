@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7898952000530163944}
   - component: {fileID: 2543873273455063922}
   - component: {fileID: 8458389828384728112}
-  - component: {fileID: 7154453449345592495}
   m_Layer: 0
   m_Name: BoxClose
   m_TagString: NPC
@@ -297,28 +296,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7796078, y: 0.91322327}
   m_EdgeRadius: 0
---- !u!114 &7154453449345592495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206905170485985226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49c93b96f58354440a2123b9aa51b27a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  closedBox: {fileID: 206905170485985226}
-  openedBox: {fileID: 4131851408589592156}
-  hammerItemID: I_q50
-  lockedDialogue:
-    DialogueID: Locked
-    Lines: []
-  unlockedDialogue:
-    DialogueID: Unlocked
-    Lines: []
-  interactText: {fileID: 0}
 --- !u!1 &767275191101921037
 GameObject:
   m_ObjectHideFlags: 0
@@ -12284,7 +12261,6 @@ GameObject:
   - component: {fileID: 7292934821020043017}
   - component: {fileID: 2011150821010337822}
   - component: {fileID: 7809233089784015059}
-  - component: {fileID: 8011874487173051934}
   - component: {fileID: 3132946329733830746}
   m_Layer: 0
   m_Name: Hammer
@@ -12455,19 +12431,6 @@ TilemapRenderer:
   m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &8011874487173051934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9127851443613505735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 676a43e98c5c5314aa359d0171079054, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hammerItemID: I_q50
 --- !u!61 &3132946329733830746
 BoxCollider2D:
   m_ObjectHideFlags: 0
