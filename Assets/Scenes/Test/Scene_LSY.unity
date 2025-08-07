@@ -59131,6 +59131,7 @@ MonoBehaviour:
   worldSprite: {fileID: 808123313}
   animator: {fileID: 0}
   testPetData: {fileID: 11400000, guid: 05e42ee64f85d9443b7e0fd71b72f48f, type: 2}
+  testSkillData: {fileID: 11400000, guid: 6623b5c7106b6c74e9b81517ed28cf80, type: 2}
 --- !u!212 &808123313
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -116188,6 +116189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1650835637}
+  - component: {fileID: 1650835643}
   - component: {fileID: 1650835642}
   - component: {fileID: 1650835641}
   - component: {fileID: 1650835640}
@@ -121072,6 +121074,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1431fa93dee7dd145ba6b3665a675e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1650835643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650835636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17cd01ab331a65447a09af36ea73441c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Destination: {fileID: 1818538646}
+  petSpawnPoints: []
+  portalEffectType: 1
+  roomBounds: {fileID: 1711728391}
 --- !u!1 &1651445172
 GameObject:
   m_ObjectHideFlags: 0
