@@ -2,7 +2,6 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering.UI;
 using UnityEngine.UI;
 
 public enum E_ActionType
@@ -51,7 +50,7 @@ public class B_BattleButtons : MonoBehaviour
     [SerializeField] private Button cancelBtn;
 
     [Header("가이드 텍스트")]
-    [SerializeField] private TextMeshProUGUI guideText;
+    [SerializeField] private GuideTextUI guideText;
 
     [Header("선택한 스킬, 아이템")]
     [SerializeField] private SkillStatus selectedSkill;
@@ -169,7 +168,8 @@ public class B_BattleButtons : MonoBehaviour
             BattleEffecter target = effecters[Random.Range(0, effecters.Count)];
 
             target.SetBaseEffect(curStatus.stat, this);
-            Debug.Log($"몬스터 {curStatus}이(가) {target}에게 일반 공격을 실행 했습니다.");
+
+            slot.PlayAttackAnim();
         }
         else
         {
@@ -190,16 +190,14 @@ public class B_BattleButtons : MonoBehaviour
             foreach (BattleEffecter e in randomTargets)
             {
                 e.SetSkillEffecter(curStatus.stat, randomSkill, this);
-                Debug.Log($"몬스터 {curStatus}이(가) {e}에게 {randomSkill.Data.name}을 사용했습니다.");
             }
-        }
 
-        slot.PlayAttackAnim();
+            slot.PlayCastAnim();
+        }
     }
 
    public void OnAttackButton()
    {
-        Debug.Log("기본 공격");
         actionType = E_ActionType.Attack;
         actionHandler.StartTargeting(1);
         ShowAllowButton();
@@ -208,8 +206,6 @@ public class B_BattleButtons : MonoBehaviour
 
    public void OnSkillButton()
    {
-        Debug.Log("스킬 액션");
-
         foreach (var btn in buttons)
         {
             btn.OnSkillSelected -= UseSkill;
@@ -234,8 +230,6 @@ public class B_BattleButtons : MonoBehaviour
 
     public void OnItemButton()
     {
-        Debug.Log("아이템 액션");
-
         foreach (var btn in buttons)
         {
             btn.OnItemSelected -= UseItem;
@@ -265,6 +259,7 @@ public class B_BattleButtons : MonoBehaviour
         selectedSkill = status;
         actionType = E_ActionType.Skill;
         actionHandler.StartTargeting(status.Data.Range);
+
         ShowAllowButton();
     }
 
@@ -275,11 +270,14 @@ public class B_BattleButtons : MonoBehaviour
         selectedItem = status;
         actionType = E_ActionType.Item;
         actionHandler.StartTargeting(Mathf.Clamp(status.Stack, 1, 3));
+
         ShowAllowButton();
     }
 
     private void ShowAllowButton()
     {
+        curSlot.StatGauge.gameObject.SetActive(true);
+
         aButtonParent.SetActive(false);
         dButtonParent.SetActive(false);
 
@@ -331,7 +329,7 @@ public class B_BattleButtons : MonoBehaviour
                 {
                     if (actionHandler.Targets.Count <= 0) return;
 
-                    curSlot.PlayAttackAnim();
+                    curSlot.PlayCastAnim();
                     effecter.SetSkillEffecter(curSlot.Character.stat, selectedSkill, this);
                 }
                 break;
@@ -375,9 +373,9 @@ public class B_BattleButtons : MonoBehaviour
 
         }
 
-        actionHandler.ClearAllTargetsPointer();
+        actionHandler.ClearAllTargets();
         actionType = E_ActionType.None;
-        UpdateText();
+        guideText.ResetGuideText();
 
         allowBtn.interactable = false;
         cancelBtn.interactable = false;
@@ -394,10 +392,11 @@ public class B_BattleButtons : MonoBehaviour
             aButtonParent.SetActive(true);  
         }
 
-        actionHandler.ClearAllTargetsPointer();
+        actionHandler.ClearAllTargets();
         actionType = E_ActionType.None;
-        UpdateText();
+        guideText.ResetGuideText();
 
+        curSlot.StatGauge.gameObject.SetActive(false);
         allowBtn.interactable = false;
         cancelBtn.interactable = false;
     }
@@ -413,31 +412,41 @@ public class B_BattleButtons : MonoBehaviour
         aButtonParent.SetActive(true);
 
         actionType = E_ActionType.None;
-        UpdateText();
+        guideText.ResetGuideText();
     }
 
     private void UpdateText()
     {
+        string name = null;
+        string content = null;
+
         switch (actionType)
         {
+            default:
+                guideText.ResetGuideText();
+                return;
             case E_ActionType.Attack:
-                guideText.text = "- 일반 공격 -" + "\n선택한 대상 하나에게 물리 피해를 입힙니다.";
+                name = "일반 공격";
+                content = "하나의 대상에게 물리 피해를 입힙니다.";
                 break;
             case E_ActionType.Skill:
-                guideText.text = "- 마법 사용 -" + "\n행동자가 사용 가능한 마법을 나열합니다.";
+                name = "마법 사용";
+                content = "사용 가능한 마법 중, 한가지를 선택합니다.";
                 break;
             case E_ActionType.Item:
-                guideText.text = "- 아이템 사용 -" + "\n행동자가 사용 가능한 소비 아이템을 나열합니다.";
+                name = "아이템 사용";
+                content = "사용 가능한 아이템 중, 한가지를 선택합니다.";
                 break;
             case E_ActionType.Rest:
-                guideText.text = "- 휴식하기 -" + "\n행동자의 마나를 일정 비율 회복합니다.";
+                name = "휴식";
+                content = "행동을 건너뛰고, 자신의 마나를 회복합니다.";
                 break;
             case E_ActionType.Run:
-                guideText.text = "- 도망가기 -" + "\n행동자의 행운과 비례하는 확률로 도주를 시도합니다.";
-                break;
-            default:
-                guideText.text = string.Empty;
+                name = "도주";
+                content = "행운과 비례한 확률을 통해 전투에서 벗어납니다.";
                 break;
         }
+
+        guideText.UpdateGuideText(name, content);
     }
 }

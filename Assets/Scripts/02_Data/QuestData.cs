@@ -52,7 +52,7 @@ public class QuestData : ScriptableObject
     public string QuestID;          
     public string QuestName;
 
-    [Header("퀘스트 설명")]
+    [Header("퀘스트 설명"), TextArea]
     public string Description;
 
     [Header("퀘스트 보상")]
