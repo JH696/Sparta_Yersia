@@ -10757,7 +10757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6458212642295062035, guid: 74b42e88607fcb145a78c64b383e1534, type: 3}
       propertyPath: stageType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11953,7 +11953,6 @@ GameObject:
   m_Component:
   - component: {fileID: 334373403}
   - component: {fileID: 334373408}
-  - component: {fileID: 334373407}
   - component: {fileID: 334373406}
   - component: {fileID: 334373405}
   - component: {fileID: 334373404}
@@ -16811,19 +16810,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &334373407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 334373402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &334373408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16838,7 +16824,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 680082761}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 1952516122}
 --- !u!1 &341633350
 GameObject:
@@ -20841,7 +20826,6 @@ GameObject:
   m_Component:
   - component: {fileID: 488752023}
   - component: {fileID: 488752028}
-  - component: {fileID: 488752027}
   - component: {fileID: 488752026}
   - component: {fileID: 488752025}
   - component: {fileID: 488752024}
@@ -25699,19 +25683,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &488752027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 488752022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &488752028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25726,7 +25697,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 1971679325}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 2011205454}
 --- !u!1 &490412696
 GameObject:
@@ -29985,7 +29955,6 @@ GameObject:
   m_Component:
   - component: {fileID: 680082761}
   - component: {fileID: 680082766}
-  - component: {fileID: 680082765}
   - component: {fileID: 680082764}
   - component: {fileID: 680082763}
   - component: {fileID: 680082762}
@@ -34843,19 +34812,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &680082765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 680082760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &680082766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34870,7 +34826,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 334373403}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 121276190}
 --- !u!1 &680454817
 GameObject:
@@ -34957,7 +34912,6 @@ GameObject:
   m_Component:
   - component: {fileID: 681083287}
   - component: {fileID: 681083292}
-  - component: {fileID: 681083291}
   - component: {fileID: 681083290}
   - component: {fileID: 681083289}
   - component: {fileID: 681083288}
@@ -39815,19 +39769,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &681083291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681083286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &681083292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39842,7 +39783,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 993446497}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 2059053591}
 --- !u!1 &686561649
 GameObject:
@@ -40385,7 +40325,6 @@ GameObject:
   m_Component:
   - component: {fileID: 704550854}
   - component: {fileID: 704550859}
-  - component: {fileID: 704550858}
   - component: {fileID: 704550857}
   - component: {fileID: 704550856}
   - component: {fileID: 704550855}
@@ -45243,19 +45182,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &704550858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 704550853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &704550859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45270,7 +45196,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 1498573042}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 2011205454}
 --- !u!1 &710391534
 GameObject:
@@ -45432,7 +45357,6 @@ GameObject:
   m_Component:
   - component: {fileID: 726527821}
   - component: {fileID: 726527826}
-  - component: {fileID: 726527825}
   - component: {fileID: 726527824}
   - component: {fileID: 726527823}
   - component: {fileID: 726527822}
@@ -50290,19 +50214,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &726527825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 726527820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &726527826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50317,7 +50228,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 1480432327}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 121276190}
 --- !u!1 &727989236
 GameObject:
@@ -52107,7 +52017,6 @@ GameObject:
   m_Component:
   - component: {fileID: 774537656}
   - component: {fileID: 774537661}
-  - component: {fileID: 774537660}
   - component: {fileID: 774537659}
   - component: {fileID: 774537658}
   - component: {fileID: 774537657}
@@ -56965,19 +56874,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &774537660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 774537655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &774537661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56992,7 +56888,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 1764966122}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 1487233452}
 --- !u!1 &778967811
 GameObject:
@@ -57154,7 +57049,6 @@ GameObject:
   m_Component:
   - component: {fileID: 791716343}
   - component: {fileID: 791716348}
-  - component: {fileID: 791716347}
   - component: {fileID: 791716346}
   - component: {fileID: 791716345}
   - component: {fileID: 791716344}
@@ -62012,19 +61906,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &791716347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 791716342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &791716348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62039,7 +61920,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 1128796600}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 1046625507}
 --- !u!1 &804287084
 GameObject:
@@ -62820,6 +62700,140 @@ RectTransform:
   m_AnchoredPosition: {x: 135, y: 285}
   m_SizeDelta: {x: 110, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &836036730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 836036731}
+  - component: {fileID: 836036733}
+  - component: {fileID: 836036732}
+  m_Layer: 30
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &836036731
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836036730}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4393820739802732145}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 130}
+  m_SizeDelta: {x: 1500, y: 50}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &836036732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836036730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: a71fd3c906599b04b93a88bfc125d079, type: 2}
+  m_sharedMaterial: {fileID: 9091255979530684391, guid: a71fd3c906599b04b93a88bfc125d079, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4291611852
+  m_fontColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &836036733
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836036730}
+  m_CullTransparentMesh: 1
 --- !u!1 &836410682
 GameObject:
   m_ObjectHideFlags: 0
@@ -64344,7 +64358,6 @@ GameObject:
   m_Component:
   - component: {fileID: 887680353}
   - component: {fileID: 887680358}
-  - component: {fileID: 887680357}
   - component: {fileID: 887680356}
   - component: {fileID: 887680355}
   - component: {fileID: 887680354}
@@ -69202,19 +69215,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &887680357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 887680352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &887680358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69229,7 +69229,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 1442935016}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 121276190}
 --- !u!1 &893658038
 GameObject:
@@ -72053,7 +72052,6 @@ GameObject:
   m_Component:
   - component: {fileID: 993446497}
   - component: {fileID: 993446502}
-  - component: {fileID: 993446501}
   - component: {fileID: 993446500}
   - component: {fileID: 993446499}
   - component: {fileID: 993446498}
@@ -76911,19 +76909,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &993446501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 993446496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &993446502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76938,7 +76923,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 681083287}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 2011205454}
 --- !u!1 &995999655
 GameObject:
@@ -80273,7 +80257,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1128796600}
   - component: {fileID: 1128796605}
-  - component: {fileID: 1128796604}
   - component: {fileID: 1128796603}
   - component: {fileID: 1128796602}
   - component: {fileID: 1128796601}
@@ -85131,19 +85114,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1128796604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128796599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &1128796605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85158,7 +85128,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 791716343}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 173936149}
 --- !u!1 &1132027387
 GameObject:
@@ -87811,7 +87780,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1242900707}
   - component: {fileID: 1242900712}
-  - component: {fileID: 1242900711}
   - component: {fileID: 1242900710}
   - component: {fileID: 1242900709}
   - component: {fileID: 1242900708}
@@ -92669,19 +92637,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1242900711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1242900706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &1242900712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92696,7 +92651,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 2009147472}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 121276190}
 --- !u!1 &1243506209
 GameObject:
@@ -93425,6 +93379,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4148818168002601084, guid: 1bad040365fbdc04486276b645cdf720, type: 3}
+      propertyPath: stageType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148818168002601084, guid: 1bad040365fbdc04486276b645cdf720, type: 3}
       propertyPath: maxSpawnCount
       value: 10
       objectReference: {fileID: 0}
@@ -93438,7 +93396,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5118523019154184229, guid: 1bad040365fbdc04486276b645cdf720, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1044976890774005357}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bad040365fbdc04486276b645cdf720, type: 3}
 --- !u!4 &1269518303 stripped
@@ -94233,7 +94194,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1310766709}
   - component: {fileID: 1310766714}
-  - component: {fileID: 1310766713}
   - component: {fileID: 1310766712}
   - component: {fileID: 1310766711}
   - component: {fileID: 1310766710}
@@ -99091,19 +99051,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1310766713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310766708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &1310766714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99118,7 +99065,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 1991312952}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 2059053591}
 --- !u!1 &1314517770
 GameObject:
@@ -100268,6 +100214,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1351333410}
   m_CullTransparentMesh: 1
+--- !u!4 &1357443295 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5118523019154184229, guid: 1bad040365fbdc04486276b645cdf720, type: 3}
+  m_PrefabInstance: {fileID: 1269518302}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1366307842
 GameObject:
   m_ObjectHideFlags: 0
@@ -102021,7 +101972,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1442935016}
   - component: {fileID: 1442935021}
-  - component: {fileID: 1442935020}
   - component: {fileID: 1442935019}
   - component: {fileID: 1442935018}
   - component: {fileID: 1442935017}
@@ -106879,19 +106829,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1442935020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1442935015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &1442935021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106906,7 +106843,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 887680353}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 237449200}
 --- !u!1 &1443237599
 GameObject:
@@ -108051,7 +107987,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1480432327}
   - component: {fileID: 1480432332}
-  - component: {fileID: 1480432331}
   - component: {fileID: 1480432330}
   - component: {fileID: 1480432329}
   - component: {fileID: 1480432328}
@@ -112909,19 +112844,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1480432331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1480432326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &1480432332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112936,7 +112858,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 726527821}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 2011205454}
 --- !u!1 &1481260446
 GameObject:
@@ -113873,7 +113794,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1498573042}
   - component: {fileID: 1498573047}
-  - component: {fileID: 1498573046}
   - component: {fileID: 1498573045}
   - component: {fileID: 1498573044}
   - component: {fileID: 1498573043}
@@ -118731,19 +118651,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1498573046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498573041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &1498573047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118758,7 +118665,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 704550854}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 1481260449}
 --- !u!1 &1498841346
 GameObject:
@@ -119163,6 +119069,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1600274829}
     m_Modifications:
+    - target: {fileID: 796294494723607696, guid: fde7ded1c7cc98e4bb45d835b738618c, type: 3}
+      propertyPath: stageType
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2649747364016461625, guid: fde7ded1c7cc98e4bb45d835b738618c, type: 3}
       propertyPath: m_Name
       value: School_B3
@@ -125820,7 +125730,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1764966122}
   - component: {fileID: 1764966127}
-  - component: {fileID: 1764966126}
   - component: {fileID: 1764966125}
   - component: {fileID: 1764966124}
   - component: {fileID: 1764966123}
@@ -130678,19 +130587,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1764966126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764966121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &1764966127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130705,7 +130601,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 774537656}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 121276190}
 --- !u!1 &1767398385
 GameObject:
@@ -136121,7 +136016,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1971679325}
   - component: {fileID: 1971679330}
-  - component: {fileID: 1971679329}
   - component: {fileID: 1971679328}
   - component: {fileID: 1971679327}
   - component: {fileID: 1971679326}
@@ -140979,19 +140873,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1971679329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1971679324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &1971679330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141006,7 +140887,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 488752023}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 572426580}
 --- !u!1 &1974708403
 GameObject:
@@ -141406,7 +141286,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1991312952}
   - component: {fileID: 1991312957}
-  - component: {fileID: 1991312956}
   - component: {fileID: 1991312955}
   - component: {fileID: 1991312954}
   - component: {fileID: 1991312953}
@@ -146264,19 +146143,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1991312956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991312951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &1991312957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146291,7 +146157,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 1310766709}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 1046625507}
 --- !u!1 &1999334000
 GameObject:
@@ -146621,7 +146486,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2009147472}
   - component: {fileID: 2009147477}
-  - component: {fileID: 2009147476}
   - component: {fileID: 2009147475}
   - component: {fileID: 2009147474}
   - component: {fileID: 2009147473}
@@ -151479,19 +151343,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &2009147476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2009147471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07ba30b0ba187148844c942adf7d7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeImage: {fileID: 937462784}
 --- !u!114 &2009147477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151506,7 +151357,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Destination: {fileID: 1242900707}
   petSpawnPoints: []
-  portalEffectType: 1
   roomBounds: {fileID: 126371197}
 --- !u!1 &2011205451
 GameObject:
@@ -154668,6 +154518,356 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &139389767572020068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435776897723543226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 2a7eddd23343bce4d8162028a4397cb7, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &435776897723543226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7050027503853712156}
+  - component: {fileID: 4664596968461406910}
+  - component: {fileID: 139389767572020068}
+  m_Layer: 30
+  m_Name: Icon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &442822688358749075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407132019245464956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!4 &1044976890774005357 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 664614919850974132, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+  m_PrefabInstance: {fileID: 1709374143102458703}
+  m_PrefabAsset: {fileID: 0}
+--- !u!222 &1222745764050229666
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407132019245464956}
+  m_CullTransparentMesh: 1
+--- !u!1 &1407132019245464956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2076371324228607047}
+  - component: {fileID: 1222745764050229666}
+  - component: {fileID: 442822688358749075}
+  m_Layer: 30
+  m_Name: Fade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!225 &1433824684116154940
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733047742655708737}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!1001 &1709374143102458703
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1357443295}
+    m_Modifications:
+    - target: {fileID: 664614919850974132, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 664614919850974132, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.5599995
+      objectReference: {fileID: 0}
+    - target: {fileID: 664614919850974132, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 664614919850974132, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 664614919850974132, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 664614919850974132, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 664614919850974132, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 664614919850974132, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 664614919850974132, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 664614919850974132, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 980675555701881620, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+      propertyPath: m_Name
+      value: Arachne
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cc4dee95f1d033e44aa603dc07c978c5, type: 3}
+--- !u!114 &2022869814883619353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733047742655708737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!224 &2076371324228607047
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407132019245464956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4393820739802732145}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2733047742655708737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4393820739802732145}
+  - component: {fileID: 7120461994561624719}
+  - component: {fileID: 7301750521108217979}
+  - component: {fileID: 2022869814883619353}
+  - component: {fileID: 1433824684116154940}
+  - component: {fileID: 5163236447755986001}
+  m_Layer: 30
+  m_Name: Fade Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4393820739802732145
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733047742655708737}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2076371324228607047}
+  - {fileID: 7050027503853712156}
+  - {fileID: 836036731}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!222 &4664596968461406910
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435776897723543226}
+  m_CullTransparentMesh: 1
+--- !u!114 &5163236447755986001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733047742655708737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a6c97e9b18c5b4bad31bc80d5ababf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texts:
+  - "\uCCB4\uB825\uC774 \uB0AE\uC740 \uC801\uC744 \uB178\uB9AC\uB294 \uAC83\uC774
+    \uC774\uC0C1\uC801\uC785\uB2C8\uB2E4."
+  - "\uD3AB\uC740 \uD2B9\uC815 \uB808\uBCA8\uB9C8\uB2E4 \uC9C4\uD654\uD558\uAC8C
+    \uB429\uB2C8\uB2E4."
+  Text: {fileID: 836036732}
+  IntroCanvas: {fileID: 1433824684116154940}
+  FadeDuration: 1
+--- !u!224 &7050027503853712156
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435776897723543226}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4393820739802732145}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &7120461994561624719
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733047742655708737}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 200
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 225
+  m_TargetDisplay: 0
+--- !u!114 &7301750521108217979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2733047742655708737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -154680,5 +154880,6 @@ SceneRoots:
   - {fileID: 251314371}
   - {fileID: 727989237}
   - {fileID: 332436639}
+  - {fileID: 4393820739802732145}
   - {fileID: 173932224}
   - {fileID: 1558382249}

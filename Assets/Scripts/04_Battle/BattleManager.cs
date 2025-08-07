@@ -56,41 +56,26 @@ public class BattleManager : MonoBehaviour
 
         if (IsTesting) yield break;
 
-        // 카메라 전환
-        WorldCamera.enabled = false;
-        BattleCamera.enabled = true;
-        WorldCanvas.SetActive(false);
-
-        SceneLoader.MultipleLoadScene("BattleScene");
-        Debug.Log("씬 로드");
+        StartCoroutine(BattleDelay());
     }
-
     private IEnumerator BattleDelay()
     {
-        //WorldCamera.orthographic = true;
-        //WorldCamera.orthographicSize = startSize;
+        // 1. 페이드 인 (어두워지는 중)
+        yield return FadeScreen.Instance.FadeIn();
 
-        //float elapsed = 0f;
+        // 2. 완전히 어두워졌을 때 씬 로드 시작
+        SceneLoader.MultipleLoadScene("BattleScene");
 
-        //while (elapsed < zoomDuration)
-        //{
-        //    elapsed += Time.deltaTime;
-        //    float t = elapsed / zoomDuration;
-        //    WorldCamera.orthographicSize = Mathf.Lerp(startSize, endSize, t);
-        //    yield return null;
-        //}
-
-        //WorldCamera.orthographicSize = endSize;
-
-        yield return new WaitForSeconds(0.5f);
-
-        // 카메라 전환
+        // 3. 카메라 전환 및 UI 숨김
         WorldCamera.enabled = false;
         BattleCamera.enabled = true;
         WorldCanvas.SetActive(false);
 
-        SceneLoader.MultipleLoadScene("BattleScene");
-        Debug.Log("씬 로드");
+        // (선택) 씬 로드 안정화 약간 대기
+        yield return new WaitForSeconds(0.2f);
+
+        // 4. 페이드 아웃 (화면 밝아짐)
+        yield return FadeScreen.Instance.FadeOut();
     }
 
     public void Win()
