@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status:
-    IsDead: 0
     stat:
       level: 0
       curExp: 0
@@ -66,12 +65,21 @@ MonoBehaviour:
       bonusDefense: 0
       bonusLuck: 0
       bonusSpeed: 0
+    inventory:
+      items: []
+      maxItemCount: 20
+    equipment:
+      Weapon: {fileID: 0}
+      Hat: {fileID: 0}
+      Accessory: {fileID: 0}
+      Clothes: {fileID: 0}
+      Shoes: {fileID: 0}
+    skills:
+      equipSkills: []
+      allSkills: []
     PetData: {fileID: 11400000, guid: 68bed0581dd88234286997721f92237e, type: 2}
     EvoLevel: 0
     PetInstance: {fileID: 0}
-    skills:
-      skills: []
-      learnableSkills: []
   worldSprite: {fileID: 0}
 --- !u!114 &4253582109138746937
 MonoBehaviour:
@@ -86,8 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  followSpeed: 3
-  followDistance: 2
+  followSpeed: 5
+  followDistance: 1
 --- !u!212 &4383101347796331365
 SpriteRenderer:
   m_ObjectHideFlags: 0

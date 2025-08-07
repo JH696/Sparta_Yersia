@@ -101,10 +101,12 @@ public class QuestManager : MonoBehaviour
             GameManager.player.inventory.AddItem(item);
         }
 
-        //foreach (Pet pet in questData.RewardPets)
-        //{
-        //    player.AddPetFromPrefab(pet);
-        //}
+        foreach (PetData pet in questData.RewardPets)
+        {
+            PetStatus status = new PetStatus(pet);
+
+            player.party.AddPet(status);
+        }
 
         player.stat.AddExp(questData.RewardExp);
         player.Wallet.AddYP(questData.RewardYP);

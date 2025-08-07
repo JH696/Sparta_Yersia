@@ -22,7 +22,7 @@ public class B_StatGauge : MonoBehaviour
 
     public B_Slot Slot => slot;
 
-    public void SetGauges(B_Slot slot)
+    public void SetGauges(B_Slot slot, E_SizeType size)
     {
         this.slot = slot;
         slot.Character.stat.StatusChanged += RefreshGauge;
@@ -37,6 +37,23 @@ public class B_StatGauge : MonoBehaviour
 
         // 월드 좌표 → 스크린 좌표
         Vector2 screenPos = BattleManager.Instance.BattleCamera.WorldToScreenPoint(slot.transform.position);
+
+        float y = 0f;
+
+        switch (size)
+        {
+            case E_SizeType.Small:
+                y = 200f;
+                break;
+            case E_SizeType.Medium:
+                y = 325f;
+                break;
+            case E_SizeType.Large:
+                y = 450f;
+                break;
+        }
+
+        screenPos.y += y;
 
         // 사용할 카메라 가져오기 (Canvas에 설정된 Render Camera)
         Camera renderCam = (canvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : canvas.worldCamera;
