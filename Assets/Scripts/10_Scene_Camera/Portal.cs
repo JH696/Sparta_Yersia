@@ -9,43 +9,20 @@ public class Portal : MonoBehaviour, IInteractable
     [Header("펫 스폰 포인트")]
     [SerializeField] private Transform[] petSpawnPoints;
 
-    [Header("전환 연출 설정")]
-    [SerializeField] private EPortalEffectType portalEffectType;
-
     [Header("해당 포탈로 통하는 방의 카메라 Bounds")]
     [SerializeField] private PolygonCollider2D roomBounds;
 
-    private IPortalEffect portalEffect;
-
-    // ✅ 중복 실행 방지용
     private bool isTeleporting = false;
-
-    private void Awake()
-    {
-        portalEffect = GetPortalEffect(portalEffectType);
-
-        if (portalEffectType != EPortalEffectType.None && portalEffect == null)
-        {
-            Debug.LogWarning($"{gameObject.name} 포탈에 '{portalEffectType}' 효과 컴포넌트가 없습니다.");
-        }
-    }
 
     public void Interact(GameObject interactor)
     {
-        if (interactor == null) return;
-        if (isTeleporting) return; // ✅ 이미 전송 중이라면 무시
+        if (interactor == null || isTeleporting) return;
         StartCoroutine(Teleport(interactor.transform));
     }
 
     private IEnumerator Teleport(Transform target)
     {
-        isTeleporting = true; // ✅ 전송 시작
-
-        if (portalEffect == null)
-        {
-            isTeleporting = false;
-            yield break;
-        }
+        isTeleporting = true;
 
         if (Destination == null)
         {
@@ -57,7 +34,7 @@ public class Portal : MonoBehaviour, IInteractable
         var vcam = FindObjectOfType<CinemachineVirtualCamera>();
         if (vcam == null)
         {
-            Debug.LogError("씬에 CinemachineVirtualCamera가 없습니다. VCam_Follow 를 배치하세요.");
+            Debug.LogError("씬에 CinemachineVirtualCamera가 없습니다.");
             isTeleporting = false;
             yield break;
         }
@@ -65,7 +42,7 @@ public class Portal : MonoBehaviour, IInteractable
         var confiner = vcam.GetComponent<CinemachineConfiner2D>();
         if (confiner == null)
         {
-            Debug.LogError("VCam_Follow에 CinemachineConfiner2D 컴포넌트가 붙어 있어야 합니다.");
+            Debug.LogError("VCam_Follow에 CinemachineConfiner2D 컴포넌트가 없습니다.");
             isTeleporting = false;
             yield break;
         }
@@ -77,14 +54,14 @@ public class Portal : MonoBehaviour, IInteractable
             yield break;
         }
 
-        yield return portalEffect.PlayBeforeTeleport();
+        // ✅ [1] 페이드 인 (어두워짐)
+        yield return FadeScreen.Instance.FadeIn();
 
-        // 플레이어 위치 이동
+        // ✅ [2] 위치 이동 및 설정
         Vector2 vec = Destination.position;
         vec.y -= 0.5f;
         target.position = vec;
 
-        // 카메라 경계 업데이트
         Vector3 oldPos = target.position;
         confiner.m_BoundingShape2D = roomBounds;
         confiner.InvalidateCache();
@@ -92,7 +69,7 @@ public class Portal : MonoBehaviour, IInteractable
         Vector3 displacement = target.position - oldPos;
         vcam.OnTargetObjectWarped(target, displacement);
 
-        // 펫 위치 이동
+        // ✅ [3] 펫들 이동
         Player player = target.GetComponent<Player>();
         if (player != null && player.Party != null)
         {
@@ -114,18 +91,9 @@ public class Portal : MonoBehaviour, IInteractable
             }
         }
 
-        yield return portalEffect.PlayAfterTeleport();
+        // ✅ [4] 페이드 아웃 (밝아짐)
+        yield return FadeScreen.Instance.FadeOut();
 
-        isTeleporting = false; // ✅ 전송 종료
-    }
-
-    private IPortalEffect GetPortalEffect(EPortalEffectType type)
-    {
-        if (type == EPortalEffectType.Fade)
-        {
-            return GetComponent<FadePortalEffect>();
-        }
-
-        return null;
+        isTeleporting = false;
     }
 }

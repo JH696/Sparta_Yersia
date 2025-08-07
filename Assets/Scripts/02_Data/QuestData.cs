@@ -59,7 +59,7 @@ public class QuestData : ScriptableObject
     public int RewardExp;
     public int RewardYP;
     public List<BaseItem> RewardItems;
-    public List<Pet> RewardPets;
+    public List<PetData> RewardPets;
 }
 
 [CustomEditor(typeof(QuestData))]
