@@ -31,13 +31,7 @@ public class PetStatus : CharacterStatus
     {
         if (PetData.StartSkills == null) return;
 
-        foreach (var skillData in PetData.StartSkills)
-        {
-            if (skills.AddSkill(skillData))
-            {
-                Debug.Log($"{PetData.PetName}이(가) 초기 스킬 {skillData.Name}을(를) 배웠습니다.");
-            }
-        }
+        skills.EquipSkill(skills.GetSkillStatus(PetData.StartSkills[0]));
     }
 
     public void AddExp(int amount)
