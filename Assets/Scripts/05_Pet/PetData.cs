@@ -9,8 +9,6 @@ public class PetSaveData
     public int Level;    // 펫 레벨
     public int EvoLevel; // 진화 단계
 
-    // 필요하면 경험치, 스킬 데이터, 기타 상태 추가 가능
-
     public PetSaveData() { }
 
     public PetSaveData(PetStatus pet)
@@ -18,7 +16,6 @@ public class PetSaveData
         PetID = pet.PetData.PetID;
         Level = pet.stat.Level;
         EvoLevel = pet.EvoLevel;
-        // 추가 상태값 복사
     }
 }
 
@@ -35,26 +32,41 @@ public class PetData : StatData, ISkillUsable
     [Header("진화 관련")]
     [Tooltip("진화 단계별 스프라이트 (0 = 기본, 1 = 1차 진화, 2 = 2차 진화)")]
     public PetSprite[] sprites = new PetSprite[3];
-    [Tooltip("진화 단계별 프로필 아이콘 (0 = 기본, 1 = 1차 진화, 2 = 2차 진화)")]
+
+    [Tooltip("진화 단계별 프로필 아이콘")]
     public Sprite GetCurrentProfileIcon(int evoLevelIndex)
     {
         if (sprites == null || evoLevelIndex < 0 || evoLevelIndex >= sprites.Length)
             return null;
 
-        return sprites[evoLevelIndex].ProfileIcon ?? sprites[evoLevelIndex].ProfileIcon;
+        return sprites[evoLevelIndex].ProfileIcon ?? sprites[0].ProfileIcon;
     }
 
     [Header("진화 레벨 요구치")]
-    [Tooltip("각 진화 단계에 도달하기 위한 최소 레벨 (0 = 기본, 1 = 1차 진화, 2 = 2차 진화)")]
     public int[] evoLevel = new int[3] { 1, 5, 10 };
 
     [Header("초기 스킬 리스트")]
-    [SerializeField] private List<SkillData> startSkills = new List<SkillData>();
+    [SerializeField] private List<SkillData> startSkills = new();
+    public List<SkillData> StartSkills => startSkills;
+
+    [Header("진화 단계별 배우는 스킬")]
+    [SerializeField] private List<EvolveSkillEntry> evolveSkills = new();
+
+    public List<SkillData> GetSkillsForEvoLevel(int evoLevel)
+    {
+        List<SkillData> result = new();
+        foreach (var entry in evolveSkills)
+        {
+            if (entry.EvoLevel == evoLevel)
+            {
+                result.Add(entry.Skill);
+            }
+        }
+        return result;
+    }
 
     [Header("배틀씬")]
     public BattleVisuals BattleVisuals;
-
-    public List<SkillData> StartSkills => startSkills;
 }
 
 [Serializable]
@@ -62,4 +74,14 @@ public class PetSprite
 {
     public Sprite WorldSprite;
     public Sprite ProfileIcon;
+}
+
+[Serializable]
+public class EvolveSkillEntry
+{
+    [Tooltip("몇 단계에서 배우는지 (0=기본, 1=1차 진화, 2=2차 진화)")]
+    public int EvoLevel;
+
+    [Tooltip("배울 스킬")]
+    public SkillData Skill;
 }

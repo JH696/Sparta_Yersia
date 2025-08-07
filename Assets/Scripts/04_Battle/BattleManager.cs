@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
@@ -14,24 +15,27 @@ public class BattleManager : MonoBehaviour
     [Header("리워드 UI (자동 참조)")]
     public B_RewardUI RewardUI;
 
-    [Header("현재 전투 구성")]
     [SerializeField] private BattleEncounter currentEncounter;
-
-    [Header("전투 중 여부")]
-    [SerializeField] private bool isBattleActive = false;
 
     [Header("배틀씬 테스트 전용")]
     public bool IsTesting;
-    public List<MonsterData> datas = new List<MonsterData>();
+    public MonsterData[] datas = new MonsterData[4];
 
     public BattleEncounter CurrentEncounter => currentEncounter;
-    public bool IsBattleActive => isBattleActive;
+
+    public event System.Action OnBattleStarted;
+    public event System.Action OnBattleEnded;
     public Camera BattleCamera => battleCamera;
 
     //[Header("임시 위치")]
     //public float startSize = 4f;
     //public float endSize = 1f;
     //public float zoomDuration = 0.5f;
+
+    [SerializeField] private AudioClip battleBGM;
+
+    [SerializeField] private AudioClip winBGM;
+    [SerializeField] private AudioClip loseBGM;
 
     private void Awake()
     {
@@ -53,11 +57,17 @@ public class BattleManager : MonoBehaviour
     public IEnumerator StartBattle(BattleEncounter encounter)
     {
         currentEncounter = encounter;
-        isBattleActive = true;
+        OnBattleStarted?.Invoke();
 
         if (IsTesting) yield break;
 
-        yield return BattleDelay();
+        // 카메라 전환
+        WorldCamera.enabled = false;
+        BattleCamera.enabled = true;
+        WorldCanvas.SetActive(false);
+
+        SceneLoader.MultipleLoadScene("BattleScene");
+        Debug.Log("씬 로드");
     }
 
     private IEnumerator BattleDelay()
@@ -77,13 +87,20 @@ public class BattleManager : MonoBehaviour
 
         //WorldCamera.orthographicSize = endSize;
 
-        yield return new WaitForSeconds(0f);
+        yield return new WaitForSeconds(0.5f);
 
         // 카메라 전환
         WorldCamera.enabled = false;
         BattleCamera.enabled = true;
+
+        // BGM 재생
+        if (battleBGM != null)
+            SoundManager.Instance.PlayBGM(battleBGM, loop: true, fadeDuration: 1f);
+
         WorldCanvas.SetActive(false);
+
         SceneLoader.MultipleLoadScene("BattleScene");
+        Debug.Log("씬 로드");
     }
 
     public void Win()
@@ -97,7 +114,11 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator WinRoutine()
     {
-        List<MonsterData> monsters = CurrentEncounter.Monsters;
+        // 승리 브금 재생
+        if (winBGM != null)
+            SoundManager.Instance.PlayBGM(winBGM, loop: false, fadeDuration: 0.5f);
+
+        List<MonsterData> monsters = CurrentEncounter.Monsters.ToList();
         List<BaseItem> dropItems = new List<BaseItem>();
 
         int totalYp = 0;
@@ -117,8 +138,14 @@ public class BattleManager : MonoBehaviour
             totalExp += monster.expDrop;
             totalYp += monster.ypDrop;
         }
+
         GameManager.player.stat.AddExp(totalExp);
         GameManager.player.Wallet.AddYP(totalYp);
+
+        foreach (PetStatus pet in GameManager.player.party.partyPets)
+        {
+            pet.stat.AddExp(totalExp);
+        }
 
         yield return new WaitForSeconds(1f);
 
@@ -127,6 +154,10 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator LoseRoutine()
     {
+        // 패배 브금 재생
+        if (loseBGM != null)
+            SoundManager.Instance.PlayBGM(loseBGM, loop: false, fadeDuration: 0.5f);
+
         yield return new WaitForSeconds(1f);
 
         RewardUI.ShowWinUI(null, 0, 0);
@@ -134,10 +165,13 @@ public class BattleManager : MonoBehaviour
 
     public void QuitBattle()
     {
-        isBattleActive = false;
+        OnBattleEnded?.Invoke();
         BattleCamera.enabled = false;
         WorldCamera.enabled = true;
+
         WorldCanvas.SetActive(true);
+
+        SoundManager.Instance.StopBGM();
 
         SceneLoader.UnloadScene("BattleScene");
     }

@@ -45,6 +45,13 @@ public class PlayerStatus : CharacterStatus
         PlayerData = newData;
     }
 
+    public void AddExp(int amount)
+    {
+        if (amount <= 0) return;
+
+        stat.AddExp(amount);
+    }
+
     private void LevelUp()
     {
         SkillPoints++;

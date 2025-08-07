@@ -1486,11 +1486,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1995875029}
+  - {fileID: 204457037}
   - {fileID: 1504866255}
   - {fileID: 593108978}
   - {fileID: 595976809}
   - {fileID: 1768622288}
-  - {fileID: 204457037}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1942,10 +1942,10 @@ MonoBehaviour:
   isBattleActive: 0
   IsTesting: 1
   datas:
+  - {fileID: 11400000, guid: 8f83c7f9610e7a74cb8bdb9e8deef52c, type: 2}
   - {fileID: 11400000, guid: 3be44273dd9b1154ab481f2017f2397c, type: 2}
   - {fileID: 11400000, guid: ee1776435597a0e48a97ec07a9552c4e, type: 2}
-  - {fileID: 11400000, guid: c2001b3d5c634a94d8d5670791a03946, type: 2}
-  - {fileID: 11400000, guid: 9141255a228952545bc5ac47af66e6e4, type: 2}
+  - {fileID: 11400000, guid: d1ef3122d3e17eb4491d23e8d940b2ba, type: 2}
 --- !u!4 &132363883
 Transform:
   m_ObjectHideFlags: 0
@@ -2169,7 +2169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!225 &185751351
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -11077,7 +11077,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 7.504886, y: 3.375}
+  m_Size: {x: 7.5, y: 4.306641}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -11137,8 +11137,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 7.504886, y: 3.375}
-    newSize: {x: 7.504886, y: 3.375}
+    oldSize: {x: 7.5, y: 4.306641}
+    newSize: {x: 7.5, y: 4.306641}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

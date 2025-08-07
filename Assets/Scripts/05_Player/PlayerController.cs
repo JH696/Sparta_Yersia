@@ -1,29 +1,31 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("이동 관련")]
     [SerializeField] private float moveSpeed = 5f;
 
-    // 우클릭 이동
     private Vector3 targetPos;
     private bool clickMoving = false;
-
-    // WASD 키 이동
     private Vector2 inputDir = Vector2.zero;
-    private Animator anim;
 
+    private Animator anim;
     private Player player;
+    private Coroutine moveRoutine;
 
     [Header("상호작용")]
-    [SerializeField, Tooltip("상호작용 가능한 최대 거리")] private float interactRange = 2f;
-    [SerializeField, Tooltip("이동이 가능한 위치 레이어")] private LayerMask moveableLayerMask;
+    [SerializeField] private float interactRange = 2f;
+    [SerializeField] private LayerMask moveableLayerMask;
 
     [Header("상호작용 UI")]
     [SerializeField] private GameObject interactTextPrefab;
 
     private GameObject interactTextInstance;
     private Transform currentTarget;
+
+    private void OnBattleStarted() => StopPlayer(true);
+    private void OnBattleEnded() => StopPlayer(false);
 
     void Awake()
     {
@@ -35,7 +37,6 @@ public class PlayerController : MonoBehaviour
     {
         if (interactTextPrefab != null)
         {
-            // UI용 Canvas가 씬에 반드시 존재해야 함 (Screen Space - Overlay 타입)
             Canvas canvas = FindObjectOfType<Canvas>();
             if (canvas != null)
             {
@@ -52,16 +53,26 @@ public class PlayerController : MonoBehaviour
             Debug.LogWarning("InteractTextPrefab이 할당되지 않았습니다.");
         }
 
-        // 초기 타겟은 현재 위치
         targetPos = transform.position;
+
+        BattleManager.Instance.OnBattleStarted += OnBattleStarted;
+        BattleManager.Instance.OnBattleEnded += OnBattleEnded;
 
         player.ChangeSprite();
     }
 
-    private void LateUpdate()
+    private void OnDestroy()
+    {
+        if (BattleManager.Instance != null)
+        {
+            BattleManager.Instance.OnBattleStarted -= OnBattleStarted;
+            BattleManager.Instance.OnBattleEnded -= OnBattleEnded;
+        }
+    }
+
+    private void Update()
     {
         HandleInput();
-        HandleMovement();
         UpdateAnimation();
         HandleInteractionInput();
         UpdateInteractText();
@@ -69,24 +80,22 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInput()
     {
-        if (DialogueManager.Instance.IsDialogueActive || BattleManager.Instance.IsBattleActive) return;
+        if (DialogueManager.Instance.IsDialogueActive || !canMove) return;
 
-        // wasd
-        inputDir.x = 0;
-        inputDir.y = 0;
-        if (Input.GetKey(KeyCode.W)) inputDir.y += 1;
-        if (Input.GetKey(KeyCode.S)) inputDir.y -= 1;
-        if (Input.GetKey(KeyCode.A)) inputDir.x -= 1;
-        if (Input.GetKey(KeyCode.D)) inputDir.x += 1;
-        inputDir.Normalize();
+        Vector2 newInputDir = Vector2.zero;
+        if (Input.GetKey(KeyCode.W)) newInputDir.y += 1;
+        if (Input.GetKey(KeyCode.S)) newInputDir.y -= 1;
+        if (Input.GetKey(KeyCode.A)) newInputDir.x -= 1;
+        if (Input.GetKey(KeyCode.D)) newInputDir.x += 1;
+        newInputDir.Normalize();
 
-        // 키보드로 움직이면 클릭 이동 취소
-        if (inputDir.sqrMagnitude > 0.01f)
+        if (newInputDir.sqrMagnitude > 0.01f)
         {
+            inputDir = newInputDir;
             clickMoving = false;
+            StartMove(inputDir);
         }
 
-        // 우클릭 이동
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -97,36 +106,90 @@ public class PlayerController : MonoBehaviour
             {
                 targetPos = mouseWorldPos;
                 clickMoving = true;
+                inputDir = Vector2.zero;
+                StartMoveToClick(targetPos);
             }
         }
     }
 
-    private void HandleMovement()
+    private void StartMove(Vector2 direction)
     {
-        // wasd
-        if (inputDir.sqrMagnitude > 0.01f)
+        if (moveRoutine != null) StopCoroutine(moveRoutine);
+        moveRoutine = StartCoroutine(MoveRoutine(direction));
+    }
+
+    private void StartMoveToClick(Vector3 target)
+    {
+        if (moveRoutine != null) StopCoroutine(moveRoutine);
+        moveRoutine = StartCoroutine(MoveToPositionRoutine(target));
+    }
+
+    private IEnumerator MoveRoutine(Vector2 dir)
+    {
+        while (true)
         {
-            Vector3 delta = new Vector3(inputDir.x, inputDir.y, 0)
-                          * (moveSpeed * Time.deltaTime);
-            transform.position += delta;
-            return;
+            if (dir.sqrMagnitude <= 0.01f || !canMove)
+                break;
+
+            transform.position += new Vector3(dir.x, dir.y, 0) * moveSpeed * Time.deltaTime;
+
+            yield return null;
+
+            dir = Vector2.zero;
+            if (Input.GetKey(KeyCode.W)) dir.y += 1;
+            if (Input.GetKey(KeyCode.S)) dir.y -= 1;
+            if (Input.GetKey(KeyCode.A)) dir.x -= 1;
+            if (Input.GetKey(KeyCode.D)) dir.x += 1;
+            dir.Normalize();
+
+            inputDir = dir;
         }
 
-        // 우클릭 이동
-        if (clickMoving)
-        {
-            Vector3 diff = targetPos - transform.position;
-            float   distance = diff.magnitude;
-            Vector3 direction = diff.normalized;
+        inputDir = Vector2.zero;
+        moveRoutine = null;
+    }
 
-            if (distance > 0.1f)
-            {
-                transform.position += direction * moveSpeed * Time.deltaTime;
-            }
-            else
+    private IEnumerator MoveToPositionRoutine(Vector3 target)
+    {
+        while (true)
+        {
+            if (!canMove) break;
+
+            Vector3 diff = target - transform.position;
+            float dist = diff.magnitude;
+            Vector3 dir = diff.normalized;
+
+            if (dist < 0.1f)
             {
                 clickMoving = false;
+                break;
             }
+
+            transform.position += dir * moveSpeed * Time.deltaTime;
+            yield return null;
+        }
+
+        moveRoutine = null;
+    }
+
+    private void StopPlayer(bool isActive)
+    {
+        if (isActive)
+        {
+            canMove = false;
+            clickMoving = false;
+            inputDir = Vector2.zero;
+            anim.SetBool("Moving", false);
+
+            if (moveRoutine != null)
+            {
+                StopCoroutine(moveRoutine);
+                moveRoutine = null;
+            }
+        }
+        else
+        {
+            canMove = true;
         }
     }
 
@@ -134,7 +197,6 @@ public class PlayerController : MonoBehaviour
     {
         if (anim.runtimeAnimatorController == null) return;
 
-        // 이동 방향
         Vector2 moveVec = Vector2.zero;
         if (inputDir.sqrMagnitude > 0.01f)
         {
@@ -234,17 +296,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private bool IsScene(string name)
-    //{
-    //    for (int i = 0; i < SceneManager.sceneCount; i++)
-    //    {
-    //        Scene scene = SceneManager.GetSceneAt(i);
-    //        if (scene.name == name)
-    //        {
-    //            Debug.Log($"현재 씬: {scene.name}");
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //}
+    private bool canMove = true;
 }

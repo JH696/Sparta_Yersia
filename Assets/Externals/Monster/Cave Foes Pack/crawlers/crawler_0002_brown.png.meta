@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 40
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,9 +70,9 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -134,7 +134,1141 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: crawler_0002_brown_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 860.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7118c7e2d01075439fb30fcbe042d1b
+      internalID: 275556685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_1
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 860.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 403cfa5aeff0867449cc4f6e0717335d
+      internalID: -1216491602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_2
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 860.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c155e0e155137374b96f0ca3711050c7
+      internalID: 1757697521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_3
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 860.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adb537c15901c364d999bdda72e08f2c
+      internalID: -1956175831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_4
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 860.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dba9fa8f9db2419429a694669bd17365
+      internalID: 1318858643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_5
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 860.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acbde44506f61524e88877cee4f7aeed
+      internalID: -208952086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_6
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 860.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0744ef6a62d7f94d9efa6d03a129fa4
+      internalID: -1780184913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_7
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 860.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7cebd5f631aea74083519432103d9b2
+      internalID: -1834726334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_8
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 860.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7b96f6e631f14d47971b1e754fd54d0
+      internalID: -1395482277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 688.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2190b428c93178e498700fa9768bb167
+      internalID: -1193479444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_10
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 688.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f4671b9653d87143bf7828f5db2b4e9
+      internalID: 138340012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_11
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 688.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f10aa08ba2970e4293e2ff043c5d0dd
+      internalID: 927585735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_12
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 688.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 047180a369cb8a0469d3aacee8f53b02
+      internalID: -767825882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_13
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 688.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dcc5de8bbbd3e1438562cc2dd796078
+      internalID: -2122145220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_14
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 688.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 641d672119c8add45860ace483b01f9c
+      internalID: -1090389850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_15
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 688.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de4e871cf8628e943ae2588ee038644e
+      internalID: -94543737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_16
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 688.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69c159ee16fe77d428aff2efddb0d34e
+      internalID: 1456221792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_17
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 688.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1f8e7fa66fc5aa418c7cf0ef92ed66c
+      internalID: 271689272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 516.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 710a57594cc87724db4c823d472f7a3b
+      internalID: -1980885390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_19
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 516.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b1c175a6b3b011428c8f79056189d38
+      internalID: -1791800839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_20
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 516.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97416e3ee876ae2479d58301252a3149
+      internalID: -973491318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_21
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 516.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8a4986755a68d14c80dee2fcbc464c2
+      internalID: -546415530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_22
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 516.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eebfa3039b7638d4b830c0e0c4f39c5c
+      internalID: -1627180156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_23
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 516.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37293732eb31ae84eb4d4ccdc8ea46ca
+      internalID: 1414736611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_24
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 516.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fea5951fa1a37464d984d88c80742758
+      internalID: -239857392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_25
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 516.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1cfd23528f68a94fae08f2d7f2c8192
+      internalID: -1861775065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_26
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 516.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bc4daff77bd1bb4c8611a3d2a2cab8d
+      internalID: 918157218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 344.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64647801437fdc74aac22eb7f7e48cf5
+      internalID: -1681481337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_28
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 344.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a3f750318924f74aacccb1d36667b3c
+      internalID: 724410296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_29
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 344.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05203bee1a6f0104f897dcc1e6de5ea8
+      internalID: -1685132508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_30
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 344.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 443386e93e035554a887e58ddb9eb767
+      internalID: 2060900880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_31
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 344.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bca648792d9b0324a82867840d216532
+      internalID: -797317241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_32
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 344.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c435f1eddf452fd4d9083b1be5bbf9fa
+      internalID: -440048466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_33
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 344.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9858d00c3e913974cb5f133ba8c1db33
+      internalID: -1770296016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_34
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 344.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6868e092f75ffc43a6dccd38f5cc7ff
+      internalID: -1639516566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_35
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 344.8333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9d7ed1a704a4a0449ee8840e70714f7
+      internalID: -1360423681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 172.83333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aca00a518bfa3b41ba0ce28bb9697c5
+      internalID: 1517021773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_37
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 172.83333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f7fdd7ed5c7dbf4eaf6521967e564a2
+      internalID: 957722182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_38
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 172.83333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24e0d0e2de4171c4e960a440c2bfa87e
+      internalID: 2074820605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_39
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 172.83333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f573837651166cd45a1a91f130330d28
+      internalID: 759585708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_40
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 172.83333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91419a914efdc294fb8a3f0b4211290c
+      internalID: -563679410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_41
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 172.83333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95d5e4ba98173d14888d2625d3dd3534
+      internalID: 602192313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_42
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 172.83333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3a98d4757ed45742ae01bf53ee680f4
+      internalID: 542866015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_43
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 172.83333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe7a98799ff691943936156a8115ea7d
+      internalID: -275554667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_44
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 172.83333
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e63abc8ff35bee4183a46efa43de04a
+      internalID: -822728288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0.83332825
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd286bb21a0393e4b8bc4887687c8b24
+      internalID: -396011701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_46
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0.83332825
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a81a0200f7895014ea256c0382ff0569
+      internalID: 258473379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_47
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0.83332825
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d3add762be80cb4da97dba724c329bb
+      internalID: -451229357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_48
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 0.83332825
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b732627451da22e43aec9de04ad309c1
+      internalID: -581307607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_49
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0.83332825
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d8edaeb1c567e2419be4382e3afe528
+      internalID: -880606935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_50
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 0.83332825
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dabe322bd08f88043bc2857a77a4d63e
+      internalID: -1534424340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_51
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 0.83332825
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91d771e91f535904f88af5d8d019d679
+      internalID: -561338974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_52
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 0.83332825
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7a380af934b4e247a227c24ac2da6c8
+      internalID: 1250652907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crawler_0002_brown_53
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 0.83332825
+        width: 300
+        height: 172.16667
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8b4ed2904ca048469cfa3dcae6f8c79
+      internalID: -777130757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +1279,61 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      crawler_0002_brown_0: 275556685
+      crawler_0002_brown_1: -1216491602
+      crawler_0002_brown_10: 138340012
+      crawler_0002_brown_11: 927585735
+      crawler_0002_brown_12: -767825882
+      crawler_0002_brown_13: -2122145220
+      crawler_0002_brown_14: -1090389850
+      crawler_0002_brown_15: -94543737
+      crawler_0002_brown_16: 1456221792
+      crawler_0002_brown_17: 271689272
+      crawler_0002_brown_18: -1980885390
+      crawler_0002_brown_19: -1791800839
+      crawler_0002_brown_2: 1757697521
+      crawler_0002_brown_20: -973491318
+      crawler_0002_brown_21: -546415530
+      crawler_0002_brown_22: -1627180156
+      crawler_0002_brown_23: 1414736611
+      crawler_0002_brown_24: -239857392
+      crawler_0002_brown_25: -1861775065
+      crawler_0002_brown_26: 918157218
+      crawler_0002_brown_27: -1681481337
+      crawler_0002_brown_28: 724410296
+      crawler_0002_brown_29: -1685132508
+      crawler_0002_brown_3: -1956175831
+      crawler_0002_brown_30: 2060900880
+      crawler_0002_brown_31: -797317241
+      crawler_0002_brown_32: -440048466
+      crawler_0002_brown_33: -1770296016
+      crawler_0002_brown_34: -1639516566
+      crawler_0002_brown_35: -1360423681
+      crawler_0002_brown_36: 1517021773
+      crawler_0002_brown_37: 957722182
+      crawler_0002_brown_38: 2074820605
+      crawler_0002_brown_39: 759585708
+      crawler_0002_brown_4: 1318858643
+      crawler_0002_brown_40: -563679410
+      crawler_0002_brown_41: 602192313
+      crawler_0002_brown_42: 542866015
+      crawler_0002_brown_43: -275554667
+      crawler_0002_brown_44: -822728288
+      crawler_0002_brown_45: -396011701
+      crawler_0002_brown_46: 258473379
+      crawler_0002_brown_47: -451229357
+      crawler_0002_brown_48: -581307607
+      crawler_0002_brown_49: -880606935
+      crawler_0002_brown_5: -208952086
+      crawler_0002_brown_50: -1534424340
+      crawler_0002_brown_51: -561338974
+      crawler_0002_brown_52: 1250652907
+      crawler_0002_brown_53: -777130757
+      crawler_0002_brown_6: -1780184913
+      crawler_0002_brown_7: -1834726334
+      crawler_0002_brown_8: -1395482277
+      crawler_0002_brown_9: -1193479444
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

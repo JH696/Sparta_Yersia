@@ -30,5 +30,13 @@ MonoBehaviour:
   - WorldSprite: {fileID: 21300000, guid: e34a0e17daecdf4478a270e6fec6a76a, type: 3}
     ProfileIcon: {fileID: 21300000, guid: e34a0e17daecdf4478a270e6fec6a76a, type: 3}
   evoLevel: 01000000050000000a000000
-  startSkills: []
-  learnableSkills: []
+  startSkills:
+  - {fileID: 11400000, guid: 326620fd966e8ff49bfe162af3420433, type: 2}
+  evolveSkills:
+  - EvoLevel: 1
+    Skill: {fileID: 11400000, guid: 21a70e5e5c326f64783bc730f5d6de55, type: 2}
+  BattleVisuals:
+    Stand: {fileID: 0}
+    Idle: {fileID: 0}
+    Attack: {fileID: 0}
+    Hit: {fileID: 0}
