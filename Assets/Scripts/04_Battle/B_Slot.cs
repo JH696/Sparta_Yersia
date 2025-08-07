@@ -33,6 +33,7 @@ public class B_Slot : MonoBehaviour
 
     public bool IsDead => character == null || character.IsDead;
     public CharacterStatus Character => character;
+    public B_StatGauge StatGauge => statGauge;
 
     public void SetSlot(CharacterStatus status)
     {
@@ -120,6 +121,12 @@ public class B_Slot : MonoBehaviour
     public void PlayAttackAnim()
     {
         animator.SetTrigger("Attack");
+
+    }
+
+    public void PlayCastAnim()
+    {
+        animator.SetTrigger("Cast");
 
     }
 

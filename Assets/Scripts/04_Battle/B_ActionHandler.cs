@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,16 +7,19 @@ public class B_ActionHandler : MonoBehaviour
 {
     [Header("타겟 목록")]
     [SerializeField] private List<BattleEffecter> targets = new List<BattleEffecter>();
+    [SerializeField] private List<B_StatGauge> gauges = new List<B_StatGauge>();
 
     [Header("최대 타겟 수")]
     [SerializeField] private int maxCount = 1;
+
+    [Header("가이드 텍스트")]
+    [SerializeField] private GuideTextUI guideText;
 
     [Header("타겟팅 여부")]
     [SerializeField] private bool isTargeting;
 
     [Header("슬롯 매니저")]
     [SerializeField] private B_SlotManager slotManager;
-
 
     public List<BattleEffecter> Targets => targets;
 
@@ -24,6 +28,8 @@ public class B_ActionHandler : MonoBehaviour
         targets.Clear();
         this.maxCount = maxCount;
         isTargeting = true;
+
+        RefreshGuideText();
     }
 
     private void Update()
@@ -44,51 +50,62 @@ public class B_ActionHandler : MonoBehaviour
 
                 BattleEffecter effecter = hit.collider.GetComponentInChildren<BattleEffecter>();
 
+                B_Slot slot = hit.collider.GetComponent<B_Slot>();
+                B_StatGauge gauge = slot.StatGauge;
+
                 if (effecter != null)
                 {
-                    AddTarget(effecter);
+                    AddTarget(effecter, gauge);
                 }
             }
         }
     }
 
-    private void AddTarget(BattleEffecter effecter)
+    private void AddTarget(BattleEffecter effecter, B_StatGauge statGauge)
     {
         if (effecter == null) return;
 
         if (targets.Contains(effecter))
         {
-            //slot.Pointer.SetActive(false);
+            gauges.Remove(statGauge);
+            statGauge.HidePointer();
             targets.Remove(effecter);
         }
         else
         {
             if (targets.Count >= maxCount) return;
 
-            //slot.Pointer.SetActive(true);
+            gauges.Add(statGauge);
+            statGauge.ShowPointer();
             targets.Add(effecter);
         }
-    }
 
-    // 대상 반환 초기화 
+        RefreshGuideText();
+    }
 
     public void EndTargeting(bool isDead)
     {
-        ClearAllTargetsPointer();
+        ClearAllTargets();
         slotManager.ClearCurrentSlot();
     }
 
-    public void ClearAllTargetsPointer()
+    private void RefreshGuideText()
+    {
+        guideText.UpdateGuideText("목표 지정", $"{targets.Count}/{maxCount} 선택됨");
+    }
+
+    public void ClearAllTargets()
     {
         isTargeting = false;
 
-        foreach (BattleEffecter slot in targets)
+        foreach (B_StatGauge statGauge in gauges)
         {
-            if (slot != null)
-            {
-                //slot.Pointer.SetActive(false);
-            }
+            statGauge.HidePointer();    
         }
+
+        gauges.Clear();
         targets.Clear();
+
+        guideText.ResetGuideText();
     }
 }

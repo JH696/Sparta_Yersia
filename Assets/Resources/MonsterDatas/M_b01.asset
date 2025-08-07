@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f31c11c4d16c149a6db51bb4968c56, type: 3}
+  m_Name: M_b01
+  m_EditorClassIdentifier: 
+  maxHp: 300
+  maxMana: 200
+  attack: 50
+  defense: 25
+  luck: 10
+  speed: 20
+  Multiplier: 1.1
+  MonsterID: M_b01
+  MonsterName: "\uC544\uB77C\uD06C\uB124"
+  StageType: 1
+  MonsterType: 2
+  startSkills: []
+  ypDrop: 1000
+  expDrop: 200
+  dropItems: []
+  BattleVisuals:
+    Stand: {fileID: -1086182362, guid: 17d1d666e21873346b548e09d7223530, type: 3}
+    Move: {fileID: 0}
+    Idle: {fileID: 0}
+    Attack: {fileID: 0}
+    Cast: {fileID: 0}
+    Hit: {fileID: 0}
+    Die: {fileID: 0}

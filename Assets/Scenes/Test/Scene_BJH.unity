@@ -1222,6 +1222,7 @@ MonoBehaviour:
   worldSprite: {fileID: 61887826}
   animator: {fileID: 0}
   testPetData: {fileID: 0}
+  testSkillData: {fileID: 0}
 --- !u!4 &61887829
 Transform:
   m_ObjectHideFlags: 0
@@ -18230,14 +18231,11 @@ MonoBehaviour:
   WorldCanvas: {fileID: 871904521}
   RewardUI: {fileID: 0}
   currentEncounter:
-    monsters: []
+    Monsters: []
+    Stage: 0
   isBattleActive: 0
   IsTesting: 0
   datas: []
-  startSize: 4
-  endSize: 1
-  zoomDuration: 0.5
-  slotManager: {fileID: 0}
 --- !u!1 &919869719
 GameObject:
   m_ObjectHideFlags: 0

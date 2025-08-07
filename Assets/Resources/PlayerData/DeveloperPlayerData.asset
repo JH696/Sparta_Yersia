@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -33,11 +33,27 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e7bb4cd1be07fb34db4742d9c463c639, type: 2}
   - {fileID: 11400000, guid: 51ac1b914b4577b41b1360d94e3488d2, type: 2}
   - {fileID: 11400000, guid: 1b1c6dc853707b04e8050d1aa3fac336, type: 2}
-  WSprite: {fileID: 21300000, guid: 770fcf79d0106b140bcfe6abfc945be3, type: 3}
-  DSprite: {fileID: 0}
-  Icon: {fileID: 21300000, guid: 5e54914ae0f38d3469febb9db260b310, type: 3}
-  BattleVisuals:
-    Stand: {fileID: 0}
-    Idle: {fileID: 0}
-    Attack: {fileID: 0}
-    Hit: {fileID: 0}
+  brownProfileIcon: {fileID: 1733024234, guid: d34561a4f9d40c34095f11f6abed7e02, type: 3}
+  darkProfileIcon: {fileID: -1583805499, guid: d34561a4f9d40c34095f11f6abed7e02, type: 3}
+  brownWorldSprite: {fileID: -1148390020, guid: 09aa7f5cee831aa42bb948829fc1bef8, type: 3}
+  darkWorldSprite: {fileID: 1262539433, guid: 0676a5a8fc6ee0446bc76d3b22a062c0, type: 3}
+  brownDialogSprite: {fileID: 21300000, guid: b8a258e3ee6b1fd47babf4b7d92c80b7, type: 3}
+  darkDialogSprite: {fileID: 21300000, guid: b5438aea955da6540bbb2c4a27a1c3b8, type: 3}
+  brownController: {fileID: 9100000, guid: 53884f68447dac9408a61436f79137d9, type: 2}
+  darkController: {fileID: 9100000, guid: 362ed4dcdbe7ac241b76b2d8e5be3caf, type: 2}
+  brownBattleVisuals:
+    Stand: {fileID: 1830070, guid: 2889c37b10895e54e844c5a0d2d4ebf0, type: 3}
+    Move: {fileID: 7400000, guid: 0712729f98d164d479ad7c92253ec6dc, type: 2}
+    Idle: {fileID: 7400000, guid: 887c383eaa5795e49851fe6f6ea308f6, type: 2}
+    Attack: {fileID: 7400000, guid: f21f84cd195dd1c4faf75bd7b746f32d, type: 2}
+    Cast: {fileID: 7400000, guid: 1a6ed79d298bf0946b0ab8e4a823a0de, type: 2}
+    Hit: {fileID: 7400000, guid: c2128f330b1179f41800ab97f5008a9f, type: 2}
+    Die: {fileID: 7400000, guid: 1bb7d8af0f109bd44aa4f64bf33d965c, type: 2}
+  darkBattleVisuals:
+    Stand: {fileID: -1663487376, guid: 37adadee11fd68c418bf8019b46438af, type: 3}
+    Move: {fileID: 0}
+    Idle: {fileID: 7400000, guid: 16afa713d4b892b499f212c3debca337, type: 2}
+    Attack: {fileID: 7400000, guid: ab6fc4e022fbdf24389507d418ea2c64, type: 2}
+    Cast: {fileID: 0}
+    Hit: {fileID: 7400000, guid: bc8b4bc4268553941b3940b09eb56e59, type: 2}
+    Die: {fileID: 0}

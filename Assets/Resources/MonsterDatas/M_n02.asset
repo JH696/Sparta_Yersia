@@ -13,23 +13,20 @@ MonoBehaviour:
   m_Name: M_n02
   m_EditorClassIdentifier: 
   maxHp: 60
-  maxMana: 80
-  attack: 20
-  defense: 10
+  maxMana: 0
+  attack: 15
+  defense: 5
   luck: 5
-  speed: 15
+  speed: 22
   Multiplier: 1.1
   MonsterID: M_n02
   MonsterName: "\uAC70\uB300 \uC950"
   StageType: 0
   MonsterType: 0
-  startSkills:
-  - {fileID: 11400000, guid: db1730709078d6a4fa5d6dfa66c08286, type: 2}
+  startSkills: []
   ypDrop: 30
   expDrop: 50
-  dropItems:
-  - itemData: {fileID: 11400000, guid: f7ac4602103f51746bee5c971907269b, type: 2}
-    dropRate: 0.1
+  dropItems: []
   BattleVisuals:
     Stand: {fileID: 1659151087, guid: f36d3917e9dbc8f4b87007c3d2f66028, type: 3}
     Move: {fileID: 7400000, guid: 6b7377d21b4b3d940b3edf96af968132, type: 2}
