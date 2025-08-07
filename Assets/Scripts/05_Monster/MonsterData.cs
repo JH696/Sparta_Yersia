@@ -1,6 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+public enum E_SizeType
+{
+    Medium = 1,   // 중형 (플레이어, 대부분의 캐릭터)
+    Small = 0,    // 소형 (쥐, 버섯 괴물 등)
+    Large = 2     // 대형 (골렘, 보스급 몬스터 등)
+}
+
 [CreateAssetMenu(fileName = "MonsterData", menuName = "Data/MonsterData")]
 public class MonsterData : StatData, ISkillUsable
 {
@@ -8,11 +15,9 @@ public class MonsterData : StatData, ISkillUsable
     public string MonsterID;
     public string MonsterName;
 
-    [Header("서식지")]
+    [Header("스폰 지역 / 체격")]
     public E_StageType StageType;
-
-    [Header("몬스터 등급")]
-    public EMonsterType MonsterType;
+    public E_SizeType Size;
 
     [Header("초기 스킬 리스트")]
     [SerializeField] private List<SkillData> startSkills = new List<SkillData>();

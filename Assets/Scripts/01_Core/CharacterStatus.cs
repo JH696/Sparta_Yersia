@@ -55,6 +55,10 @@ public abstract class CharacterStatus
     {
         return null; // 월드 스프라이트 반환, 자식 클래스에서 구현
     }
+    public virtual E_SizeType GetSize()
+    {
+        return E_SizeType.Medium;
+    }
 
     public abstract BattleVisuals GetBattleVisuals();
 }

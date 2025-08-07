@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 [System.Serializable]
 public enum E_StageType
 {
+    None,
     Upper,      // 상층
     Middle,     // 중층
     Lower,      // 하층

@@ -1939,7 +1939,6 @@ MonoBehaviour:
   currentEncounter:
     Monsters: []
     Stage: 0
-  isBattleActive: 0
   IsTesting: 1
   datas:
   - {fileID: 11400000, guid: 8f83c7f9610e7a74cb8bdb9e8deef52c, type: 2}
@@ -3449,7 +3448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &330855172
 Transform:
   m_ObjectHideFlags: 0
@@ -5967,15 +5966,15 @@ RectTransform:
   - {fileID: 1523156859}
   - {fileID: 893903198}
   - {fileID: 1689640646}
+  - {fileID: 1858709283}
+  - {fileID: 275051281}
   - {fileID: 1394329049}
   - {fileID: 1690381031}
-  - {fileID: 275051281}
-  - {fileID: 1858709283}
   m_Father: {fileID: 85113260}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 325}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &595976808
@@ -7736,6 +7735,7 @@ GameObject:
   - component: {fileID: 857292479}
   - component: {fileID: 857292481}
   - component: {fileID: 857292480}
+  - component: {fileID: 857292482}
   m_Layer: 30
   m_Name: Damage Text
   m_TagString: Untagged
@@ -7896,6 +7896,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &857292482
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857292478}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &862382616
 GameObject:
   m_ObjectHideFlags: 0
@@ -8582,6 +8603,7 @@ GameObject:
   - component: {fileID: 953361272}
   - component: {fileID: 953361274}
   - component: {fileID: 953361273}
+  - component: {fileID: 953361275}
   m_Layer: 30
   m_Name: Damage Text
   m_TagString: Untagged
@@ -8742,6 +8764,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &953361275
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953361271}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &967074058
 GameObject:
   m_ObjectHideFlags: 0
@@ -10325,6 +10368,7 @@ GameObject:
   - component: {fileID: 1142741732}
   - component: {fileID: 1142741734}
   - component: {fileID: 1142741733}
+  - component: {fileID: 1142741735}
   m_Layer: 30
   m_Name: Damage Text
   m_TagString: Untagged
@@ -10485,6 +10529,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &1142741735
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142741731}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1148086940
 GameObject:
   m_ObjectHideFlags: 0
@@ -11030,7 +11095,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1178684669
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13195,7 +13260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1464205722
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16072,7 +16137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1718378899
 SpriteRenderer:
   m_ObjectHideFlags: 0

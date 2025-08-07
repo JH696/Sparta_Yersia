@@ -157,6 +157,6 @@ public class B_Slot : MonoBehaviour
 
         transform.position = targetPos;
         animator.SetBool("IsMoving", false);
-        statGauge.SetGauges(this);
+        statGauge.SetGauges(this, character.GetSize());
     }
 }

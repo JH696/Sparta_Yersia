@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38f31c11c4d16c149a6db51bb4968c56, type: 3}
-  m_Name: M_b01
+  m_Name: M_Boss1
   m_EditorClassIdentifier: 
   maxHp: 300
   maxMana: 200
@@ -18,11 +18,11 @@ MonoBehaviour:
   defense: 25
   luck: 10
   speed: 20
-  Multiplier: 1.1
-  MonsterID: M_b01
+  Multiplier: 0
+  MonsterID: M_Boss1
   MonsterName: "\uC544\uB77C\uD06C\uB124"
-  StageType: 1
-  MonsterType: 2
+  StageType: 0
+  Size: 2
   startSkills: []
   ypDrop: 1000
   expDrop: 200
