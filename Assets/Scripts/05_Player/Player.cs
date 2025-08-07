@@ -55,8 +55,11 @@ public class Player : MonoBehaviour
     {
         ChangeSprite();
 
-        status.skills.AddSkill(testSkillData);
-        status.skills.EquipSkill(status.skills.GetSkillStatus(testSkillData));
+        if (testSkillData != null)
+        {
+            status.skills.AddSkill(testSkillData);
+            status.skills.EquipSkill(status.skills.GetSkillStatus(testSkillData));
+        }
     }
 
     private void Update()

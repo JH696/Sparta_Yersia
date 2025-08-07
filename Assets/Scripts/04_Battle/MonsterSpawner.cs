@@ -16,12 +16,12 @@ public enum E_StageType
 [System.Serializable]
 public struct BattleEncounter
 {
-    public List<MonsterData> Monsters;
+    public MonsterData[] Monsters;
     public E_StageType Stage;
 
-    public BattleEncounter(List<MonsterData> monsterList, E_StageType stage)
+    public BattleEncounter(MonsterData[] monsters, E_StageType stage)
     {
-        Monsters = monsterList;
+        Monsters = monsters;
         Stage = stage;
     }
 }
@@ -119,24 +119,24 @@ public class MonsterSpawner : MonoBehaviour
         // 몬스터 개수: 1~4마리 랜덤
         int monsterCount = Random.Range(1, 5); // min 포함, max 미포함
 
-        List<MonsterData> selectedMonsters = new List<MonsterData>();
+        MonsterData[] selectedMonsters = new MonsterData[monsterCount]; // 배열 크기를 monsterCount로 설정
+
         for (int i = 0; i < monsterCount; i++)
         {
             MonsterData selected = filtered[Random.Range(0, filtered.Count)];
-            selectedMonsters.Add(selected);
+            selectedMonsters[i] = selected;
         }
-
-        // 전투 인카운터 생성
-        BattleEncounter encounter = new BattleEncounter(selectedMonsters, stageType);
 
         // 위치 선택 및 트리거 생성
         Vector3 spawnPos = spawnPositions[Random.Range(0, spawnPositions.Count)];
         TriggerMonster trigger =
             Instantiate(triggerMonster, spawnPos, Quaternion.identity, transform).GetComponent<TriggerMonster>();
 
+        trigger.OnTrigged += () => nowSpawnCount--;
+
         nowSpawnCount++;
 
-        trigger.SetTriggerMonster(encounter);
+        trigger.SetTriggerMonster(selectedMonsters, stageType);
         triggers.Add(trigger);
     }
 }
