@@ -213,15 +213,13 @@ public class CharacterStats
     // 현재 체력 설정
     public void SetCurrentHp(float amount)
     {
-        float hp = CurrentHp + amount;
-        CurrentHp = Mathf.Clamp(hp, 0, MaxHp);
+        CurrentHp = Mathf.Clamp(amount, 0, MaxHp);
     }
 
     // 현재 마나 설정
     public void SetCurrentMana(float amount)
     {
-        float mana = CurrentMana + amount;
-        CurrentMana = Mathf.Clamp(mana, 0, MaxMana);
+        CurrentMana = Mathf.Clamp(amount, 0, MaxMana);
     }
 
     // 마나 소모

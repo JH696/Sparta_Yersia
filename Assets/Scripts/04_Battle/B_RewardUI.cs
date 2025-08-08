@@ -31,20 +31,20 @@ public class B_RewardUI : MonoBehaviour
     public void ShowWinUI(List<BaseItem> Datas, int totalExp, int totalYp) 
     {
         rewardUI.SetActive(true);
+        quitButton.onClick.RemoveAllListeners();
 
         ypText.text = $"+ {totalYp} YP";
         expText.text = $"+ {totalExp} EXP";
 
-        quitButton.onClick.AddListener(OnQuitButton);
-
         if (Datas == null)
         {
             titleText.text = "전투 패배";
-
+            quitButton.onClick.AddListener(() => OnQuitButton(false));
             return;
         }
 
         titleText.text = "전투 승리";
+        quitButton.onClick.AddListener(() => OnQuitButton(true));
 
         for (int i = 0; i < Datas.Count; i++)
         {
@@ -53,8 +53,8 @@ public class B_RewardUI : MonoBehaviour
         }
     }
 
-    private void OnQuitButton()
+    private void OnQuitButton(bool isWin)
     {
-        BattleManager.Instance.QuitBattle();
+        BattleManager.Instance.QuitBattle(isWin);
     }
 }
