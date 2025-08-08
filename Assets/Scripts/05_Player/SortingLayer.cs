@@ -2,34 +2,43 @@
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 
+public class SortAnchor : MonoBehaviour
+{
+    public Transform anchor;   // 바닥에 닿는 실제 지점(빈 자식)
+    public float yOffset = 0f; // 필요시 미세보정
+}
+
 public class SortingLayer : MonoBehaviour
 {
     [Header("대상 Sorting Layer 이름")]
     public string targetLayerName = "Default";
 
-    [Header("플레이어 발 위치 오프셋(+면 위로)")]
+    [Header("플레이어 발 위치 오프셋(피벗이 발이 아니면 보정)")]
     public float feetYOffset = 0f;
 
-    [Header("플레이어 바운드 내 샘플 개수(세로)")]
-    [Range(2, 20)]
-    public int verticalSamples = 12;
+    [Header("가로 영향 거리(발-기준 X). 이 값보다 멀면 무시")]
+    public float xRangeMargin = 0.5f;
 
-    private SpriteRenderer playerSpriteRenderer;
-    private SpriteRenderer[] otherSpriteRenderers;
+    [Header("플레이어 바운드 내 샘플 개수(세로)")]
+    [Range(2, 20)] public int verticalSamples = 20;
+
+    private SpriteRenderer playerSR;
+    private SpriteRenderer[] otherSRs;
     private Tilemap[] tilemaps;
     private TilemapRenderer[] tilemapRenderers;
 
     void Awake()
     {
-        playerSpriteRenderer = GetComponent<SpriteRenderer>();
+        playerSR = GetComponent<SpriteRenderer>();
+        playerSR.sortingLayerName = targetLayerName;
 
         // 같은 SortingLayer 의 SpriteRenderer(플레이어 제외)
         var allSR = FindObjectsOfType<SpriteRenderer>();
         var listSR = new List<SpriteRenderer>(allSR.Length);
         foreach (var sr in allSR)
-            if (sr != playerSpriteRenderer && sr.sortingLayerName == targetLayerName)
+            if (sr != playerSR && sr.sortingLayerName == targetLayerName)
                 listSR.Add(sr);
-        otherSpriteRenderers = listSR.ToArray();
+        otherSRs = listSR.ToArray();
 
         // 같은 SortingLayer 의 Tilemap
         var allTM = FindObjectsOfType<Tilemap>();
@@ -48,72 +57,81 @@ public class SortingLayer : MonoBehaviour
         tilemapRenderers = listTR.ToArray();
     }
 
+    float GetBaseY(SpriteRenderer sr, out float baseX)
+    {
+        var a = sr.GetComponent<SortAnchor>();
+        if (a != null && a.anchor != null)
+        {
+            baseX = a.anchor.position.x;
+            return a.anchor.position.y + a.yOffset;
+        }
+        baseX = sr.bounds.center.x;
+        return sr.bounds.min.y; // 앵커 없으면 fallback
+    }
+
+    float GetPlayerFeetY(out float feetX)
+    {
+        // 플레이어 발(피벗이 발이 아니면 보정)
+        var b = playerSR.bounds;
+        feetX = b.center.x;
+        return b.min.y + feetYOffset;
+    }
+
     void LateUpdate()
     {
-        var pBounds = playerSpriteRenderer.bounds;
-        float sampleX = pBounds.center.x;
+        float playerFeetX;
+        float feetY = GetPlayerFeetY(out playerFeetX);
 
-        // 발 위치(피벗이 발에 없으면 min.y + 오프셋)
-        float feetY = pBounds.min.y + feetYOffset;
-
-        // 뒤쪽의 최대 order / 앞쪽의 최소 order
-        int maxBehind = int.MinValue;   // 뒤: baseY > feetY
-        int minFront = int.MaxValue;   // 앞: baseY <= feetY
+        int maxBehind = int.MinValue; // 뒤(플레이어 뒤로 가야 하는 것)의 최대 order
+        int minFront = int.MaxValue; // 앞(플레이어 앞에 있어야 하는 것)의 최소 order
         bool touched = false;
 
         // SpriteRenderer
-        for (int i = 0; i < otherSpriteRenderers.Length; i++)
+        for (int i = 0; i < otherSRs.Length; i++)
         {
-            var sr = otherSpriteRenderers[i];
+            var sr = otherSRs[i];
 
-            // 플레이어의 세로선과 가로로 겹치지 않으면 제외
-            if (sr.bounds.max.x < sampleX || sr.bounds.min.x > sampleX)
+            // 발 기준 좌표
+            float otherFeetX;
+            float baseY = GetBaseY(sr, out otherFeetX);
+
+            // 가로 영향 범위 체크(세로선 교차 대신 발 X 거리로 판정)
+            float halfWidth = sr.bounds.size.x * 0.5f;
+            if (Mathf.Abs(otherFeetX - playerFeetX) > (halfWidth + xRangeMargin))
                 continue;
 
-            float baseY = sr.bounds.min.y;  // 스프라이트 바닥선
             int order = sr.sortingOrder;
 
-            if (baseY > feetY)
-                maxBehind = Mathf.Max(maxBehind, order);
-            else
-                minFront = Mathf.Min(minFront, order);
+            if (baseY > feetY) maxBehind = Mathf.Max(maxBehind, order); // 플레이어 뒤로 가야 함
+            else minFront = Mathf.Min(minFront, order); // 플레이어 앞에 와야 함
 
             touched = true;
         }
 
         // Tilemap
+        var pBounds = playerSR.bounds;
         float step = pBounds.size.y / (verticalSamples - 1);
-
-        // 발이 위치한 월드 좌표(셀은 타일맵마다 다르니 타일맵별로 계산해서 캐시)
-        Vector3 feetPos = new Vector3(sampleX, feetY, transform.position.z);
+        Vector3 feetPos = new Vector3(playerFeetX, feetY, transform.position.z);
 
         for (int j = 0; j < tilemaps.Length; j++)
         {
             var tm = tilemaps[j];
             var tr = tilemapRenderers[j];
 
-            Vector3Int feetCell = tm.WorldToCell(feetPos); // 타일맵별로 1회 계산
-
             for (int s = 0; s < verticalSamples; s++)
             {
                 float y = pBounds.min.y + step * s;
-                Vector3 samplePos = new Vector3(sampleX, y, transform.position.z);
+                Vector3 samplePos = new Vector3(playerFeetX, y, transform.position.z);
 
                 Vector3Int cell = tm.WorldToCell(samplePos);
                 if (!tm.HasTile(cell)) continue;
 
-                bool isFeetCell = (cell == feetCell);
-
                 float cellBaseY = tm.GetCellCenterWorld(cell).y - tm.cellSize.y * 0.5f;
                 int order = tr.sortingOrder;
 
-                // 발 셀은 앞(플레이어가 뒤)으로 강제
-                bool isBehind = !isFeetCell && (cellBaseY > feetY);
-
-                if (isBehind)
-                    maxBehind = Mathf.Max(maxBehind, order);
-                else
-                    minFront = Mathf.Min(minFront, order);
+                bool isBehind = (cellBaseY > feetY);
+                if (isBehind) maxBehind = Mathf.Max(maxBehind, order);
+                else minFront = Mathf.Min(minFront, order);
 
                 touched = true;
             }
@@ -122,26 +140,21 @@ public class SortingLayer : MonoBehaviour
         // 주변이 전혀 없으면 기본값
         if (!touched)
         {
-            playerSpriteRenderer.sortingOrder = 70;
+            playerSR.sortingOrder = 80;
             return;
         }
 
-        // 뒤의 최대 +1 ~ 앞의 최소 -1 범위 안으로 배치
+        // 뒤의 최대 +1 ~ 앞의 최소 -1
         int low = (maxBehind == int.MinValue) ? int.MinValue : maxBehind + 1;
         int high = (minFront == int.MaxValue) ? int.MaxValue : minFront - 1;
 
         int result;
-        if (low == int.MinValue && high == int.MaxValue)
-            result = 70;                 // 완전 자유
-        else if (low == int.MinValue)
-            result = high;               // 앞만 존재
-        else if (high == int.MaxValue)
-            result = low;                // 뒤만 존재
-        else if (low > high)
-            result = low;                // 충돌 시 뒤쪽 우선(혹은 high로 바꿔도 됨)
-        else
-            result = (low + high) / 2;   // 범위의 중간값
+        if (low == int.MinValue && high == int.MaxValue) result = 80;     // 완전 자유
+        else if (low == int.MinValue) result = high;   // 앞만 있음 -> 그 바로 뒤
+        else if (high == int.MaxValue) result = low;    // 뒤만 있음 -> 그 바로 앞
+        else if (low > high) result = high;   // 충돌 났으면 플레이어를 더 뒤로
+        else result = (low + high) / 2;
 
-        playerSpriteRenderer.sortingOrder = result;
+        playerSR.sortingOrder = result;
     }
 }
