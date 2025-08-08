@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 72
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -71,7 +71,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -160,7 +160,154 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: NPC-FA1_0008_cleric1_58
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 300
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b20abd18b85d4eb42a5cc6bb0b199a6a
+      internalID: 1642184782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA1_0008_cleric1_59
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 300
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b22b4877bea1cb4492b3bac41262404
+      internalID: 1316220678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA1_0008_cleric1_79
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 100
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8b9ec56f9a0b054ea54896dddd112d9
+      internalID: -714950232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA1_0008_cleric1_80
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 100
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdd5e1b7ce4e2ae4e9bb409a57dcc951
+      internalID: -1067923008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA1_0008_cleric1_81
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 100
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8b590c8ed3830b48ae21b383ed14607
+      internalID: -1920256092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA1_0008_cleric1_82
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 100
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd6ea4e157257c54396f58ab8f3ed6b7
+      internalID: 471777185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA1_0008_cleric1_83
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 100
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0a392a06a0199c45a5b819bc290d18e
+      internalID: 1831785745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -171,7 +318,103 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      NPC-FA1_0008_cleric1_0: 1265259196
+      NPC-FA1_0008_cleric1_1: 59672592
+      NPC-FA1_0008_cleric1_10: 1133759567
+      NPC-FA1_0008_cleric1_11: 803127363
+      NPC-FA1_0008_cleric1_12: -1989222114
+      NPC-FA1_0008_cleric1_13: 568998329
+      NPC-FA1_0008_cleric1_14: -1633481832
+      NPC-FA1_0008_cleric1_15: -935314165
+      NPC-FA1_0008_cleric1_16: 1584078238
+      NPC-FA1_0008_cleric1_17: -1311274876
+      NPC-FA1_0008_cleric1_18: -831947241
+      NPC-FA1_0008_cleric1_19: -1118629047
+      NPC-FA1_0008_cleric1_2: -225110899
+      NPC-FA1_0008_cleric1_20: -1683340735
+      NPC-FA1_0008_cleric1_21: -721177290
+      NPC-FA1_0008_cleric1_22: 518420588
+      NPC-FA1_0008_cleric1_23: -1865983486
+      NPC-FA1_0008_cleric1_24: -1101462763
+      NPC-FA1_0008_cleric1_25: -1044317630
+      NPC-FA1_0008_cleric1_26: -1745183318
+      NPC-FA1_0008_cleric1_27: -433524396
+      NPC-FA1_0008_cleric1_28: -1368263329
+      NPC-FA1_0008_cleric1_29: 1138898677
+      NPC-FA1_0008_cleric1_3: 919658050
+      NPC-FA1_0008_cleric1_30: -1673509294
+      NPC-FA1_0008_cleric1_31: 1575973517
+      NPC-FA1_0008_cleric1_32: -1021856750
+      NPC-FA1_0008_cleric1_33: -1885483074
+      NPC-FA1_0008_cleric1_34: -48227698
+      NPC-FA1_0008_cleric1_35: -797478378
+      NPC-FA1_0008_cleric1_36: -1001112547
+      NPC-FA1_0008_cleric1_37: 826683903
+      NPC-FA1_0008_cleric1_38: 596854575
+      NPC-FA1_0008_cleric1_39: -281099000
+      NPC-FA1_0008_cleric1_4: -737628915
+      NPC-FA1_0008_cleric1_40: 189368265
+      NPC-FA1_0008_cleric1_41: 1873590588
+      NPC-FA1_0008_cleric1_42: 615674314
+      NPC-FA1_0008_cleric1_43: -1239991331
+      NPC-FA1_0008_cleric1_44: 326084006
+      NPC-FA1_0008_cleric1_45: -1323988654
+      NPC-FA1_0008_cleric1_46: -786350124
+      NPC-FA1_0008_cleric1_47: -1376236798
+      NPC-FA1_0008_cleric1_48: -1187865986
+      NPC-FA1_0008_cleric1_49: 158987518
+      NPC-FA1_0008_cleric1_5: 1795466063
+      NPC-FA1_0008_cleric1_50: 618830353
+      NPC-FA1_0008_cleric1_51: -313184036
+      NPC-FA1_0008_cleric1_52: -2005866464
+      NPC-FA1_0008_cleric1_53: -878222712
+      NPC-FA1_0008_cleric1_54: 539724745
+      NPC-FA1_0008_cleric1_55: -1507348255
+      NPC-FA1_0008_cleric1_56: -782042760
+      NPC-FA1_0008_cleric1_57: -1749556135
+      NPC-FA1_0008_cleric1_58: 1642184782
+      NPC-FA1_0008_cleric1_59: 1316220678
+      NPC-FA1_0008_cleric1_6: -1105221887
+      NPC-FA1_0008_cleric1_60: -255283503
+      NPC-FA1_0008_cleric1_61: -386490596
+      NPC-FA1_0008_cleric1_62: 1433142302
+      NPC-FA1_0008_cleric1_63: 830549663
+      NPC-FA1_0008_cleric1_64: -700661846
+      NPC-FA1_0008_cleric1_65: 392389006
+      NPC-FA1_0008_cleric1_66: -489408725
+      NPC-FA1_0008_cleric1_67: -345104745
+      NPC-FA1_0008_cleric1_68: 1414519111
+      NPC-FA1_0008_cleric1_69: -1828612992
+      NPC-FA1_0008_cleric1_7: -1136762597
+      NPC-FA1_0008_cleric1_70: -220148557
+      NPC-FA1_0008_cleric1_71: 434282350
+      NPC-FA1_0008_cleric1_72: -1556231324
+      NPC-FA1_0008_cleric1_73: -61253180
+      NPC-FA1_0008_cleric1_74: 1233023964
+      NPC-FA1_0008_cleric1_75: 977120500
+      NPC-FA1_0008_cleric1_76: 746698953
+      NPC-FA1_0008_cleric1_77: 1909791709
+      NPC-FA1_0008_cleric1_78: 1659729711
+      NPC-FA1_0008_cleric1_79: -714950232
+      NPC-FA1_0008_cleric1_8: 1250906514
+      NPC-FA1_0008_cleric1_80: -1067923008
+      NPC-FA1_0008_cleric1_81: -1920256092
+      NPC-FA1_0008_cleric1_82: 471777185
+      NPC-FA1_0008_cleric1_83: 1831785745
+      NPC-FA1_0008_cleric1_84: 1992283044
+      NPC-FA1_0008_cleric1_85: -543515270
+      NPC-FA1_0008_cleric1_86: -702246813
+      NPC-FA1_0008_cleric1_87: 1205300157
+      NPC-FA1_0008_cleric1_88: -797757377
+      NPC-FA1_0008_cleric1_89: -221467450
+      NPC-FA1_0008_cleric1_9: -529954008
+      NPC-FA1_0008_cleric1_90: 861464493
+      NPC-FA1_0008_cleric1_91: -293550041
+      NPC-FA1_0008_cleric1_92: -1366071344
+      NPC-FA1_0008_cleric1_93: 1912423926
+      NPC-FA1_0008_cleric1_94: 1394030779
+      NPC-FA1_0008_cleric1_95: 536352571
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

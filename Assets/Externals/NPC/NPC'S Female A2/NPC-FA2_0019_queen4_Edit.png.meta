@@ -1,0 +1,338 @@
+fileFormatVersion: 2
+guid: 0c222ccf5f9965e439ac40b298127f7b
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 72
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: NPC-FA2_0019_queen4_Edit_9
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 700
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c143a46a2370ecc4ca135bd86fe99a6c
+      internalID: -23653740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA2_0019_queen4_Edit_10
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 700
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fffcc197158f9c349b22ab1de20d9252
+      internalID: -261553015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA2_0019_queen4_Edit_11
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 700
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae367ed94b467cf4495f5369b0312073
+      internalID: 590140233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      NPC-FA2_0019_queen4_Edit_0: 384040701
+      NPC-FA2_0019_queen4_Edit_1: 252683632
+      NPC-FA2_0019_queen4_Edit_10: -261553015
+      NPC-FA2_0019_queen4_Edit_11: 590140233
+      NPC-FA2_0019_queen4_Edit_12: -565624183
+      NPC-FA2_0019_queen4_Edit_13: 1542383211
+      NPC-FA2_0019_queen4_Edit_14: 2096012592
+      NPC-FA2_0019_queen4_Edit_15: -1041629636
+      NPC-FA2_0019_queen4_Edit_16: -2071128308
+      NPC-FA2_0019_queen4_Edit_17: 508160418
+      NPC-FA2_0019_queen4_Edit_18: 2029158987
+      NPC-FA2_0019_queen4_Edit_19: 871463314
+      NPC-FA2_0019_queen4_Edit_2: 415429958
+      NPC-FA2_0019_queen4_Edit_20: 1804358119
+      NPC-FA2_0019_queen4_Edit_21: -1788892367
+      NPC-FA2_0019_queen4_Edit_22: -521792128
+      NPC-FA2_0019_queen4_Edit_23: 1763439759
+      NPC-FA2_0019_queen4_Edit_24: -822002028
+      NPC-FA2_0019_queen4_Edit_25: -634155196
+      NPC-FA2_0019_queen4_Edit_26: -2075902859
+      NPC-FA2_0019_queen4_Edit_27: -638849168
+      NPC-FA2_0019_queen4_Edit_28: 531545081
+      NPC-FA2_0019_queen4_Edit_29: -191912453
+      NPC-FA2_0019_queen4_Edit_3: -1708452208
+      NPC-FA2_0019_queen4_Edit_30: -1716196231
+      NPC-FA2_0019_queen4_Edit_31: 1105662522
+      NPC-FA2_0019_queen4_Edit_32: 123497376
+      NPC-FA2_0019_queen4_Edit_33: 537814707
+      NPC-FA2_0019_queen4_Edit_34: 2119913393
+      NPC-FA2_0019_queen4_Edit_35: 1190671769
+      NPC-FA2_0019_queen4_Edit_36: -562672599
+      NPC-FA2_0019_queen4_Edit_37: -1433045838
+      NPC-FA2_0019_queen4_Edit_38: 797045366
+      NPC-FA2_0019_queen4_Edit_39: 840047029
+      NPC-FA2_0019_queen4_Edit_4: 1810263988
+      NPC-FA2_0019_queen4_Edit_40: -2062645153
+      NPC-FA2_0019_queen4_Edit_41: -1408002373
+      NPC-FA2_0019_queen4_Edit_42: -948939049
+      NPC-FA2_0019_queen4_Edit_43: -471625012
+      NPC-FA2_0019_queen4_Edit_44: 34475183
+      NPC-FA2_0019_queen4_Edit_45: -700606297
+      NPC-FA2_0019_queen4_Edit_46: -1906993535
+      NPC-FA2_0019_queen4_Edit_47: -958269751
+      NPC-FA2_0019_queen4_Edit_48: 935681101
+      NPC-FA2_0019_queen4_Edit_49: 590074631
+      NPC-FA2_0019_queen4_Edit_5: 1488361779
+      NPC-FA2_0019_queen4_Edit_50: 779753510
+      NPC-FA2_0019_queen4_Edit_51: 313153086
+      NPC-FA2_0019_queen4_Edit_52: 2044743825
+      NPC-FA2_0019_queen4_Edit_53: -2002770998
+      NPC-FA2_0019_queen4_Edit_54: 2077601974
+      NPC-FA2_0019_queen4_Edit_55: 1545769841
+      NPC-FA2_0019_queen4_Edit_56: 985804528
+      NPC-FA2_0019_queen4_Edit_57: -441985355
+      NPC-FA2_0019_queen4_Edit_58: 486220717
+      NPC-FA2_0019_queen4_Edit_59: -1889823736
+      NPC-FA2_0019_queen4_Edit_6: -1175042096
+      NPC-FA2_0019_queen4_Edit_60: 698256809
+      NPC-FA2_0019_queen4_Edit_61: -553826274
+      NPC-FA2_0019_queen4_Edit_62: 1156155234
+      NPC-FA2_0019_queen4_Edit_63: 1624099511
+      NPC-FA2_0019_queen4_Edit_64: 1536497069
+      NPC-FA2_0019_queen4_Edit_65: 498403424
+      NPC-FA2_0019_queen4_Edit_66: 1585285065
+      NPC-FA2_0019_queen4_Edit_67: 266944271
+      NPC-FA2_0019_queen4_Edit_68: -1343458499
+      NPC-FA2_0019_queen4_Edit_69: -595617584
+      NPC-FA2_0019_queen4_Edit_7: -1057497455
+      NPC-FA2_0019_queen4_Edit_70: -1499348137
+      NPC-FA2_0019_queen4_Edit_71: -722411556
+      NPC-FA2_0019_queen4_Edit_72: 776910564
+      NPC-FA2_0019_queen4_Edit_73: -1141279230
+      NPC-FA2_0019_queen4_Edit_74: 1464222128
+      NPC-FA2_0019_queen4_Edit_75: 903908320
+      NPC-FA2_0019_queen4_Edit_76: 550856112
+      NPC-FA2_0019_queen4_Edit_77: -318721866
+      NPC-FA2_0019_queen4_Edit_78: -1133201169
+      NPC-FA2_0019_queen4_Edit_79: -1375725101
+      NPC-FA2_0019_queen4_Edit_8: 1133589537
+      NPC-FA2_0019_queen4_Edit_80: -1121022640
+      NPC-FA2_0019_queen4_Edit_81: -2006913549
+      NPC-FA2_0019_queen4_Edit_82: 1832511238
+      NPC-FA2_0019_queen4_Edit_83: -284188604
+      NPC-FA2_0019_queen4_Edit_84: -1235157048
+      NPC-FA2_0019_queen4_Edit_85: 1642674251
+      NPC-FA2_0019_queen4_Edit_86: -1762870461
+      NPC-FA2_0019_queen4_Edit_87: -391526018
+      NPC-FA2_0019_queen4_Edit_88: -386289082
+      NPC-FA2_0019_queen4_Edit_89: -1066152158
+      NPC-FA2_0019_queen4_Edit_9: -23653740
+      NPC-FA2_0019_queen4_Edit_90: -612503880
+      NPC-FA2_0019_queen4_Edit_91: 1702576271
+      NPC-FA2_0019_queen4_Edit_92: -1244667221
+      NPC-FA2_0019_queen4_Edit_93: 1254179920
+      NPC-FA2_0019_queen4_Edit_94: -742187656
+      NPC-FA2_0019_queen4_Edit_95: -852429571
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

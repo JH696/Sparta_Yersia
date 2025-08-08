@@ -11,11 +11,8 @@ public class PlayerParty
     [Header("파티 제한")]
     [SerializeField] private int maxPartyPets = 2; // 최대 파티 펫 수
 
-    // 보유한 펫 목록
-    public List<PetStatus> curPets;
-
-    // 실제 파티에 장착된 펫 목록
-    public List<PetStatus> partyPets;
+    public List<PetStatus> curPets; // 보유한 펫 목록
+    public List<PetStatus> partyPets; // 실제 파티에 장착된 펫 목록
 
     private Transform playerTransform; // 플레이어 위치 참조
 
@@ -100,13 +97,16 @@ public class PlayerParty
             // 펫 프리팹 인스턴스화
             GameObject petObj = UnityEngine.Object.Instantiate(status.PetData.PetPrefab);
 
-            // 플레이어 주변에 생성
+            // 위치 설정
             float followDistance = 5f;
             float angle = UnityEngine.Random.Range(0f, 360f);
             Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * followDistance;
             petObj.transform.position = playerTransform.position + offset;
 
             petObj.name = $"Pet_{status.PetData.PetName}";
+
+            // 레이어 설정
+            SetLayerRecursively(petObj, LayerMask.NameToLayer("PartyMember"));
 
             // Pet 컴포넌트 설정
             Pet pet = petObj.GetComponent<Pet>();
@@ -212,5 +212,17 @@ public class PlayerParty
     {
         // TODO: UI 갱신 처리
         Debug.Log("파티 UI 갱신 처리");
+    }
+
+    /// <summary>
+    /// 오브젝트와 모든 자식의 레이어를 설정
+    /// </summary>
+    private void SetLayerRecursively(GameObject obj, int layer)
+    {
+        obj.layer = layer;
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursively(child.gameObject, layer);
+        }
     }
 }

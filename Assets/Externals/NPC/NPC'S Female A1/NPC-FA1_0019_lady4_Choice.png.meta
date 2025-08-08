@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,9 +69,9 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -160,7 +160,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: NPC-FA1_0019_lady4_Choice_81
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 100
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d709fc3413345bd4f83ab338a0665bde
+      internalID: -1445224943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA1_0019_lady4_Choice_82
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 100
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0da608c264e018c4a9a40d22e37f8ade
+      internalID: 397906762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA1_0019_lady4_Choice_83
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 100
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea126f9107610184b9b5b987c1a801fc
+      internalID: -333241363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA1_0019_lady4_Choice_3
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 700
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1188ea227caea1746be7203fa8d1a112
+      internalID: 597385797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA1_0019_lady4_Choice_4
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 700
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7482a22b09c93de4bb28b14ec6a33811
+      internalID: -1380699146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-FA1_0019_lady4_Choice_5
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 700
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f08e687e42f0f4c43b99631fb9c9d6ef
+      internalID: 423730008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -171,7 +297,103 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      NPC-FA1_0019_lady4_Choice_0: 1414289492
+      NPC-FA1_0019_lady4_Choice_1: 1767651582
+      NPC-FA1_0019_lady4_Choice_10: -1768650916
+      NPC-FA1_0019_lady4_Choice_11: -1629149751
+      NPC-FA1_0019_lady4_Choice_12: -1724436040
+      NPC-FA1_0019_lady4_Choice_13: -1672627040
+      NPC-FA1_0019_lady4_Choice_14: 784296352
+      NPC-FA1_0019_lady4_Choice_15: 693884979
+      NPC-FA1_0019_lady4_Choice_16: -466499147
+      NPC-FA1_0019_lady4_Choice_17: -182295255
+      NPC-FA1_0019_lady4_Choice_18: 714542619
+      NPC-FA1_0019_lady4_Choice_19: -960171304
+      NPC-FA1_0019_lady4_Choice_2: -409108897
+      NPC-FA1_0019_lady4_Choice_20: -109026940
+      NPC-FA1_0019_lady4_Choice_21: 1154560494
+      NPC-FA1_0019_lady4_Choice_22: -1894168883
+      NPC-FA1_0019_lady4_Choice_23: 229928964
+      NPC-FA1_0019_lady4_Choice_24: -353886558
+      NPC-FA1_0019_lady4_Choice_25: -1738753611
+      NPC-FA1_0019_lady4_Choice_26: -55747685
+      NPC-FA1_0019_lady4_Choice_27: -1806310743
+      NPC-FA1_0019_lady4_Choice_28: 1736939190
+      NPC-FA1_0019_lady4_Choice_29: -395411932
+      NPC-FA1_0019_lady4_Choice_3: 597385797
+      NPC-FA1_0019_lady4_Choice_30: 955531381
+      NPC-FA1_0019_lady4_Choice_31: 117405620
+      NPC-FA1_0019_lady4_Choice_32: 1337160722
+      NPC-FA1_0019_lady4_Choice_33: -949139512
+      NPC-FA1_0019_lady4_Choice_34: -489228988
+      NPC-FA1_0019_lady4_Choice_35: 2050579136
+      NPC-FA1_0019_lady4_Choice_36: 1640650269
+      NPC-FA1_0019_lady4_Choice_37: 1712262484
+      NPC-FA1_0019_lady4_Choice_38: -1526973077
+      NPC-FA1_0019_lady4_Choice_39: -1382311971
+      NPC-FA1_0019_lady4_Choice_4: -1380699146
+      NPC-FA1_0019_lady4_Choice_40: -1163274290
+      NPC-FA1_0019_lady4_Choice_41: 1807542765
+      NPC-FA1_0019_lady4_Choice_42: -474188871
+      NPC-FA1_0019_lady4_Choice_43: 422816365
+      NPC-FA1_0019_lady4_Choice_44: 346987672
+      NPC-FA1_0019_lady4_Choice_45: -2137894338
+      NPC-FA1_0019_lady4_Choice_46: -692875452
+      NPC-FA1_0019_lady4_Choice_47: 1242477145
+      NPC-FA1_0019_lady4_Choice_48: -1534597572
+      NPC-FA1_0019_lady4_Choice_49: 1363833456
+      NPC-FA1_0019_lady4_Choice_5: 423730008
+      NPC-FA1_0019_lady4_Choice_50: -888905371
+      NPC-FA1_0019_lady4_Choice_51: 2008575651
+      NPC-FA1_0019_lady4_Choice_52: 402784435
+      NPC-FA1_0019_lady4_Choice_53: 1762151704
+      NPC-FA1_0019_lady4_Choice_54: 606539068
+      NPC-FA1_0019_lady4_Choice_55: -432726347
+      NPC-FA1_0019_lady4_Choice_56: 2056486002
+      NPC-FA1_0019_lady4_Choice_57: -813426275
+      NPC-FA1_0019_lady4_Choice_58: -349731271
+      NPC-FA1_0019_lady4_Choice_59: -1963322628
+      NPC-FA1_0019_lady4_Choice_6: 414211143
+      NPC-FA1_0019_lady4_Choice_60: -1580841931
+      NPC-FA1_0019_lady4_Choice_61: -1366394281
+      NPC-FA1_0019_lady4_Choice_62: -1056424753
+      NPC-FA1_0019_lady4_Choice_63: 1020139628
+      NPC-FA1_0019_lady4_Choice_64: -866897704
+      NPC-FA1_0019_lady4_Choice_65: -822069866
+      NPC-FA1_0019_lady4_Choice_66: 1157489245
+      NPC-FA1_0019_lady4_Choice_67: -288463572
+      NPC-FA1_0019_lady4_Choice_68: -1777877599
+      NPC-FA1_0019_lady4_Choice_69: 1431562553
+      NPC-FA1_0019_lady4_Choice_7: -2029442934
+      NPC-FA1_0019_lady4_Choice_70: 1958985851
+      NPC-FA1_0019_lady4_Choice_71: -1285661565
+      NPC-FA1_0019_lady4_Choice_72: 16141162
+      NPC-FA1_0019_lady4_Choice_73: -1935544483
+      NPC-FA1_0019_lady4_Choice_74: 1009762929
+      NPC-FA1_0019_lady4_Choice_75: -1594050018
+      NPC-FA1_0019_lady4_Choice_76: -1151943468
+      NPC-FA1_0019_lady4_Choice_77: 1045326338
+      NPC-FA1_0019_lady4_Choice_78: -1684885569
+      NPC-FA1_0019_lady4_Choice_79: 1141152884
+      NPC-FA1_0019_lady4_Choice_8: 200787424
+      NPC-FA1_0019_lady4_Choice_80: -1167260680
+      NPC-FA1_0019_lady4_Choice_81: -1445224943
+      NPC-FA1_0019_lady4_Choice_82: 397906762
+      NPC-FA1_0019_lady4_Choice_83: -333241363
+      NPC-FA1_0019_lady4_Choice_84: -522973070
+      NPC-FA1_0019_lady4_Choice_85: 572197279
+      NPC-FA1_0019_lady4_Choice_86: -2012591446
+      NPC-FA1_0019_lady4_Choice_87: -1071196133
+      NPC-FA1_0019_lady4_Choice_88: 1234785090
+      NPC-FA1_0019_lady4_Choice_89: -612518219
+      NPC-FA1_0019_lady4_Choice_9: 1357360145
+      NPC-FA1_0019_lady4_Choice_90: -379106439
+      NPC-FA1_0019_lady4_Choice_91: -244082813
+      NPC-FA1_0019_lady4_Choice_92: -1929734366
+      NPC-FA1_0019_lady4_Choice_93: 1604265807
+      NPC-FA1_0019_lady4_Choice_94: -1057468536
+      NPC-FA1_0019_lady4_Choice_95: -974935433
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
