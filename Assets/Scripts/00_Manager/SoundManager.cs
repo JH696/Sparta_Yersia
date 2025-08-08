@@ -8,7 +8,12 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
 
+    [Header("BGM 설정")]
     [SerializeField] private AudioSource bgmSource;
+
+    [Header("SFX 설정")]
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip clickSound; // UI 클릭음
 
     /// <summary>
     /// 현재 재생 중인 BGM 클립
@@ -25,6 +30,11 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     public float BGMVolume { get; private set; } = 1f;
 
+    /// <summary>
+    /// 현재 설정된 SFX 볼륨
+    /// </summary>
+    public float SFXVolume { get; private set; } = 1f;
+
     private void Awake()
     {
         if (Instance != null)
@@ -38,10 +48,12 @@ public class SoundManager : MonoBehaviour
 
         if (bgmSource == null)
             Debug.LogWarning("[SoundManager] BGM용 AudioSource가 할당되지 않았습니다.");
+        if (sfxSource == null)
+            Debug.LogWarning("[SoundManager] SFX용 AudioSource가 할당되지 않았습니다.");
 
         // 초기 볼륨 설정 불러오기
-        float savedVolume = PlayerPrefs.GetFloat("BGMVolume", 1f);
-        SetBGMVolume(savedVolume);
+        SetBGMVolume(PlayerPrefs.GetFloat("BGMVolume", 1f));
+        SetSFXVolume(PlayerPrefs.GetFloat("SFXVolume", 1f));
     }
 
     /// <summary>
@@ -94,7 +106,7 @@ public class SoundManager : MonoBehaviour
 
     private IEnumerator FadeInBGM(float duration)
     {
-        float targetVolume = BGMVolume; // 사용자 설정 볼륨 기준으로 페이드 인
+        float targetVolume = BGMVolume;
         bgmSource.volume = 0f;
 
         for (float t = 0; t < duration; t += Time.unscaledDeltaTime)
@@ -118,5 +130,32 @@ public class SoundManager : MonoBehaviour
     {
         BGMVolume = Mathf.Clamp01(volume);
         bgmSource.volume = BGMVolume;
+        PlayerPrefs.SetFloat("BGMVolume", BGMVolume);
+    }
+
+    /// <summary>
+    /// 효과음을 재생합니다.
+    /// </summary>
+    public void PlaySFX(AudioClip clip)
+    {
+        if (clip == null || sfxSource == null) return;
+        sfxSource.PlayOneShot(clip, SFXVolume);
+    }
+
+    /// <summary>
+    /// UI 클릭 사운드를 재생합니다.
+    /// </summary>
+    public void PlayClick()
+    {
+        PlaySFX(clickSound);
+    }
+
+    /// <summary>
+    /// 효과음 볼륨을 설정합니다.
+    /// </summary>
+    public void SetSFXVolume(float volume)
+    {
+        SFXVolume = Mathf.Clamp01(volume);
+        PlayerPrefs.SetFloat("SFXVolume", SFXVolume);
     }
 }
