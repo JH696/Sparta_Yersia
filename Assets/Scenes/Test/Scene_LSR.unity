@@ -1176,6 +1176,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8592620866932686579, guid: 56371dd14d39cd64c9cdbf6bd7bbf36d, type: 3}
   m_PrefabInstance: {fileID: 32299153}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &32299155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6593924611489849770, guid: 56371dd14d39cd64c9cdbf6bd7bbf36d, type: 3}
+  m_PrefabInstance: {fileID: 32299153}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &36364855
 GameObject:
   m_ObjectHideFlags: 0
@@ -11008,6 +11013,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1954430152446727879, guid: 74b42e88607fcb145a78c64b383e1534, type: 3}
   m_PrefabInstance: {fileID: 312054107}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &312054109 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1338007101069931405, guid: 74b42e88607fcb145a78c64b383e1534, type: 3}
+  m_PrefabInstance: {fileID: 312054107}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &314285216
 GameObject:
   m_ObjectHideFlags: 0
@@ -11682,7 +11692,9 @@ GameObject:
   - component: {fileID: 332436644}
   - component: {fileID: 332436643}
   - component: {fileID: 332436642}
+  - component: {fileID: 332436648}
   - component: {fileID: 332436646}
+  - component: {fileID: 332436647}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -11941,6 +11953,69 @@ MonoBehaviour:
   targetLayerName: Default
   feetYOffset: 0
   verticalSamples: 20
+--- !u!114 &332436647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332436638}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_LightType: 3
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.375
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 0.4
+  m_LightVolumeIntensity: 1
+  m_LightVolumeIntensityEnabled: 0
+  m_ApplyToSortingLayers: 47c103dc0000000079cbc6ad
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowIntensityEnabled: 0
+  m_ShadowIntensity: 0.75
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 0, y: -0.00000011920929, z: 0}
+    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 2
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &332436648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332436638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b75574968af3e94395ffe6f3355d978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLight: {fileID: 332436647}
 --- !u!1 &332805121
 GameObject:
   m_ObjectHideFlags: 0
@@ -12268,6 +12343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 334373403}
   - component: {fileID: 334373408}
+  - component: {fileID: 334373409}
   - component: {fileID: 334373406}
   - component: {fileID: 334373405}
   - component: {fileID: 334373404}
@@ -17140,6 +17216,21 @@ MonoBehaviour:
   Destination: {fileID: 680082761}
   petSpawnPoints: []
   roomBounds: {fileID: 1952516122}
+--- !u!114 &334373409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334373402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 32299155}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &342963715
 GameObject:
   m_ObjectHideFlags: 0
@@ -17708,6 +17799,11 @@ PrefabInstance:
 --- !u!4 &364509847 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7362425305849413305, guid: 1b14c2120708e154f827533d2482e0bd, type: 3}
+  m_PrefabInstance: {fileID: 364509846}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &364509848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6119075342619695475, guid: 1b14c2120708e154f827533d2482e0bd, type: 3}
   m_PrefabInstance: {fileID: 364509846}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &364533710
@@ -21149,6 +21245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 488752023}
   - component: {fileID: 488752028}
+  - component: {fileID: 488752029}
   - component: {fileID: 488752026}
   - component: {fileID: 488752025}
   - component: {fileID: 488752024}
@@ -26021,6 +26118,21 @@ MonoBehaviour:
   Destination: {fileID: 1971679325}
   petSpawnPoints: []
   roomBounds: {fileID: 2011205454}
+--- !u!114 &488752029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488752022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1017963888}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &490412696
 GameObject:
   m_ObjectHideFlags: 0
@@ -26435,6 +26547,11 @@ PrefabInstance:
 --- !u!4 &513222227 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5920198326056926599, guid: d47e7d22671364f4a8257784307b75fb, type: 3}
+  m_PrefabInstance: {fileID: 513222226}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &513222228 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 687361057745430142, guid: d47e7d22671364f4a8257784307b75fb, type: 3}
   m_PrefabInstance: {fileID: 513222226}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &519379599
@@ -30200,6 +30317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 680082761}
   - component: {fileID: 680082766}
+  - component: {fileID: 680082767}
   - component: {fileID: 680082764}
   - component: {fileID: 680082763}
   - component: {fileID: 680082762}
@@ -35072,6 +35190,21 @@ MonoBehaviour:
   Destination: {fileID: 334373403}
   petSpawnPoints: []
   roomBounds: {fileID: 121276190}
+--- !u!114 &680082767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680082760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1513144622}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &680454817
 GameObject:
   m_ObjectHideFlags: 0
@@ -35157,6 +35290,8 @@ GameObject:
   m_Component:
   - component: {fileID: 681083287}
   - component: {fileID: 681083292}
+  - component: {fileID: 681083294}
+  - component: {fileID: 681083293}
   - component: {fileID: 681083290}
   - component: {fileID: 681083289}
   - component: {fileID: 681083288}
@@ -40029,6 +40164,36 @@ MonoBehaviour:
   Destination: {fileID: 993446497}
   petSpawnPoints: []
   roomBounds: {fileID: 2059053591}
+--- !u!114 &681083293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681083286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1269518304}
+  arriveRadius: 0.7
+  timeout: 3
+--- !u!114 &681083294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681083286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1269518304}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &686561649
 GameObject:
   m_ObjectHideFlags: 0
@@ -40570,6 +40735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 704550854}
   - component: {fileID: 704550859}
+  - component: {fileID: 704550860}
   - component: {fileID: 704550857}
   - component: {fileID: 704550856}
   - component: {fileID: 704550855}
@@ -45442,6 +45608,21 @@ MonoBehaviour:
   Destination: {fileID: 1498573042}
   petSpawnPoints: []
   roomBounds: {fileID: 2011205454}
+--- !u!114 &704550860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704550853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1017963888}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &710391534
 GameObject:
   m_ObjectHideFlags: 0
@@ -45602,6 +45783,7 @@ GameObject:
   m_Component:
   - component: {fileID: 726527821}
   - component: {fileID: 726527826}
+  - component: {fileID: 726527827}
   - component: {fileID: 726527824}
   - component: {fileID: 726527823}
   - component: {fileID: 726527822}
@@ -50474,6 +50656,21 @@ MonoBehaviour:
   Destination: {fileID: 1480432327}
   petSpawnPoints: []
   roomBounds: {fileID: 121276190}
+--- !u!114 &726527827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726527820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1513144622}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &732142745
 GameObject:
   m_ObjectHideFlags: 0
@@ -51846,6 +52043,7 @@ GameObject:
   m_Component:
   - component: {fileID: 774537656}
   - component: {fileID: 774537661}
+  - component: {fileID: 774537662}
   - component: {fileID: 774537659}
   - component: {fileID: 774537658}
   - component: {fileID: 774537657}
@@ -56718,6 +56916,21 @@ MonoBehaviour:
   Destination: {fileID: 1764966122}
   petSpawnPoints: []
   roomBounds: {fileID: 1487233452}
+--- !u!114 &774537662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774537655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1555852386}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &778967811
 GameObject:
   m_ObjectHideFlags: 0
@@ -56878,6 +57091,7 @@ GameObject:
   m_Component:
   - component: {fileID: 791716343}
   - component: {fileID: 791716348}
+  - component: {fileID: 791716349}
   - component: {fileID: 791716346}
   - component: {fileID: 791716345}
   - component: {fileID: 791716344}
@@ -61750,6 +61964,21 @@ MonoBehaviour:
   Destination: {fileID: 1128796600}
   petSpawnPoints: []
   roomBounds: {fileID: 1046625507}
+--- !u!114 &791716349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791716342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 312054109}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &800524787
 GameObject:
   m_ObjectHideFlags: 0
@@ -64451,6 +64680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 887680353}
   - component: {fileID: 887680358}
+  - component: {fileID: 887680359}
   - component: {fileID: 887680356}
   - component: {fileID: 887680355}
   - component: {fileID: 887680354}
@@ -69323,6 +69553,21 @@ MonoBehaviour:
   Destination: {fileID: 1442935016}
   petSpawnPoints: []
   roomBounds: {fileID: 121276190}
+--- !u!114 &887680359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887680352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1513144622}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &893658038
 GameObject:
   m_ObjectHideFlags: 0
@@ -72530,6 +72775,7 @@ GameObject:
   m_Component:
   - component: {fileID: 993446497}
   - component: {fileID: 993446502}
+  - component: {fileID: 993446503}
   - component: {fileID: 993446500}
   - component: {fileID: 993446499}
   - component: {fileID: 993446498}
@@ -77402,6 +77648,21 @@ MonoBehaviour:
   Destination: {fileID: 681083287}
   petSpawnPoints: []
   roomBounds: {fileID: 2011205454}
+--- !u!114 &993446503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993446496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1017963888}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &995017959
 GameObject:
   m_ObjectHideFlags: 0
@@ -78521,6 +78782,11 @@ PrefabInstance:
 --- !u!4 &1017963887 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3416707824939075442, guid: e0a435d3420a0b347ad7501377774bf8, type: 3}
+  m_PrefabInstance: {fileID: 1017963886}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1017963888 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7943090745637687634, guid: e0a435d3420a0b347ad7501377774bf8, type: 3}
   m_PrefabInstance: {fileID: 1017963886}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1018295260
@@ -81594,6 +81860,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1128796600}
   - component: {fileID: 1128796605}
+  - component: {fileID: 1128796606}
   - component: {fileID: 1128796603}
   - component: {fileID: 1128796602}
   - component: {fileID: 1128796601}
@@ -86466,6 +86733,21 @@ MonoBehaviour:
   Destination: {fileID: 791716343}
   petSpawnPoints: []
   roomBounds: {fileID: 173936149}
+--- !u!114 &1128796606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128796599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1516137547}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &1132027387
 GameObject:
   m_ObjectHideFlags: 0
@@ -89001,6 +89283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1242900707}
   - component: {fileID: 1242900712}
+  - component: {fileID: 1242900713}
   - component: {fileID: 1242900710}
   - component: {fileID: 1242900709}
   - component: {fileID: 1242900708}
@@ -93873,6 +94156,21 @@ MonoBehaviour:
   Destination: {fileID: 2009147472}
   petSpawnPoints: []
   roomBounds: {fileID: 121276190}
+--- !u!114 &1242900713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242900706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1513144622}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &1243506209
 GameObject:
   m_ObjectHideFlags: 0
@@ -94613,6 +94911,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1341455840149015026, guid: 1bad040365fbdc04486276b645cdf720, type: 3}
   m_PrefabInstance: {fileID: 1269518302}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1269518304 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7077206711154580002, guid: 1bad040365fbdc04486276b645cdf720, type: 3}
+  m_PrefabInstance: {fileID: 1269518302}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1272219245
 GameObject:
   m_ObjectHideFlags: 0
@@ -94748,6 +95051,11 @@ PrefabInstance:
 --- !u!4 &1274323508 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3381078071190513891, guid: a3617d21a49c4e4418484058e60b5c51, type: 3}
+  m_PrefabInstance: {fileID: 1274323507}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1274323509 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4590496209482572750, guid: a3617d21a49c4e4418484058e60b5c51, type: 3}
   m_PrefabInstance: {fileID: 1274323507}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1288500805
@@ -95608,6 +95916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1310766709}
   - component: {fileID: 1310766714}
+  - component: {fileID: 1310766715}
   - component: {fileID: 1310766712}
   - component: {fileID: 1310766711}
   - component: {fileID: 1310766710}
@@ -100480,6 +100789,21 @@ MonoBehaviour:
   Destination: {fileID: 1991312952}
   petSpawnPoints: []
   roomBounds: {fileID: 2059053591}
+--- !u!114 &1310766715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310766708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1269518304}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &1314517770
 GameObject:
   m_ObjectHideFlags: 0
@@ -103555,6 +103879,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1442935016}
   - component: {fileID: 1442935021}
+  - component: {fileID: 1442935022}
   - component: {fileID: 1442935019}
   - component: {fileID: 1442935018}
   - component: {fileID: 1442935017}
@@ -108427,6 +108752,21 @@ MonoBehaviour:
   Destination: {fileID: 887680353}
   petSpawnPoints: []
   roomBounds: {fileID: 237449200}
+--- !u!114 &1442935022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442935015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 513222228}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &1444101572
 GameObject:
   m_ObjectHideFlags: 0
@@ -109129,6 +109469,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460132062}
   m_CullTransparentMesh: 1
+--- !u!1 &1462398177 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4710808706910417414, guid: 9d8b04fd96ce6b94b88095ca9583b67c, type: 3}
+  m_PrefabInstance: {fileID: 1532755824}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1470010166
 GameObject:
   m_ObjectHideFlags: 0
@@ -109602,6 +109947,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1480432327}
   - component: {fileID: 1480432332}
+  - component: {fileID: 1480432333}
   - component: {fileID: 1480432330}
   - component: {fileID: 1480432329}
   - component: {fileID: 1480432328}
@@ -114474,6 +114820,21 @@ MonoBehaviour:
   Destination: {fileID: 726527821}
   petSpawnPoints: []
   roomBounds: {fileID: 2011205454}
+--- !u!114 &1480432333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480432326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1017963888}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &1481260446
 GameObject:
   m_ObjectHideFlags: 0
@@ -115213,6 +115574,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1498573042}
   - component: {fileID: 1498573047}
+  - component: {fileID: 1498573048}
   - component: {fileID: 1498573045}
   - component: {fileID: 1498573044}
   - component: {fileID: 1498573043}
@@ -120085,6 +120447,21 @@ MonoBehaviour:
   Destination: {fileID: 704550854}
   petSpawnPoints: []
   roomBounds: {fileID: 1481260449}
+--- !u!114 &1498573048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498573041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 364509848}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &1498841346
 GameObject:
   m_ObjectHideFlags: 0
@@ -120223,6 +120600,11 @@ PrefabInstance:
 --- !u!4 &1513144621 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6735509250119432409, guid: a60841f41c7b8e148b5adc1b08eeb40e, type: 3}
+  m_PrefabInstance: {fileID: 1513144620}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1513144622 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7037766742921826235, guid: a60841f41c7b8e148b5adc1b08eeb40e, type: 3}
   m_PrefabInstance: {fileID: 1513144620}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1513786372
@@ -120419,6 +120801,11 @@ PrefabInstance:
 --- !u!4 &1516137546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6599124686610456263, guid: fde7ded1c7cc98e4bb45d835b738618c, type: 3}
+  m_PrefabInstance: {fileID: 1516137545}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1516137547 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 22934024356399070, guid: fde7ded1c7cc98e4bb45d835b738618c, type: 3}
   m_PrefabInstance: {fileID: 1516137545}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1521803958
@@ -121702,6 +122089,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 20}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!1 &1555852386 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6935505752475114752, guid: 3ef500aea0c9e8b41bca14322dbac041, type: 3}
+  m_PrefabInstance: {fileID: 1773511989}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1556619910
 GameObject:
   m_ObjectHideFlags: 0
@@ -127317,6 +127709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1764966122}
   - component: {fileID: 1764966127}
+  - component: {fileID: 1764966128}
   - component: {fileID: 1764966125}
   - component: {fileID: 1764966124}
   - component: {fileID: 1764966123}
@@ -132189,6 +132582,21 @@ MonoBehaviour:
   Destination: {fileID: 774537656}
   petSpawnPoints: []
   roomBounds: {fileID: 121276190}
+--- !u!114 &1764966128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764966121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1513144622}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &1767398385
 GameObject:
   m_ObjectHideFlags: 0
@@ -138295,6 +138703,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1971679325}
   - component: {fileID: 1971679330}
+  - component: {fileID: 1971679331}
   - component: {fileID: 1971679328}
   - component: {fileID: 1971679327}
   - component: {fileID: 1971679326}
@@ -143167,6 +143576,21 @@ MonoBehaviour:
   Destination: {fileID: 488752023}
   petSpawnPoints: []
   roomBounds: {fileID: 572426580}
+--- !u!114 &1971679331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971679324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1274323509}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &1974708403
 GameObject:
   m_ObjectHideFlags: 3
@@ -143671,6 +144095,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1991312952}
   - component: {fileID: 1991312957}
+  - component: {fileID: 1991312958}
   - component: {fileID: 1991312955}
   - component: {fileID: 1991312954}
   - component: {fileID: 1991312953}
@@ -148543,6 +148968,21 @@ MonoBehaviour:
   Destination: {fileID: 1310766709}
   petSpawnPoints: []
   roomBounds: {fileID: 1046625507}
+--- !u!114 &1991312958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991312951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 312054109}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &1999334000
 GameObject:
   m_ObjectHideFlags: 0
@@ -148871,6 +149311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2009147472}
   - component: {fileID: 2009147477}
+  - component: {fileID: 2009147478}
   - component: {fileID: 2009147475}
   - component: {fileID: 2009147474}
   - component: {fileID: 2009147473}
@@ -153743,6 +154184,21 @@ MonoBehaviour:
   Destination: {fileID: 1242900707}
   petSpawnPoints: []
   roomBounds: {fileID: 126371197}
+--- !u!114 &2009147478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009147471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca3ef03844ec4840b79fd8f29fdd8bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraObjectToActivate: {fileID: 1462398177}
+  arriveRadius: 0.7
+  timeout: 3
 --- !u!1 &2010178212
 GameObject:
   m_ObjectHideFlags: 0
