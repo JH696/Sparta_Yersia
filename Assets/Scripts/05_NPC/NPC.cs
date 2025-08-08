@@ -103,4 +103,9 @@ public class NPC : MonoBehaviour, IInteractable
     {
         questIcon.SetActive(false);
     }
+
+    public string InteractText()
+    {
+        return $"대화하기: {npcData.NpcName}";
+    }
 }

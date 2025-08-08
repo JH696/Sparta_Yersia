@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour, IInteractable
 {
+    [Header("목적지")]
     public Transform Destination;
+    [SerializeField] private string destinationName;
 
     [Header("펫 스폰 포인트")]
     [SerializeField] private Transform[] petSpawnPoints;
@@ -54,10 +56,8 @@ public class Portal : MonoBehaviour, IInteractable
             yield break;
         }
 
-        // ✅ [1] 페이드 인 (어두워짐)
         yield return FadeScreen.Instance.FadeIn();
 
-        // ✅ [2] 위치 이동 및 설정
         Vector2 vec = Destination.position;
         vec.y -= 0.5f;
         target.position = vec;
@@ -69,7 +69,6 @@ public class Portal : MonoBehaviour, IInteractable
         Vector3 displacement = target.position - oldPos;
         vcam.OnTargetObjectWarped(target, displacement);
 
-        // ✅ [3] 펫들 이동
         Player player = target.GetComponent<Player>();
         if (player != null && player.Party != null)
         {
@@ -91,9 +90,13 @@ public class Portal : MonoBehaviour, IInteractable
             }
         }
 
-        // ✅ [4] 페이드 아웃 (밝아짐)
         yield return FadeScreen.Instance.FadeOut();
 
         isTeleporting = false;
+    }
+
+    public string InteractText()
+    {
+        return $"이동하기: {destinationName}";
     }
 }
