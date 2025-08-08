@@ -30,7 +30,6 @@ public class SortingLayer : MonoBehaviour
     void Awake()
     {
         playerSR = GetComponent<SpriteRenderer>();
-        playerSR.sortingLayerName = targetLayerName;
 
         // 같은 SortingLayer 의 SpriteRenderer(플레이어 제외)
         var allSR = FindObjectsOfType<SpriteRenderer>();
@@ -55,6 +54,8 @@ public class SortingLayer : MonoBehaviour
         }
         tilemaps = listTM.ToArray();
         tilemapRenderers = listTR.ToArray();
+
+        playerSR.sortingLayerName = targetLayerName;
     }
 
     float GetBaseY(SpriteRenderer sr, out float baseX)
