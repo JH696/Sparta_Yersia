@@ -27,10 +27,6 @@ public class StatsUI : MonoBehaviour
     [SerializeField] private GameObject PetInfo;
     [SerializeField] private TMP_Text PetNameTxt;
     [SerializeField] private TMP_Text EvoStageTxt;
-    [SerializeField] private Image[] EvoIcons = new Image[3];
-
-    [Header("진화 단계 미달성 시 대체 이미지")]
-    [SerializeField] private Sprite unknownIcon;  // '?' 이미지
 
     [Header("레벨 UI")]
     [SerializeField] private TMP_Text LevelTxt;
@@ -151,26 +147,6 @@ public class StatsUI : MonoBehaviour
                 ? $"성장 단계 : {petStatus.EvoLevel + 1}"
                 : defaultEvoStage;
 
-        if (EvoIcons != null)
-        {
-            for (int i = 0; i < EvoIcons.Length; i++)
-            {
-                if (EvoIcons[i] == null) continue;
-
-                if (petStatus.PetData?.sprites != null && i < petStatus.PetData.sprites.Length)
-                {
-                    bool isReached = petStatus.EvoLevel >= i;
-                    EvoIcons[i].sprite = isReached ? petStatus.PetData.sprites[i].ProfileIcon : unknownIcon;
-                    EvoIcons[i].color = Color.white;
-                }
-                else
-                {
-                    EvoIcons[i].sprite = unknownIcon;
-                    EvoIcons[i].color = Color.white;
-                }
-            }
-        }
-
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
         if (PetInfo != null) PetInfo.SetActive(true);
     }
@@ -191,16 +167,6 @@ public class StatsUI : MonoBehaviour
 
         if (PetNameTxt != null) PetNameTxt.text = defaultPetName;
         if (EvoStageTxt != null) EvoStageTxt.text = defaultEvoStage;
-
-        if (EvoIcons != null)
-        {
-            for (int i = 0; i < EvoIcons.Length; i++)
-            {
-                if (EvoIcons[i] == null) continue;
-                EvoIcons[i].sprite = null;
-                EvoIcons[i].color = new Color(1, 1, 1, 0);
-            }
-        }
 
         if (LevelTxt != null) LevelTxt.text = "Lv";
     }
