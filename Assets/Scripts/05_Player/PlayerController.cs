@@ -14,12 +14,11 @@ public class PlayerController : MonoBehaviour
     private Player player;
     private Coroutine moveRoutine;
 
-    [Header("상호작용")]
-    [SerializeField] private float interactRange = 2f;
-    [SerializeField] private LayerMask moveableLayerMask;
+    [Header("상호작용 센서")]
+    [SerializeField] private InteractCensor censor;
 
-    [Header("상호작용 UI")]
-    [SerializeField] private GameObject interactTextPrefab;
+    [Header("이동 가능한 타일 레이어")]
+    [SerializeField] private LayerMask moveableLayerMask;
 
     private GameObject interactTextInstance;
     private Transform currentTarget;
@@ -35,24 +34,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        if (interactTextPrefab != null)
-        {
-            Canvas canvas = FindObjectOfType<Canvas>();
-            if (canvas != null)
-            {
-                interactTextInstance = Instantiate(interactTextPrefab, canvas.transform);
-                interactTextInstance.SetActive(false);
-            }
-            else
-            {
-                Debug.LogWarning("Canvas를 찾을 수 없습니다. UI가 정상적으로 표시되지 않을 수 있습니다.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("InteractTextPrefab이 할당되지 않았습니다.");
-        }
-
         targetPos = transform.position;
 
         BattleManager.Instance.OnBattleStarted += OnBattleStarted;
@@ -75,7 +56,6 @@ public class PlayerController : MonoBehaviour
         HandleInput();
         UpdateAnimation();
         HandleInteractionInput();
-        UpdateInteractText();
     }
 
     private void HandleInput()
@@ -225,74 +205,9 @@ public class PlayerController : MonoBehaviour
     {
         if (!Input.GetKeyDown(KeyCode.F)) return;
 
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, interactRange);
-
-        Collider2D closestNpc = null;
-        float closestDistance = float.MaxValue;
-
-        foreach (var hit in hits)
+        if (censor.GetTarget() != null)
         {
-            if (!hit.CompareTag("NPC")) continue;
-
-            float distance = Vector2.Distance(transform.position, hit.transform.position);
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestNpc = hit;
-            }
-        }
-
-        if (closestNpc == null)
-        {
-            Debug.Log("상호작용 가능한 NPC가 없습니다.");
-            return;
-        }
-
-        IInteractable interactable = closestNpc.GetComponent<IInteractable>();
-        if (interactable != null)
-        {
-            Debug.Log($"NPC 상호작용 시도: {closestNpc.name}");
-            interactable.Interact(this.gameObject);
-        }
-        else
-        {
-            Debug.Log($"NPC 태그는 있지만 IInteractable이 없음: {closestNpc.name}");
-        }
-    }
-
-    private void UpdateInteractText()
-    {
-        if (interactTextInstance == null) return;
-
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, interactRange);
-
-        Transform closestTarget = null;
-        float closestDistance = float.MaxValue;
-
-        foreach (var hit in hits)
-        {
-            if (!hit.CompareTag("NPC")) continue;
-
-            float dist = Vector2.Distance(transform.position, hit.transform.position);
-            if (dist < closestDistance)
-            {
-                closestDistance = dist;
-                closestTarget = hit.transform;
-            }
-        }
-
-        currentTarget = closestTarget;
-
-        if (currentTarget != null)
-        {
-            Vector3 worldPos = currentTarget.position + Vector3.up * 1.5f;
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-            interactTextInstance.transform.position = screenPos;
-            interactTextInstance.SetActive(true);
-        }
-        else
-        {
-            interactTextInstance.SetActive(false);
+            censor.GetTarget().Interact(this.gameObject);
         }
     }
 
