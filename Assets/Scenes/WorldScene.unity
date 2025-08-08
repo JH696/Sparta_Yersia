@@ -4480,7 +4480,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.3888888, y: 1.3888888}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -7266,7 +7266,7 @@ Animator:
   m_GameObject: {fileID: 269242172}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 986d088d4ddd3714b99e2268997fe0e9, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -7375,7 +7375,7 @@ SpriteRenderer:
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.3888888, y: 1.3888888}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8877,7 +8877,7 @@ MonoBehaviour:
     PlayerData: {fileID: 0}
     Wallet:
       yp: 0
-  playerData: {fileID: 0}
+  playerData: {fileID: 11400000, guid: c04251b80bf0c3948a51e3dd635596f5, type: 2}
   worldSprite: {fileID: 332436641}
   animator: {fileID: 332436642}
   testPetData: {fileID: 0}
@@ -14269,7 +14269,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.5625, y: 1.5625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -17843,7 +17843,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.5625, y: 1.5625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -23704,9 +23704,9 @@ MonoBehaviour:
     Stage: 0
   IsTesting: 0
   datas: []
-  battleBGM: {fileID: 8300000, guid: a9da4667e2b42ff49ab3b965a929e18d, type: 3}
-  winBGM: {fileID: 8300000, guid: 830ab87c6dd95584282a5238c1c3dc0d, type: 3}
-  loseBGM: {fileID: 8300000, guid: 8461528af24481941a8eba47c90a1f07, type: 3}
+  battleBGM: {fileID: 0}
+  winBGM: {fileID: 0}
+  loseBGM: {fileID: 0}
 --- !u!4 &505763411
 Transform:
   m_ObjectHideFlags: 0
@@ -24593,7 +24593,7 @@ SpriteRenderer:
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.3888888, y: 1.3888888}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -27611,7 +27611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f12dcfcc379cb49be9134f245471cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  regionBGM: {fileID: 8300000, guid: 17c6f51d0790afb4a9e7016ab4c672c9, type: 3}
+  regionBGM: {fileID: 0}
   avoidDuplicatePlay: 1
   delay: 0
   fadeDuration: 1.5
@@ -68015,7 +68015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c462332659e624ba4286cde950f28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcData: {fileID: 11400000, guid: e5a77d58e645e904aac0108614cae5e5, type: 2}
+  npcData: {fileID: 11400000, guid: 7b89b9c9ae1ab3c44a603177dad07e8b, type: 2}
   questIcon: {fileID: 1646196858}
   AssignerQuests: []
   ReceiverQuests: []
@@ -68066,7 +68066,7 @@ SpriteRenderer:
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.3888888, y: 1.3888888}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -131301,7 +131301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f12dcfcc379cb49be9134f245471cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  regionBGM: {fileID: 8300000, guid: bb58b59d8ce43c749aecfd67ccf9756f, type: 3}
+  regionBGM: {fileID: 0}
   avoidDuplicatePlay: 1
   delay: 0
   fadeDuration: 1.5
