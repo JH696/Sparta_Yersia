@@ -141,6 +141,8 @@ public class B_Slot : MonoBehaviour
     {
         animator.SetBool("IsMoving", true);
 
+        yield return new WaitForSeconds(1f);
+
         Vector3 targetPos = transform.position;
         Vector3 startPos = targetPos + new Vector3(moveDistance, 0f, 0f);
 

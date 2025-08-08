@@ -53,7 +53,7 @@ public class B_ActionHandler : MonoBehaviour
                 B_Slot slot = hit.collider.GetComponent<B_Slot>();
                 B_StatGauge gauge = slot.StatGauge;
 
-                if (effecter != null)
+                if (!slot.Character.IsDead && effecter != null)
                 {
                     AddTarget(effecter, gauge);
                 }
