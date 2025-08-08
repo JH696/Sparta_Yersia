@@ -12,7 +12,7 @@ public class SortingLayer : MonoBehaviour
 
     [Header("플레이어 바운드 내 샘플 개수(세로)")]
     [Range(2, 20)]
-    public int verticalSamples = 12;
+    public int verticalSamples = 20;
 
     private SpriteRenderer playerSpriteRenderer;
     private SpriteRenderer[] otherSpriteRenderers;

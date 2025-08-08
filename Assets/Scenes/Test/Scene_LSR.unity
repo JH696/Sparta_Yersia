@@ -11933,11 +11933,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  interactRange: 0.5
+  censor: {fileID: 0}
   moveableLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  interactTextPrefab: {fileID: 1537270845590076919, guid: ad5dda0a7cf97e042b70123bb159f5b0, type: 3}
 --- !u!114 &332436646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11952,6 +11951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetLayerName: Default
   feetYOffset: 0
+  xRangeMargin: 0.5
   verticalSamples: 20
 --- !u!114 &332436647
 MonoBehaviour:
@@ -17214,6 +17214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 680082761}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 1952516122}
 --- !u!114 &334373409
@@ -26116,6 +26117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 1971679325}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 2011205454}
 --- !u!114 &488752029
@@ -35188,6 +35190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 334373403}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 121276190}
 --- !u!114 &680082767
@@ -40162,6 +40165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 993446497}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 2059053591}
 --- !u!114 &681083293
@@ -45606,6 +45610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 1498573042}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 2011205454}
 --- !u!114 &704550860
@@ -50654,6 +50659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 1480432327}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 121276190}
 --- !u!114 &726527827
@@ -56914,6 +56920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 1764966122}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 1487233452}
 --- !u!114 &774537662
@@ -61962,6 +61969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 1128796600}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 1046625507}
 --- !u!114 &791716349
@@ -69551,6 +69559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 1442935016}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 121276190}
 --- !u!114 &887680359
@@ -77652,6 +77661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 681083287}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 2011205454}
 --- !u!114 &993446503
@@ -86737,6 +86747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 791716343}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 173936149}
 --- !u!114 &1128796606
@@ -94160,6 +94171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 2009147472}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 121276190}
 --- !u!114 &1242900713
@@ -100793,6 +100805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 1991312952}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 2059053591}
 --- !u!114 &1310766715
@@ -108756,6 +108769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 887680353}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 237449200}
 --- !u!114 &1442935022
@@ -114824,6 +114838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 726527821}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 2011205454}
 --- !u!114 &1480432333
@@ -120451,6 +120466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 704550854}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 1481260449}
 --- !u!114 &1498573048
@@ -132583,6 +132599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 774537656}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 121276190}
 --- !u!114 &1764966128
@@ -143577,6 +143594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 488752023}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 572426580}
 --- !u!114 &1971679331
@@ -148969,6 +148987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 1310766709}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 1046625507}
 --- !u!114 &1991312958
@@ -154185,6 +154204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Destination: {fileID: 1242900707}
+  destinationName: 
   petSpawnPoints: []
   roomBounds: {fileID: 126371197}
 --- !u!114 &2009147478
