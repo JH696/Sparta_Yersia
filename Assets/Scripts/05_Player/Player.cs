@@ -85,6 +85,20 @@ public class Player : MonoBehaviour
                 Debug.Log($"[Player] 테스트용 펫 추가됨: {testPetData.PetName}");
             }
         }
+
+        // 테스트용: Y 키 누르면 경험치 50 추가
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            if (status != null)
+            {
+                status.stat.AddExp(50);
+                Debug.Log($"플레이어 경험치 50 증가 (현재 레벨: {status.stat.Level}, 현재 경험치: {status.stat.Exp})");
+            }
+            else
+            {
+                Debug.LogWarning("플레이어 상태가 설정되지 않았습니다.");
+            }
+        }
     }
 
     public void ChangeSprite()

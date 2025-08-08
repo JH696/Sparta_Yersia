@@ -32,6 +32,11 @@ public class BattleManager : MonoBehaviour
     //public float endSize = 1f;
     //public float zoomDuration = 0.5f;
 
+    [SerializeField] private AudioClip battleBGM;
+
+    [SerializeField] private AudioClip winBGM;
+    [SerializeField] private AudioClip loseBGM;
+
     private void Awake()
     {
         if (Instance == null)
@@ -69,6 +74,11 @@ public class BattleManager : MonoBehaviour
         // 3. 카메라 전환 및 UI 숨김
         WorldCamera.enabled = false;
         BattleCamera.enabled = true;
+
+        // BGM 재생
+        if (battleBGM != null)
+            SoundManager.Instance.PlayBGM(battleBGM, loop: true, fadeDuration: 1f);
+
         WorldCanvas.SetActive(false);
 
         // (선택) 씬 로드 안정화 약간 대기
@@ -89,6 +99,10 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator WinRoutine()
     {
+        // 승리 브금 재생
+        if (winBGM != null)
+            SoundManager.Instance.PlayBGM(winBGM, loop: false, fadeDuration: 0.5f);
+
         List<MonsterData> monsters = CurrentEncounter.Monsters.ToList();
         List<BaseItem> dropItems = new List<BaseItem>();
 
@@ -125,6 +139,10 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator LoseRoutine()
     {
+        // 패배 브금 재생
+        if (loseBGM != null)
+            SoundManager.Instance.PlayBGM(loseBGM, loop: false, fadeDuration: 0.5f);
+
         yield return new WaitForSeconds(1f);
 
         RewardUI.ShowWinUI(null, 0, 0);
@@ -135,7 +153,10 @@ public class BattleManager : MonoBehaviour
         OnBattleEnded?.Invoke();
         BattleCamera.enabled = false;
         WorldCamera.enabled = true;
+
         WorldCanvas.SetActive(true);
+
+        SoundManager.Instance.StopBGM();
 
         SceneLoader.UnloadScene("BattleScene");
     }
