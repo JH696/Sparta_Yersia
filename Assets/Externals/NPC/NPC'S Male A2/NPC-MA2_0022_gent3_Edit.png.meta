@@ -1,0 +1,338 @@
+fileFormatVersion: 2
+guid: 36e3e57c4de3d434180261370ad3079c
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: NPC-MA2_0022_gent3_Edit_9
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 700
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c58268da6d784bf41892e8a730ae6153
+      internalID: 549439124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-MA2_0022_gent3_Edit_10
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 700
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1429d9fbb4adf34190d6a5d38f79675
+      internalID: -1607146676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NPC-MA2_0022_gent3_Edit_11
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 700
+        width: 100
+        height: 100
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7c8a38f1f38f734fbbdcfc61ff0a107
+      internalID: 1748095172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      NPC-MA2_0022_gent3_Edit_0: 1269345245
+      NPC-MA2_0022_gent3_Edit_1: -1538704576
+      NPC-MA2_0022_gent3_Edit_10: -1607146676
+      NPC-MA2_0022_gent3_Edit_11: 1748095172
+      NPC-MA2_0022_gent3_Edit_12: 2036962213
+      NPC-MA2_0022_gent3_Edit_13: 272633176
+      NPC-MA2_0022_gent3_Edit_14: 768280768
+      NPC-MA2_0022_gent3_Edit_15: -855315608
+      NPC-MA2_0022_gent3_Edit_16: 1350308374
+      NPC-MA2_0022_gent3_Edit_17: -501086046
+      NPC-MA2_0022_gent3_Edit_18: -447326946
+      NPC-MA2_0022_gent3_Edit_19: -1305160821
+      NPC-MA2_0022_gent3_Edit_2: -1233229576
+      NPC-MA2_0022_gent3_Edit_20: -231969315
+      NPC-MA2_0022_gent3_Edit_21: 1797775624
+      NPC-MA2_0022_gent3_Edit_22: 1813530930
+      NPC-MA2_0022_gent3_Edit_23: 1890315067
+      NPC-MA2_0022_gent3_Edit_24: -523531936
+      NPC-MA2_0022_gent3_Edit_25: 1287027442
+      NPC-MA2_0022_gent3_Edit_26: -816237569
+      NPC-MA2_0022_gent3_Edit_27: -1949676993
+      NPC-MA2_0022_gent3_Edit_28: -1237713329
+      NPC-MA2_0022_gent3_Edit_29: -1338901382
+      NPC-MA2_0022_gent3_Edit_3: -2123244350
+      NPC-MA2_0022_gent3_Edit_30: 157888723
+      NPC-MA2_0022_gent3_Edit_31: -1954191436
+      NPC-MA2_0022_gent3_Edit_32: 532692204
+      NPC-MA2_0022_gent3_Edit_33: -43568033
+      NPC-MA2_0022_gent3_Edit_34: -47782517
+      NPC-MA2_0022_gent3_Edit_35: 824217724
+      NPC-MA2_0022_gent3_Edit_36: 1149230005
+      NPC-MA2_0022_gent3_Edit_37: 1259551334
+      NPC-MA2_0022_gent3_Edit_38: -1433737
+      NPC-MA2_0022_gent3_Edit_39: -299421334
+      NPC-MA2_0022_gent3_Edit_4: 776244075
+      NPC-MA2_0022_gent3_Edit_40: -807515283
+      NPC-MA2_0022_gent3_Edit_41: 1506197032
+      NPC-MA2_0022_gent3_Edit_42: 73099708
+      NPC-MA2_0022_gent3_Edit_43: -1587187432
+      NPC-MA2_0022_gent3_Edit_44: -243110456
+      NPC-MA2_0022_gent3_Edit_45: -123212385
+      NPC-MA2_0022_gent3_Edit_46: 333790900
+      NPC-MA2_0022_gent3_Edit_47: -542230539
+      NPC-MA2_0022_gent3_Edit_48: 2030569386
+      NPC-MA2_0022_gent3_Edit_49: -2129822566
+      NPC-MA2_0022_gent3_Edit_5: -39077262
+      NPC-MA2_0022_gent3_Edit_50: -1329686427
+      NPC-MA2_0022_gent3_Edit_51: -1335616271
+      NPC-MA2_0022_gent3_Edit_52: 974949643
+      NPC-MA2_0022_gent3_Edit_53: 1692627808
+      NPC-MA2_0022_gent3_Edit_54: -934602085
+      NPC-MA2_0022_gent3_Edit_55: -1623598584
+      NPC-MA2_0022_gent3_Edit_56: 1054643311
+      NPC-MA2_0022_gent3_Edit_57: 718100547
+      NPC-MA2_0022_gent3_Edit_58: -388315682
+      NPC-MA2_0022_gent3_Edit_59: 1288062358
+      NPC-MA2_0022_gent3_Edit_6: -704174982
+      NPC-MA2_0022_gent3_Edit_60: -47215634
+      NPC-MA2_0022_gent3_Edit_61: -1274054455
+      NPC-MA2_0022_gent3_Edit_62: 817374468
+      NPC-MA2_0022_gent3_Edit_63: -780541138
+      NPC-MA2_0022_gent3_Edit_64: -2118297365
+      NPC-MA2_0022_gent3_Edit_65: -1064456954
+      NPC-MA2_0022_gent3_Edit_66: 1011132779
+      NPC-MA2_0022_gent3_Edit_67: 791041905
+      NPC-MA2_0022_gent3_Edit_68: -2036259694
+      NPC-MA2_0022_gent3_Edit_69: -1227529145
+      NPC-MA2_0022_gent3_Edit_7: -317171741
+      NPC-MA2_0022_gent3_Edit_70: 652035367
+      NPC-MA2_0022_gent3_Edit_71: -1096055070
+      NPC-MA2_0022_gent3_Edit_72: 538542689
+      NPC-MA2_0022_gent3_Edit_73: -599201924
+      NPC-MA2_0022_gent3_Edit_74: -1388228899
+      NPC-MA2_0022_gent3_Edit_75: -1678899668
+      NPC-MA2_0022_gent3_Edit_76: 845079619
+      NPC-MA2_0022_gent3_Edit_77: 1279165138
+      NPC-MA2_0022_gent3_Edit_78: 1938255489
+      NPC-MA2_0022_gent3_Edit_79: -671180994
+      NPC-MA2_0022_gent3_Edit_8: 163344535
+      NPC-MA2_0022_gent3_Edit_80: -517666952
+      NPC-MA2_0022_gent3_Edit_81: -1845083393
+      NPC-MA2_0022_gent3_Edit_82: 394962876
+      NPC-MA2_0022_gent3_Edit_83: 517506857
+      NPC-MA2_0022_gent3_Edit_84: -273102751
+      NPC-MA2_0022_gent3_Edit_85: -2095248251
+      NPC-MA2_0022_gent3_Edit_86: 212376215
+      NPC-MA2_0022_gent3_Edit_87: -65487143
+      NPC-MA2_0022_gent3_Edit_88: -1129117000
+      NPC-MA2_0022_gent3_Edit_89: 1653434580
+      NPC-MA2_0022_gent3_Edit_9: 549439124
+      NPC-MA2_0022_gent3_Edit_90: 943490518
+      NPC-MA2_0022_gent3_Edit_91: 458336502
+      NPC-MA2_0022_gent3_Edit_92: -89595951
+      NPC-MA2_0022_gent3_Edit_93: 452066695
+      NPC-MA2_0022_gent3_Edit_94: -1062783707
+      NPC-MA2_0022_gent3_Edit_95: 1165873894
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
