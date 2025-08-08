@@ -106,6 +106,6 @@ public class NPC : MonoBehaviour, IInteractable
 
     public string InteractText()
     {
-        return $"대화하기: {npcData.NpcName}";
+        return $"대화: {npcData.NpcName}";
     }
 }

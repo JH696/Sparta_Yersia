@@ -97,6 +97,6 @@ public class Portal : MonoBehaviour, IInteractable
 
     public string InteractText()
     {
-        return $"이동하기: {destinationName}";
+        return $"이동: {destinationName}";
     }
 }

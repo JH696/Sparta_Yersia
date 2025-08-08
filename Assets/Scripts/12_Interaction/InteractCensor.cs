@@ -14,11 +14,23 @@ public class InteractCensor : MonoBehaviour
     {
         return target;
     }
-    private void OnTriggerStay2D(Collider2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Interactable"))
         {
             target = other.GetComponent<IInteractable>();
+
+            if (target == null) return;
+
+            interactText.text = $"{target.InteractText()}";
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Interactable"))
+        {
             if (target == null) return;
 
             Vector3 offset = new Vector3(0f, 1.5f, 0f);
@@ -28,15 +40,17 @@ public class InteractCensor : MonoBehaviour
             interactUI.transform.position = screenPos;
 
             interactUI.SetActive(true);
-            interactText.text = $"{target.InteractText()}";
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        target = null;
+        if (other.CompareTag("Interactable"))
+        {
+            target = null;
 
-        interactUI.SetActive(false);
-        interactText.text = string.Empty;
+            interactUI.SetActive(false);
+            interactText.text = string.Empty;
+        }
     }
 }

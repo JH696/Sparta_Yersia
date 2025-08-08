@@ -205,7 +205,10 @@ public class PlayerController : MonoBehaviour
     {
         if (!Input.GetKeyDown(KeyCode.F)) return;
 
-        censor.GetTarget().Interact(this.gameObject);
+        if (censor.GetTarget() != null)
+        {
+            censor.GetTarget().Interact(this.gameObject);
+        }
     }
 
     private bool canMove = true;
