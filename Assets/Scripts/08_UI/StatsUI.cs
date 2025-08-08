@@ -27,10 +27,7 @@ public class StatsUI : MonoBehaviour
     [SerializeField] private GameObject PetInfo;
     [SerializeField] private TMP_Text PetNameTxt;
     [SerializeField] private TMP_Text EvoStageTxt;
-    [SerializeField] private Image[] EvoIcons = new Image[3];
-
-    [Header("진화 단계 미달성 시 대체 이미지")]
-    [SerializeField] private Sprite unknownIcon;  // '?' 이미지
+    [SerializeField] private TMP_Text PetLevelTxt;
 
     [Header("레벨 UI")]
     [SerializeField] private TMP_Text LevelTxt;
@@ -84,6 +81,8 @@ public class StatsUI : MonoBehaviour
         {
             if (LevelTxt != null)
                 LevelTxt.text = $"Lv {playerStatus.stat.Level}";
+            if (YPTxt != null)
+                YPTxt.text = $"{playerStatus.Wallet.YP} YP";
         }
         else if (petStatus != null)
         {
@@ -104,7 +103,22 @@ public class StatsUI : MonoBehaviour
 
         // 성별 표시
         if (GenderTxt != null)
-            GenderTxt.text = $"성별: {playerStatus.PlayerData.gender}";
+        {
+            EGender gender = playerStatus.PlayerData.gender;
+            string message = "";
+
+            switch (gender)
+            {
+                case EGender.Male:
+                    message = "남자";
+                    break;
+                case EGender.Female:
+                    message = "여자";
+                    break;
+            }
+
+            GenderTxt.text = message;
+        }
 
         // 프로필 아이콘 : 대화용 스프라이트를 좌우 반전
         bool isExpert = playerStatus.Rank == E_Rank.Expert;
@@ -118,13 +132,13 @@ public class StatsUI : MonoBehaviour
         switch (playerStatus.Rank)
         {
             case E_Rank.Basic:
-                TierTxt.text = "등급 : 초급 마법사"; break;
+                TierTxt.text = "초급 마법사"; break;
             case E_Rank.Advanced:
-                TierTxt.text = "등급 : 중급 마법사"; break;
+                TierTxt.text = "중급 마법사"; break;
             case E_Rank.Expert:
-                TierTxt.text = "등급 : 상급 마법사"; break;
+                TierTxt.text = "상급 마법사"; break;
             default:
-                TierTxt.text = "등급 : 알 수 없음"; break;
+                TierTxt.text = "알 수 없음"; break;
         }
 
         // 플레이어 정보 패널 활성화 / 펫 정보 비활성
@@ -151,25 +165,9 @@ public class StatsUI : MonoBehaviour
                 ? $"성장 단계 : {petStatus.EvoLevel + 1}"
                 : defaultEvoStage;
 
-        if (EvoIcons != null)
-        {
-            for (int i = 0; i < EvoIcons.Length; i++)
-            {
-                if (EvoIcons[i] == null) continue;
-
-                if (petStatus.PetData?.sprites != null && i < petStatus.PetData.sprites.Length)
-                {
-                    bool isReached = petStatus.EvoLevel >= i;
-                    EvoIcons[i].sprite = isReached ? petStatus.PetData.sprites[i].ProfileIcon : unknownIcon;
-                    EvoIcons[i].color = Color.white;
-                }
-                else
-                {
-                    EvoIcons[i].sprite = unknownIcon;
-                    EvoIcons[i].color = Color.white;
-                }
-            }
-        }
+        //if (PetLevelTxt != null)
+        //    PetLevelTxt.text = petStatus.PetData != null ?
+        //        $"LV {petStatus.stat.Level}" : "LV";
 
         if (PlayerInfo != null) PlayerInfo.SetActive(false);
         if (PetInfo != null) PetInfo.SetActive(true);
@@ -191,16 +189,6 @@ public class StatsUI : MonoBehaviour
 
         if (PetNameTxt != null) PetNameTxt.text = defaultPetName;
         if (EvoStageTxt != null) EvoStageTxt.text = defaultEvoStage;
-
-        if (EvoIcons != null)
-        {
-            for (int i = 0; i < EvoIcons.Length; i++)
-            {
-                if (EvoIcons[i] == null) continue;
-                EvoIcons[i].sprite = null;
-                EvoIcons[i].color = new Color(1, 1, 1, 0);
-            }
-        }
 
         if (LevelTxt != null) LevelTxt.text = "Lv";
     }

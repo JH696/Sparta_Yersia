@@ -5,13 +5,14 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-    // UI 요소들
-    private InventoryUI inventoryUI;
-    private DialogueUI dialogueUI;
-    private PlayerUI playerUI;
-    private StatUIController statUIController;
-    private PetUIController petUIController;
-    //private SkillTreeUI skillTreeUI;
+    [Header("게임내 UI")]
+    [SerializeField] private StatUIController statUIController;
+    [SerializeField] private PetUIController petUIController;
+    [SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private SkillInventoryUI skillUI;
+
+    [SerializeField] private PlayerUI playerUI;
+    [SerializeField] private DialogueUI dialogueUI;
 
     private void Awake()
     {
@@ -23,49 +24,7 @@ public class UIManager : MonoBehaviour
         }
 
         Instance = this;
-
-        // 씬 로드시 UI 초기화 및 이벤트 구독
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
-
-    // 씬이 파괴될 떄 구독 해제
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // 새로운 씬이 로드될 때 UI 초기화
-        inventoryUI = FindObjectOfType<InventoryUI>(includeInactive: true);
-        dialogueUI = FindObjectOfType<DialogueUI>(includeInactive: true);
-        playerUI = FindObjectOfType<PlayerUI>(includeInactive: true);
-        statUIController = FindObjectOfType<StatUIController>(includeInactive: true);
-        petUIController = FindObjectOfType<PetUIController>(includeInactive: true);
-        //skillTreeUI = FindObjectOfType<SkillTreeUI>(includeInactive: true);
-    }
-
-    // 대화 UI 표시
-    public void ShowDialogue()
-    {
-        if (dialogueUI == null)
-        {
-            Debug.LogWarning("[UIManager] DialogueUI를 찾을 수 없습니다.");
-            return;
-        }
-        dialogueUI.ShowDialogueUI();
-    }
-
-    public void HideDialogue()
-    {
-        if (dialogueUI == null)
-        {
-            Debug.LogWarning("[UIManager] DialogueUI를 찾을 수 없습니다.");
-            return;
-        }
-        dialogueUI.HideDialogueUI();
-    }
-
     public void ShowPlayerUI()
     {
         if (playerUI == null)
@@ -73,6 +32,7 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("[UIManager] PlayerUI를 찾을 수 없습니다.");
             return;
         }
+
         playerUI.ShowPlayerUI();
     }
 
@@ -83,7 +43,21 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("[UIManager] PlayerUI를 찾을 수 없습니다.");
             return;
         }
+
         playerUI.HidePlayerUI();
+    }
+
+    // 대화 UI 표시
+    public void ShowDialogue()
+    {
+        if (dialogueUI == null)
+        {
+            Debug.LogWarning("[UIManager] DialogueUI를 찾을 수 없습니다.");
+            return;
+        }
+
+        HideAllUI();
+        dialogueUI.ShowDialogueUI();
     }
 
     // 스탯 UI 표시 (기본: 플레이어)
@@ -94,76 +68,60 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("[UIManager] StatUIController를 찾을 수 없습니다.");
             return;
         }
+
+        HideAllUI();
         statUIController.ShowStatUI();
     }
 
-    // 펫 1 스탯 UI 표시
-    public void ShowPet1Stats()
-    {
-        if (statUIController == null)
-        {
-            Debug.LogWarning("[UIManager] StatUIController를 찾을 수 없습니다.");
-            return;
-        }
-      // statUIController.ShowPet1Stats();
-    }
-
-    // 펫 2 스탯 UI 표시
-    public void ShowPet2Stats()
-    {
-        if (statUIController == null)
-        {
-            Debug.LogWarning("[UIManager] StatUIController를 찾을 수 없습니다.");
-            return;
-        }
-       // statUIController.ShowPet2Stats();
-    }
-
-    // 스탯 UI 숨기기
-    public void HideStatUI()
-    {
-        if (statUIController == null)
-        {
-            Debug.LogWarning("[UIManager] StatUIController를 찾을 수 없습니다.");
-            return;
-        }
-        statUIController.HideStatUI();
-    }
-
-    // 스킬트리 UI 표시/숨기기
-    //public void ShowSkillTreeUI()
-    //{
-    //    if (skillTreeUI == null)
-    //    {
-    //        Debug.LogWarning("[UIManager] SkillTreeUI를 찾을 수 없습니다.");
-    //        return;
-    //    }
-    //    skillTreeUI.Show();
-    //}
-
-    //public void HideSkillTreeUI()
-    //{
-    //    if (skillTreeUI == null)
-    //    {
-    //        Debug.LogWarning("[UIManager] SkillTreeUI를 찾을 수 없습니다.");
-    //        return;
-    //    }
-    //    skillTreeUI.Hide();
-    //}
-
     public void ShowPetUI()
     {
-        petUIController.gameObject.SetActive(true);
+        if (statUIController == null)
+        {
+            Debug.LogWarning("[UIManager] StatUIController를 찾을 수 없습니다.");
+            return;
+        }
+
+        HideAllUI();
+        petUIController.ShowPetUI();
     }
 
-    public void HidePetUI()
+    public void ShowInventoryUI()
     {
-        petUIController.gameObject.SetActive(false);
+        if (inventoryUI == null)
+        {
+            Debug.LogWarning("[UIManager] inventoryUI를 찾을 수 없습니다.");
+            return;
+        }
+
+        HideAllUI();
+        inventoryUI.OpenInventory();
     }
+
+    public void ShowSKillUI()
+    {
+        if (inventoryUI == null)
+        {
+            Debug.LogWarning("[UIManager] ShowSKillUI를 찾을 수 없습니다.");
+            return;
+        }
+
+        HideAllUI();
+        skillUI.ShowSkillUI();
+    }
+
 
     public void SetProfileIcon(Sprite icon)
     {
         if (playerUI != null)
             playerUI.SetProfileIcon(icon);
+    }
+
+    public void HideAllUI()
+    {
+        statUIController.HideStatUI();
+        petUIController.HidePetUI();
+        inventoryUI.CloseInventory();
+        skillUI.ResetSkillUI();
+        dialogueUI.HideDialogueUI();
     }
 }

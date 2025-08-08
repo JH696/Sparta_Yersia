@@ -62,6 +62,7 @@ public class QuestData : ScriptableObject
     public List<PetData> RewardPets;
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(QuestData))]
 public class QuestDataEditor : Editor
 {
@@ -99,6 +100,4 @@ public class QuestDataEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
-
-
-
+#endif

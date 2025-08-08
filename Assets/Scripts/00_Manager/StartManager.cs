@@ -8,6 +8,7 @@ public class StartManager : MonoBehaviour
     [SerializeField] private CanvasGroup fade;  //로고+버튼들
     [SerializeField] private CanvasGroup fadeBlack;  //까만화면
     [SerializeField] private float fadeDelay = 0.5f;  //
+    [SerializeField] private GameObject helpPanel;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -31,20 +32,28 @@ public class StartManager : MonoBehaviour
         yield return new WaitForSeconds(cameraFollow.image.duration + fadeDelay);
         StartCoroutine(fadein.Fade(fade, 0f, 1f));
     }
+    public void OnClickHelp()
+    {
+        helpPanel.SetActive(true);
+
+    }
     public void OnClickNewGame()
     {
         StartCoroutine(FadeOutAndLoadScene());
     }
     public void OnClickLoadGame()
     {
-
+        //불러오기
     }
 
     public void OnClickQuitGame()
     {
         StartCoroutine(FadeOutAndQuit());
     }
-
+    public void ClosePanel()
+    {
+        helpPanel.SetActive(false);
+    }
     IEnumerator FadeOutAndLoadScene()
     {
         StartCoroutine(fadein.Fade(fadeBlack, 0f, 1f));
@@ -64,4 +73,5 @@ public class StartManager : MonoBehaviour
         Application.Quit();
 #endif
     }
+
 }

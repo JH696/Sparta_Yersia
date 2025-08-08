@@ -13,6 +13,9 @@ public class PetUIController : MonoBehaviour
     [Header("플레이어")]
     [SerializeField] private Player player;
 
+    [Header("펫 UI")]
+    [SerializeField] private GameObject petBG;
+
     [Header("펫 슬롯 프리팹 (동적 생성용)")]
     [SerializeField] private GameObject petSlotPrefab;
 
@@ -35,11 +38,6 @@ public class PetUIController : MonoBehaviour
     }
 
     private void Start()
-    {
-        RefreshUI();
-    }
-
-    private void OnEnable()
     {
         RefreshUI();
     }
@@ -136,10 +134,19 @@ public class PetUIController : MonoBehaviour
     }
 
     /// <summary>
+    /// 펫 UI 활성화
+    /// </summary>
+    public void ShowPetUI()
+    {
+        petBG.gameObject.SetActive(true);
+        RefreshUI();
+    }
+
+    /// <summary>
     /// 펫 UI 비활성화
     /// </summary>
     public void HidePetUI()
     {
-        gameObject.SetActive(false);
+        petBG.SetActive(false);
     }
 }

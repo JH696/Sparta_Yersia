@@ -65,6 +65,11 @@ public class PlayerStatus : CharacterStatus
         }
     }
 
+    public EGender GetGender()
+    {
+        return PlayerData.gender;
+    }
+
     public override Sprite GetWSprite()
     {
         // 플레이어의 월드 스프라이트 반환

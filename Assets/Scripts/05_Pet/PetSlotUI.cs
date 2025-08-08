@@ -48,7 +48,6 @@ public class PetSlotUI : MonoBehaviour
     {
         isEquipped = false;
 
-        petImage.sprite = null;
         infoTxt.text = "";
         equipBtnTxt.text = "";
 
