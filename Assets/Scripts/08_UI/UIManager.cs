@@ -90,10 +90,9 @@ public class UIManager : MonoBehaviour
     {
         if (inventoryUI == null)
         {
-            Debug.LogWarning("[UIManager] inventoryUI를 찾을 수 없습니다.");
+            Debug.LogWarning("[UIManager] InventoryUI를 찾을 수 없습니다.");
             return;
         }
-
         HideAllUI();
         inventoryUI.OpenInventory();
     }
