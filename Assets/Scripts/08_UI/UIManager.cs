@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private PetUIController petUIController;
     [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private SkillInventoryUI skillUI;
+    [SerializeField] private ShopUI shopUI;
 
     [SerializeField] private PlayerUI playerUI;
     [SerializeField] private DialogueUI dialogueUI;
@@ -123,5 +124,26 @@ public class UIManager : MonoBehaviour
         inventoryUI.CloseInventory();
         skillUI.ResetSkillUI();
         dialogueUI.HideDialogueUI();
+    }
+
+    public void ShowShopUI()
+    {
+        if (shopUI == null)
+        {
+            Debug.LogWarning("[UIManager] ShopUI를 찾을 수 없습니다.");
+            return;
+        }
+        HideAllUI();
+        shopUI.Show();
+    }
+
+    public void HideShopUI()
+    {
+        if (shopUI == null)
+        {
+            Debug.LogWarning("[UIManager] ShopUI를 찾을 수 없습니다.");
+            return;
+        }
+        shopUI.Hide();
     }
 }
