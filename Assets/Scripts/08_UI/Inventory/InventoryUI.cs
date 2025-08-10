@@ -221,11 +221,11 @@ public class InventoryUI : MonoBehaviour
 
                 if (isEquipped)
                 {
-                    buttonText.text = "장비 해제";
+                    buttonText.text = "장착 해제";
                 }
                 else
                 {
-                    buttonText.text = "장비";
+                    buttonText.text = "장착";
                 }
                 break;
 
