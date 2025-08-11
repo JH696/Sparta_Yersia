@@ -19,4 +19,8 @@ public class SkillData : ScriptableObject
 
     [Header("아이콘")]
     public Sprite Icon;
+
+    [Header("사운드")]
+    public AudioClip CastSFX;
+    public AudioClip HitSFX;
 }
