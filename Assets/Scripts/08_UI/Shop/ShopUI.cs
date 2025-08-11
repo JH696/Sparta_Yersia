@@ -53,10 +53,21 @@ public class ShopUI : MonoBehaviour
 
     private void OnEnable()
     {
+        // 장비 카테고리로 열릴 경우 기본 하위 필터를 무기로
+        if (category == E_CategoryType.Equip)
+        {
+            equipSubFilter = E_EquipType.Weapon;
+            if (equipFilterGroup) equipFilterGroup.SetActive(true);
+        }
+        else
+        {
+            equipSubFilter = null;
+            if (equipFilterGroup) equipFilterGroup.SetActive(false);
+        }
+
         RefreshList();
         ClearDetail();
         Notify("");
-        if (equipFilterGroup) equipFilterGroup.SetActive(category == E_CategoryType.Equip);
     }
 
     public void Show() => gameObject.SetActive(true);
@@ -77,8 +88,16 @@ public class ShopUI : MonoBehaviour
         // 장비일 때만 하위필터 그룹 표시
         if (equipFilterGroup) equipFilterGroup.SetActive(category == E_CategoryType.Equip);
 
-        // 카테고리 바꾸면 하위 필터 초기화
-        if (category != E_CategoryType.Equip) equipSubFilter = null;
+        if (category == E_CategoryType.Equip)
+        {
+            // 장비로 전환 시 기본 하위 필터를 '무기'로 고정
+            equipSubFilter = E_EquipType.Weapon;
+        }
+        else
+        {
+            // 장비가 아니면 하위 필터 비움
+            equipSubFilter = null;
+        }
 
         RefreshList();
         ClearDetail();
@@ -141,6 +160,34 @@ public class ShopUI : MonoBehaviour
         selected = slot.Data;
         ShowDetail(selected);
     }
+    private static string StatLabel(EStatType stat)
+    {
+        switch (stat)
+        {
+            case EStatType.MaxHp: return "체력";
+            case EStatType.MaxMana: return "마나";
+            case EStatType.Attack: return "공격력";
+            case EStatType.Defense: return "방어력";
+            case EStatType.Luck: return "행운";
+            case EStatType.Speed: return "속도";
+            default: return stat.ToString();
+        }
+    }
+
+    private static string EquipLabel(E_EquipType type)
+    {
+        switch (type)
+        {
+            case E_EquipType.Weapon: return "무기";
+            case E_EquipType.Hat: return "모자";
+            case E_EquipType.Accessory: return "악세사리";
+            case E_EquipType.Clothes: return "의상";
+            case E_EquipType.Shoes: return "신발";
+            default: return "장비";
+        }
+    }
+
+    private static string FormatStatValue(int v) => v > 0 ? $"+{v}" : v.ToString();
 
     private void ShowDetail(BaseItem item)
     {
@@ -157,15 +204,21 @@ public class ShopUI : MonoBehaviour
         // 장비: 분류/성능스탯
         if (item is EquipItemData e)
         {
-            typeText.text = $"{e.Type}";
+            typeText.text = EquipLabel(e.Type);
+
             foreach (var v in e.Values)
-                statText.text += $"{v.Stat}: {v.Value}\n";
+            {
+                statText.text += $"{StatLabel(v.Stat)}: {FormatStatValue(v.Value)}\n";
+            }
         }
         // 소모품: 성능스탯
         else if (item is ConsumeItemData c)
         {
+            typeText.text = "소모품";
             foreach (var v in c.Values)
-                statText.text += $"{v.Stat}: {v.Value}\n";
+            {
+                statText.text += $"{StatLabel(v.Stat)}: {FormatStatValue(v.Value)}\n";
+            }
         }
     }
 
