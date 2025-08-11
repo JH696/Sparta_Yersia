@@ -12,6 +12,11 @@ public class ShopUI : MonoBehaviour
     [Header("상점 아이템 원본 목록(퀘스트 제외)")]
     [SerializeField] private List<BaseItem> allShopItems = new List<BaseItem>();
 
+    [Header("장비 하위카테고리 버튼 부모 (Equip일 때만 켜짐)")]
+    [SerializeField] private GameObject equipFilterGroup;
+
+    private E_EquipType? equipSubFilter = null;
+
     [Header("카테고리")]
     [SerializeField] private E_CategoryType category = E_CategoryType.All;
     [SerializeField] private Button allBtn;
@@ -51,6 +56,7 @@ public class ShopUI : MonoBehaviour
         RefreshList();
         ClearDetail();
         Notify("");
+        if (equipFilterGroup) equipFilterGroup.SetActive(category == E_CategoryType.Equip);
     }
 
     public void Show() => gameObject.SetActive(true);
@@ -67,10 +73,24 @@ public class ShopUI : MonoBehaviour
     private void ChangeCategory(E_CategoryType cat)
     {
         category = cat;
+
+        // 장비일 때만 하위필터 그룹 표시
+        if (equipFilterGroup) equipFilterGroup.SetActive(category == E_CategoryType.Equip);
+
+        // 카테고리 바꾸면 하위 필터 초기화
+        if (category != E_CategoryType.Equip) equipSubFilter = null;
+
         RefreshList();
         ClearDetail();
     }
-    
+
+    public void ChangeEquipSubFilter(int equipTypeInt)
+    {
+        equipSubFilter = (E_EquipType)equipTypeInt;
+        RefreshList();
+        ClearDetail();
+    }
+
     private void RefreshList()
     {
         // 슬롯 정리
@@ -82,9 +102,28 @@ public class ShopUI : MonoBehaviour
 
         switch (category)
         {
-            case E_CategoryType.Equip: src = src.Where(i => i.GetCategory() == E_CategoryType.Equip); break;
-            case E_CategoryType.Consume: src = src.Where(i => i.GetCategory() == E_CategoryType.Consume); break;
-            default: /* All */ break;
+            case E_CategoryType.Equip:
+                src = src.Where(i => i.GetCategory() == E_CategoryType.Equip);
+
+                // 하위 장비 필터 적용 (선택된 경우에만)
+                if (equipSubFilter.HasValue)
+                {
+                    var type = equipSubFilter.Value;
+                    src = src.Where(i =>
+                    {
+                        var e = i as EquipItemData;
+                        return e != null && e.Type == type;
+                    });
+                }
+                break;
+
+            case E_CategoryType.Consume:
+                src = src.Where(i => i.GetCategory() == E_CategoryType.Consume);
+                break;
+
+            default:
+                // All: 별도 필터 없음
+                break;
         }
 
         foreach (var item in src)

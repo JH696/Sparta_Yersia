@@ -16,7 +16,12 @@ public class ShopItemSlot : MonoBehaviour
     public void Set(BaseItem item)
     {
         data = item;
-        if (icon != null) icon.sprite = item.Icon;
+        if (icon != null)
+        {
+            icon.sprite = item.Icon;
+            icon.enabled = true;
+            icon.color = Color.white;
+        }
         if (nameText != null) nameText.text = item.Name;
         gameObject.SetActive(true);
     }
@@ -24,7 +29,11 @@ public class ShopItemSlot : MonoBehaviour
     public void Clear()
     {
         data = null;
-        if (icon != null) icon.sprite = null;
+        if (icon != null)
+        {
+            icon.sprite = null;
+            icon.enabled = false;
+        }
         if (nameText != null) nameText.text = string.Empty;
         gameObject.SetActive(false);
     }
