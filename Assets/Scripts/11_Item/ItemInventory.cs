@@ -124,4 +124,52 @@ public class ItemInventory
     {
         InventoryChanged = null;
     }
+
+    /// <summary>
+    /// 이 아이템을 1개 더넣을수있는지 확인(같은ID 스택여유 or 빈슬롯)
+    /// </summary>
+    public bool CanAddOne(BaseItem data)
+    {
+        if (data == null) return false;
+
+        // 같은 ID 스택 중에 여유가 있으면 OK
+        foreach (var it in items)
+        {
+            if (it.Data.ID == data.ID && it.Stack < it.Data.MaxStack)
+                return true;
+        }
+
+        // 여유 슬롯이 있으면 OK
+        return items.Count < maxItemCount;
+    }
+
+    /// <summary>
+    /// 상점 구매 전용
+    /// 성공시 true, 실패시 false(슬롯/스택 여유 모두 없을때)
+    /// </summary>
+    public bool TryAddOne(BaseItem data)
+    {
+        if (data == null) return false;
+
+        // 스택 여유 먼저 채워 넣기
+        for (int i = 0; i < items.Count; i++)
+        {
+            var s = items[i];
+            if (s.Data.ID == data.ID && s.Stack < s.Data.MaxStack)
+            {
+                s.StackItem(1);
+                InventoryChanged?.Invoke();
+                return true;
+            }
+        }
+
+        // 새 슬롯 생성 가능한지
+        if (items.Count >= maxItemCount) return false;
+
+        var status = new ItemStatus(data);
+        status.OnEmpty += RemoveItem;
+        items.Add(status);
+        InventoryChanged?.Invoke();
+        return true;
+    }
 }
