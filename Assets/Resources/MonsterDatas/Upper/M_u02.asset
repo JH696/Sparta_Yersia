@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f31c11c4d16c149a6db51bb4968c56, type: 3}
   m_Name: M_u02
   m_EditorClassIdentifier: 
-  maxHp: 60
+  maxHp: 40
   maxMana: 0
-  attack: 20
-  defense: 5
+  attack: 15
+  defense: 0
   luck: 5
   speed: 22
   Multiplier: 0
@@ -23,7 +23,8 @@ MonoBehaviour:
   MonsterName: "\uB4E4\uC950"
   StageType: 1
   Size: 0
-  startSkills: []
+  startSkills:
+  - {fileID: 11400000, guid: 7a9a9c53ff858d6479ad88db31ec764d, type: 2}
   ypDrop: 30
   expDrop: 50
   dropItems: []

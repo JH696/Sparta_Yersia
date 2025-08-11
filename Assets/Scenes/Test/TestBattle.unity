@@ -1943,10 +1943,7 @@ MonoBehaviour:
     Stage: 0
   IsTesting: 1
   datas:
-  - {fileID: 11400000, guid: 8f83c7f9610e7a74cb8bdb9e8deef52c, type: 2}
-  - {fileID: 11400000, guid: 3be44273dd9b1154ab481f2017f2397c, type: 2}
-  - {fileID: 11400000, guid: ee1776435597a0e48a97ec07a9552c4e, type: 2}
-  - {fileID: 11400000, guid: d1ef3122d3e17eb4491d23e8d940b2ba, type: 2}
+  - {fileID: 11400000, guid: 728734a57a582ed419dd4b4a509336d9, type: 2}
   roomBounds: {fileID: 0}
   battleBGM: {fileID: 0}
   winBGM: {fileID: 0}
@@ -4212,6 +4209,7 @@ MonoBehaviour:
   animator: {fileID: 400800191}
   invokedDamage: 0
   damageText: {fileID: 857292480}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &436682392
 GameObject:
   m_ObjectHideFlags: 0
@@ -5126,6 +5124,7 @@ MonoBehaviour:
   animator: {fileID: 490384772}
   invokedDamage: 0
   damageText: {fileID: 825187211}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &495214292
 GameObject:
   m_ObjectHideFlags: 0
@@ -6890,8 +6889,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 10, y: 5.62}
-    newSize: {x: 10, y: 5.62}
+    oldSize: {x: 11.428572, y: 6.5952377}
+    newSize: {x: 11.428572, y: 6.5952377}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -6945,7 +6944,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 10, y: 5.62}
+  m_Size: {x: 11.428572, y: 6.5952377}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -8602,6 +8601,7 @@ MonoBehaviour:
   animator: {fileID: 948178794}
   invokedDamage: 0
   damageText: {fileID: 1142741733}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &953361271
 GameObject:
   m_ObjectHideFlags: 0
@@ -11384,6 +11384,7 @@ MonoBehaviour:
   animator: {fileID: 1186258142}
   invokedDamage: 0
   damageText: {fileID: 953361273}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &1227127126
 GameObject:
   m_ObjectHideFlags: 0
@@ -14133,6 +14134,7 @@ MonoBehaviour:
   animator: {fileID: 1515519896}
   invokedDamage: 0
   damageText: {fileID: 2131250372}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &1523156858
 GameObject:
   m_ObjectHideFlags: 0
@@ -16069,6 +16071,7 @@ MonoBehaviour:
   animator: {fileID: 1689754336}
   invokedDamage: 0
   damageText: {fileID: 72233232}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &1690381030
 GameObject:
   m_ObjectHideFlags: 0
@@ -19104,6 +19107,7 @@ MonoBehaviour:
   animator: {fileID: 2031392031}
   invokedDamage: 0
   damageText: {fileID: 1635089702}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &2038512197
 GameObject:
   m_ObjectHideFlags: 0

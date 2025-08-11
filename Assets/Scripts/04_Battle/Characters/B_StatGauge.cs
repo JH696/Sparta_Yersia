@@ -46,8 +46,8 @@ public class B_StatGauge : MonoBehaviour
         // 픽셀 기준 Y 오프셋
         float y = size switch
         {
-            E_SizeType.Small => 125f,
-            E_SizeType.Medium => 125f,
+            E_SizeType.Small => 150f,
+            E_SizeType.Medium => 150f,
             _ => 200f
         };
         screenPos.y += y;
@@ -79,9 +79,9 @@ public class B_StatGauge : MonoBehaviour
         CharacterStats stats = slot.Character.stat;
 
         hpGauge.fillAmount = stats.CurrentHp / stats.MaxHp;
-        hpText.text = $"{stats.CurrentHp} / {stats.MaxHp}";
+        hpText.text = $"{(int)stats.CurrentHp} / {stats.MaxHp}";
         mpGauge.fillAmount = stats.CurrentMana / stats.MaxMana;
-        mpText.text = $"{stats.CurrentMana} / {stats.MaxMana}";
+        mpText.text = $"{(int)stats.CurrentMana} / {stats.MaxMana}";
     }
 
     public void RefreshAPGauge(float amount)

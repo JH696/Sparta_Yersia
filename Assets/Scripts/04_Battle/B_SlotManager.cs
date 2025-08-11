@@ -96,6 +96,8 @@ public class B_SlotManager : MonoBehaviour
         {
             B_Slot allySlot = allySlots[i + 1];
 
+            if (party.partyPets[i].IsDead) continue;
+
             allySlot.SetSlot(party.partyPets[i]);
         }
     }
