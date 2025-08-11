@@ -17,14 +17,19 @@ public class BattleEffecter : MonoBehaviour
     [Header("데미지 텍스트")]
     [SerializeField] private TextMeshPro damageText;
 
+    [Header("일반 공격 사운드")]
+    [SerializeField] private AudioClip normalAttackSFX;
+
     private B_BattleButtons bButtons;
     private string lastParam;
     private Coroutine hideRoutine;
 
+    // 현재 사용 중인 스킬 저장
+    private SkillStatus currentSkill;
+
     public B_Slot Slot
     {
         get { return slot; }
-
         private set { slot = value; }
     }
 
@@ -34,6 +39,7 @@ public class BattleEffecter : MonoBehaviour
         CharacterStatus target = slot.Character;
 
         this.bButtons = bButtons;
+        currentSkill = skill; // 현재 스킬 저장
 
         string input = skill.Data.ID;
 
@@ -62,16 +68,21 @@ public class BattleEffecter : MonoBehaviour
             SetDamageText(skill.Data.Type, false);
         }
 
+        // 캐스트 사운드 재생
+        if (skill.Data.CastSFX != null)
+            SoundManager.Instance.PlaySFX(skill.Data.CastSFX);
+
         animator.SetInteger(prefix, number);
     }
 
     public void SetBaseEffect(CharacterStats attacker, B_BattleButtons bButtons)
     {
         DamageCalculator cal = new DamageCalculator();
-
         CharacterStatus target = slot.Character;
 
         this.bButtons = bButtons;
+        currentSkill = null; // 기본 공격이므로 스킬 없음
+
         float damage = cal.DamageCalculate(attacker, target.stat, null);
 
         if (cal.IsCritical(attacker.Luck))
@@ -86,6 +97,10 @@ public class BattleEffecter : MonoBehaviour
             SetDamageText(E_ElementalType.Physical, false);
         }
 
+        // 기본 공격 사운드 재생
+        if (normalAttackSFX != null)
+            SoundManager.Instance.PlaySFX(normalAttackSFX);
+
         animator.SetTrigger("Normal_Attack");
     }
 
@@ -94,13 +109,14 @@ public class BattleEffecter : MonoBehaviour
         slot.Character.TakeDamage(invokedDamage);
         ShowDamageText();
 
+        // 히트 사운드 재생
+        if (currentSkill != null && currentSkill.Data.HitSFX != null)
+            SoundManager.Instance.PlaySFX(currentSkill.Data.HitSFX);
+
         if (!string.IsNullOrEmpty(lastParam))
-        {
             animator.SetInteger(lastParam, 9999);
-        }
 
         yield return new WaitForSeconds(0.75f);
-
         bButtons.OnTurnEnd();
         bButtons = null;
     }
