@@ -1943,10 +1943,7 @@ MonoBehaviour:
     Stage: 0
   IsTesting: 1
   datas:
-  - {fileID: 11400000, guid: 480a57086e9ddd544815a2ed62be8f43, type: 2}
-  - {fileID: 11400000, guid: e34905979980d004bb3840009b94ab95, type: 2}
-  - {fileID: 11400000, guid: a7987a6219f0e524e8a5755d45825d49, type: 2}
-  - {fileID: 11400000, guid: adb01c3fef3fbe04f9bbd7dc4db7390b, type: 2}
+  - {fileID: 11400000, guid: 728734a57a582ed419dd4b4a509336d9, type: 2}
   roomBounds: {fileID: 0}
   battleBGM: {fileID: 0}
   winBGM: {fileID: 0}
@@ -6837,7 +6834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &767214497
 Transform:
   m_ObjectHideFlags: 0
@@ -6942,7 +6939,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 50
-  m_Sprite: {fileID: 609917875, guid: a88ef92dc144fb748ada521c24044fc0, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6950,7 +6947,7 @@ SpriteRenderer:
   m_Size: {x: 11.428572, y: 6.5952377}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &767214501
