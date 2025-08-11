@@ -5,7 +5,7 @@ using UnityEngine;
 
 /// <summary>
 /// 게임 내 모든 사운드의 진입점. 
-/// BGM은 AudioClip 직접 참조, SFX는 enum 기반으로 관리
+/// BGM은 AudioClip 직접 참조, SFX는 enum 기반과 AudioClip 직접 재생 둘 다 지원
 /// </summary>
 public class SoundManager : MonoBehaviour
 {
@@ -53,7 +53,6 @@ public class SoundManager : MonoBehaviour
 
         InitializeSFXDictionary();
 
-        // 저장된 볼륨 불러오기
         SetMasterVolume(PlayerPrefs.GetFloat("MasterVolume", 1f));
         SetBGMVolume(PlayerPrefs.GetFloat("BGMVolume", 1f));
         SetSFXVolume(PlayerPrefs.GetFloat("SFXVolume", 1f));
@@ -161,7 +160,7 @@ public class SoundManager : MonoBehaviour
     public void SetSFXVolume(float volume)
     {
         SFXVolume = Mathf.Clamp01(volume);
-        ApplyVolumes(); // SFX 즉시 반영 추가
+        ApplyVolumes();
         PlayerPrefs.SetFloat("SFXVolume", SFXVolume);
     }
 
@@ -178,6 +177,7 @@ public class SoundManager : MonoBehaviour
 
     #region SFX 재생
 
+    // enum 기반 SFX 재생
     public void PlaySFX(SFXType type)
     {
         if (_sfxDict == null)
@@ -201,6 +201,24 @@ public class SoundManager : MonoBehaviour
         sfxSource.PlayOneShot(clip, MasterVolume * SFXVolume);
     }
 
+    // AudioClip 직접 전달받아 재생 (스킬별 개별 사운드용)
+    public void PlaySFX(AudioClip clip)
+    {
+        if (clip == null)
+        {
+            Debug.LogWarning("[SoundManager] PlaySFX 호출 시 clip이 null입니다.");
+            return;
+        }
+
+        if (sfxSource == null)
+        {
+            Debug.LogWarning("[SoundManager] SFX용 AudioSource가 할당되지 않았습니다.");
+            return;
+        }
+
+        sfxSource.PlayOneShot(clip, MasterVolume * SFXVolume);
+    }
+
     public void PlayClick()
     {
         PlaySFX(SFXType.Click);
@@ -211,11 +229,8 @@ public class SoundManager : MonoBehaviour
 
 public enum SFXType
 {
+    None,
     Click,
-    SkillCast,
-    SkillHit,
-    EnemyDie,
-    PlayerDie,
-    PartyMemberDie,
+    Die,
     MissionComplete,
 }
