@@ -39,11 +39,10 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private AudioClip battleBGM;
     [SerializeField] private AudioClip winBGM;
     [SerializeField] private AudioClip loseBGM;
+
     private enum BattleOutcome { None, Victory, Defeat }
     private BattleOutcome lastOutcome = BattleOutcome.None;
-
-    [Header("패배시 양호실 조명 켬")]
-    [SerializeField] private GameObject infirmaryLight;
+    private E_StageType lastEncounterStage = E_StageType.None;
 
     private void Awake()
     {
@@ -53,10 +52,9 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject); // 이미 존재하는 경우 중복 방지
+            Destroy(gameObject);
         }
 
-        // 테스트용 코드 삭제 예정
         if (!IsTesting) return;
 
         currentEncounter = new BattleEncounter(datas, E_StageType.Upper);
@@ -72,32 +70,29 @@ public class BattleManager : MonoBehaviour
 
         StartCoroutine(BattleDelay());
     }
+
     private IEnumerator BattleDelay()
     {
-        // 월드씬 조명 기억+ 끔
-        LightManager.Instance?.SnapshotForBattle();
-        LightManager.Instance?.DeactivateAll();
+        LightManager.Instance?.OnBattleStartSnapshot();
 
-        // 1. 페이드 인 (어두워지는 중)
+        // 1. 페이드 인
         yield return FadeScreen.Instance.FadeIn();
 
-        // 2. 완전히 어두워졌을 때 씬 로드 시작
+        // 2. 배틀씬 로드
         SceneLoader.MultipleLoadScene("BattleScene");
 
-        // 3. 카메라 전환 및 UI 숨김
+        // 3. 카메라/UI 전환
         WorldCamera.enabled = false;
         BattleCamera.enabled = true;
 
-        // BGM 재생
         if (battleBGM != null)
             SoundManager.Instance.PlayBGM(battleBGM, loop: true, fadeDuration: 1f);
 
         WorldCanvas.SetActive(false);
 
-        // (선택) 씬 로드 안정화 약간 대기
         yield return new WaitForSeconds(0.2f);
 
-        // 4. 페이드 아웃 (화면 밝아짐)
+        // 4. 페이드 아웃
         yield return FadeScreen.Instance.FadeOut();
     }
 
@@ -106,6 +101,7 @@ public class BattleManager : MonoBehaviour
         lastOutcome = BattleOutcome.Victory;
         StartCoroutine(WinRoutine());
     }
+
     public void Lose()
     {
         lastOutcome = BattleOutcome.Defeat;
@@ -114,11 +110,10 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator WinRoutine()
     {
-        // 승리 브금 재생
         if (winBGM != null)
             SoundManager.Instance.PlayBGM(winBGM, loop: false, fadeDuration: 0.5f);
 
-        List<MonsterData> monsters = CurrentEncounter.Monsters.ToList();
+        var monsters = CurrentEncounter.Monsters.ToList();
         List<BaseItem> dropItems = new List<BaseItem>();
 
         int totalYp = 0;
@@ -154,12 +149,12 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator LoseRoutine()
     {
-        // 패배 브금 재생
         if (loseBGM != null)
             SoundManager.Instance.PlayBGM(loseBGM, loop: false, fadeDuration: 0.5f);
 
         yield return new WaitForSeconds(1f);
 
+        // 패배 UI 재사용 중이면 유지
         RewardUI.ShowWinUI(null, 0, 0);
     }
 
@@ -169,7 +164,7 @@ public class BattleManager : MonoBehaviour
         {
             var vcam = FindObjectOfType<CinemachineVirtualCamera>();
             var confiner = vcam.GetComponent<CinemachineConfiner2D>();
-            PlayerStatus playerStatus = GameManager.player;   
+            PlayerStatus playerStatus = GameManager.player;
 
             Vector2 vec = hospital;
             vec.y -= 0.5f;
@@ -200,16 +195,15 @@ public class BattleManager : MonoBehaviour
         SoundManager.Instance.StopBGM();
         SceneLoader.UnloadScene("BattleScene");
 
-        // 결과별 라이트 복원
-        if (lastOutcome == BattleOutcome.Victory)
-        {
-            LightManager.Instance?.RestoreAfterVictory();
-        }
-        else if (lastOutcome == BattleOutcome.Defeat)
-        {
-            LightManager.Instance?.RestoreAfterDefeat(infirmaryLight);
-        }
+        // 조명 복귀/적용은 LightManager가 전담
+        var stage = lastEncounterStage;
+        LightManager.Instance?.OnBattleEnd(isWin, stage);
 
         lastOutcome = BattleOutcome.None;
+    }
+
+    public void SetEncounterStage(E_StageType stage)
+    {
+        lastEncounterStage = stage;
     }
 }
