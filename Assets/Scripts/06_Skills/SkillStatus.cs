@@ -43,7 +43,9 @@ public class SkillStatus
     {
         if (!CanCast(caster)) return;
 
-        caster.stat.SetCurrentMana(-data.Cost);
+        CharacterStats stat = caster.stat;
+
+        stat.SetCurrentMana(stat.CurrentMana - data.Cost);
         curCooldown = data.Cooldown;
     }
 

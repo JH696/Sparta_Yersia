@@ -24,44 +24,41 @@ public class B_StatGauge : MonoBehaviour
 
     public void SetGauges(B_Slot slot, E_SizeType size)
     {
+        // 이벤트 중복 방지
+        if (this.slot != null)
+            this.slot.Character.stat.StatusChanged -= RefreshGauge;
+
         this.slot = slot;
         slot.Character.stat.StatusChanged += RefreshGauge;
 
         RefreshGauge();
-        this.gameObject.SetActive(true);
+        gameObject.SetActive(true);
 
-        // RectTransform 가져오기
+        // 필수 컴포넌트
         Canvas canvas = GetComponentInParent<Canvas>();
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();
         RectTransform thisRect = GetComponent<RectTransform>();
 
-        // 월드 좌표 → 스크린 좌표
-        Vector2 screenPos = BattleManager.Instance.BattleCamera.WorldToScreenPoint(slot.transform.position);
+        // 월드→스크린: 반드시 '해당 오브젝트를 그리는 월드 카메라' 사용
+        Camera worldCam = BattleManager.Instance.BattleCamera;
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(worldCam, slot.transform.position);
 
-        float y = 0f;
-
-        switch (size)
+        // 픽셀 기준 Y 오프셋
+        float y = size switch
         {
-            case E_SizeType.Small:
-                y = 200f;
-                break;
-            case E_SizeType.Medium:
-                y = 325f;
-                break;
-            case E_SizeType.Large:
-                y = 450f;
-                break;
-        }
-
+            E_SizeType.Small => 125f,
+            E_SizeType.Medium => 125f,
+            _ => 200f
+        };
         screenPos.y += y;
 
-        // 사용할 카메라 가져오기 (Canvas에 설정된 Render Camera)
-        Camera renderCam = (canvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : canvas.worldCamera;
+        // 스크린→캔버스 로컬: Screen Space - Overlay면 cam=null, Camera/World면 canvas.worldCamera
+        Camera uiCam = (canvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : canvas.worldCamera;
 
-        // 스크린 좌표 → 캔버스 로컬 좌표
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, renderCam, out Vector2 localPoint))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, uiCam, out var localPoint))
         {
-            thisRect.localPosition = localPoint;
+            // 카메라 스케일(Scale With Screen Size)일 땐 anchoredPosition을 써야 스케일러가 자동 반영됩니다.
+            thisRect.anchoredPosition = localPoint;
         }
     }
 

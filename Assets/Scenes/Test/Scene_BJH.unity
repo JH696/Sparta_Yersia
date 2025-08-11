@@ -3392,7 +3392,8 @@ MonoBehaviour:
   questIcon: {fileID: 505997308}
   AssignerQuests: []
   ReceiverQuests: []
-  isTeacher: 1
+  IsTeacher: 0
+  IsNurse: 0
 --- !u!212 &103951454
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12544,6 +12545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetLayerName: Default
+  feetYOffset: 0
   verticalSamples: 20
 --- !u!95 &299391153
 Animator:
@@ -23457,7 +23459,8 @@ MonoBehaviour:
   questIcon: {fileID: 1362007859}
   AssignerQuests: []
   ReceiverQuests: []
-  isTeacher: 1
+  IsTeacher: 0
+  IsNurse: 0
 --- !u!212 &330220597
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -50778,7 +50781,8 @@ MonoBehaviour:
   questIcon: {fileID: 1094533616}
   AssignerQuests: []
   ReceiverQuests: []
-  isTeacher: 1
+  IsTeacher: 0
+  IsNurse: 0
 --- !u!212 &618109614
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -74814,7 +74818,8 @@ MonoBehaviour:
   questIcon: {fileID: 969534787}
   AssignerQuests: []
   ReceiverQuests: []
-  isTeacher: 1
+  IsTeacher: 0
+  IsNurse: 0
 --- !u!212 &772693708
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -86088,11 +86093,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c462332659e624ba4286cde950f28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcData: {fileID: 11400000, guid: 7b89b9c9ae1ab3c44a603177dad07e8b, type: 2}
+  npcData: {fileID: 11400000, guid: e5a77d58e645e904aac0108614cae5e5, type: 2}
   questIcon: {fileID: 1832174267}
   AssignerQuests: []
   ReceiverQuests: []
-  isTeacher: 0
+  IsTeacher: 0
+  IsNurse: 1
 --- !u!212 &958364609
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -87477,12 +87483,15 @@ MonoBehaviour:
   battleCamera: {fileID: 1844443966}
   WorldCamera: {fileID: 1122202975}
   WorldCanvas: {fileID: 1280852863}
+  player: {fileID: 0}
   RewardUI: {fileID: 0}
+  hospital: {x: -22.5, y: 0.9}
   currentEncounter:
     Monsters: []
     Stage: 0
   IsTesting: 0
   datas: []
+  roomBounds: {fileID: 1028445916}
   battleBGM: {fileID: 0}
   winBGM: {fileID: 0}
   loseBGM: {fileID: 0}
@@ -111435,7 +111444,8 @@ MonoBehaviour:
   questIcon: {fileID: 437974699}
   AssignerQuests: []
   ReceiverQuests: []
-  isTeacher: 0
+  IsTeacher: 0
+  IsNurse: 0
 --- !u!212 &1178499918
 SpriteRenderer:
   m_ObjectHideFlags: 0
