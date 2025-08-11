@@ -39,8 +39,12 @@ public class ItemStatus
     public void StackItem(int count)
     {
         if (IsFull) return;
+        Stack = Mathf.Min(Stack + count, Data.MaxStack); // MaxStack 초과 방지
+        StatusChanged?.Invoke();
 
-        Stack += count;
+        // 상점 추가로 인한 수정, 확인 후 문제시 위 삭제 후 아래 주석 해제
+        //if (IsFull) return;
+        //Stack += count;
     }
 
     /// <summary>

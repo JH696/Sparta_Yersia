@@ -35,9 +35,15 @@ public class BattleManager : MonoBehaviour
     public event System.Action OnBattleEnded;
     public Camera BattleCamera => battleCamera;
 
+    [Header("사운드")]
     [SerializeField] private AudioClip battleBGM;
     [SerializeField] private AudioClip winBGM;
     [SerializeField] private AudioClip loseBGM;
+    private enum BattleOutcome { None, Victory, Defeat }
+    private BattleOutcome lastOutcome = BattleOutcome.None;
+
+    [Header("패배시 양호실 조명 켬")]
+    [SerializeField] private GameObject infirmaryLight;
 
     private void Awake()
     {
@@ -68,6 +74,10 @@ public class BattleManager : MonoBehaviour
     }
     private IEnumerator BattleDelay()
     {
+        // 월드씬 조명 기억+ 끔
+        LightManager.Instance?.SnapshotForBattle();
+        LightManager.Instance?.DeactivateAll();
+
         // 1. 페이드 인 (어두워지는 중)
         yield return FadeScreen.Instance.FadeIn();
 
@@ -93,10 +103,12 @@ public class BattleManager : MonoBehaviour
 
     public void Win()
     {
+        lastOutcome = BattleOutcome.Victory;
         StartCoroutine(WinRoutine());
     }
     public void Lose()
     {
+        lastOutcome = BattleOutcome.Defeat;
         StartCoroutine(LoseRoutine());
     }
 
@@ -181,13 +193,23 @@ public class BattleManager : MonoBehaviour
         }
 
         OnBattleEnded?.Invoke();
+
         BattleCamera.enabled = false;
         WorldCamera.enabled = true;
-
         WorldCanvas.SetActive(true);
-
         SoundManager.Instance.StopBGM();
-
         SceneLoader.UnloadScene("BattleScene");
+
+        // 결과별 라이트 복원
+        if (lastOutcome == BattleOutcome.Victory)
+        {
+            LightManager.Instance?.RestoreAfterVictory();
+        }
+        else if (lastOutcome == BattleOutcome.Defeat)
+        {
+            LightManager.Instance?.RestoreAfterDefeat(infirmaryLight);
+        }
+
+        lastOutcome = BattleOutcome.None;
     }
 }

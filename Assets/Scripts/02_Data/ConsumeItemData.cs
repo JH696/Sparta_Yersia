@@ -32,9 +32,23 @@ public class ConsumeItemData : BaseItem
                 case EStatType.MaxMana:
                     consumer.RecoverMana(v.Value);
                     break;
+
+                // 임시: 나머지는 추가 능력치로 적용
+                case EStatType.Attack:
+                case EStatType.Defense:
+                case EStatType.Luck:
+                case EStatType.Speed:
+                    consumer.stat.IncreaseBonusStat(v.Stat, v.Value);
+                    break;
+
                 default:
-                    Debug.LogWarning($"[ConsumeItemData] 지원하지 않는 능력치 입니다.");
-                    return;
+                    Debug.LogWarning("[ConsumeItemData] 지원하지 않는 능력치입니다.");
+                    continue; // return이 아니라 계속 처리
+
+                // 상점 추가로 인한 수정, 확인 후 문제시 위 삭제 후 아래 주석 해제
+                //default:
+                //    Debug.LogWarning($"[ConsumeItemData] 지원하지 않는 능력치 입니다.");
+                //    return;
             }
         }
     }
