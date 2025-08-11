@@ -11518,6 +11518,7 @@ MonoBehaviour:
   destinationName: "\uC591\uD638\uC2E4"
   petSpawnPoints: []
   roomBounds: {fileID: 980709474}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &202696066
 GameObject:
   m_ObjectHideFlags: 0
@@ -12162,7 +12163,7 @@ MonoBehaviour:
   AssignerQuests: []
   ReceiverQuests: []
   IsTeacher: 0
-  IsNurse: 0
+  IsNurse: 1
 --- !u!212 &226380202
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16127,7 +16128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &389145802
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23879,6 +23880,7 @@ MonoBehaviour:
   destinationName: "\uC2DD\uB2F9"
   petSpawnPoints: []
   roomBounds: {fileID: 39650704}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &458033414
 GameObject:
   m_ObjectHideFlags: 0
@@ -25907,7 +25909,7 @@ MonoBehaviour:
   questIcon: {fileID: 788393982}
   AssignerQuests: []
   ReceiverQuests: []
-  IsTeacher: 0
+  IsTeacher: 1
   IsNurse: 0
 --- !u!212 &509954359
 SpriteRenderer:
@@ -31416,6 +31418,7 @@ MonoBehaviour:
   destinationName: "2\uCE35 \uBCF5\uB3C4"
   petSpawnPoints: []
   roomBounds: {fileID: 79360174}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &533186902
 GameObject:
   m_ObjectHideFlags: 0
@@ -41048,7 +41051,7 @@ MonoBehaviour:
   questIcon: {fileID: 1908624710}
   AssignerQuests: []
   ReceiverQuests: []
-  IsTeacher: 0
+  IsTeacher: 1
   IsNurse: 0
 --- !u!212 &846224141
 SpriteRenderer:
@@ -46129,6 +46132,7 @@ MonoBehaviour:
   destinationName: "\uC9C0\uD558 2\uCE35"
   petSpawnPoints: []
   roomBounds: {fileID: 986195306}
+  extraObjectToActivate: {fileID: 176443691}
 --- !u!1 &865669381
 GameObject:
   m_ObjectHideFlags: 0
@@ -47286,6 +47290,7 @@ GameObject:
   - component: {fileID: 913372709}
   - component: {fileID: 913372706}
   - component: {fileID: 913372708}
+  - component: {fileID: 913372713}
   - component: {fileID: 913372710}
   - component: {fileID: 913372711}
   - component: {fileID: 913372712}
@@ -47593,6 +47598,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &913372713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913372703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb45ffc8a1b6a849809aa89ec9d5239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &919598387
 GameObject:
   m_ObjectHideFlags: 0
@@ -53293,6 +53310,7 @@ MonoBehaviour:
   destinationName: "\uC9C0\uD558 3\uCE35"
   petSpawnPoints: []
   roomBounds: {fileID: 745708656}
+  extraObjectToActivate: {fileID: 1322371773}
 --- !u!1 &952372881
 GameObject:
   m_ObjectHideFlags: 0
@@ -62521,6 +62539,7 @@ MonoBehaviour:
   destinationName: "1\uCE35 \uB85C\uBE44"
   petSpawnPoints: []
   roomBounds: {fileID: 1106020718}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &1113243249
 GameObject:
   m_ObjectHideFlags: 0
@@ -67927,6 +67946,7 @@ MonoBehaviour:
   destinationName: "2\uCE35 \uBCF5\uB3C4"
   petSpawnPoints: []
   roomBounds: {fileID: 79360174}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &1135136592
 GameObject:
   m_ObjectHideFlags: 0
@@ -74832,6 +74852,7 @@ MonoBehaviour:
   destinationName: "\uD654\uC5FC \uB9C8\uBC95 \uAD50\uC2E4"
   petSpawnPoints: []
   roomBounds: {fileID: 1897549302}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &1211099423
 GameObject:
   m_ObjectHideFlags: 0
@@ -84963,6 +84984,7 @@ MonoBehaviour:
   destinationName: "1\uCE35 \uB85C\uBE44"
   petSpawnPoints: []
   roomBounds: {fileID: 1106020718}
+  extraObjectToActivate: {fileID: 652583372}
 --- !u!1 &1367392647
 GameObject:
   m_ObjectHideFlags: 0
@@ -94379,6 +94401,7 @@ MonoBehaviour:
   destinationName: "2\uCE35 \uBCF5\uB3C4"
   petSpawnPoints: []
   roomBounds: {fileID: 79360174}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &1540103746
 GameObject:
   m_ObjectHideFlags: 0
@@ -100145,6 +100168,7 @@ MonoBehaviour:
   destinationName: "2\uCE35 \uBCF5\uB3C4"
   petSpawnPoints: []
   roomBounds: {fileID: 79360174}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &1581290233
 GameObject:
   m_ObjectHideFlags: 0
@@ -100232,7 +100256,7 @@ MonoBehaviour:
   questIcon: {fileID: 554488860}
   AssignerQuests: []
   ReceiverQuests: []
-  IsTeacher: 0
+  IsTeacher: 1
   IsNurse: 0
 --- !u!212 &1581290237
 SpriteRenderer:
@@ -107514,6 +107538,7 @@ MonoBehaviour:
   destinationName: "\uC9C0\uD558 2\uCE35"
   petSpawnPoints: []
   roomBounds: {fileID: 986195306}
+  extraObjectToActivate: {fileID: 176443691}
 --- !u!1 &1624594982
 GameObject:
   m_ObjectHideFlags: 0
@@ -111238,7 +111263,7 @@ MonoBehaviour:
   questIcon: {fileID: 1035535002}
   AssignerQuests: []
   ReceiverQuests: []
-  IsTeacher: 0
+  IsTeacher: 1
   IsNurse: 0
 --- !u!212 &1739884690
 SpriteRenderer:
@@ -111679,7 +111704,7 @@ MonoBehaviour:
   battleCamera: {fileID: 804107756}
   WorldCamera: {fileID: 1891381751}
   WorldCanvas: {fileID: 430858058}
-  player: {fileID: 0}
+  player: {fileID: 332436638}
   RewardUI: {fileID: 0}
   hospital: {x: 0, y: 0}
   currentEncounter:
@@ -111691,6 +111716,7 @@ MonoBehaviour:
   battleBGM: {fileID: 8300000, guid: a9da4667e2b42ff49ab3b965a929e18d, type: 3}
   winBGM: {fileID: 8300000, guid: 830ab87c6dd95584282a5238c1c3dc0d, type: 3}
   loseBGM: {fileID: 8300000, guid: 8461528af24481941a8eba47c90a1f07, type: 3}
+  infirmaryLight: {fileID: 1721836481}
 --- !u!4 &1755865756
 Transform:
   m_ObjectHideFlags: 0
@@ -117199,6 +117225,7 @@ MonoBehaviour:
   destinationName: "\uC9C0\uD558 1\uCE35"
   petSpawnPoints: []
   roomBounds: {fileID: 265810482}
+  extraObjectToActivate: {fileID: 1864316157}
 --- !u!1 &1785467964
 GameObject:
   m_ObjectHideFlags: 0
@@ -122114,6 +122141,7 @@ MonoBehaviour:
   destinationName: "\uC9C0\uD558 1\uCE35"
   petSpawnPoints: []
   roomBounds: {fileID: 265810482}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &1792532740
 GameObject:
   m_ObjectHideFlags: 0
@@ -129570,6 +129598,7 @@ MonoBehaviour:
   destinationName: "\uBB3C\uB9AC \uB9C8\uBC95 \uAD50\uC2E4"
   petSpawnPoints: []
   roomBounds: {fileID: 453070643}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1001 &1864316155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -134761,6 +134790,7 @@ MonoBehaviour:
   destinationName: "\uC790\uC5F0 \uB9C8\uBC95 \uAD50\uC2E4"
   petSpawnPoints: []
   roomBounds: {fileID: 669799539}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &1887677112
 GameObject:
   m_ObjectHideFlags: 0
@@ -141057,6 +141087,7 @@ MonoBehaviour:
   destinationName: "2\uCE35 \uBCF5\uB3C4"
   petSpawnPoints: []
   roomBounds: {fileID: 79360174}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &1934854592
 GameObject:
   m_ObjectHideFlags: 0
@@ -147399,6 +147430,7 @@ MonoBehaviour:
   destinationName: "1\uCE35 \uB85C\uBE44"
   petSpawnPoints: []
   roomBounds: {fileID: 1106020718}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &2003709729
 GameObject:
   m_ObjectHideFlags: 0
@@ -148800,7 +148832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2049256224
 RectTransform:
   m_ObjectHideFlags: 0
@@ -155985,6 +156017,7 @@ MonoBehaviour:
   destinationName: "\uC5BC\uC74C \uB9C8\uBC95 \uAD50\uC2E4"
   petSpawnPoints: []
   roomBounds: {fileID: 40772234}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &2138525460
 GameObject:
   m_ObjectHideFlags: 0
@@ -161018,6 +161051,7 @@ MonoBehaviour:
   destinationName: "1\uCE35 \uB85C\uBE44"
   petSpawnPoints: []
   roomBounds: {fileID: 1106020718}
+  extraObjectToActivate: {fileID: 0}
 --- !u!1 &2142006236
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,9 @@ public class Portal : MonoBehaviour, IInteractable
     [Header("해당 포탈로 통하는 방의 카메라 Bounds")]
     [SerializeField] private PolygonCollider2D roomBounds;
 
+    [Header("도착 시 켤 라이트/오브젝트")]
+    [SerializeField] private GameObject extraObjectToActivate;
+
     private bool isTeleporting = false;
 
     public void Interact(GameObject interactor)
@@ -58,6 +61,8 @@ public class Portal : MonoBehaviour, IInteractable
 
         yield return FadeScreen.Instance.FadeIn();
 
+        LightManager.Instance?.DeactivateAll();
+
         Vector2 vec = Destination.position;
         vec.y -= 0.5f;
         target.position = vec;
@@ -90,8 +95,12 @@ public class Portal : MonoBehaviour, IInteractable
             }
         }
 
-        yield return FadeScreen.Instance.FadeOut();
+        if (extraObjectToActivate != null)
+        {
+            LightManager.Instance?.Activate(extraObjectToActivate);
+        }
 
+        yield return FadeScreen.Instance.FadeOut();
         isTeleporting = false;
     }
 
