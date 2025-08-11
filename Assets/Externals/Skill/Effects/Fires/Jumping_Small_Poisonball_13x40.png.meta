@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 10
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,9 +70,9 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -134,7 +134,1267 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 206
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 550fa59a46e1ee147980103e47b39245
+      internalID: 827208858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_1
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 206
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed2bd282255c6f848a9126212dd4ce2c
+      internalID: -147391378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_2
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 206
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f581819a2730b654eb922bcf1cae5a25
+      internalID: 1050298166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_3
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 206
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ac696167ef51ee4d939ddd37b012e11
+      internalID: -1529250076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_4
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 206
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca3c86b7b401001489640964b68a341e
+      internalID: -917426788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_5
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 206
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 604001a361abb554fa93493579c4732f
+      internalID: 1767773180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_6
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 206
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ade48b5404d42c408e2a3af81765f61
+      internalID: -323039281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_7
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 206
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9e1dad56a9c19844863bfbef0641c12
+      internalID: -959682910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_8
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 206
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 585f30d07c00bfe4cb0573fb6d324182
+      internalID: 344586524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_9
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 206
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb4c11fd1cbc5b945b24285ce3d6d94c
+      internalID: 732830409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 166
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b5d83f51a963f141871461af765ec3b
+      internalID: -1008650036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_11
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 166
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f46bf05725128eb4b9644bc50e698575
+      internalID: -240630738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_12
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 166
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4122b9691f628345a6bd7ada2bdf087
+      internalID: -542354984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_13
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 166
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c01ea3b64db412443919e3951563a87e
+      internalID: 532497198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_14
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 166
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32359cbebba61ef4ab24922b9f3a6dd7
+      internalID: -1914249721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_15
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 166
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f744fc1e7ad0e7a4aaf17d0df36af6c7
+      internalID: 1627228969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_16
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 166
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 761e6f245c75e124c81fc4070e6a4fc1
+      internalID: -824260862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_17
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 166
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e617c872bc01e14fa8c7fa5e4c69f36
+      internalID: -616609003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_18
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 166
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5562993813dea14c8ec437f8adbeeee
+      internalID: -1826785814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_19
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 166
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 734b5151537fb2540a03177aac567d7b
+      internalID: -707424828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 126
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbdab402cb9c0f741b22d2cbe4c93bd8
+      internalID: -664814589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_21
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 126
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bdf1a231de1b6840b5a2dada0a46a6e
+      internalID: 467114099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_22
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 126
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da418fa0b70a1ad4dad211d6e67fb0cd
+      internalID: 331348757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_23
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 126
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9897482716a9a294c8c87a986d0d8e5a
+      internalID: 103916606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_24
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 126
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fdd609ebed180f479744cc3e6483c0a
+      internalID: 526542831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_25
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 126
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1276aedc91ad5a44a922b37eb537976
+      internalID: -1929804608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_26
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 126
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ee172c5a4ef6554cb6635088e169339
+      internalID: 321019743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_27
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 126
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c22e5ff8f768f545a16636b7efe1baf
+      internalID: -2119082178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_28
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 126
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad51661ac9e132942aa429f74843e4df
+      internalID: -1950422016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_29
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 126
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d1536f964c098c4984bb2336a9b9eff
+      internalID: 518757148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 86
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6862e74ac8f9fb4db9ce7bf0c36cd8e
+      internalID: 1936260253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_31
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 86
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54816f8763678884583177d19d06b5aa
+      internalID: 1611960495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_32
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 86
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06b463ddd56a61244b97925c1ecd1919
+      internalID: -1728543832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_33
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 86
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d3e97e8bdab1654a9fcb384129a8b11
+      internalID: 1559879064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_34
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 86
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54f11b7f647e8cc47a54947924abc971
+      internalID: 1753553870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_35
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 86
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77b1e9cd24620734b8c46029bbd8b261
+      internalID: -142969443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_36
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 86
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e07ba8a82888534083688b9c9ed514d
+      internalID: -375324928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_37
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 86
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19e3514d6d3074b4e83a1ded25ffaefa
+      internalID: 728758879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_38
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 86
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6540f500e30a5241bf78f88067657ea
+      internalID: 476147134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_39
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 86
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e68e09ca2fd59f24682808922f21b9e0
+      internalID: -1967211368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 46
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adfed1f21b878764ab1571d7a57e4a0e
+      internalID: 570933891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_41
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 46
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c377868e14a8fc4985f0b3a5724c129
+      internalID: -1942977418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_42
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 46
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6eecdb1907453ff42a0ef83ddf5f0d45
+      internalID: -351600023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_43
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 46
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1088cf67d65d8745a7a1debd08b7dd0
+      internalID: -380708651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_44
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 46
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca2e4a8accbb5034f9b31aab14fdec4a
+      internalID: -2099988318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_45
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 46
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3765dda92babcd4386eee8a21e2c673
+      internalID: 1384855762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_46
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 46
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ed7334a44bc56648b46d04b42005796
+      internalID: -2045470096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_47
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 46
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c47043c99d639a49813297d8680c619
+      internalID: -483809771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_48
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 46
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 638c6adbe79ad034da211e8b8a6068ba
+      internalID: 387707041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_49
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 46
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eacc067cbd4c62d44846b9d75f9d3854
+      internalID: 799713468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01e53f1857eea0e40887d69457ddec11
+      internalID: -1562207208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_51
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 6
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eb518648980778448a47fd5aece5a56
+      internalID: 766961165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_52
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 6
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 522911105020a2f479fa08f86fba3060
+      internalID: 1333112273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_53
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 6
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 338953d04327c75449098c58e46806d0
+      internalID: 492311673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_54
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 6
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ced993ff6790f954b953d9b2643a6064
+      internalID: -2082182653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_55
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 6
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9cee5e42172b794db7d3e6e32531734
+      internalID: -1132825146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_56
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 6
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98120f9fc48ed484cb4015d34bbc0ba5
+      internalID: -1428509135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_57
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 6
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d58292ccde44fc54fbbe2e95178913fd
+      internalID: 1051118030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_58
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 6
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bd2c58a7a433a9439a7188cdffa639e
+      internalID: -1960152675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jumping_Small_Poisonball_13x40_59
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 6
+        width: 13
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3494dbce8d837c47a358a12942cdbc0
+      internalID: 714294811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +1405,67 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Jumping_Small_Poisonball_13x40_0: 827208858
+      Jumping_Small_Poisonball_13x40_1: -147391378
+      Jumping_Small_Poisonball_13x40_10: -1008650036
+      Jumping_Small_Poisonball_13x40_11: -240630738
+      Jumping_Small_Poisonball_13x40_12: -542354984
+      Jumping_Small_Poisonball_13x40_13: 532497198
+      Jumping_Small_Poisonball_13x40_14: -1914249721
+      Jumping_Small_Poisonball_13x40_15: 1627228969
+      Jumping_Small_Poisonball_13x40_16: -824260862
+      Jumping_Small_Poisonball_13x40_17: -616609003
+      Jumping_Small_Poisonball_13x40_18: -1826785814
+      Jumping_Small_Poisonball_13x40_19: -707424828
+      Jumping_Small_Poisonball_13x40_2: 1050298166
+      Jumping_Small_Poisonball_13x40_20: -664814589
+      Jumping_Small_Poisonball_13x40_21: 467114099
+      Jumping_Small_Poisonball_13x40_22: 331348757
+      Jumping_Small_Poisonball_13x40_23: 103916606
+      Jumping_Small_Poisonball_13x40_24: 526542831
+      Jumping_Small_Poisonball_13x40_25: -1929804608
+      Jumping_Small_Poisonball_13x40_26: 321019743
+      Jumping_Small_Poisonball_13x40_27: -2119082178
+      Jumping_Small_Poisonball_13x40_28: -1950422016
+      Jumping_Small_Poisonball_13x40_29: 518757148
+      Jumping_Small_Poisonball_13x40_3: -1529250076
+      Jumping_Small_Poisonball_13x40_30: 1936260253
+      Jumping_Small_Poisonball_13x40_31: 1611960495
+      Jumping_Small_Poisonball_13x40_32: -1728543832
+      Jumping_Small_Poisonball_13x40_33: 1559879064
+      Jumping_Small_Poisonball_13x40_34: 1753553870
+      Jumping_Small_Poisonball_13x40_35: -142969443
+      Jumping_Small_Poisonball_13x40_36: -375324928
+      Jumping_Small_Poisonball_13x40_37: 728758879
+      Jumping_Small_Poisonball_13x40_38: 476147134
+      Jumping_Small_Poisonball_13x40_39: -1967211368
+      Jumping_Small_Poisonball_13x40_4: -917426788
+      Jumping_Small_Poisonball_13x40_40: 570933891
+      Jumping_Small_Poisonball_13x40_41: -1942977418
+      Jumping_Small_Poisonball_13x40_42: -351600023
+      Jumping_Small_Poisonball_13x40_43: -380708651
+      Jumping_Small_Poisonball_13x40_44: -2099988318
+      Jumping_Small_Poisonball_13x40_45: 1384855762
+      Jumping_Small_Poisonball_13x40_46: -2045470096
+      Jumping_Small_Poisonball_13x40_47: -483809771
+      Jumping_Small_Poisonball_13x40_48: 387707041
+      Jumping_Small_Poisonball_13x40_49: 799713468
+      Jumping_Small_Poisonball_13x40_5: 1767773180
+      Jumping_Small_Poisonball_13x40_50: -1562207208
+      Jumping_Small_Poisonball_13x40_51: 766961165
+      Jumping_Small_Poisonball_13x40_52: 1333112273
+      Jumping_Small_Poisonball_13x40_53: 492311673
+      Jumping_Small_Poisonball_13x40_54: -2082182653
+      Jumping_Small_Poisonball_13x40_55: -1132825146
+      Jumping_Small_Poisonball_13x40_56: -1428509135
+      Jumping_Small_Poisonball_13x40_57: 1051118030
+      Jumping_Small_Poisonball_13x40_58: -1960152675
+      Jumping_Small_Poisonball_13x40_59: 714294811
+      Jumping_Small_Poisonball_13x40_6: -323039281
+      Jumping_Small_Poisonball_13x40_7: -959682910
+      Jumping_Small_Poisonball_13x40_8: 344586524
+      Jumping_Small_Poisonball_13x40_9: 732830409
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

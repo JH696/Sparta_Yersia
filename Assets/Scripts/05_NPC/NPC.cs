@@ -16,9 +16,8 @@ public class NPC : MonoBehaviour, IInteractable
     [Header("진행 중인 퀘스트")]
     [SerializeField] private List<QuestData> ReceiverQuests;
 
-    [SerializeField] private bool isTeacher = false;
-
-    public bool IsTeacher => isTeacher;
+    public bool IsTeacher;
+    public bool IsNurse;
 
     private void Awake()
     {

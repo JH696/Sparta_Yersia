@@ -176,7 +176,7 @@ public class TriggerMonster : MonoBehaviour
         {
             OnTrigged?.Invoke();
             BattleEncounter encounter = new BattleEncounter(monsters, nowStage);
-            StartCoroutine(BattleManager.Instance.StartBattle(encounter));
+            StartCoroutine(BattleManager.Instance.StartBattle(encounter, other.gameObject));
             Destroy(gameObject);
         }
         else

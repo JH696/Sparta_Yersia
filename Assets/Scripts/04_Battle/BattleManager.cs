@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
@@ -12,8 +13,12 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Camera WorldCamera;
     [SerializeField] private GameObject WorldCanvas;
 
+    public GameObject player;
+
     [Header("리워드 UI (자동 참조)")]
     public B_RewardUI RewardUI;
+
+    public Vector2 hospital;
 
     [SerializeField] private BattleEncounter currentEncounter;
 
@@ -21,19 +26,16 @@ public class BattleManager : MonoBehaviour
     public bool IsTesting;
     public MonsterData[] datas = new MonsterData[4];
 
+    [Header("해당 포탈로 통하는 방의 카메라 Bounds")]
+    [SerializeField] private PolygonCollider2D roomBounds;
+
     public BattleEncounter CurrentEncounter => currentEncounter;
 
     public event System.Action OnBattleStarted;
     public event System.Action OnBattleEnded;
     public Camera BattleCamera => battleCamera;
 
-    //[Header("임시 위치")]
-    //public float startSize = 4f;
-    //public float endSize = 1f;
-    //public float zoomDuration = 0.5f;
-
     [SerializeField] private AudioClip battleBGM;
-
     [SerializeField] private AudioClip winBGM;
     [SerializeField] private AudioClip loseBGM;
 
@@ -54,8 +56,9 @@ public class BattleManager : MonoBehaviour
         currentEncounter = new BattleEncounter(datas, E_StageType.Upper);
     }
 
-    public IEnumerator StartBattle(BattleEncounter encounter)
+    public IEnumerator StartBattle(BattleEncounter encounter, GameObject player)
     {
+        this.player = player ?? gameObject;
         currentEncounter = encounter;
         OnBattleStarted?.Invoke();
 
@@ -148,8 +151,28 @@ public class BattleManager : MonoBehaviour
         RewardUI.ShowWinUI(null, 0, 0);
     }
 
-    public void QuitBattle()
+    public void QuitBattle(bool isWin)
     {
+        if (!isWin)
+        {
+            var vcam = FindObjectOfType<CinemachineVirtualCamera>();
+            var confiner = vcam.GetComponent<CinemachineConfiner2D>();
+
+            Vector2 vec = hospital;
+            vec.y -= 0.5f;
+            player.transform.position = vec;
+
+            Vector3 oldPos = player.transform.position;
+            confiner.m_BoundingShape2D = roomBounds;
+            confiner.InvalidateCache();
+
+            Vector3 displacement = player.transform.position - oldPos;
+            vcam.OnTargetObjectWarped(player.transform, displacement);
+
+            player.transform.position = hospital;
+            GameManager.player.Revive();
+        }
+
         OnBattleEnded?.Invoke();
         BattleCamera.enabled = false;
         WorldCamera.enabled = true;

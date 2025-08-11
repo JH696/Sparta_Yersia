@@ -19,7 +19,7 @@ public abstract class CharacterStatus
 
     public virtual void TakeDamage(float amount)
     {
-        stat.SetCurrentHp(-amount);
+        stat.SetCurrentHp(stat.CurrentHp - amount);
 
         TakeDamaged?.Invoke();
 
@@ -37,12 +37,20 @@ public abstract class CharacterStatus
         Debug.Log($"{this} 사망."); 
     }
 
+    public void Revive()
+    {
+        if (!IsDead) return;
+        
+        stat.SetCurrentHp(1);
+        stat.SetCurrentMana(0);
+    }
+
     // 체력 회복
     public void RecoverHealth(float amount)
     {
         if (IsDead) return;
 
-        stat.SetCurrentHp(amount);
+        stat.SetCurrentHp(stat.MaxHp + amount);
     }
 
     // 마나 회복
@@ -50,7 +58,7 @@ public abstract class CharacterStatus
     {
         if (IsDead) return;
 
-        stat.SetCurrentMana(amount);
+        stat.SetCurrentMana(stat.MaxMana + amount);
     }
 
     public virtual Sprite GetWSprite()

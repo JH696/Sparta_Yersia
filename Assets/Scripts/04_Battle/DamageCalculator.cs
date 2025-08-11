@@ -19,6 +19,8 @@ public class DamageCalculator
         float power = skill == null? atk : atk * skill.Power;
         float finalDamage = power - (target.Defense * 0.5f);
 
+        finalDamage = Mathf.Round(finalDamage * 100f) / 100f;
+
         return finalDamage;
     }
 
