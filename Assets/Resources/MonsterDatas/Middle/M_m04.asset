@@ -12,29 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f31c11c4d16c149a6db51bb4968c56, type: 3}
   m_Name: M_m04
   m_EditorClassIdentifier: 
-  maxHp: 125
+  maxHp: 100
   maxMana: 100
-  attack: 25
-  defense: 10
+  attack: 20
+  defense: 7
   luck: 5
-  speed: 12
+  speed: 17.5
   Multiplier: 0
   MonsterID: M_n04
-  MonsterName: "\uD749\uD3EC\uD55C \uACE8\uB818"
+  MonsterName: "\uC5BC\uC74C \uC2AC\uB77C\uC784"
   StageType: 2
   Size: 1
   startSkills:
-  - {fileID: 11400000, guid: 6623b5c7106b6c74e9b81517ed28cf80, type: 2}
+  - {fileID: 11400000, guid: 194e66deb58e3b74caf32467e888ca75, type: 2}
+  - {fileID: 11400000, guid: b470010c41f79f4468201a4934920346, type: 2}
   ypDrop: 30
   expDrop: 80
   dropItems:
   - itemData: {fileID: 11400000, guid: 4d98672e3c675254a89017ac9a338c34, type: 2}
     dropRate: 0.05
   BattleVisuals:
-    Stand: {fileID: 1244755020, guid: 7fe61bdbc92ac0d4b88d2db512efd52e, type: 3}
-    Move: {fileID: 7400000, guid: 1b250a52ca98ef04fa85dd016e9af70d, type: 2}
-    Idle: {fileID: 7400000, guid: beb2313a792be5b4b861852e83ece7e8, type: 2}
-    Attack: {fileID: 7400000, guid: 69e20e3237ff5ea4c85fdd8ae5ce9686, type: 2}
-    Cast: {fileID: 7400000, guid: ffef54151068aa7408b1d312721552c2, type: 2}
-    Hit: {fileID: 7400000, guid: 05602d87129f6554685d15c2a6c8b82f, type: 2}
-    Die: {fileID: 7400000, guid: 45240df8180caee418973d0d47cdb577, type: 2}
+    Stand: {fileID: 1541949715, guid: f292dd95872d11444ac3ca94b3c111c0, type: 3}
+    Move: {fileID: 7400000, guid: d97b10ce0db59e44aa272b30719afef1, type: 2}
+    Idle: {fileID: 7400000, guid: 6c94a3ba5dee02f4287fceb2b59e8cca, type: 2}
+    Attack: {fileID: 7400000, guid: c774f5ca7dcbc0d48bf7c65e273e826f, type: 2}
+    Cast: {fileID: 7400000, guid: 64bdb9622bbda8846ab6546a6613f353, type: 2}
+    Hit: {fileID: 7400000, guid: 2255e80d89f28c94880d4500d5dfd528, type: 2}
+    Die: {fileID: 7400000, guid: bdfe308d8a49d9942b446fa6c76e29cc, type: 2}

@@ -1943,10 +1943,10 @@ MonoBehaviour:
     Stage: 0
   IsTesting: 1
   datas:
-  - {fileID: 11400000, guid: 8f83c7f9610e7a74cb8bdb9e8deef52c, type: 2}
-  - {fileID: 11400000, guid: 3be44273dd9b1154ab481f2017f2397c, type: 2}
-  - {fileID: 11400000, guid: ee1776435597a0e48a97ec07a9552c4e, type: 2}
-  - {fileID: 11400000, guid: d1ef3122d3e17eb4491d23e8d940b2ba, type: 2}
+  - {fileID: 11400000, guid: 2237fc3b83b991247af00273a4c3bac2, type: 2}
+  - {fileID: 11400000, guid: 0280d48969bb0934d98fc850caaf2862, type: 2}
+  - {fileID: 11400000, guid: c2001b3d5c634a94d8d5670791a03946, type: 2}
+  - {fileID: 11400000, guid: e636f21c9410e9241a71a9f78fb7fd7d, type: 2}
   roomBounds: {fileID: 0}
   battleBGM: {fileID: 0}
   winBGM: {fileID: 0}
@@ -6892,8 +6892,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 4.285714, y: 4.285714}
-    newSize: {x: 4.285714, y: 4.285714}
+    oldSize: {x: 11.428572, y: 6.5952377}
+    newSize: {x: 11.428572, y: 6.5952377}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -6942,15 +6942,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 50
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 609917875, guid: a88ef92dc144fb748ada521c24044fc0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.285714, y: 4.285714}
+  m_Size: {x: 11.428572, y: 6.5952377}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &767214501
@@ -18028,7 +18028,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 68af291e92a256647a6c2c52106358a7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 923a4eb194bcb544b8ea5111197ad30e, type: 3}
   m_Color: {r: 0.64705884, g: 0.64705884, b: 0.78431374, a: 1}
   m_FlipX: 0
   m_FlipY: 0
