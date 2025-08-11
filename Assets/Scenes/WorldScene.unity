@@ -11593,7 +11593,8 @@ MonoBehaviour:
   questIcon: {fileID: 1211401853}
   AssignerQuests: []
   ReceiverQuests: []
-  isTeacher: 0
+  IsTeacher: 0
+  IsNurse: 1
 --- !u!212 &226380202
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24917,7 +24918,8 @@ MonoBehaviour:
   questIcon: {fileID: 788393982}
   AssignerQuests: []
   ReceiverQuests: []
-  isTeacher: 1
+  IsTeacher: 1
+  IsNurse: 0
 --- !u!212 &509954359
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -31216,7 +31218,8 @@ MonoBehaviour:
   questIcon: {fileID: 336438864}
   AssignerQuests: []
   ReceiverQuests: []
-  isTeacher: 0
+  IsTeacher: 1
+  IsNurse: 0
 --- !u!212 &546652479
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -39913,7 +39916,8 @@ MonoBehaviour:
   questIcon: {fileID: 1908624710}
   AssignerQuests: []
   ReceiverQuests: []
-  isTeacher: 1
+  IsTeacher: 1
+  IsNurse: 0
 --- !u!212 &846224141
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -98964,7 +98968,8 @@ MonoBehaviour:
   questIcon: {fileID: 554488860}
   AssignerQuests: []
   ReceiverQuests: []
-  isTeacher: 1
+  IsTeacher: 1
+  IsNurse: 0
 --- !u!212 &1581290237
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -109776,7 +109781,8 @@ MonoBehaviour:
   questIcon: {fileID: 1035535002}
   AssignerQuests: []
   ReceiverQuests: []
-  isTeacher: 1
+  IsTeacher: 1
+  IsNurse: 0
 --- !u!212 &1739884690
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -110484,12 +110490,15 @@ MonoBehaviour:
   battleCamera: {fileID: 804107756}
   WorldCamera: {fileID: 1891381751}
   WorldCanvas: {fileID: 430858058}
+  player: {fileID: 0}
   RewardUI: {fileID: 0}
+  hospital: {x: 22.5, y: 0.9}
   currentEncounter:
     Monsters: []
     Stage: 0
   IsTesting: 0
   datas: []
+  roomBounds: {fileID: 0}
   battleBGM: {fileID: 8300000, guid: a9da4667e2b42ff49ab3b965a929e18d, type: 3}
   winBGM: {fileID: 8300000, guid: 830ab87c6dd95584282a5238c1c3dc0d, type: 3}
   loseBGM: {fileID: 8300000, guid: 8461528af24481941a8eba47c90a1f07, type: 3}
@@ -133811,7 +133820,7 @@ Transform:
   m_GameObject: {fileID: 1891381746}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.94903, y: 2.33316, z: -10}
+  m_LocalPosition: {x: 6.949117, y: 2.3330898, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

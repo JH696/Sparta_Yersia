@@ -1459,8 +1459,8 @@ Canvas:
   m_GameObject: {fileID: 85113256}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 322950531}
+  m_RenderMode: 1
+  m_Camera: {fileID: 0}
   m_PlaneDistance: 200
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -9991,7 +9991,7 @@ MonoBehaviour:
   worldSprite: {fileID: 1093632897}
   animator: {fileID: 0}
   testPetData: {fileID: 0}
-  testSkillData: {fileID: 11400000, guid: d249751f1f06e4c4b8a791ad4b24b797, type: 2}
+  testSkillData: {fileID: 11400000, guid: 358e5a25c0eced14bb0eb662fdd00d1a, type: 2}
 --- !u!4 &1093632900
 Transform:
   m_ObjectHideFlags: 0
@@ -19077,7 +19077,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 125
-  m_Sprite: {fileID: 1509160640, guid: c884115b33aab454eb5622c25e3d3c6a, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -19085,7 +19085,7 @@ SpriteRenderer:
   m_Size: {x: 0.96046907, y: 0.96000004}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2031392033
