@@ -2972,7 +2972,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 465, y: 350}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &275051282
@@ -3254,9 +3254,9 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 7.504886, y: 3.375}
-    newSize: {x: 5.12, y: 5.12}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.304, y: 2.9523046}
+    newSize: {x: 8, y: 5.333333}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -3310,7 +3310,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 8, y: 5.333333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -3954,6 +3954,7 @@ MonoBehaviour:
   animator: {fileID: 400800191}
   invokedDamage: 0
   damageText: {fileID: 857292480}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &436682392
 GameObject:
   m_ObjectHideFlags: 0
@@ -4027,9 +4028,9 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 10, y: 5.62}
-    newSize: {x: 5.12, y: 5.12}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.304, y: 2.9523046}
+    newSize: {x: 8, y: 5.333333}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -4083,7 +4084,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 8, y: 5.333333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -4670,6 +4671,7 @@ MonoBehaviour:
   animator: {fileID: 490384772}
   invokedDamage: 0
   damageText: {fileID: 825187211}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &495214292
 GameObject:
   m_ObjectHideFlags: 0
@@ -5520,10 +5522,10 @@ RectTransform:
   - {fileID: 1689640646}
   - {fileID: 1523156859}
   - {fileID: 893903198}
-  - {fileID: 1858709283}
+  - {fileID: 275051281}
   - {fileID: 1394329049}
   - {fileID: 1690381031}
-  - {fileID: 275051281}
+  - {fileID: 1858709283}
   m_Father: {fileID: 85113260}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -6433,9 +6435,9 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 10, y: 5.62}
-    newSize: {x: 10, y: 5.62}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.304, y: 2.9523046}
+    newSize: {x: 8, y: 5.333333}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -6489,7 +6491,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 10, y: 5.62}
+  m_Size: {x: 8, y: 5.333333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -7877,7 +7879,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -595, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &893903199
@@ -8155,6 +8157,7 @@ MonoBehaviour:
   animator: {fileID: 948178794}
   invokedDamage: 0
   damageText: {fileID: 1142741733}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &953361271
 GameObject:
   m_ObjectHideFlags: 0
@@ -10443,7 +10446,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 7.504886, y: 3.375}
+  m_Size: {x: 8, y: 5.333333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -10502,9 +10505,9 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 7.504886, y: 3.375}
-    newSize: {x: 7.504886, y: 3.375}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.304, y: 2.9523046}
+    newSize: {x: 8, y: 5.333333}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -10675,6 +10678,7 @@ MonoBehaviour:
   animator: {fileID: 1186258142}
   invokedDamage: 0
   damageText: {fileID: 953361273}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &1227127126
 GameObject:
   m_ObjectHideFlags: 0
@@ -11573,7 +11577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 290, y: 165}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1394329050
@@ -12608,7 +12612,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 8, y: 5.333333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -12707,9 +12711,9 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 5.625, y: 2.8}
-    newSize: {x: 5.12, y: 5.12}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.304, y: 2.9523046}
+    newSize: {x: 8, y: 5.333333}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -13424,6 +13428,7 @@ MonoBehaviour:
   animator: {fileID: 1515519896}
   invokedDamage: 0
   damageText: {fileID: 2131250372}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &1523156858
 GameObject:
   m_ObjectHideFlags: 0
@@ -13462,7 +13467,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -210, y: 165}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1523156860
@@ -15066,7 +15071,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -445, y: 350}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1689640647
@@ -15210,6 +15215,7 @@ MonoBehaviour:
   animator: {fileID: 1689754336}
   invokedDamage: 0
   damageText: {fileID: 72233232}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &1690381030
 GameObject:
   m_ObjectHideFlags: 0
@@ -15248,7 +15254,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 775, y: 165}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1690381032
@@ -15335,7 +15341,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.625, y: 2.8}
+  m_Size: {x: 8, y: 5.333333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -15394,9 +15400,9 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 10, y: 5.62}
-    newSize: {x: 5.625, y: 2.8}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.304, y: 2.9523046}
+    newSize: {x: 8, y: 5.333333}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -16510,7 +16516,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 620, y: -25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1858709284
@@ -17414,9 +17420,9 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 10, y: 5.62}
-    newSize: {x: 5.12, y: 5.12}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.304, y: 2.9523046}
+    newSize: {x: 8, y: 5.333333}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -17470,7 +17476,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 8, y: 5.333333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -18185,6 +18191,7 @@ MonoBehaviour:
   animator: {fileID: 2031392031}
   invokedDamage: 0
   damageText: {fileID: 1635089702}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &2038512197
 GameObject:
   m_ObjectHideFlags: 0
