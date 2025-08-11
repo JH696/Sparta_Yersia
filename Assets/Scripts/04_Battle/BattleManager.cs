@@ -157,6 +157,7 @@ public class BattleManager : MonoBehaviour
         {
             var vcam = FindObjectOfType<CinemachineVirtualCamera>();
             var confiner = vcam.GetComponent<CinemachineConfiner2D>();
+            PlayerStatus playerStatus = GameManager.player;   
 
             Vector2 vec = hospital;
             vec.y -= 0.5f;
@@ -170,7 +171,13 @@ public class BattleManager : MonoBehaviour
             vcam.OnTargetObjectWarped(player.transform, displacement);
 
             player.transform.position = hospital;
-            GameManager.player.Revive();
+            playerStatus.Revive();
+
+            List<PetStatus> pets = playerStatus.party.curPets;
+            foreach (PetStatus pet in pets)
+            {
+                pet.Revive();
+            }
         }
 
         OnBattleEnded?.Invoke();

@@ -1,0 +1,1341 @@
+fileFormatVersion: 2
+guid: 1d7cb0da18d480e429194ecb4b0cafa5
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sahuagin sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 954.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dfa3c5c7731eb3459b0d19ab2559e53
+      internalID: -1812503430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_1
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 954.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2b4a33394087384a933a5aff6adb1b7
+      internalID: 1379711415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_2
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 954.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 831bcc8ec774a2946b9cec01d0f4f9f5
+      internalID: 476504695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_3
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 954.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5aa90719f6fdf54dabeed4dd0148ad8
+      internalID: -1172741493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 954.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c7c6bbbd6cbc634b9840310107099f3
+      internalID: 286770859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_5
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 954.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 056bf2ca7df085a429aa601e31131d72
+      internalID: -1500012058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_6
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 954.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f67ac38cc2881a244b63548499c8641f
+      internalID: -1592109166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_7
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 954.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fb0f41e0a650314a854a0e12a5ab9a0
+      internalID: 146476277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_8
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 954.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99ac28653b0a8f046a16830e6912e18e
+      internalID: -681223570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 764.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 494fffce296c1014eabc45eade4704ac
+      internalID: -582217187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_10
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 764.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96fa85b933208ea4a9aea93213e0813f
+      internalID: -1303335019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_11
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 764.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dc39ad1ba2382546b0261634d27304d
+      internalID: 375890912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_12
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 764.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d14b315c0967b14caa66a5df5027e43
+      internalID: 264450036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_13
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 764.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e51f7db346c3a2489d9d79e5197d2cf
+      internalID: 1511473484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_14
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 764.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7651827ed74fd4d47b85c990d7629554
+      internalID: -1022216296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_15
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 764.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75d492a0d75cabd4b90ceccd12c431c3
+      internalID: 993789408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_16
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 764.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07132ad256e7516458904cdf51668405
+      internalID: 939869649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_17
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 764.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82de92887e47c6f49b30b59ade06d9de
+      internalID: 1189006015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 574.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aef081e567a43a4428464c8a484ee451
+      internalID: -531260982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_19
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 574.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f0e7c2eed5327b4a916b44ca61816de
+      internalID: -1539873389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_20
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 574.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70665cb018786864eb165e4e159d5133
+      internalID: -1369977235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_21
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 574.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d61cfea89e0f76042b0c8c787f58f310
+      internalID: 1060151133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_22
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 574.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e4b92b71ac045d41a0e270eccb7d8e1
+      internalID: 1399268763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_23
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 574.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 438b826cbb59dec4b9bd338084856c9c
+      internalID: 772531360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_24
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 574.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83381d3f468d25e4ab39769646b68c83
+      internalID: 1176901082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_25
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 574.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b537be6047d0c20409bec54bc7ae933b
+      internalID: 749259663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_26
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 574.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5145da9ac6b5d64fb0d7826686e9d55
+      internalID: -851616063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b665e7a8a5a50fe4d8aa4642bba2cbcc
+      internalID: 665780919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_28
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 384.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a66048c8cc674f4ba809a27af400b7f
+      internalID: 1032560021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_29
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 384.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3700ab2c8bc1a84091b5d28f5d1ee0d
+      internalID: -881528296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_30
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 384.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2de7fbaa70b8d2c479b9ec9e4c047351
+      internalID: -1636834430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_31
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 384.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec6d9d75dfb43b74a8e5745ba4c67812
+      internalID: 1447991947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_32
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 384.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2d9338b555bda74cb74e789aac94831
+      internalID: 2025337392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_33
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 384.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60beca2de8b4e0940a87070d75faae75
+      internalID: -2002271305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_34
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 384.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f89d7451950dbe64c829aead3b5c2b3d
+      internalID: -1823000971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_35
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 384.1667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc833890d1e9e054ebfed1696732ffc9
+      internalID: 1173006254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 194.16667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2b8894668f73e442a5270fa99de0da7
+      internalID: 338238695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_37
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 194.16667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df4c8fcdef097054f8b161620d1e9302
+      internalID: -292276940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_38
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 194.16667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6242d1303feeac14dafd628d54a902c6
+      internalID: -886201599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_39
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 194.16667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d7dd8b57a9fff5478e6db961233dbe5
+      internalID: -1358989413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_40
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 194.16667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 738534dea9daf0b42b007d297f338d04
+      internalID: 1245565076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_41
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 194.16667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ff2cd58c09fd884d9c29b0d4c7f65d8
+      internalID: -650838993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_42
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 194.16667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bb6d012830f82345a3dd51aef0525a3
+      internalID: 560950698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_43
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 194.16667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 269a8ce3f3baf7746a1602e172a1b1d4
+      internalID: -1090166948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_44
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 194.16667
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d7f32559702a644a9cbc11bb01a0cac
+      internalID: -1421202900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4.1666718
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b729b70512b8aad4bb98e666150309e9
+      internalID: -1057855928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_46
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 4.1666718
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d5c48a20a6d0b343a9af70fc645dd7a
+      internalID: 127472054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_47
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 4.1666718
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8691258921975d4e9932e4295cde7a9
+      internalID: 1009511701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_48
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 4.1666718
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bdd5e0695d15064aa4904a8d0d11f36
+      internalID: -516042207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_49
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 4.1666718
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 155279c3f51e0314aa2aaac9c03ca03c
+      internalID: -212580932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_50
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 4.1666718
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d39f68a41f64eb42916b8f8418f083d
+      internalID: -358467454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_51
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 4.1666718
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89b8a9c0477176c4c9601821b5759fd4
+      internalID: -1498789989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_52
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 4.1666718
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ff63a9ec59aa1b43990f6fcf851ee3b
+      internalID: 1272866531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sahuagin sheet_53
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 4.1666718
+        width: 300
+        height: 190.83333
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f270f42d0ce281341a259d203723edb0
+      internalID: 1490730973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      sahuagin sheet_0: -1812503430
+      sahuagin sheet_1: 1379711415
+      sahuagin sheet_10: -1303335019
+      sahuagin sheet_11: 375890912
+      sahuagin sheet_12: 264450036
+      sahuagin sheet_13: 1511473484
+      sahuagin sheet_14: -1022216296
+      sahuagin sheet_15: 993789408
+      sahuagin sheet_16: 939869649
+      sahuagin sheet_17: 1189006015
+      sahuagin sheet_18: -531260982
+      sahuagin sheet_19: -1539873389
+      sahuagin sheet_2: 476504695
+      sahuagin sheet_20: -1369977235
+      sahuagin sheet_21: 1060151133
+      sahuagin sheet_22: 1399268763
+      sahuagin sheet_23: 772531360
+      sahuagin sheet_24: 1176901082
+      sahuagin sheet_25: 749259663
+      sahuagin sheet_26: -851616063
+      sahuagin sheet_27: 665780919
+      sahuagin sheet_28: 1032560021
+      sahuagin sheet_29: -881528296
+      sahuagin sheet_3: -1172741493
+      sahuagin sheet_30: -1636834430
+      sahuagin sheet_31: 1447991947
+      sahuagin sheet_32: 2025337392
+      sahuagin sheet_33: -2002271305
+      sahuagin sheet_34: -1823000971
+      sahuagin sheet_35: 1173006254
+      sahuagin sheet_36: 338238695
+      sahuagin sheet_37: -292276940
+      sahuagin sheet_38: -886201599
+      sahuagin sheet_39: -1358989413
+      sahuagin sheet_4: 286770859
+      sahuagin sheet_40: 1245565076
+      sahuagin sheet_41: -650838993
+      sahuagin sheet_42: 560950698
+      sahuagin sheet_43: -1090166948
+      sahuagin sheet_44: -1421202900
+      sahuagin sheet_45: -1057855928
+      sahuagin sheet_46: 127472054
+      sahuagin sheet_47: 1009511701
+      sahuagin sheet_48: -516042207
+      sahuagin sheet_49: -212580932
+      sahuagin sheet_5: -1500012058
+      sahuagin sheet_50: -358467454
+      sahuagin sheet_51: -1498789989
+      sahuagin sheet_52: 1272866531
+      sahuagin sheet_53: 1490730973
+      sahuagin sheet_6: -1592109166
+      sahuagin sheet_7: 146476277
+      sahuagin sheet_8: -681223570
+      sahuagin sheet_9: -582217187
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
