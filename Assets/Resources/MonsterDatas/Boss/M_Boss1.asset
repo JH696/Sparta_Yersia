@@ -12,20 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f31c11c4d16c149a6db51bb4968c56, type: 3}
   m_Name: M_Boss1
   m_EditorClassIdentifier: 
-  maxHp: 300
-  maxMana: 200
-  attack: 50
-  defense: 25
+  maxHp: 225
+  maxMana: 150
+  attack: 30
+  defense: 15
   luck: 10
-  speed: 20
+  speed: 25
   Multiplier: 0
   MonsterID: M_Boss1
   MonsterName: "\uC544\uB77C\uD06C\uB124"
   StageType: 0
   Size: 2
-  startSkills: []
-  ypDrop: 1000
-  expDrop: 200
+  startSkills:
+  - {fileID: 11400000, guid: ea03ff5ebaf22c040ab778462ae7e55c, type: 2}
+  - {fileID: 11400000, guid: 617168736e5c67647819b3b9fe2522f4, type: 2}
+  - {fileID: 11400000, guid: bc90acfe37f0b594f9ad7d2174f4a35a, type: 2}
+  ypDrop: 1500
+  expDrop: 400
   dropItems: []
   BattleVisuals:
     Stand: {fileID: 1717003526, guid: aae61f00fd6217c408a2950a0f4d6be7, type: 3}

@@ -1459,8 +1459,8 @@ Canvas:
   m_GameObject: {fileID: 85113256}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 322950531}
+  m_RenderMode: 1
+  m_Camera: {fileID: 0}
   m_PlaneDistance: 200
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1935,16 +1935,19 @@ MonoBehaviour:
   battleCamera: {fileID: 322950531}
   WorldCamera: {fileID: 482572371}
   WorldCanvas: {fileID: 0}
+  player: {fileID: 0}
   RewardUI: {fileID: 0}
+  hospital: {x: 0, y: 0}
   currentEncounter:
     Monsters: []
     Stage: 0
   IsTesting: 1
   datas:
-  - {fileID: 11400000, guid: 8f83c7f9610e7a74cb8bdb9e8deef52c, type: 2}
-  - {fileID: 11400000, guid: 3be44273dd9b1154ab481f2017f2397c, type: 2}
-  - {fileID: 11400000, guid: ee1776435597a0e48a97ec07a9552c4e, type: 2}
-  - {fileID: 11400000, guid: d1ef3122d3e17eb4491d23e8d940b2ba, type: 2}
+  - {fileID: 11400000, guid: 728734a57a582ed419dd4b4a509336d9, type: 2}
+  roomBounds: {fileID: 0}
+  battleBGM: {fileID: 0}
+  winBGM: {fileID: 0}
+  loseBGM: {fileID: 0}
 --- !u!4 &132363883
 Transform:
   m_ObjectHideFlags: 0
@@ -2193,8 +2196,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a6c97e9b18c5b4bad31bc80d5ababf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  texts: []
+  Text: {fileID: 0}
   IntroCanvas: {fileID: 185751351}
-  FadeDuration: 1
+  FadeInDuration: 0.5
+  StayDuration: 1.5
+  FadeOutDuration: 0.3
 --- !u!114 &185751353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3448,7 +3455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &330855172
 Transform:
   m_ObjectHideFlags: 0
@@ -4202,6 +4209,7 @@ MonoBehaviour:
   animator: {fileID: 400800191}
   invokedDamage: 0
   damageText: {fileID: 857292480}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &436682392
 GameObject:
   m_ObjectHideFlags: 0
@@ -5116,6 +5124,7 @@ MonoBehaviour:
   animator: {fileID: 490384772}
   invokedDamage: 0
   damageText: {fileID: 825187211}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &495214292
 GameObject:
   m_ObjectHideFlags: 0
@@ -6880,8 +6889,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 10, y: 5.62}
-    newSize: {x: 10, y: 5.62}
+    oldSize: {x: 11.428572, y: 6.5952377}
+    newSize: {x: 11.428572, y: 6.5952377}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -6935,7 +6944,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 10, y: 5.62}
+  m_Size: {x: 11.428572, y: 6.5952377}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -8592,6 +8601,7 @@ MonoBehaviour:
   animator: {fileID: 948178794}
   invokedDamage: 0
   damageText: {fileID: 1142741733}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &953361271
 GameObject:
   m_ObjectHideFlags: 0
@@ -9981,7 +9991,7 @@ MonoBehaviour:
   worldSprite: {fileID: 1093632897}
   animator: {fileID: 0}
   testPetData: {fileID: 0}
-  testSkillData: {fileID: 11400000, guid: 6623b5c7106b6c74e9b81517ed28cf80, type: 2}
+  testSkillData: {fileID: 11400000, guid: 358e5a25c0eced14bb0eb662fdd00d1a, type: 2}
 --- !u!4 &1093632900
 Transform:
   m_ObjectHideFlags: 0
@@ -11095,7 +11105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1178684669
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11374,6 +11384,7 @@ MonoBehaviour:
   animator: {fileID: 1186258142}
   invokedDamage: 0
   damageText: {fileID: 953361273}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &1227127126
 GameObject:
   m_ObjectHideFlags: 0
@@ -13260,7 +13271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1464205722
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14123,6 +14134,7 @@ MonoBehaviour:
   animator: {fileID: 1515519896}
   invokedDamage: 0
   damageText: {fileID: 2131250372}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &1523156858
 GameObject:
   m_ObjectHideFlags: 0
@@ -16059,6 +16071,7 @@ MonoBehaviour:
   animator: {fileID: 1689754336}
   invokedDamage: 0
   damageText: {fileID: 72233232}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &1690381030
 GameObject:
   m_ObjectHideFlags: 0
@@ -16137,7 +16150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1718378899
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19067,12 +19080,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 125
-  m_Sprite: {fileID: -1441621249, guid: 91b57863ce91e9847a4f8c45b72159b0, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 1.92}
+  m_Size: {x: 0.96046907, y: 0.96000004}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -19094,6 +19107,7 @@ MonoBehaviour:
   animator: {fileID: 2031392031}
   invokedDamage: 0
   damageText: {fileID: 1635089702}
+  normalAttackSFX: {fileID: 0}
 --- !u!1 &2038512197
 GameObject:
   m_ObjectHideFlags: 0

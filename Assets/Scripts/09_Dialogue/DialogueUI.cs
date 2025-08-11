@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -308,6 +309,11 @@ public class DialogueUI : MonoBehaviour
             Button studyBtn = choiceBtns.SpawnUtilityBtn("마법 배우기");
             studyBtn.onClick.AddListener(OnStudyButton);
         }
+        else if (curNpc.IsNurse)
+        {
+            Button nusingBtn = choiceBtns.SpawnUtilityBtn("치료 받기");
+            nusingBtn.onClick.AddListener(OnNursingButton);
+        }
     }
 
     private void OnStudyButton()
@@ -338,5 +344,20 @@ public class DialogueUI : MonoBehaviour
         }
 
         masteryUI.ShowSkillMasteryUI(type);
+    }
+
+    private void OnNursingButton()
+    {
+        PlayerStatus player = GameManager.player;
+        List<PetStatus> pets = player.party.curPets;
+
+        player.RecoverHealth(player.stat.MaxHp);
+        player.RecoverMana(player.stat.MaxMana);
+
+        foreach (PetStatus pet in pets)
+        {
+            pet.RecoverHealth(pet.stat.MaxHp);
+            pet.RecoverMana(pet.stat.MaxMana);
+        }
     }
 }
