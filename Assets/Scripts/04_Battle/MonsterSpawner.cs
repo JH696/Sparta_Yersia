@@ -50,10 +50,10 @@ public class MonsterSpawner : MonoBehaviour
     // 몬스터 스폰 가능 여부
     private bool IsMaxSpawn => maxSpawnCount <= nowSpawnCount;
 
-    private bool CanSpawn;
+    private bool CantSpawn;
 
-    private void OnBattleStarted() => CanSpawn = false;
-    private void OnBattleEnded() => CanSpawn = true;
+    private void OnBattleStarted() => CantSpawn = true;
+    private void OnBattleEnded(bool isWin) => CantSpawn = false;
 
 
     private void Start()
@@ -117,7 +117,7 @@ public class MonsterSpawner : MonoBehaviour
             Debug.Log("[MonsterSpawner] 컴포넌트를 확인해주세요.");
         }
 
-        if (IsMaxSpawn || CanSpawn) return;
+        if (IsMaxSpawn || CantSpawn) return;
 
         // MonsterData 로드 및 필터링
         MonsterData[] allDatas = Resources.LoadAll<MonsterData>("MonsterDatas");
