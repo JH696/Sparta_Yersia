@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f31c11c4d16c149a6db51bb4968c56, type: 3}
+  m_Name: M_Boss2
+  m_EditorClassIdentifier: 
+  maxHp: 300
+  maxMana: 200
+  attack: 42
+  defense: 20
+  luck: 15
+  speed: 20
+  Multiplier: 0
+  MonsterID: M_Boss2
+  MonsterName: "\uC5BC\uC74C \uC815\uC218 \uBC84\uC12F"
+  StageType: 0
+  Size: 2
+  startSkills:
+  - {fileID: 11400000, guid: b470010c41f79f4468201a4934920346, type: 2}
+  - {fileID: 11400000, guid: f93b1575a5344b04da8c3cb51fc627e4, type: 2}
+  - {fileID: 11400000, guid: 8ba3490e22074e748a198e46ff12dc62, type: 2}
+  ypDrop: 1000
+  expDrop: 200
+  dropItems: []
+  BattleVisuals:
+    Stand: {fileID: -658225315, guid: 2ad25a48d0d7bda4092aa3f649a30697, type: 3}
+    Move: {fileID: 7400000, guid: c236baa64b707464db9342af74c1af8b, type: 2}
+    Idle: {fileID: 7400000, guid: 012d26e685d5e7546add6b71c1cf2213, type: 2}
+    Attack: {fileID: 7400000, guid: 7d25ef89d0f0b8a41b1026cc736300d7, type: 2}
+    Cast: {fileID: 7400000, guid: 73481744ab1dc274ebbf0f600c500e21, type: 2}
+    Hit: {fileID: 7400000, guid: 6e3ae0fdbf8d1c5468fb0fcd2411eea9, type: 2}
+    Die: {fileID: 7400000, guid: b9a55a34d9d1f484eb328b6c5481aeb6, type: 2}

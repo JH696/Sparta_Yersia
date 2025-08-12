@@ -31,35 +31,17 @@ public class B_StatGauge : MonoBehaviour
         this.slot = slot;
         slot.Character.stat.StatusChanged += RefreshGauge;
 
+        if (size == E_SizeType.Large)
+        {
+            RectTransform rt = GetComponent<RectTransform>();
+            Vector2 pos = rt.anchoredPosition;
+
+            pos.y += 50f;
+            rt.anchoredPosition = pos;
+        }
+
         RefreshGauge();
         gameObject.SetActive(true);
-
-        // 필수 컴포넌트
-        Canvas canvas = GetComponentInParent<Canvas>();
-        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
-        RectTransform thisRect = GetComponent<RectTransform>();
-
-        // 월드→스크린: 반드시 '해당 오브젝트를 그리는 월드 카메라' 사용
-        Camera worldCam = BattleManager.Instance.BattleCamera;
-        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(worldCam, slot.transform.position);
-
-        // 픽셀 기준 Y 오프셋
-        float y = size switch
-        {
-            E_SizeType.Small => 125f,
-            E_SizeType.Medium => 125f,
-            _ => 200f
-        };
-        screenPos.y += y;
-
-        // 스크린→캔버스 로컬: Screen Space - Overlay면 cam=null, Camera/World면 canvas.worldCamera
-        Camera uiCam = (canvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : canvas.worldCamera;
-
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, uiCam, out var localPoint))
-        {
-            // 카메라 스케일(Scale With Screen Size)일 땐 anchoredPosition을 써야 스케일러가 자동 반영됩니다.
-            thisRect.anchoredPosition = localPoint;
-        }
     }
 
     public void ResetGauge()
@@ -79,9 +61,9 @@ public class B_StatGauge : MonoBehaviour
         CharacterStats stats = slot.Character.stat;
 
         hpGauge.fillAmount = stats.CurrentHp / stats.MaxHp;
-        hpText.text = $"{stats.CurrentHp} / {stats.MaxHp}";
+        hpText.text = $"{(int)stats.CurrentHp} / {stats.MaxHp}";
         mpGauge.fillAmount = stats.CurrentMana / stats.MaxMana;
-        mpText.text = $"{stats.CurrentMana} / {stats.MaxMana}";
+        mpText.text = $"{(int)stats.CurrentMana} / {stats.MaxMana}";
     }
 
     public void RefreshAPGauge(float amount)

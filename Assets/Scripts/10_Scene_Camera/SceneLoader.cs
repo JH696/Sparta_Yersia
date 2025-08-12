@@ -13,10 +13,19 @@ public static class SceneLoader
     // 멀티 씬 로드
     public static void MultipleLoadScene(string scene)
     {
+        // 씬 이름이 유효한지 검사
         if (!CheckScene(scene)) return;
+
+        // 이미 로드된 씬인지 확인
+        Scene loadedScene = SceneManager.GetSceneByName(scene);
+        if (loadedScene.isLoaded)
+        {
+            return; // 이미 로드되어 있으면 로드 안 함
+        }
 
         SceneManager.LoadScene(scene, LoadSceneMode.Additive);
     }
+
 
     // 멀티 씬 언로드
     public static void UnloadScene(string scene)

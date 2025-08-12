@@ -83,7 +83,7 @@ public class B_ActionHandler : MonoBehaviour
         RefreshGuideText();
     }
 
-    public void EndTargeting(bool isDead)
+    public void EndTargeting()
     {
         ClearAllTargets();
         slotManager.ClearCurrentSlot();

@@ -31,7 +31,15 @@ public class TriggerMonster : MonoBehaviour
     public event System.Action OnTrigged;
 
     private void OnBattleStarted() => StopMoving(true);
-    private void OnBattleEnded() => StopMoving(false);
+    private void OnBattleEnded(bool isWin)
+    {
+        if (isWin)
+        {
+            Destroy(gameObject);
+        }
+
+        StopMoving(false);
+    }
 
     private enum State
     {
@@ -45,8 +53,44 @@ public class TriggerMonster : MonoBehaviour
         this.monsters = monsters;
         this.nowStage = nowStage;
 
+        int count = monsters.Length;
+
+        Color baseColor;
+        switch (count)
+        {
+            default: // 초록색
+                baseColor = Color.green;
+                break;
+
+            case 2:
+                // 황녹색
+                baseColor = Color.Lerp(Color.green, new Color(1f, 0.5f, 0f), 0.5f);
+                break;
+
+            case 3:
+                // 주황색
+                baseColor = new Color(1f, 0.5f, 0f);
+                break;
+
+            case 4:
+                // 빨간색
+                baseColor = Color.Lerp(new Color(1f, 0.5f, 0f), Color.red, 0.5f);
+                break;
+        }
+
+        Color finalColor = AdjustSaturation(baseColor, 0.6f);
+
+        triggerSprite.color = finalColor;
+
         BattleManager.Instance.OnBattleStarted += OnBattleStarted;
         BattleManager.Instance.OnBattleEnded += OnBattleEnded;
+    }
+
+    private Color AdjustSaturation(Color original, float saturationFactor)
+    {
+        Color.RGBToHSV(original, out float h, out float s, out float v);
+        s *= saturationFactor;
+        return Color.HSVToRGB(h, s, v);
     }
 
     private void Start()
@@ -91,6 +135,8 @@ public class TriggerMonster : MonoBehaviour
 
     private IEnumerator MoveCoroutine()
     {
+        if (moveSpeed <= 0) yield break;
+
         PickRandomDirection();
 
         float interval = Random.Range(1f, changeDirectionInterval);
@@ -177,7 +223,6 @@ public class TriggerMonster : MonoBehaviour
             OnTrigged?.Invoke();
             BattleEncounter encounter = new BattleEncounter(monsters, nowStage);
             StartCoroutine(BattleManager.Instance.StartBattle(encounter, other.gameObject));
-            Destroy(gameObject);
         }
         else
         {

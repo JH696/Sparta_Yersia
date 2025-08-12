@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f31c11c4d16c149a6db51bb4968c56, type: 3}
   m_Name: M_u03
   m_EditorClassIdentifier: 
-  maxHp: 80
+  maxHp: 40
   maxMana: 80
-  attack: 10
-  defense: 10
+  attack: 15
+  defense: 0
   luck: 0
-  speed: 12
+  speed: 15
   Multiplier: 0
   MonsterID: M_n03
   MonsterName: "\uC2AC\uB77C\uC784"
   StageType: 1
   Size: 0
   startSkills:
-  - {fileID: 11400000, guid: 152220ee41f91f349ac54e7bd03c2799, type: 2}
+  - {fileID: 11400000, guid: 7a9a9c53ff858d6479ad88db31ec764d, type: 2}
   ypDrop: 50
   expDrop: 50
   dropItems:
