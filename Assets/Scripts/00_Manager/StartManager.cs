@@ -20,27 +20,23 @@ public class StartManager : MonoBehaviour
         StartCoroutine(ScrollAndFadeInUI());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     IEnumerator ScrollAndFadeInUI()
     {
         StartCoroutine(cameraFollow.Scroll());
         yield return new WaitForSeconds(cameraFollow.image.duration + fadeDelay);
         StartCoroutine(fadein.Fade(fade, 0f, 1f));
     }
+
     public void OnClickHelp()
     {
-        helpPanel.SetActive(true);
-
+        helpPanel.SetActive(!helpPanel.activeSelf);
     }
+
     public void OnClickNewGame()
     {
         StartCoroutine(FadeOutAndLoadScene());
     }
+
     public void OnClickLoadGame()
     {
         //불러오기
@@ -50,10 +46,7 @@ public class StartManager : MonoBehaviour
     {
         StartCoroutine(FadeOutAndQuit());
     }
-    public void ClosePanel()
-    {
-        helpPanel.SetActive(false);
-    }
+
     IEnumerator FadeOutAndLoadScene()
     {
         StartCoroutine(fadein.Fade(fadeBlack, 0f, 1f));
