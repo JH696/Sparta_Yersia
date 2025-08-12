@@ -58,13 +58,17 @@ public class B_Slot : MonoBehaviour
         character.OnCharacterDead += statGauge.ResetGauge;
     }
 
+    private void OnDisable()
+    {
+        character.TakeDamaged -= PlayHitAnim;
+        character.OnCharacterDead -= statGauge.ResetGauge;
+    }
+
     public B_Slot IncreacedAP()
     {
         bool unlinked = statGauge.Slot == null;
 
         if (IsDead || unlinked) return null;
-
-        statGauge.gameObject.SetActive(true);
 
         actionPoint += Mathf.Clamp(Character.stat.Speed * Time.deltaTime, 0f, 100 - actionPoint);
         statGauge.RefreshAPGauge(actionPoint);

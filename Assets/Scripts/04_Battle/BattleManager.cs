@@ -32,7 +32,7 @@ public class BattleManager : MonoBehaviour
     public BattleEncounter CurrentEncounter => currentEncounter;
 
     public event System.Action OnBattleStarted;
-    public event System.Action OnBattleEnded;
+    public event System.Action<bool> OnBattleEnded;
     public Camera BattleCamera => battleCamera;
 
     [Header("사운드")]
@@ -187,7 +187,7 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        OnBattleEnded?.Invoke();
+        OnBattleEnded?.Invoke(isWin);
 
         BattleCamera.enabled = false;
         WorldCamera.enabled = true;
