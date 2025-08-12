@@ -17,9 +17,6 @@ public class BattleEffecter : MonoBehaviour
     [Header("데미지 텍스트")]
     [SerializeField] private TextMeshPro damageText;
 
-    [Header("일반 공격 사운드")]
-    [SerializeField] private AudioClip normalAttackSFX;
-
     private B_BattleButtons bButtons;
     private string lastParam;
     private Coroutine hideRoutine;
@@ -97,9 +94,8 @@ public class BattleEffecter : MonoBehaviour
             SetDamageText(E_ElementalType.Physical, false);
         }
 
-        // 기본 공격 사운드 재생
-        if (normalAttackSFX != null)
-            SoundManager.Instance.PlaySFX(normalAttackSFX);
+        // 일반 공격 사운드 (enum 기반)
+        SoundManager.Instance.PlaySFX(SFXType.NormalAttack);
 
         animator.SetTrigger("Normal_Attack");
     }

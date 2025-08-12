@@ -264,4 +264,5 @@ public enum SFXType
     Click,
     Die,
     MissionComplete,
+    NormalAttack
 }
