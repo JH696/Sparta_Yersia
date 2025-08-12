@@ -73,10 +73,10 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator BattleDelay()
     {
-        LightManager.Instance?.OnBattleStartSnapshot();
-
         // 1. 페이드 인
         yield return FadeScreen.Instance.FadeIn();
+
+        LightManager.Instance?.OnBattleStartSnapshot();
 
         // 2. 배틀씬 로드
         SceneLoader.MultipleLoadScene("BattleScene");

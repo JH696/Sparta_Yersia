@@ -38,7 +38,6 @@ public class MonsterSpawner : MonoBehaviour
     [Header("몬스터 스폰")]
     [SerializeField, Tooltip("최대 스폰 가능한 몬스터 수")] private int maxSpawnCount = 3;
     [SerializeField, Tooltip("현재 스폰된 몬스터 수")] private int nowSpawnCount = 0;
-
     [SerializeField, Tooltip("몬스터 스폰 주기")] private float spawnInterval = 5f;
 
     private Tilemap tilemap;
@@ -51,6 +50,12 @@ public class MonsterSpawner : MonoBehaviour
     // 몬스터 스폰 가능 여부
     private bool IsMaxSpawn => maxSpawnCount <= nowSpawnCount;
 
+    private bool CanSpawn;
+
+    private void OnBattleStarted() => CanSpawn = false;
+    private void OnBattleEnded() => CanSpawn = true;
+
+
     private void Start()
     {
         tilemap = GetComponent<Tilemap>();
@@ -60,12 +65,21 @@ public class MonsterSpawner : MonoBehaviour
             return;
         }
 
+        BattleManager.Instance.OnBattleStarted += OnBattleStarted;
+        BattleManager.Instance.OnBattleEnded += OnBattleEnded;
+
         CollectTilePositions();
 
         for (int i = 0; i < maxSpawnCount; i++)
         {
             SpawnMonsters();
         }
+    }
+
+    private void OnDestroy()
+    {
+        BattleManager.Instance.OnBattleStarted -= OnBattleStarted;
+        BattleManager.Instance.OnBattleEnded -= OnBattleEnded;
     }
 
     private void Update()
@@ -103,7 +117,7 @@ public class MonsterSpawner : MonoBehaviour
             Debug.Log("[MonsterSpawner] 컴포넌트를 확인해주세요.");
         }
 
-        if (IsMaxSpawn) return;
+        if (IsMaxSpawn || CanSpawn) return;
 
         // MonsterData 로드 및 필터링
         MonsterData[] allDatas = Resources.LoadAll<MonsterData>("MonsterDatas");
