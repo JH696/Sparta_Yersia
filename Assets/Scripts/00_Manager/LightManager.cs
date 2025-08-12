@@ -6,6 +6,14 @@ public class LightManager : MonoBehaviour
 {
     public static LightManager Instance { get; private set; }
 
+    [Header("패배 시 켤 양호실 조명")]
+    [SerializeField] private GameObject infirmaryLight;
+
+    [Header("층별 승리 시 켤 조명 (예: Upper=B1, Middle=B2, Lower=… )")]
+    [SerializeField] private GameObject upperVictoryLight;
+    [SerializeField] private GameObject middleVictoryLight;
+    [SerializeField] private GameObject lowerVictoryLight;
+
     // 씬별 마지막으로 켰던 라이트 이름
     private readonly Dictionary<string, string> lastExtraByScene = new Dictionary<string, string>();
 
@@ -45,7 +53,40 @@ public class LightManager : MonoBehaviour
         RestoreForScene(s.name);
     }
 
-    //외부 API
+    // ===== 외부 API =====
+
+    // 배틀 시작 직전: 현재 상태 스냅샷 + 전체 소등
+    public void OnBattleStartSnapshot()
+    {
+        SnapshotForBattle();
+        DeactivateAll();
+    }
+
+    // 배틀 종료 후: 승/패 + 층에 따른 처리
+    public void OnBattleEnd(bool isWin, E_StageType stage)
+    {
+        if (isWin)
+        {
+            var stageLight = GetStageVictoryLight(stage);
+            if (stageLight != null)
+            {
+                Activate(stageLight);
+            }
+            else
+            {
+                // 스테이지 조명이 지정되지 않았다면 스냅샷 기준으로 복원
+                RestoreAfterVictory();
+            }
+        }
+        else
+        {
+            // 패배 시: 양호실 조명 켜고 기록(씬/글로벌)
+            if (infirmaryLight != null)
+                Activate(infirmaryLight);
+            else
+                RestoreAfterVictory(); // 폴백
+        }
+    }
 
     // 모든 라이트 OFF (PlayerLightController 경유)
     public void DeactivateAll()
@@ -54,6 +95,7 @@ public class LightManager : MonoBehaviour
         plc?.SetByPortal(false, null);
     }
 
+    // 특정 라이트 ON (기억 포함)
     public void Activate(GameObject extraToActivate)
     {
         EnsurePLC();
@@ -73,7 +115,7 @@ public class LightManager : MonoBehaviour
         else
         {
             lastExtraByScene.Remove(sceneName);
-            // 전역은 유지 (null로 지우지 않음)
+            // 전역은 유지
         }
     }
 
@@ -92,7 +134,7 @@ public class LightManager : MonoBehaviour
         var go = FindSceneObjectByName(objName);
         plc?.SetByPortal(true, go);
 
-        // 전역도 갱신(방문한 씬의 마지막 라이트가 최신이 된다)
+        // 전역도 갱신
         lastScene_Global = sceneName;
         lastObjectName_Global = objName;
     }
@@ -103,7 +145,7 @@ public class LightManager : MonoBehaviour
         battleSnap_Object = lastObjectName_Global;
     }
 
-    // 배틀 승리시
+    // 배틀 승리시: 스냅샷 기준 복구
     public void RestoreAfterVictory()
     {
         EnsurePLC();
@@ -129,19 +171,19 @@ public class LightManager : MonoBehaviour
         lastExtraByScene[lastScene_Global] = lastObjectName_Global;
     }
 
-    // 배틀 패배시
-    public void RestoreAfterDefeat(GameObject infirmaryLight)
-    {
-        if (infirmaryLight == null)
-        {
-            RestoreAfterVictory();
-            return;
-        }
+    // ===== 내부 유틸 =====
 
-        Activate(infirmaryLight); // Activate가 전역/씬 기록까지 갱신함
+    private GameObject GetStageVictoryLight(E_StageType stage)
+    {
+        switch (stage)
+        {
+            case E_StageType.Upper: return upperVictoryLight;
+            case E_StageType.Middle: return middleVictoryLight;
+            case E_StageType.Lower: return lowerVictoryLight;
+            default: return null;
+        }
     }
 
-    // 내부 유틸
     private GameObject FindSceneObjectByName(string name)
     {
         if (string.IsNullOrEmpty(name)) return null;

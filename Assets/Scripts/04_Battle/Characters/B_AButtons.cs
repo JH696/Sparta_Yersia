@@ -126,13 +126,13 @@ public class B_BattleButtons : MonoBehaviour
             btn.ResetButton();
         }
 
-        if (curSlot.Character.IsDead)
-        {
-            actionHandler.EndTargeting(true);
-            return;
-        }
+        //if (curSlot.Character.IsDead)
+        //{
+        //    actionHandler.EndTargeting(true);
+        //    return;
+        //}
 
-        actionHandler.EndTargeting(false);
+        actionHandler.EndTargeting();
         curSlot = null;
 
         UpdateText();
@@ -145,9 +145,9 @@ public class B_BattleButtons : MonoBehaviour
         CharacterStatus curStatus = slot.Character;
 
         List<BattleEffecter> effecters = slotManager.GetNonEmptySlots()
-            .Where(slot => slot.GetSlotType() == E_B_SlotType.Ally)
-            .Select(slot => slot.GetComponentInChildren<BattleEffecter>())
-            .Where(effecter => effecter != null) // ← 이거 추가
+            .Where(s => s.GetSlotType() == E_B_SlotType.Ally)
+            .Select(s => s.GetComponentInChildren<BattleEffecter>())
+            .Where(e => e != null)
             .ToList();
 
         if (effecters.Count == 0)
@@ -161,14 +161,10 @@ public class B_BattleButtons : MonoBehaviour
             .Where(skill => skill.CanCast(curStatus))
             .ToList();
 
-        List<BattleEffecter> randomTargets = new List<BattleEffecter>();
-
         if (castableSkills.Count <= 0 || Random.value <= 0.75f)
         {
             BattleEffecter target = effecters[Random.Range(0, effecters.Count)];
-
             target.SetBaseEffect(curStatus.stat, this);
-
             slot.PlayAttackAnim();
         }
         else
@@ -177,17 +173,26 @@ public class B_BattleButtons : MonoBehaviour
 
             int range = Mathf.Min(randomSkill.Data.Range, effecters.Count);
 
+            // 중복 방지: HashSet 사용
+            HashSet<BattleEffecter> selectedTargets = new HashSet<BattleEffecter>();
+
+            // 랜덤 추출
             List<int> indices = Enumerable.Range(0, effecters.Count).ToList();
-            for (int i = 0; i < range; i++)
+            for (int i = 0; i < range && indices.Count > 0; i++)
             {
-                int rand = Random.Range(i, indices.Count);
-                (indices[i], indices[rand]) = (indices[rand], indices[i]);
-                randomTargets.Add(effecters[indices[i]]);
+                int rand = Random.Range(0, indices.Count);
+                var chosen = effecters[indices[rand]];
+
+                if (selectedTargets.Add(chosen)) // HashSet에 추가 성공 시만
+                {
+                    indices.RemoveAt(rand); // 중복 방지를 위해 제거
+                }
             }
 
+            // 스킬 시전
             randomSkill.Cast(curStatus);
 
-            foreach (BattleEffecter e in randomTargets)
+            foreach (BattleEffecter e in selectedTargets)
             {
                 e.SetSkillEffecter(curStatus.stat, randomSkill, this);
             }
@@ -196,7 +201,7 @@ public class B_BattleButtons : MonoBehaviour
         }
     }
 
-   public void OnAttackButton()
+    public void OnAttackButton()
    {
         actionType = E_ActionType.Attack;
         actionHandler.StartTargeting(1);

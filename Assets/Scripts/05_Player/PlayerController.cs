@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private Player player;
     private Coroutine moveRoutine;
 
+    private Rigidbody2D rb;
+
     [Header("상호작용 센서")]
     [SerializeField] private InteractCensor censor;
 
@@ -24,12 +26,25 @@ public class PlayerController : MonoBehaviour
     private Transform currentTarget;
 
     private void OnBattleStarted() => StopPlayer(true);
-    private void OnBattleEnded() => StopPlayer(false);
+    private void OnBattleEnded(bool isWin) => StopPlayer(false);
 
     void Awake()
     {
         anim = GetComponent<Animator>();
         player = GetComponent<Player>();
+
+        rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.gravityScale = 0f;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+            rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        }
+        else
+        {
+            Debug.LogWarning("[PlayerController] Rigidbody2D가 없습니다. 부드러운 이동/보간이 적용되지 않습니다.");
+        }
     }
 
     private void Start()
@@ -106,14 +121,24 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator MoveRoutine(Vector2 dir)
     {
+        var wait = new WaitForFixedUpdate();
+
         while (true)
         {
             if (dir.sqrMagnitude <= 0.01f || !canMove)
                 break;
 
-            transform.position += new Vector3(dir.x, dir.y, 0) * moveSpeed * Time.deltaTime;
+            if (rb != null)
+            {
+                Vector2 step = dir * moveSpeed * Time.fixedDeltaTime;
+                rb.MovePosition(rb.position + step);
+            }
+            else
+            {
+                transform.position += new Vector3(dir.x, dir.y, 0) * moveSpeed * Time.deltaTime;
+            }
 
-            yield return null;
+            yield return wait;
 
             dir = Vector2.zero;
             if (Input.GetKey(KeyCode.W)) dir.y += 1;
@@ -131,6 +156,8 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator MoveToPositionRoutine(Vector3 target)
     {
+        var wait = new WaitForFixedUpdate();
+
         while (true)
         {
             if (!canMove) break;
@@ -145,8 +172,17 @@ public class PlayerController : MonoBehaviour
                 break;
             }
 
-            transform.position += dir * moveSpeed * Time.deltaTime;
-            yield return null;
+            if (rb != null)
+            {
+                Vector2 step = (Vector2)dir * moveSpeed * Time.fixedDeltaTime;
+                rb.MovePosition(rb.position + step);
+            }
+            else
+            {
+                transform.position += dir * moveSpeed * Time.deltaTime;
+            }
+
+            yield return wait;
         }
 
         moveRoutine = null;
@@ -166,6 +202,8 @@ public class PlayerController : MonoBehaviour
                 StopCoroutine(moveRoutine);
                 moveRoutine = null;
             }
+
+            if (rb != null) rb.velocity = Vector2.zero;
         }
         else
         {

@@ -30,6 +30,8 @@ public class B_RewardUI : MonoBehaviour
 
     public void ShowWinUI(List<BaseItem> Datas, int totalExp, int totalYp) 
     {
+        Time.timeScale = 0f;
+
         rewardUI.SetActive(true);
         quitButton.onClick.RemoveAllListeners();
 
@@ -56,5 +58,7 @@ public class B_RewardUI : MonoBehaviour
     private void OnQuitButton(bool isWin)
     {
         BattleManager.Instance.QuitBattle(isWin);
+
+        Time.timeScale = 1f;
     }
 }

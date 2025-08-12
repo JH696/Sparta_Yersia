@@ -61,6 +61,7 @@ public class Portal : MonoBehaviour, IInteractable
 
         yield return FadeScreen.Instance.FadeIn();
 
+        // 이동 중에는 모두 소등
         LightManager.Instance?.DeactivateAll();
 
         Vector2 vec = Destination.position;
@@ -95,6 +96,7 @@ public class Portal : MonoBehaviour, IInteractable
             }
         }
 
+        // 도착 지점에서 켜야 하는 라이트가 있다면 LightManager로 일원화
         if (extraObjectToActivate != null)
         {
             LightManager.Instance?.Activate(extraObjectToActivate);
