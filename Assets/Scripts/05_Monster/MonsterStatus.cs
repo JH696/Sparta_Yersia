@@ -16,6 +16,7 @@ public class MonsterStatus : CharacterStatus
     public override void CharacterDie()
     {
         base.CharacterDie();
+        SoundManager.Instance.PlaySFX(SFXType.Die, 0.2f);
         GameManager.player.quest.KillMonster(data); // 몬스터 처치 시 퀘스트 업데이트
     }
 
