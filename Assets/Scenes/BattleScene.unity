@@ -1554,9 +1554,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 593108978}
   - {fileID: 1504866255}
   - {fileID: 204457037}
-  - {fileID: 593108978}
   - {fileID: 1768622288}
   - {fileID: 1617313735}
   - {fileID: 1264216811}
@@ -10447,7 +10447,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 8, y: 5.333333}
+  m_Size: {x: 10, y: 8.8875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -10506,9 +10506,9 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.304, y: 2.9523046}
-    newSize: {x: 8, y: 5.333333}
+    pivot: {x: 0.5, y: 0.05}
+    oldSize: {x: 10, y: 8.8875}
+    newSize: {x: 10, y: 8.8875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
