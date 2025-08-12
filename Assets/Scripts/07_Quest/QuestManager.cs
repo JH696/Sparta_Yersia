@@ -73,6 +73,7 @@ public class QuestManager : MonoBehaviour
         }
 
         GetQRewards(questData);
+        SoundManager.Instance.PlaySFX(SFXType.MissionComplete);
         questUI.RefreshQuestUI();
         QuestUpdate?.Invoke();
 

@@ -251,6 +251,11 @@ public class DialogueUI : MonoBehaviour
 
         foreach (char c in line)
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                dialogueTxt.text = line;
+                break;
+            }
             sb.Append(c);
             dialogueTxt.text = sb.ToString();
             yield return new WaitForSeconds(typingSpeed);

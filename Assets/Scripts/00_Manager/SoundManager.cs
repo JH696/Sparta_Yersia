@@ -202,7 +202,31 @@ public class SoundManager : MonoBehaviour
     }
 
     // AudioClip 직접 전달받아 재생 (스킬별 개별 사운드용)
-    public void PlaySFX(AudioClip clip)
+    public void PlaySFX(SFXType type, float delay = 0f)
+    {
+        if (_sfxDict == null)
+        {
+            Debug.LogWarning("[SoundManager] SFX 딕셔너리가 초기화되지 않았습니다.");
+            return;
+        }
+
+        if (!_sfxDict.TryGetValue(type, out var clip) || clip == null)
+        {
+            Debug.LogWarning($"[SoundManager] SFXType {type}에 해당하는 클립이 없습니다.");
+            return;
+        }
+
+        if (delay > 0f)
+        {
+            StartCoroutine(PlaySFXDelayed(clip, delay));
+        }
+        else
+        {
+            sfxSource.PlayOneShot(clip, MasterVolume * SFXVolume);
+        }
+    }
+
+    public void PlaySFX(AudioClip clip, float delay = 0f)
     {
         if (clip == null)
         {
@@ -210,12 +234,19 @@ public class SoundManager : MonoBehaviour
             return;
         }
 
-        if (sfxSource == null)
+        if (delay > 0f)
         {
-            Debug.LogWarning("[SoundManager] SFX용 AudioSource가 할당되지 않았습니다.");
-            return;
+            StartCoroutine(PlaySFXDelayed(clip, delay));
         }
+        else
+        {
+            sfxSource.PlayOneShot(clip, MasterVolume * SFXVolume);
+        }
+    }
 
+    private IEnumerator PlaySFXDelayed(AudioClip clip, float delay)
+    {
+        yield return new WaitForSeconds(delay);
         sfxSource.PlayOneShot(clip, MasterVolume * SFXVolume);
     }
 
