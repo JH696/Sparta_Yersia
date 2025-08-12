@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e10fc4cd389dc0240be55d950311de44, type: 3}
+  m_Script: {fileID: 11500000, guid: ed54036b639cda143ba77980454ad187, type: 3}
   m_Name: I_c201
   m_EditorClassIdentifier: 
-  category: 1
-  equipType: 0
-  itemName: "MP\uD3EC\uC158"
-  icon: {fileID: 21300000, guid: e3a0c3970363f2348a2defb4f4276a7e, type: 3}
-  maxStack: 50
-  Price: 0
-  itemStats:
-  - eStat: 1
-    value: 20
+  ID: I_c201
+  Name: "\uC18C\uD615 \uB9C8\uB098 \uBB3C\uC57D"
+  MaxStack: 24
+  Icon: {fileID: 1103034551, guid: 97674d34c3046274f9cee23fa0f2aec1, type: 3}
+  Values:
+  - Stat: 0
+    Value: 15
+  Duration: 0
+  Price: 150

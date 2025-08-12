@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154d8f630f6ec5d409fc2c6c4fd56525, type: 3}
   m_Name: Q_s004
   m_EditorClassIdentifier: 
-  ConditionType: 1
+  ConditionType: 2
   TargetItem:
-  - ItemData: {fileID: 11400000, guid: 6100e50b0f2df1843a7dfac6a3a1b7ec, type: 2}
+  - Item: {fileID: 0}
     ItemCount: 1
   TargetEnemy:
   - EnemyID: M_n01
@@ -24,9 +24,8 @@ MonoBehaviour:
   ReceiverID: N_n002
   QuestID: Q_s004
   QuestName: "\uAC70\uBBF8 \uC0AC\uB0E5"
-  Description: "\uAC70\uBBF8 \uC1A1\uACF3\uB2C8\uB97C 3\uAC1C \uAD6C\uD574\uC624\uC790."
+  Description: "\uAC70\uBBF8\uB97C 1\uB9C8\uB9AC \uCC98\uCE58\uD558\uC790"
   RewardExp: 200
   RewardYP: 700
   RewardItems: []
-  RewardPets:
-  - {fileID: 8221524378199540612, guid: 9b757ae608f13084f9715849980098b9, type: 3}
+  RewardPets: []

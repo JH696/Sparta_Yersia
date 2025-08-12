@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 232c82f799049f44c80f5f20a65e0ee6, type: 3}
+  m_Name: MalePlayerData
+  m_EditorClassIdentifier: 
+  maxHp: 100
+  maxMana: 80
+  attack: 50
+  defense: 15
+  luck: 5
+  speed: 20
+  Multiplier: 1.1
+  Name: "\uD50C\uB808\uC774\uC5B4"
+  gender: 0
+  Rank: 0
+  startSkills: []
+  brownProfileIcon: {fileID: -921330693, guid: ac7fc02ed84196844a3d2ead953fa0b7, type: 3}
+  darkProfileIcon: {fileID: 2075127686, guid: ac7fc02ed84196844a3d2ead953fa0b7, type: 3}
+  brownWorldSprite: {fileID: -1043270400, guid: ee26f53a1a439a041a12c7de44fe7387, type: 3}
+  darkWorldSprite: {fileID: -289751592, guid: 22b14ffe40ab72b43985e98fdc79b7f8, type: 3}
+  brownDialogSprite: {fileID: 21300000, guid: 05cd531376448f848a835b329263bb9e, type: 3}
+  darkDialogSprite: {fileID: 21300000, guid: 2c172b90a56c14a408ea8d424dfdf754, type: 3}
+  brownController: {fileID: 9100000, guid: 31187a3ce136afa4bbcb9eb473256b4e, type: 2}
+  darkController: {fileID: 9100000, guid: f0319f10fed5a1248a5e3591cbd903fe, type: 2}
+  brownBattleVisuals:
+    Stand: {fileID: -925629800, guid: 5d3207f7e1e2003489cfb8dba56f9adb, type: 3}
+    Move: {fileID: 7400000, guid: a5a891c074f586a48b3b63c5ce0d1be9, type: 2}
+    Idle: {fileID: 7400000, guid: 4480987c290f27c4ba6fddd1c6511be6, type: 2}
+    Attack: {fileID: 7400000, guid: fc862fabfe5c2944a82deaeaf51a0507, type: 2}
+    Cast: {fileID: 7400000, guid: a3adaf1c27e16a642a00c1e6e0aa6af9, type: 2}
+    Hit: {fileID: 7400000, guid: 84c3e2806fe83bf488166968e9de9208, type: 2}
+    Die: {fileID: 7400000, guid: 9522373791a658d4c8a2e3caaa5e564a, type: 2}
+  darkBattleVisuals:
+    Stand: {fileID: 1392765700, guid: a1ab83c0eca85734386176d7230c26cf, type: 3}
+    Move: {fileID: 7400000, guid: 02e80b95c458c7f4fbab474958b7018b, type: 2}
+    Idle: {fileID: 7400000, guid: 2986279de6d548d4fb739d34ff4699e2, type: 2}
+    Attack: {fileID: 7400000, guid: b723c6d488e379c4d9bae1a67419aa42, type: 2}
+    Cast: {fileID: 7400000, guid: a3f6df58590c7084db14e1ae38293b73, type: 2}
+    Hit: {fileID: 7400000, guid: 6de65984b9ead81439bc602d5571a107, type: 2}
+    Die: {fileID: 7400000, guid: 9ca172c3377268d44870f9f72f457eba, type: 2}

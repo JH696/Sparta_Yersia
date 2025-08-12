@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5464072b60ddbd4489f1a0aebf582802, type: 3}
+  m_Name: P_p01
+  m_EditorClassIdentifier: 
+  maxHp: 50
+  maxMana: 50
+  attack: 15
+  defense: 5
+  luck: 5
+  speed: 15
+  Multiplier: 1.1
+  PetID: P_p01
+  PetName: "\uC9D1\uAC8C"
+  PetPrefab: {fileID: 8887152009986214274, guid: 9b757ae608f13084f9715849980098b9, type: 3}
+  sprites:
+  - WorldSprite: {fileID: -800758660, guid: cff76bbaa3452364eaac88d6531bb324, type: 3}
+    ProfileIcon: {fileID: -800758660, guid: cff76bbaa3452364eaac88d6531bb324, type: 3}
+  - WorldSprite: {fileID: 21300000, guid: 8507e5a2242837c4da4e38e7290a8182, type: 3}
+    ProfileIcon: {fileID: -800758660, guid: cff76bbaa3452364eaac88d6531bb324, type: 3}
+  - WorldSprite: {fileID: 21300000, guid: e34a0e17daecdf4478a270e6fec6a76a, type: 3}
+    ProfileIcon: {fileID: 21300000, guid: e34a0e17daecdf4478a270e6fec6a76a, type: 3}
+  evoLevel: 01000000050000000a000000
+  startSkills:
+  - {fileID: 11400000, guid: 21a70e5e5c326f64783bc730f5d6de55, type: 2}
+  evolveSkills:
+  - EvoLevel: 2
+    Skill: {fileID: 11400000, guid: 4c8a86b541ef62844923bacb74b8faea, type: 2}
+  - EvoLevel: 3
+    Skill: {fileID: 11400000, guid: 97c9445c39c475d4b9db6e595e9b4b24, type: 2}
+  BattleVisuals:
+    Stand: {fileID: -800758660, guid: cff76bbaa3452364eaac88d6531bb324, type: 3}
+    Move: {fileID: 7400000, guid: 68d1854f564fb9d46ae3ad0aa2faeb03, type: 2}
+    Idle: {fileID: 7400000, guid: 8986084fe12c8e546a852af348eed2fb, type: 2}
+    Attack: {fileID: 7400000, guid: d6c5625686e4e654da9c522e1f4ae1e7, type: 2}
+    Cast: {fileID: 7400000, guid: 3cb15c7f99fdcda4f823cf3f3a74537f, type: 2}
+    Hit: {fileID: 7400000, guid: cad896143fbdb9842afeaef5887ae3db, type: 2}
+    Die: {fileID: 7400000, guid: f579901487a4090489e04f30affa7553, type: 2}
