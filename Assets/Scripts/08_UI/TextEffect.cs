@@ -7,9 +7,11 @@ using UnityEngine.UI;
 public class TextEffect : MonoBehaviour
 {
     public TextMeshProUGUI curText;
+    [HideInInspector] public bool isTyping;
 
     public IEnumerator PrintText(string text, float delay)
     {
+        isTyping = true;
         curText.text = string.Empty;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < text.Length; i++)
@@ -19,5 +21,6 @@ public class TextEffect : MonoBehaviour
 
             yield return new WaitForSeconds(delay);
         }
+        isTyping = false;
     }
 }

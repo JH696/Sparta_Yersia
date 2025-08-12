@@ -61,9 +61,9 @@ public class B_StatGauge : MonoBehaviour
         CharacterStats stats = slot.Character.stat;
 
         hpGauge.fillAmount = stats.CurrentHp / stats.MaxHp;
-        hpText.text = $"{(int)stats.CurrentHp} / {stats.MaxHp}";
+        hpText.text = $"{stats.CurrentHp:N1} / {stats.MaxHp:N1}";
         mpGauge.fillAmount = stats.CurrentMana / stats.MaxMana;
-        mpText.text = $"{(int)stats.CurrentMana} / {stats.MaxMana}";
+        mpText.text = $"{stats.CurrentMana:N1} / {stats.MaxMana:N1}";
     }
 
     public void RefreshAPGauge(float amount)

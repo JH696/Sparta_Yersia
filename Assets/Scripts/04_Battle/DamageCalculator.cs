@@ -16,12 +16,11 @@ public class DamageCalculator
         float def = target.Defense;
 
         // 데미지 계산
-        float power = skill == null? atk : atk * skill.Power;
-        float finalDamage = power - (target.Defense * 0.5f);
+        float power = skill == null ? atk : atk * skill.Power;
+        float finalDamage = power - (def * 0.5f);
 
-        finalDamage = Mathf.Round(finalDamage * 100f) / 100f;
-
-        return finalDamage;
+        // 소숫점 첫째 자리까지만 반환
+        return Mathf.Round(finalDamage * 10f) / 10f;
     }
 
     // 치명타 발생 여부
