@@ -31,6 +31,8 @@ public abstract class CharacterStatus
 
     public virtual void CharacterDie()
     {
+        SoundManager.Instance.PlaySFX(SFXType.Die, 0.2f);
+
         OnCharacterDead?.Invoke();
         Debug.Log($"{this} 사망."); 
     }
