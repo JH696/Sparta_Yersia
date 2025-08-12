@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InventoryUI inventoryUI;
     [SerializeField] private SkillInventoryUI skillUI;
     [SerializeField] private ShopUI shopUI;
+    [SerializeField] private SettingsUIController settingsUI;
 
     [SerializeField] private PlayerUI playerUI;
     [SerializeField] private DialogueUI dialogueUI;
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
 
         Instance = this;
     }
+
     public void ShowPlayerUI()
     {
         if (playerUI == null)
@@ -123,6 +125,8 @@ public class UIManager : MonoBehaviour
         inventoryUI.CloseInventory();
         skillUI.ResetSkillUI();
         dialogueUI.HideDialogueUI();
+        shopUI.Hide();    
+        settingsUI.CloseSettingsUI();
     }
 
     public void ShowShopUI()
@@ -132,6 +136,7 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("[UIManager] ShopUI를 찾을 수 없습니다.");
             return;
         }
+
         HideAllUI();
         shopUI.Show();
     }
@@ -144,5 +149,27 @@ public class UIManager : MonoBehaviour
             return;
         }
         shopUI.Hide();
+    }
+
+    public void ShowSettingUI()
+    {
+        if (shopUI == null)
+        {
+            Debug.LogWarning("[UIManager] SettingUI를 찾을 수 없습니다.");
+            return;
+        }
+
+        HideAllUI();
+        settingsUI.ToggleSettingsUI();
+    }
+
+    public void HideSettingUI()
+    {
+        if (shopUI == null)
+        {
+            Debug.LogWarning("[UIManager] SettingUI를 찾을 수 없습니다.");
+            return;
+        }
+        settingsUI.CloseSettingsUI();
     }
 }

@@ -105,8 +105,6 @@ public class SoundManager : MonoBehaviour
         bgmSource.Play();
 
         yield return StartCoroutine(FadeInBGM(fadeDuration));
-
-        Debug.Log($"[SoundManager] PlayBGM: {newClip.name} (delay: {delay}s, fade: {fadeDuration}s)");
     }
 
     private IEnumerator FadeOutBGM(float duration)
