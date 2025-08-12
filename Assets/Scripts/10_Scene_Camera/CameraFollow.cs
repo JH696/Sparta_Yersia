@@ -12,11 +12,13 @@ public class CameraFollow : MonoBehaviour
         public float duration = 1.5f;        // 이동 시간 (초)
         public string narrationText;
     }
+    [Header("현재 무빙이미지 클래스 데이터")]
     public MovingImage image;
+    [Header("무빙이미지 클래스 배열")]
     public MovingImage[] images;
 
     private float elapsedTime = 0f;
-    private bool isMoving = false;
+    [HideInInspector] public bool isMoving = false;
 
     void Start()
     {

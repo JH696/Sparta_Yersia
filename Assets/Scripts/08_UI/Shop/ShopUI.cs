@@ -9,7 +9,10 @@ public class ShopUI : MonoBehaviour
     [Header("플레이어 참조")]
     [SerializeField] private Player player;
 
-    [Header("상점 아이템 원본 목록(퀘스트 제외)")]
+    [Header("자동 로드 설정")]
+    [SerializeField] private bool autoLoadFromResources = true;
+    [SerializeField] private string itemResourcesPath = "ItemDatas";
+    [Header("상점 아이템 원본 목록(자동할당됨_채우지 X)")]
     [SerializeField] private List<BaseItem> allShopItems = new List<BaseItem>();
 
     [Header("장비 하위카테고리 버튼 부모 (Equip일 때만 켜짐)")]
@@ -49,6 +52,9 @@ public class ShopUI : MonoBehaviour
         if (consumeBtn) consumeBtn.onClick.AddListener(() => ChangeCategory(E_CategoryType.Consume));
 
         if (buyButton) buyButton.onClick.AddListener(OnClickBuy);
+
+        if (autoLoadFromResources && (allShopItems == null || allShopItems.Count == 0))
+            AutoLoadItems();
     }
 
     private void OnEnable()
@@ -79,6 +85,16 @@ public class ShopUI : MonoBehaviour
             .Where(i => i != null && i.GetCategory() != E_CategoryType.Quest)
             .ToList() ?? new List<BaseItem>();
         RefreshList();
+    }
+
+    private void AutoLoadItems()
+    {
+        var loaded = Resources.LoadAll<BaseItem>(itemResourcesPath);
+        allShopItems = loaded
+            .Where(i => i != null
+                        && i.GetCategory() != E_CategoryType.Quest
+                        && !i.name.StartsWith("I_q"))
+            .ToList();
     }
 
     private void ChangeCategory(E_CategoryType cat)
