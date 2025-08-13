@@ -110,13 +110,13 @@
 **🎥 파티 시스템**  
 ![파티 시스템](https://github.com/Sangyeop-Lim/GIF/blob/main/Party.gif?raw=true)  
 
-**🎥 상점 UI**  
+**🎥 상점**  
 ![상점 UI](https://github.com/Sangyeop-Lim/GIF/blob/main/ShopUI.gif?raw=true)  
 
-**🎥 스킬 학습 UI**  
+**🎥 스킬 학습**  
 ![스킬 학습 UI](https://github.com/Sangyeop-Lim/GIF/blob/main/learnUI.gif?raw=true)  
 
-**🎥 전투 시스템**  
+**🎥 전투**  
 ![전투 시스템](https://github.com/Sangyeop-Lim/GIF/blob/main/Battle.gif?raw=true)  
 
 ---
