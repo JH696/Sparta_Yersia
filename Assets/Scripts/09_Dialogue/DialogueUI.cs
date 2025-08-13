@@ -229,7 +229,6 @@ public class DialogueUI : MonoBehaviour
     {
         DialogueManager.Instance.IsDialogueActive = false;
         curDialogueData = null;
-        dialogueImg.sprite = null;
         curLineIndex = 0;
         curNpc = null;
         NameTxt.text = string.Empty;
