@@ -113,6 +113,9 @@
 **🎥 상점**  
 ![상점 UI](https://github.com/Sangyeop-Lim/GIF/blob/main/ShopUI.gif?raw=true)  
 
+**🎥 장비 장착**  
+![장비 GIF](https://github.com/Sangyeop-Lim/GIF/blob/main/Equip.gif?raw=true)  
+
 **🎥 스킬 학습**  
 ![스킬 학습 UI](https://github.com/Sangyeop-Lim/GIF/blob/main/learnUI.gif?raw=true)  
 
