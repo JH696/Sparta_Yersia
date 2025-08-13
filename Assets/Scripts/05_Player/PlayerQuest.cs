@@ -183,11 +183,10 @@ public class PlayerQuest
         return monster;
     }
 
-    // 몬스터 처치 (삭제 예정)
+    // 몬스터 처치
     public void KillMonster(MonsterData monsterData)
     {
         EliCountUp(monsterData.MonsterID);
         QuestUpdate();
-        //QuestManager.Instance.questUI.RefreshQuestUI();
     }
 }

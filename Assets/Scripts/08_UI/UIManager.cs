@@ -1,19 +1,34 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-    [Header("게임내 UI")]
+    [Header("능력치 UI")]
     [SerializeField] private StatUIController statUIController;
+
+    [Header("펫 UI")]
     [SerializeField] private PetUIController petUIController;
+
+    [Header("인벤토리 UI")]
     [SerializeField] private InventoryUI inventoryUI;
+
+    [Header("스킬 UI")]
     [SerializeField] private SkillInventoryUI skillUI;
+
+    [Header("상점 UI")]
     [SerializeField] private ShopUI shopUI;
+
+    [Header("설정 UI")]
     [SerializeField] private SettingsUIController settingsUI;
 
+    [Header("게임 종료창")]
+    [SerializeField] private GameObject quitPanel;
+
+    [Header("플레이어 프로필 UI")]
     [SerializeField] private PlayerUI playerUI;
+
+    [Header("다이얼로그 UI")]
     [SerializeField] private DialogueUI dialogueUI;
 
     private void Awake()
@@ -127,6 +142,7 @@ public class UIManager : MonoBehaviour
         dialogueUI.HideDialogueUI();
         shopUI.Hide();    
         settingsUI.CloseSettingsUI();
+        quitPanel.SetActive(false);
     }
 
     public void ShowShopUI()
@@ -148,6 +164,7 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("[UIManager] ShopUI를 찾을 수 없습니다.");
             return;
         }
+
         shopUI.Hide();
     }
 
@@ -170,6 +187,34 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("[UIManager] SettingUI를 찾을 수 없습니다.");
             return;
         }
+
         settingsUI.CloseSettingsUI();
+    }
+
+    public void ShowQuitPanel()
+    {
+        if (quitPanel == null)
+        {
+            Debug.LogWarning("[UIManager] QuitPanel을 찾을 수 없습니다.");
+            return;
+        }
+
+        HideAllUI();
+        quitPanel.SetActive(true);
+    }
+    public void HideQuitPanel()
+    {
+        if (quitPanel == null)
+        {
+            Debug.LogWarning("[UIManager] QuitPanel을 찾을 수 없습니다.");
+            return;
+        }
+
+        quitPanel.SetActive(false);
+    }
+
+    public void GameQuitButton()
+    {
+        SceneLoader.LoadScene("StartScene");
     }
 }

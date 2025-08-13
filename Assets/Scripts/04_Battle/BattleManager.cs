@@ -13,7 +13,11 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Camera WorldCamera;
     [SerializeField] private GameObject WorldCanvas;
 
-    public GameObject player;
+    [Header("플레이어 오브젝트")]
+    [SerializeField] private GameObject player;
+
+    [Header("충돌한 트리거 몬스터")]
+    [SerializeField] private GameObject trigger;
 
     [Header("리워드 UI (자동 참조)")]
     public B_RewardUI RewardUI;
@@ -32,7 +36,7 @@ public class BattleManager : MonoBehaviour
     public BattleEncounter CurrentEncounter => currentEncounter;
 
     public event System.Action OnBattleStarted;
-    public event System.Action<bool> OnBattleEnded;
+    public event System.Action OnBattleEnded;
     public Camera BattleCamera => battleCamera;
 
     [Header("사운드")]
@@ -60,9 +64,9 @@ public class BattleManager : MonoBehaviour
         currentEncounter = new BattleEncounter(datas, E_StageType.Upper);
     }
 
-    public IEnumerator StartBattle(BattleEncounter encounter, GameObject player)
+    public IEnumerator StartBattle(BattleEncounter encounter, GameObject trigger)
     {
-        this.player = player ?? gameObject;
+        this.trigger = trigger;
         currentEncounter = encounter;
         OnBattleStarted?.Invoke();
 
@@ -186,9 +190,14 @@ public class BattleManager : MonoBehaviour
                 pet.Revive();
             }
         }
+        else
+        {
+            Destroy(trigger.gameObject);
+        }
 
-        OnBattleEnded?.Invoke(isWin);
-
+        
+        OnBattleEnded?.Invoke();
+        trigger = null;
         BattleCamera.enabled = false;
         WorldCamera.enabled = true;
         WorldCanvas.SetActive(true);

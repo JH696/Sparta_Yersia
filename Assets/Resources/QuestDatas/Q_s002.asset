@@ -12,18 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154d8f630f6ec5d409fc2c6c4fd56525, type: 3}
   m_Name: Q_s002
   m_EditorClassIdentifier: 
-  ConditionType: 0
-  TargetItem: []
+  ConditionType: 1
+  TargetItem:
+  - Item: {fileID: 11400000, guid: c63b4c3249c887945ae9c56ece8d59b2, type: 2}
+    ItemCount: 3
   TargetEnemy: []
   QuestType: 0
   AssignerID: N_n002
-  ReceiverID: N_n001
+  ReceiverID: N_n002
   QuestID: Q_s002
-  QuestName: "\uB9AC\uC5D0\uC758 \uC2EC\uBD80\uB984 1"
-  Description: "\uD5E4\uB860\uB290 \uC120\uC0DD\uB2D8\uC744 \uCC3E\uC544\uAC00 \uC9C0\uD321\uC774\uB97C
-    \uBC1B\uC544\uC624\uC790."
-  RewardExp: 100
-  RewardYP: 400
+  QuestName: "\uB9AC\uC5D0\uC758 \uC2DC\uD5D81"
+  Description: "\uC9C0\uD558\uB85C \uB0B4\uB824\uAC00 \uAC70\uBBF8 \uC1A1\uACF3\uB2C8\uB97C
+    3\uAC1C \uBAA8\uC544\uC624\uC790."
+  RewardExp: 50
+  RewardYP: 200
   RewardItems:
-  - {fileID: 11400000, guid: f7ac4602103f51746bee5c971907269b, type: 2}
+  - {fileID: 11400000, guid: 47b0782d582b9054c9df7d4796cc2d1d, type: 2}
   RewardPets: []
