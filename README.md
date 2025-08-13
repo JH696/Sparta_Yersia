@@ -68,7 +68,7 @@
   <img src="https://raw.githubusercontent.com/Sangyeop-Lim/GIF/main/%ED%8C%80%EB%A1%9C%EA%B3%A0.png" alt="영상 썸네일" width="500">
 </a>  
 
-클릭하면 연결  
+클릭하면 연결됩니다  
 
 ---
 
