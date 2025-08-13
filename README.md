@@ -64,7 +64,7 @@
 
 <h2 id="게임-플레이-영상">🎬 게임 플레이 영상</h2>  
 
-[![게임 플레이 영상](https://img.youtube.com/vi/nTDZwvOsvkY/0.jpg)](https://www.youtube.com/watch?v=nTDZwvOsvkY)
+[![게임 플레이 영상](https://img.shields.io/badge/Google%20Drive-Video%20Link-blue?logo=google-drive)](https://drive.google.com/file/d/1tx9x88bAu4WpGMaDJlAWoMHd8ytclggb/view)  
 
 ---
 
