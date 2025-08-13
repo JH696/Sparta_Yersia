@@ -150,10 +150,33 @@ Assets/
 
 <h2 id="tech-stack">⚙️ 사용된 기술 스택</h2>  
 
-- **엔진 / 언어**: Unity 2022.3.17f1 (URP 2D Renderer), C#  
-- **패키지 & 시스템**: New Input System, Cinemachine, TextMeshPro, URP 2D Light, DOTween, ProBuilder  
-- **아키텍처 & 설계 패턴**: SRP, FSM, ScriptableObject Data-Driven, Observer & Event System, Object Pooling  
-- **협업 & CI**: GitHub, Notion, Google Sheets  
+### 엔진 / 언어
+- Unity 2022.3.17f1 (URP 2D Renderer)  
+- C# 기반 게임 로직
+
+### 주요 패키지 & 시스템
+- **Unity New Input System**: 키보드/마우스/게임패드 입력 처리  
+- **Cinemachine**: 부드러운 카메라 추적과 화면 전환, Confiner2D, Camera Impulse  
+- **TextMeshPro**: 고품질 UI 텍스트 렌더링  
+- **URP 2D Light**: 2D 광원, Global Light, Point Light, Spot Light 기반 조명 연출  
+- 픽셀 아트 스프라이트 기반 타일맵  
+- 효과음(SFX) 및 BGM 전환 오디오 시스템
+
+### 서드파티 & 툴
+- **DOTween**: UI 및 오브젝트 애니메이션(페이드, 스케일, 위치 보간 등)  
+- **ProBuilder**: 레벨 프로토타입 제작 및 충돌 영역 설정  
+- **IDE**: Rider / Visual Studio Code
+
+### 아키텍처 & 설계 패턴
+- **SRP (Single Responsibility Principle)**: 스크립트 단일 책임 원칙  
+- **FSM (Finite State Machine)**: 전투, NPC, 플레이어 상태 관리  
+- **ScriptableObject Data-Driven**: 몬스터/스킬/아이템/퀘스트 데이터 관리  
+- **Observer & Event System**: 퀘스트, UI, 전투 이벤트 처리
+
+### 협업 & CI
+- **GitHub**: 브랜치 전략, 버전 관리  
+- **Git Bash**: 브랜치, 커밋 등 오류 해결  
+- **Notion / Google Sheets**: 개발 스펙, 마일스톤, 일정 관리, 기능 명세서, 개발 비용
 
 ---
 
