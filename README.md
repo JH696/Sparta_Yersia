@@ -64,7 +64,9 @@
 
 <h2 id="게임-플레이-영상">🎬 게임 플레이 영상</h2>  
 
-[![게임 플레이 영상](https://raw.githubusercontent.com/Sangyeop-Lim/GIF/main/팀로고.png)](https://drive.google.com/file/d/1tx9x88bAu4WpGMaDJlAWoMHd8ytclggb/view)  
+<a href="https://drive.google.com/file/d/1tx9x88bAu4WpGMaDJlAWoMHd8ytclggb/view">
+  <img src="https://raw.githubusercontent.com/Sangyeop-Lim/GIF/main/%ED%8C%80%EB%A1%9C%EA%B3%A0.png" alt="영상 썸네일" width="500">
+</a>
 
 ---
 
