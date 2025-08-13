@@ -94,22 +94,21 @@ Assets/
 ├── Scripts/           # 게임 로직 스크립트
 ├── Sounds/            # 배경음악 / 효과음
 ├── TextMesh Pro/      # UI 텍스트
-
+```
 
 ## 👥 만든 사람들  
-- 테럼 : 백진환
-블로그 주소 : https://info8196.tistory.com/
-Github 주소 : https://github.com/JH696
+- 테럼 : 백진환  
+  블로그 주소 : https://info8196.tistory.com/  
+  Github 주소 : https://github.com/JH696  
 
-- 글래큐어 : 임상엽
-블로그 주소 : https://lim0210.tistory.com/
-Github 주소 : https://github.com/Sangyeop-Lim
+- 글래큐어 : 임상엽  
+  블로그 주소 : https://lim0210.tistory.com/  
+  Github 주소 : https://github.com/Sangyeop-Lim  
   
-- 이그누바 : 손양복
-블로그 주소 : https://97926.tistory.com/
-Github 주소 : https://github.com/YBdhhh
+- 이그누바 : 손양복  
+  블로그 주소 : https://97926.tistory.com/  
+  Github 주소 : https://github.com/YBdhhh  
 
-- 불칸 : 이선량
-블로그 주소 : https://05cm.tistory.com/
-Github 주소 : https://github.com/AgathaYi
-```
+- 불칸 : 이선량  
+  블로그 주소 : https://05cm.tistory.com/  
+  Github 주소 : https://github.com/AgathaYi  
