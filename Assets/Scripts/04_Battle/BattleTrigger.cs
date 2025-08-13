@@ -31,15 +31,7 @@ public class TriggerMonster : MonoBehaviour
     public event System.Action OnTrigged;
 
     private void OnBattleStarted() => StopMoving(true);
-    private void OnBattleEnded(bool isWin)
-    {
-        if (isWin)
-        {
-            Destroy(gameObject);
-        }
-
-        StopMoving(false);
-    }
+    private void OnBattleEnded() => StopMoving(false);
 
     private enum State
     {
@@ -214,7 +206,7 @@ public class TriggerMonster : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (monsters == null) return;
 
@@ -222,7 +214,7 @@ public class TriggerMonster : MonoBehaviour
         {
             OnTrigged?.Invoke();
             BattleEncounter encounter = new BattleEncounter(monsters, nowStage);
-            StartCoroutine(BattleManager.Instance.StartBattle(encounter, other.gameObject));
+            StartCoroutine(BattleManager.Instance.StartBattle(encounter, this.gameObject));
         }
         else
         {

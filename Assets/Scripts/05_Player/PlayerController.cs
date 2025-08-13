@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private Transform currentTarget;
 
     private void OnBattleStarted() => StopPlayer(true);
-    private void OnBattleEnded(bool isWin) => StopPlayer(false);
+    private void OnBattleEnded() => StopPlayer(false);
 
     void Awake()
     {

@@ -36,7 +36,7 @@ public class B_StatGauge : MonoBehaviour
             RectTransform rt = GetComponent<RectTransform>();
             Vector2 pos = rt.anchoredPosition;
 
-            pos.y += 50f;
+            pos.y += 75f;
             rt.anchoredPosition = pos;
         }
 

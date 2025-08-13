@@ -53,7 +53,7 @@ public class MonsterSpawner : MonoBehaviour
     private bool CantSpawn;
 
     private void OnBattleStarted() => CantSpawn = true;
-    private void OnBattleEnded(bool isWin) => CantSpawn = false;
+    private void OnBattleEnded() => CantSpawn = false;
 
 
     private void Start()
