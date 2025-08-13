@@ -1,5 +1,7 @@
 # 예르시아 (Yersia)
 
+![Yersi4조 전광판](https://github.com/Sangyeop-Lim/GIF/blob/main/Yersi4%EC%A1%B0_%EC%A0%84%EA%B4%91%ED%8C%90.gif?raw=true)
+
 "고대의 마법과 잊혀진 전설이 깨어나는 순간,  
 당신의 모험은 이제 막 시작된다."
 
