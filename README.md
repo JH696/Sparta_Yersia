@@ -94,7 +94,7 @@ Assets/
 ├── Scripts/           # 게임 로직 스크립트
 ├── Sounds/            # 배경음악 / 효과음
 ├── TextMesh Pro/      # UI 텍스트
-```
+
 
 ## 👥 만든 사람들  
 - 테럼 : 백진환
@@ -112,3 +112,4 @@ Github 주소 : https://github.com/YBdhhh
 - 불칸 : 이선량
 블로그 주소 : https://05cm.tistory.com/
 Github 주소 : https://github.com/AgathaYi
+```
