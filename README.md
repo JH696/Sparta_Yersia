@@ -40,7 +40,7 @@
 
 ## 🎬 게임 플레이 영상
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/nTDZwvOsvkY" frameborder="0" allowfullscreen></iframe>
+[![게임 플레이 영상](https://img.youtube.com/vi/nTDZwvOsvkY/0.jpg)](https://www.youtube.com/watch?v=nTDZwvOsvkY)
 
 ---
 
