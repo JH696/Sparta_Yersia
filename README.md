@@ -5,6 +5,17 @@
 
 ---
 
+## 📑 목차  
+- [세계관](#-세계관)  
+- [게임 개요](#-게임-개요)  
+- [게임 흐름](#-게임-흐름)  
+- [게임 특징](#-게임-특징)  
+- [조작법](#-조작법)  
+- [프로젝트 구조](#-프로젝트-구조)
+- [만든 사람들](#-만든-사람들)
+
+---
+
 ## 📖 세계관  
 예르시아 마법학교는 수 세기 동안 전설적인 마법사를 배출해온 명문 학교입니다.  
 고대 봉인의 균열로 몬스터들이 나타나면서 학교와 주변 세계는 혼란에 빠집니다.  
@@ -30,8 +41,8 @@
 - **StartScene** – 타이틀 화면, 새 게임/불러오기 선택, 기본 조작법 도움말 제공  
 - **IntroScene** – 세계관 소개 및 오프닝 연출  
 - **WorldScene**  
-  - 마법학교 허브: NPC와 대화, 퀘스트 수주  
-  - 필드 탐험: 던전/야외 지역 탐험  
+  - 마법학교 허브: NPC와 대화, 퀘스트 수주, 스킬 습
+  - 필드 탐험: 지하던전 탐험  
   - 몬스터 조우: 전투 트리거 발동 시 BattleScene으로 전환  
 - **BattleScene** – 턴제 전투, 승리 시 경험치와 보상 획득 후 WorldScene으로 복귀  
 
@@ -69,9 +80,33 @@
 | F              | 상호작용 / 대화             |  
 | Esc            | 설정창 열기                 |  
 | 마우스 좌클릭  | UI 선택                     |  
-| 마우스 우클릭  | 취소 기능 없음              |  
 
 ---
 
 ## 📂 프로젝트 구조  
 
+Assets/
+├── Animations/ # 애니메이션
+├── Prefabs/ # NPC, 오브젝트, UI 프리팹
+├── Resources/ # 공용 리소스
+├── Scenes/ # Start, Intro, World, Battle
+├── Scripts/ # 게임 로직 스크립트
+├── Sounds/ # 배경음악 / 효과음
+├── TextMesh Pro/ # UI 텍스트
+
+## 👥 만든 사람들  
+- 테럼 : 백진환
+블로그 주소 : https://info8196.tistory.com/
+Github 주소 : https://github.com/JH696
+
+- 글래큐어 : 임상엽
+블로그 주소 : https://lim0210.tistory.com/
+Github 주소 : https://github.com/Sangyeop-Lim
+  
+- 이그누바 : 손양복
+블로그 주소 : https://97926.tistory.com/
+Github 주소 : https://github.com/YBdhhh
+
+- 불칸 : 이선량
+블로그 주소 : https://05cm.tistory.com/
+Github 주소 : https://github.com/AgathaYi
