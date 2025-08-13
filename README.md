@@ -178,6 +178,10 @@ Assets/
 - **Git Bash**: 브랜치, 커밋 등 오류 해결  
 - **Notion / Google Sheets**: 개발 스펙, 마일스톤, 일정 관리, 기능 명세서, 개발 비용
 
+![스크린샷 2025-08-13 205819](https://github.com/Sangyeop-Lim/GIF/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202025-08-13%20205819.png?raw=true)  
+
+![스크린샷 2025-08-13 210131](https://github.com/Sangyeop-Lim/GIF/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202025-08-13%20210131.png?raw=true)  
+
 ---
 
 <h2 id="사용자-개선-사항">📝 사용자 개선 사항</h2>  
